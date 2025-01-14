@@ -40,9 +40,10 @@
     }
 
     .arrow {
-        min-height: 64px;
+        min-height: 120px;
         grid-area: left;
-        outline: 2px solid red;
+        background: url('/svg/arrow.svg') no-repeat center;
+        background-size: contain;
 
         &[data-attr='right'] {
             grid-area: right;

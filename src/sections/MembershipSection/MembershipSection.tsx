@@ -52,7 +52,14 @@ export const MembershipSection = ({
         </p>
         <h2>Plus many more weekly member giveaways</h2>
       </div>
-      <div className={styles.directive}>
+      <img
+        src="/svg/test.svg"
+        alt="instruction"
+        width={"100%"}
+        style={{ maxWidth: "640px", justifySelf: "center" }}
+        className={styles.directive}
+      />
+      {/* <div className={styles.directive}>
         <span className={styles.arrow} data-attr={"right"} />
         <div data-attr={"buy"}>
           <h4 className={styles.title}>Buy</h4>
@@ -71,7 +78,7 @@ export const MembershipSection = ({
           </span>
         </div>
         <span className={styles.arrow} data-attr={"left"} />
-      </div>
+      </div> */}
       <div className={styles.options}>
         <h3 className="text-2xl">Join the club today for only 1 VIRGIN</h3>
         <p className="text-xl">OR</p>
