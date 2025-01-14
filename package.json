@@ -6,7 +6,8 @@
   "scripts": {
     "start": "vite --config ./apps/web/vite.config.ts",
     "build": "vite build --config ./apps/web/vite.config.ts",
-    "test": "vitest"
+    "test": "vitest",
+    "test:ci": "yarn test"
   },
   "workspaces": [
     "apps/*",
