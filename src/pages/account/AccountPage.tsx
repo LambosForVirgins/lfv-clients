@@ -40,7 +40,7 @@ export const AccountPage = ({
         <div data-testid={`${testID}.breakdown`}>
           <h2>All about your membership here</h2>
           <p>Tier {tierToString(member.tier)}</p>
-          <p>Entries accrued {member.totalVouchers.toNumber()}</p>
+          <p>Entries accrued {member.totalEntries.toNumber()}</p>
           <p>
             Locked tokens {lamportsToMint(member.totalAmount).toNumber()} VIRGIN
           </p>
@@ -49,7 +49,7 @@ export const AccountPage = ({
             VIRGIN
           </p>
           <p>
-            Unlocked tokens {lamportsToMint(member.totalLiquidity).toNumber()}{" "}
+            Unlocked tokens {lamportsToMint(member.totalPending).toNumber()}{" "}
             VIRGIN
           </p>
           <p>

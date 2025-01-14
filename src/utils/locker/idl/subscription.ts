@@ -1,997 +1,1025 @@
 export type Subscription = {
-  "version": "0.1.0",
-  "name": "subscription",
-  "instructions": [
+  version: "0.1.0";
+  name: "subscription";
+  instructions: [
     {
-      "name": "initialize",
-      "accounts": [
+      name: "initialize";
+      accounts: [
         {
-          "name": "memberAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "memberAccount";
+          isMut: true;
+          isSigner: false;
         },
         {
-          "name": "vaultTokenAccount",
-          "isMut": true,
-          "isSigner": false,
-          "docs": [
-            "* Derive an associated token account between the signers unique\n     * program member account and the token mint. This will hold the\n     * mint tokens under management of the program with respect\n     * to the signing member and mint, much like a token vault."
-          ]
+          name: "vaultTokenAccount";
+          isMut: true;
+          isSigner: false;
+          docs: [
+            "* Derive an associated token account between the signers unique\n     * program member account and the token mint. This will hold the\n     * mint tokens under management of the program with respect\n     * to the signing member and mint, much like a token vault.",
+          ];
         },
         {
-          "name": "mint",
-          "isMut": false,
-          "isSigner": false
+          name: "mint";
+          isMut: false;
+          isSigner: false;
         },
         {
-          "name": "signer",
-          "isMut": true,
-          "isSigner": true
+          name: "signer";
+          isMut: true;
+          isSigner: true;
         },
         {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
+          name: "systemProgram";
+          isMut: false;
+          isSigner: false;
         },
         {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": []
+          name: "tokenProgram";
+          isMut: false;
+          isSigner: false;
+        },
+      ];
+      args: [];
     },
     {
-      "name": "exclude",
-      "accounts": [
+      name: "exclude";
+      accounts: [
         {
-          "name": "memberAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "memberAccount";
+          isMut: true;
+          isSigner: false;
         },
         {
-          "name": "signer",
-          "isMut": true,
-          "isSigner": true
-        }
-      ],
-      "args": []
+          name: "signer";
+          isMut: true;
+          isSigner: true;
+        },
+      ];
+      args: [];
     },
     {
-      "name": "deposit",
-      "accounts": [
+      name: "deposit";
+      accounts: [
         {
-          "name": "memberAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "memberAccount";
+          isMut: true;
+          isSigner: false;
         },
         {
-          "name": "vaultTokenAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "vaultTokenAccount";
+          isMut: true;
+          isSigner: false;
         },
         {
-          "name": "sourceTokenAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "sourceTokenAccount";
+          isMut: true;
+          isSigner: false;
         },
         {
-          "name": "mint",
-          "isMut": false,
-          "isSigner": false
+          name: "mint";
+          isMut: false;
+          isSigner: false;
         },
         {
-          "name": "signer",
-          "isMut": true,
-          "isSigner": true
+          name: "signer";
+          isMut: true;
+          isSigner: true;
         },
         {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
+          name: "tokenProgram";
+          isMut: false;
+          isSigner: false;
         },
         {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
+          name: "systemProgram";
+          isMut: false;
+          isSigner: false;
         },
         {
-          "name": "clock",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
+          name: "clock";
+          isMut: false;
+          isSigner: false;
+        },
+      ];
+      args: [
         {
-          "name": "amount",
-          "type": "u64"
-        }
-      ]
+          name: "amount";
+          type: "u64";
+        },
+      ];
     },
     {
-      "name": "claim",
-      "accounts": [
+      name: "claim";
+      accounts: [
         {
-          "name": "memberAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "memberAccount";
+          isMut: true;
+          isSigner: false;
         },
         {
-          "name": "signer",
-          "isMut": true,
-          "isSigner": true
+          name: "signer";
+          isMut: true;
+          isSigner: true;
         },
         {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
+          name: "systemProgram";
+          isMut: false;
+          isSigner: false;
         },
         {
-          "name": "clock",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": []
+          name: "clock";
+          isMut: false;
+          isSigner: false;
+        },
+      ];
+      args: [];
     },
     {
-      "name": "withdraw",
-      "accounts": [
+      name: "withdraw";
+      accounts: [
         {
-          "name": "memberAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "memberAccount";
+          isMut: true;
+          isSigner: false;
         },
         {
-          "name": "vaultTokenAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "vaultTokenAccount";
+          isMut: true;
+          isSigner: false;
         },
         {
-          "name": "sourceTokenAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "sourceTokenAccount";
+          isMut: true;
+          isSigner: false;
         },
         {
-          "name": "mint",
-          "isMut": false,
-          "isSigner": false
+          name: "mint";
+          isMut: false;
+          isSigner: false;
         },
         {
-          "name": "signer",
-          "isMut": true,
-          "isSigner": true
+          name: "signer";
+          isMut: true;
+          isSigner: true;
         },
         {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
+          name: "tokenProgram";
+          isMut: false;
+          isSigner: false;
         },
         {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
+          name: "systemProgram";
+          isMut: false;
+          isSigner: false;
         },
         {
-          "name": "clock",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
+          name: "clock";
+          isMut: false;
+          isSigner: false;
+        },
+      ];
+      args: [
         {
-          "name": "amount",
-          "type": "u64"
-        }
-      ]
-    }
-  ],
-  "accounts": [
+          name: "amount";
+          type: "u64";
+        },
+      ];
+    },
+  ];
+  accounts: [
     {
-      "name": "entryClaim",
-      "type": {
-        "kind": "struct",
-        "fields": [
+      name: "hostAccount";
+      type: {
+        kind: "struct";
+        fields: [
           {
-            "name": "beneficiary",
-            "type": "publicKey"
-          }
-        ]
-      }
+            name: "version";
+            docs: [
+              "Schema version from v0 up to v255. Defaults to the `LATEST_VERSION` constant.",
+            ];
+            type: "u8";
+          },
+          {
+            name: "maturationPeriod";
+            docs: ["Monthly slot locking period"];
+            type: "u64";
+          },
+          {
+            name: "rewardFactor";
+            docs: ["Ratio of entries granted to tokens locked"];
+            type: "u64";
+          },
+          {
+            name: "totalMembers";
+            type: "u64";
+          },
+          {
+            name: "totalLocked";
+            type: "u64";
+          },
+        ];
+      };
     },
     {
-      "name": "memberAccount",
-      "type": {
-        "kind": "struct",
-        "fields": [
+      name: "memberAccount";
+      type: {
+        kind: "struct";
+        fields: [
           {
-            "name": "version",
-            "docs": [
-              "Schema version from v0 up to v255. Defaults to the `LATEST_VERSION` constant."
-            ],
-            "type": "u8"
+            name: "version";
+            docs: [
+              "Schema version from v0 up to v255. Defaults to the `LATEST_VERSION` constant.",
+            ];
+            type: "u8";
           },
           {
-            "name": "status",
-            "type": "u8"
+            name: "status";
+            type: "u8";
           },
           {
-            "name": "tier",
-            "docs": [
-              "Persists the tier of the greatest filled subscription slot"
-            ],
-            "type": "u8"
+            name: "tier";
+            docs: [
+              "Persists the tier of the greatest filled subscription slot",
+            ];
+            type: "u8";
           },
           {
-            "name": "totalAmount",
-            "docs": [
-              "Total amount of tokens managed by the account"
-            ],
-            "type": "u64"
+            name: "totalAmount";
+            docs: ["Total amount of tokens managed by the account"];
+            type: "u64";
           },
           {
-            "name": "totalMatured",
-            "docs": [
-              "Amount of tokens passed their first epoch"
-            ],
-            "type": "u64"
+            name: "totalMatured";
+            docs: ["Amount of tokens passed their first epoch"];
+            type: "u64";
           },
           {
-            "name": "totalLiquidity",
-            "docs": [
-              "Amount of unlocked token liquidity"
-            ],
-            "type": "u64"
+            name: "totalPending";
+            docs: ["Amount of tokens pending release"];
+            type: "u64";
           },
           {
-            "name": "totalVouchers",
-            "docs": [
-              "Persists the total amount of vouchers accrued minus redeemed"
-            ],
-            "type": "u64"
+            name: "totalEntries";
+            docs: [
+              "Persists the total amount of vouchers accrued minus redeemed",
+            ];
+            type: "u64";
           },
           {
-            "name": "totalEpochs",
-            "docs": [
-              "Number of epochs the subscription has been enabled"
-            ],
-            "type": "u64"
+            name: "timeCreated";
+            docs: ["Initial creation date of the members account"];
+            type: "u64";
           },
           {
-            "name": "timeCreated",
-            "docs": [
-              "Initial creation date of the members account"
-            ],
-            "type": "i64"
+            name: "timeRewarded";
+            docs: ["Date of the last reward granted to matured tokens"];
+            type: "u64";
           },
           {
-            "name": "timeRewarded",
-            "docs": [
-              "Date of the last reward granted to matured tokens"
-            ],
-            "type": "i64"
+            name: "slots";
+            docs: [
+              "Collection of locked token deposit slots (one entry per deposit)",
+            ];
+            type: {
+              vec: {
+                defined: "Transaction";
+              };
+            };
           },
-          {
-            "name": "slots",
-            "docs": [
-              "Collection of locked token deposit slots (one entry per deposit)"
-            ],
-            "type": {
-              "vec": {
-                "defined": "LockedSlot"
-              }
-            }
-          }
-        ]
-      }
+        ];
+      };
     },
     {
-      "name": "systemAccount",
-      "type": {
-        "kind": "struct",
-        "fields": [
+      name: "systemAccount";
+      type: {
+        kind: "struct";
+        fields: [
           {
-            "name": "version",
-            "docs": [
-              "Schema version from v0 up to v255. Defaults\n     to the `LATEST_VERSION` constant."
-            ],
-            "type": "u8"
+            name: "version";
+            docs: [
+              "Schema version from v0 up to v255. Defaults\n     to the `LATEST_VERSION` constant.",
+            ];
+            type: "u8";
           },
           {
-            "name": "mint",
-            "type": "publicKey"
+            name: "mint";
+            type: "publicKey";
           },
           {
-            "name": "rewardFactor",
-            "type": "u64"
+            name: "rewardFactor";
+            type: "u64";
           },
           {
-            "name": "activationReward",
-            "type": "u64"
-          }
-        ]
-      }
-    }
-  ],
-  "types": [
+            name: "activationReward";
+            type: "u64";
+          },
+        ];
+      };
+    },
+  ];
+  types: [
     {
-      "name": "LockedSlot",
-      "type": {
-        "kind": "struct",
-        "fields": [
+      name: "MemberError";
+      type: {
+        kind: "enum";
+        variants: [
           {
-            "name": "amount",
-            "docs": [
-              "Amount of tokens deposited"
-            ],
-            "type": "u64"
+            name: "AccountSuspended";
           },
           {
-            "name": "timeCreated",
-            "docs": [
-              "Unix timestamp of the initial deposit"
-            ],
-            "type": "i64"
+            name: "ImmutableAccountStatus";
           },
-          {
-            "name": "timeRewarded",
-            "docs": [
-              "Unix timestamp of the last reward granted"
-            ],
-            "type": "i64"
-          },
-          {
-            "name": "enabled",
-            "docs": [
-              "Indicates recurring lock period"
-            ],
-            "type": "bool"
-          }
-        ]
-      }
+        ];
+      };
     },
     {
-      "name": "MemberError",
-      "type": {
-        "kind": "enum",
-        "variants": [
+      name: "LockingError";
+      type: {
+        kind: "enum";
+        variants: [
           {
-            "name": "AccountSuspended"
+            name: "MaxSlotsExceeded";
           },
           {
-            "name": "ImmutableAccountStatus"
-          }
-        ]
-      }
+            name: "IndexOutOfBounds";
+          },
+          {
+            name: "RewardsForbidden";
+          },
+          {
+            name: "InsufficientFunds";
+          },
+        ];
+      };
     },
     {
-      "name": "LockingError",
-      "type": {
-        "kind": "enum",
-        "variants": [
+      name: "HostError";
+      type: {
+        kind: "enum";
+        variants: [
           {
-            "name": "MaxSlotsExceeded"
+            name: "InvalidTimestamp";
           },
           {
-            "name": "IndexOutOfBounds"
+            name: "InvalidPauseAuthority";
           },
           {
-            "name": "RewardsForbidden"
+            name: "AlreadyPaused";
           },
           {
-            "name": "InsufficientFunds"
-          }
-        ]
-      }
+            name: "NotPaused";
+          },
+        ];
+      };
     },
     {
-      "name": "SystemError",
-      "type": {
-        "kind": "enum",
-        "variants": [
+      name: "Transaction";
+      type: {
+        kind: "enum";
+        variants: [
           {
-            "name": "InvalidPauseAuthority"
+            name: "Deposit";
+            fields: [
+              {
+                name: "amount";
+                type: "u64";
+              },
+              {
+                name: "timeCreated";
+                type: "u64";
+              },
+              {
+                name: "timeMatured";
+                type: "u64";
+              },
+            ];
           },
           {
-            "name": "AlreadyPaused"
+            name: "Withdraw";
+            fields: [
+              {
+                name: "amount";
+                type: "u64";
+              },
+              {
+                name: "timeReleased";
+                type: "u64";
+              },
+            ];
+          },
+        ];
+      };
+    },
+    {
+      name: "AccountStatus";
+      type: {
+        kind: "enum";
+        variants: [
+          {
+            name: "Pending";
           },
           {
-            "name": "NotPaused"
-          }
-        ]
-      }
-    },
-    {
-      "name": "AccountStatus",
-      "type": {
-        "kind": "enum",
-        "variants": [
-          {
-            "name": "Pending"
+            name: "Active";
           },
           {
-            "name": "Active"
+            name: "Paused";
           },
           {
-            "name": "Paused"
+            name: "Excluded";
           },
           {
-            "name": "Excluded"
+            name: "Suspended";
+          },
+        ];
+      };
+    },
+    {
+      name: "MemberTier";
+      type: {
+        kind: "enum";
+        variants: [
+          {
+            name: "Pending";
           },
           {
-            "name": "Suspended"
-          }
-        ]
-      }
-    },
-    {
-      "name": "MemberTier",
-      "type": {
-        "kind": "enum",
-        "variants": [
-          {
-            "name": "Pending"
+            name: "Virgin";
           },
           {
-            "name": "Virgin"
+            name: "Super";
           },
           {
-            "name": "Super"
+            name: "Mega";
           },
           {
-            "name": "Mega"
+            name: "Giga";
           },
-          {
-            "name": "Giga"
-          }
-        ]
-      }
-    }
-  ],
-  "errors": [
+        ];
+      };
+    },
+  ];
+  errors: [
     {
-      "code": 6000,
-      "name": "InvalidMemberPool",
-      "msg": "Invalid Member Pool"
+      code: 6000;
+      name: "InvalidMemberPool";
+      msg: "Invalid Member Pool";
     },
     {
-      "code": 6001,
-      "name": "UnauthorisedMemberPool",
-      "msg": "Unauthorised Member Pool"
+      code: 6001;
+      name: "UnauthorisedMemberPool";
+      msg: "Unauthorised Member Pool";
     },
     {
-      "code": 6002,
-      "name": "InvalidBalance",
-      "msg": "Invalid token balance"
+      code: 6002;
+      name: "InvalidBalance";
+      msg: "Invalid token balance";
     },
     {
-      "code": 6003,
-      "name": "InsufficientBalance",
-      "msg": "Insufficient token balance"
+      code: 6003;
+      name: "InsufficientBalance";
+      msg: "Insufficient token balance";
     },
     {
-      "code": 6004,
-      "name": "InvalidEntryAddress",
-      "msg": "No Matching Entry to Withdraw"
+      code: 6004;
+      name: "InvalidEntryAddress";
+      msg: "No Matching Entry to Withdraw";
     },
     {
-      "code": 6005,
-      "name": "InvalidOwner",
-      "msg": "Entry Owner Key Mismatch"
+      code: 6005;
+      name: "InvalidOwner";
+      msg: "Entry Owner Key Mismatch";
     },
     {
-      "code": 6006,
-      "name": "InvalidWithdrawTime",
-      "msg": "Withdrawal period not reached"
+      code: 6006;
+      name: "InvalidWithdrawTime";
+      msg: "Withdrawal period not reached";
     },
     {
-      "code": 6007,
-      "name": "IndexOverflow",
-      "msg": "Withdraw Entry Index OverFlow"
+      code: 6007;
+      name: "IndexOverflow";
+      msg: "Withdraw Entry Index OverFlow";
     },
     {
-      "code": 6008,
-      "name": "LackLamports",
-      "msg": "Insufficient Lamports"
-    }
-  ]
+      code: 6008;
+      name: "LackLamports";
+      msg: "Insufficient Lamports";
+    },
+    {
+      code: 6009;
+      name: "InvalidMint";
+      msg: "Invalid mint";
+    },
+  ];
 };
 
 export const IDL: Subscription = {
-  "version": "0.1.0",
-  "name": "subscription",
-  "instructions": [
+  version: "0.1.0",
+  name: "subscription",
+  instructions: [
     {
-      "name": "initialize",
-      "accounts": [
+      name: "initialize",
+      accounts: [
         {
-          "name": "memberAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "memberAccount",
+          isMut: true,
+          isSigner: false,
         },
         {
-          "name": "vaultTokenAccount",
-          "isMut": true,
-          "isSigner": false,
-          "docs": [
-            "* Derive an associated token account between the signers unique\n     * program member account and the token mint. This will hold the\n     * mint tokens under management of the program with respect\n     * to the signing member and mint, much like a token vault."
-          ]
+          name: "vaultTokenAccount",
+          isMut: true,
+          isSigner: false,
+          docs: [
+            "* Derive an associated token account between the signers unique\n     * program member account and the token mint. This will hold the\n     * mint tokens under management of the program with respect\n     * to the signing member and mint, much like a token vault.",
+          ],
         },
         {
-          "name": "mint",
-          "isMut": false,
-          "isSigner": false
+          name: "mint",
+          isMut: false,
+          isSigner: false,
         },
         {
-          "name": "signer",
-          "isMut": true,
-          "isSigner": true
+          name: "signer",
+          isMut: true,
+          isSigner: true,
         },
         {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
+          name: "systemProgram",
+          isMut: false,
+          isSigner: false,
         },
         {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        }
+          name: "tokenProgram",
+          isMut: false,
+          isSigner: false,
+        },
       ],
-      "args": []
+      args: [],
     },
     {
-      "name": "exclude",
-      "accounts": [
+      name: "exclude",
+      accounts: [
         {
-          "name": "memberAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "memberAccount",
+          isMut: true,
+          isSigner: false,
         },
         {
-          "name": "signer",
-          "isMut": true,
-          "isSigner": true
-        }
+          name: "signer",
+          isMut: true,
+          isSigner: true,
+        },
       ],
-      "args": []
+      args: [],
     },
     {
-      "name": "deposit",
-      "accounts": [
+      name: "deposit",
+      accounts: [
         {
-          "name": "memberAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "memberAccount",
+          isMut: true,
+          isSigner: false,
         },
         {
-          "name": "vaultTokenAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "vaultTokenAccount",
+          isMut: true,
+          isSigner: false,
         },
         {
-          "name": "sourceTokenAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "sourceTokenAccount",
+          isMut: true,
+          isSigner: false,
         },
         {
-          "name": "mint",
-          "isMut": false,
-          "isSigner": false
+          name: "mint",
+          isMut: false,
+          isSigner: false,
         },
         {
-          "name": "signer",
-          "isMut": true,
-          "isSigner": true
+          name: "signer",
+          isMut: true,
+          isSigner: true,
         },
         {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
+          name: "tokenProgram",
+          isMut: false,
+          isSigner: false,
         },
         {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
+          name: "systemProgram",
+          isMut: false,
+          isSigner: false,
         },
         {
-          "name": "clock",
-          "isMut": false,
-          "isSigner": false
-        }
+          name: "clock",
+          isMut: false,
+          isSigner: false,
+        },
       ],
-      "args": [
+      args: [
         {
-          "name": "amount",
-          "type": "u64"
-        }
-      ]
+          name: "amount",
+          type: "u64",
+        },
+      ],
     },
     {
-      "name": "claim",
-      "accounts": [
+      name: "claim",
+      accounts: [
         {
-          "name": "memberAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "memberAccount",
+          isMut: true,
+          isSigner: false,
         },
         {
-          "name": "signer",
-          "isMut": true,
-          "isSigner": true
+          name: "signer",
+          isMut: true,
+          isSigner: true,
         },
         {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
+          name: "systemProgram",
+          isMut: false,
+          isSigner: false,
         },
         {
-          "name": "clock",
-          "isMut": false,
-          "isSigner": false
-        }
+          name: "clock",
+          isMut: false,
+          isSigner: false,
+        },
       ],
-      "args": []
+      args: [],
     },
     {
-      "name": "withdraw",
-      "accounts": [
+      name: "withdraw",
+      accounts: [
         {
-          "name": "memberAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "memberAccount",
+          isMut: true,
+          isSigner: false,
         },
         {
-          "name": "vaultTokenAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "vaultTokenAccount",
+          isMut: true,
+          isSigner: false,
         },
         {
-          "name": "sourceTokenAccount",
-          "isMut": true,
-          "isSigner": false
+          name: "sourceTokenAccount",
+          isMut: true,
+          isSigner: false,
         },
         {
-          "name": "mint",
-          "isMut": false,
-          "isSigner": false
+          name: "mint",
+          isMut: false,
+          isSigner: false,
         },
         {
-          "name": "signer",
-          "isMut": true,
-          "isSigner": true
+          name: "signer",
+          isMut: true,
+          isSigner: true,
         },
         {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
+          name: "tokenProgram",
+          isMut: false,
+          isSigner: false,
         },
         {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
+          name: "systemProgram",
+          isMut: false,
+          isSigner: false,
         },
         {
-          "name": "clock",
-          "isMut": false,
-          "isSigner": false
-        }
+          name: "clock",
+          isMut: false,
+          isSigner: false,
+        },
       ],
-      "args": [
+      args: [
         {
-          "name": "amount",
-          "type": "u64"
-        }
-      ]
-    }
+          name: "amount",
+          type: "u64",
+        },
+      ],
+    },
   ],
-  "accounts": [
+  accounts: [
     {
-      "name": "entryClaim",
-      "type": {
-        "kind": "struct",
-        "fields": [
+      name: "hostAccount",
+      type: {
+        kind: "struct",
+        fields: [
           {
-            "name": "beneficiary",
-            "type": "publicKey"
-          }
-        ]
-      }
+            name: "version",
+            docs: [
+              "Schema version from v0 up to v255. Defaults to the `LATEST_VERSION` constant.",
+            ],
+            type: "u8",
+          },
+          {
+            name: "maturationPeriod",
+            docs: ["Monthly slot locking period"],
+            type: "u64",
+          },
+          {
+            name: "rewardFactor",
+            docs: ["Ratio of entries granted to tokens locked"],
+            type: "u64",
+          },
+          {
+            name: "totalMembers",
+            type: "u64",
+          },
+          {
+            name: "totalLocked",
+            type: "u64",
+          },
+        ],
+      },
     },
     {
-      "name": "memberAccount",
-      "type": {
-        "kind": "struct",
-        "fields": [
+      name: "memberAccount",
+      type: {
+        kind: "struct",
+        fields: [
           {
-            "name": "version",
-            "docs": [
-              "Schema version from v0 up to v255. Defaults to the `LATEST_VERSION` constant."
+            name: "version",
+            docs: [
+              "Schema version from v0 up to v255. Defaults to the `LATEST_VERSION` constant.",
             ],
-            "type": "u8"
+            type: "u8",
           },
           {
-            "name": "status",
-            "type": "u8"
+            name: "status",
+            type: "u8",
           },
           {
-            "name": "tier",
-            "docs": [
-              "Persists the tier of the greatest filled subscription slot"
+            name: "tier",
+            docs: [
+              "Persists the tier of the greatest filled subscription slot",
             ],
-            "type": "u8"
+            type: "u8",
           },
           {
-            "name": "totalAmount",
-            "docs": [
-              "Total amount of tokens managed by the account"
-            ],
-            "type": "u64"
+            name: "totalAmount",
+            docs: ["Total amount of tokens managed by the account"],
+            type: "u64",
           },
           {
-            "name": "totalMatured",
-            "docs": [
-              "Amount of tokens passed their first epoch"
-            ],
-            "type": "u64"
+            name: "totalMatured",
+            docs: ["Amount of tokens passed their first epoch"],
+            type: "u64",
           },
           {
-            "name": "totalLiquidity",
-            "docs": [
-              "Amount of unlocked token liquidity"
-            ],
-            "type": "u64"
+            name: "totalPending",
+            docs: ["Amount of tokens pending release"],
+            type: "u64",
           },
           {
-            "name": "totalVouchers",
-            "docs": [
-              "Persists the total amount of vouchers accrued minus redeemed"
+            name: "totalEntries",
+            docs: [
+              "Persists the total amount of vouchers accrued minus redeemed",
             ],
-            "type": "u64"
+            type: "u64",
           },
           {
-            "name": "totalEpochs",
-            "docs": [
-              "Number of epochs the subscription has been enabled"
-            ],
-            "type": "u64"
+            name: "timeCreated",
+            docs: ["Initial creation date of the members account"],
+            type: "u64",
           },
           {
-            "name": "timeCreated",
-            "docs": [
-              "Initial creation date of the members account"
-            ],
-            "type": "i64"
+            name: "timeRewarded",
+            docs: ["Date of the last reward granted to matured tokens"],
+            type: "u64",
           },
           {
-            "name": "timeRewarded",
-            "docs": [
-              "Date of the last reward granted to matured tokens"
+            name: "slots",
+            docs: [
+              "Collection of locked token deposit slots (one entry per deposit)",
             ],
-            "type": "i64"
+            type: {
+              vec: {
+                defined: "Transaction",
+              },
+            },
           },
-          {
-            "name": "slots",
-            "docs": [
-              "Collection of locked token deposit slots (one entry per deposit)"
-            ],
-            "type": {
-              "vec": {
-                "defined": "LockedSlot"
-              }
-            }
-          }
-        ]
-      }
+        ],
+      },
     },
     {
-      "name": "systemAccount",
-      "type": {
-        "kind": "struct",
-        "fields": [
+      name: "systemAccount",
+      type: {
+        kind: "struct",
+        fields: [
           {
-            "name": "version",
-            "docs": [
-              "Schema version from v0 up to v255. Defaults\n     to the `LATEST_VERSION` constant."
+            name: "version",
+            docs: [
+              "Schema version from v0 up to v255. Defaults\n     to the `LATEST_VERSION` constant.",
             ],
-            "type": "u8"
+            type: "u8",
           },
           {
-            "name": "mint",
-            "type": "publicKey"
+            name: "mint",
+            type: "publicKey",
           },
           {
-            "name": "rewardFactor",
-            "type": "u64"
+            name: "rewardFactor",
+            type: "u64",
           },
           {
-            "name": "activationReward",
-            "type": "u64"
-          }
-        ]
-      }
-    }
+            name: "activationReward",
+            type: "u64",
+          },
+        ],
+      },
+    },
   ],
-  "types": [
+  types: [
     {
-      "name": "LockedSlot",
-      "type": {
-        "kind": "struct",
-        "fields": [
+      name: "MemberError",
+      type: {
+        kind: "enum",
+        variants: [
           {
-            "name": "amount",
-            "docs": [
-              "Amount of tokens deposited"
+            name: "AccountSuspended",
+          },
+          {
+            name: "ImmutableAccountStatus",
+          },
+        ],
+      },
+    },
+    {
+      name: "LockingError",
+      type: {
+        kind: "enum",
+        variants: [
+          {
+            name: "MaxSlotsExceeded",
+          },
+          {
+            name: "IndexOutOfBounds",
+          },
+          {
+            name: "RewardsForbidden",
+          },
+          {
+            name: "InsufficientFunds",
+          },
+        ],
+      },
+    },
+    {
+      name: "HostError",
+      type: {
+        kind: "enum",
+        variants: [
+          {
+            name: "InvalidTimestamp",
+          },
+          {
+            name: "InvalidPauseAuthority",
+          },
+          {
+            name: "AlreadyPaused",
+          },
+          {
+            name: "NotPaused",
+          },
+        ],
+      },
+    },
+    {
+      name: "Transaction",
+      type: {
+        kind: "enum",
+        variants: [
+          {
+            name: "Deposit",
+            fields: [
+              {
+                name: "amount",
+                type: "u64",
+              },
+              {
+                name: "timeCreated",
+                type: "u64",
+              },
+              {
+                name: "timeMatured",
+                type: "u64",
+              },
             ],
-            "type": "u64"
           },
           {
-            "name": "timeCreated",
-            "docs": [
-              "Unix timestamp of the initial deposit"
+            name: "Withdraw",
+            fields: [
+              {
+                name: "amount",
+                type: "u64",
+              },
+              {
+                name: "timeReleased",
+                type: "u64",
+              },
             ],
-            "type": "i64"
           },
-          {
-            "name": "timeRewarded",
-            "docs": [
-              "Unix timestamp of the last reward granted"
-            ],
-            "type": "i64"
-          },
-          {
-            "name": "enabled",
-            "docs": [
-              "Indicates recurring lock period"
-            ],
-            "type": "bool"
-          }
-        ]
-      }
+        ],
+      },
     },
     {
-      "name": "MemberError",
-      "type": {
-        "kind": "enum",
-        "variants": [
+      name: "AccountStatus",
+      type: {
+        kind: "enum",
+        variants: [
           {
-            "name": "AccountSuspended"
+            name: "Pending",
           },
           {
-            "name": "ImmutableAccountStatus"
-          }
-        ]
-      }
+            name: "Active",
+          },
+          {
+            name: "Paused",
+          },
+          {
+            name: "Excluded",
+          },
+          {
+            name: "Suspended",
+          },
+        ],
+      },
     },
     {
-      "name": "LockingError",
-      "type": {
-        "kind": "enum",
-        "variants": [
+      name: "MemberTier",
+      type: {
+        kind: "enum",
+        variants: [
           {
-            "name": "MaxSlotsExceeded"
+            name: "Pending",
           },
           {
-            "name": "IndexOutOfBounds"
+            name: "Virgin",
           },
           {
-            "name": "RewardsForbidden"
+            name: "Super",
           },
           {
-            "name": "InsufficientFunds"
-          }
-        ]
-      }
+            name: "Mega",
+          },
+          {
+            name: "Giga",
+          },
+        ],
+      },
     },
-    {
-      "name": "SystemError",
-      "type": {
-        "kind": "enum",
-        "variants": [
-          {
-            "name": "InvalidPauseAuthority"
-          },
-          {
-            "name": "AlreadyPaused"
-          },
-          {
-            "name": "NotPaused"
-          }
-        ]
-      }
-    },
-    {
-      "name": "AccountStatus",
-      "type": {
-        "kind": "enum",
-        "variants": [
-          {
-            "name": "Pending"
-          },
-          {
-            "name": "Active"
-          },
-          {
-            "name": "Paused"
-          },
-          {
-            "name": "Excluded"
-          },
-          {
-            "name": "Suspended"
-          }
-        ]
-      }
-    },
-    {
-      "name": "MemberTier",
-      "type": {
-        "kind": "enum",
-        "variants": [
-          {
-            "name": "Pending"
-          },
-          {
-            "name": "Virgin"
-          },
-          {
-            "name": "Super"
-          },
-          {
-            "name": "Mega"
-          },
-          {
-            "name": "Giga"
-          }
-        ]
-      }
-    }
   ],
-  "errors": [
+  errors: [
     {
-      "code": 6000,
-      "name": "InvalidMemberPool",
-      "msg": "Invalid Member Pool"
+      code: 6000,
+      name: "InvalidMemberPool",
+      msg: "Invalid Member Pool",
     },
     {
-      "code": 6001,
-      "name": "UnauthorisedMemberPool",
-      "msg": "Unauthorised Member Pool"
+      code: 6001,
+      name: "UnauthorisedMemberPool",
+      msg: "Unauthorised Member Pool",
     },
     {
-      "code": 6002,
-      "name": "InvalidBalance",
-      "msg": "Invalid token balance"
+      code: 6002,
+      name: "InvalidBalance",
+      msg: "Invalid token balance",
     },
     {
-      "code": 6003,
-      "name": "InsufficientBalance",
-      "msg": "Insufficient token balance"
+      code: 6003,
+      name: "InsufficientBalance",
+      msg: "Insufficient token balance",
     },
     {
-      "code": 6004,
-      "name": "InvalidEntryAddress",
-      "msg": "No Matching Entry to Withdraw"
+      code: 6004,
+      name: "InvalidEntryAddress",
+      msg: "No Matching Entry to Withdraw",
     },
     {
-      "code": 6005,
-      "name": "InvalidOwner",
-      "msg": "Entry Owner Key Mismatch"
+      code: 6005,
+      name: "InvalidOwner",
+      msg: "Entry Owner Key Mismatch",
     },
     {
-      "code": 6006,
-      "name": "InvalidWithdrawTime",
-      "msg": "Withdrawal period not reached"
+      code: 6006,
+      name: "InvalidWithdrawTime",
+      msg: "Withdrawal period not reached",
     },
     {
-      "code": 6007,
-      "name": "IndexOverflow",
-      "msg": "Withdraw Entry Index OverFlow"
+      code: 6007,
+      name: "IndexOverflow",
+      msg: "Withdraw Entry Index OverFlow",
     },
     {
-      "code": 6008,
-      "name": "LackLamports",
-      "msg": "Insufficient Lamports"
-    }
-  ]
+      code: 6008,
+      name: "LackLamports",
+      msg: "Insufficient Lamports",
+    },
+    {
+      code: 6009,
+      name: "InvalidMint",
+      msg: "Invalid mint",
+    },
+  ],
 };
