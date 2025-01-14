@@ -1,20 +1,15 @@
 import { EntryCriteria } from "@/state/types";
 
 export const getProgressFromBalance = (
-  criteria: EntryCriteria[],
+  constraints: { minBalance?: number; maxBalance?: number } | undefined,
   balance: number
 ) => {
-  return (
-    criteria.reduce((sum, criterion) => {
-      if (criterion.type === "balance" && criterion.value) {
-        if (criterion.value instanceof Array) {
-          return sum + criterion.value[0];
-        }
-
-        return sum + criterion.value;
-      }
-
-      return sum;
-    }, 0) / balance
-  );
+  if (!constraints) {
+    return 0;
+  }
+  console.log(constraints.minBalance, constraints.maxBalance, balance);
+  const min = constraints.minBalance || 0;
+  const max = constraints.maxBalance || balance;
+  // Get the percentage of the balance between the min and max
+  return balance / min;
 };

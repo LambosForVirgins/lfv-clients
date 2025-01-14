@@ -20,7 +20,7 @@ interface RewardCardProps extends Common.ComponentProps {
   giveawayId: string;
   label: string;
   description?: string | null;
-  criteria?: EntryCriteria[];
+  constraints?: { minBalance?: number; maxBalance?: number };
   memberBalance?: number;
   onClick?: () => void;
 }
@@ -32,57 +32,13 @@ type Action = {
   onClick: () => void;
 };
 
-const EntryButton = ({
-  testID,
-  ...props
-}: Common.ComponentProps & { drawId: string }) => {
-  const entries = useRecoilValue(drawEntryCountSelector(props.drawId));
-  const { loading, enterDraw } = useGiveaways();
-  const draws = useRecoilValue(roundSelector(props.drawId));
-
-  const enterGiveaway = async (drawId: string) => {
-    console.log("Entering giveaway", drawId);
-    await enterDraw(drawId, {
-      id: drawId,
-      address: "LFV2q8VY5xnVbYpYMbmZQekjy7uuVCwo3oWgttxUy5j",
-      name: "test",
-    });
-  };
-
-  // TODO: Should only get a single draw and should check it's open
-  // We only want to show giveaways with current and future draws
-  if (!draws) {
-    return (
-      <button
-        data-testid={testID}
-        onClick={() => enterGiveaway(props.drawId)}
-        className={clsx(styles.button, styles.muted)}
-        disabled
-      >
-        {`No draws`}
-      </button>
-    );
-  }
-
-  return (
-    <button
-      data-testid={testID}
-      onClick={() => enterGiveaway(props.drawId)}
-      className={styles.button}
-      disabled={loading || entries > 0}
-    >
-      {entries > 0 ? `Entered` : `Enter draw`}
-    </button>
-  );
-};
-
 export const GiveawayCard = ({
   testID,
-  criteria = [],
+  constraints,
   memberBalance = 0,
   ...props
 }: RewardCardProps) => {
-  const { errors } = validateEntryCriteria(criteria, memberBalance);
+  const { errors } = validateEntryCriteria(constraints, memberBalance);
   const draws = useRecoilValue(associatedDrawsSelector(props.giveawayId));
   const navigate = useNavigate();
   const lastDraw = draws[draws.length - 1] || null;
@@ -137,7 +93,7 @@ export const GiveawayCard = ({
           <ProgressIndicator
             testID={`${testID}.progress`}
             size="small"
-            progress={getProgressFromBalance(criteria, memberBalance)}
+            progress={getProgressFromBalance(constraints, memberBalance)}
           />
         )}
       </div>

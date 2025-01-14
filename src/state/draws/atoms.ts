@@ -4,7 +4,7 @@ import { getAllDraws } from "./functions";
 
 export const drawRoundsAtom = atom<DrawRound[] | [DrawRound]>({
   key: "draw-rounds-atom",
-  default: getAllDraws(),
+  default: [],
 });
 
 export const drawEntriesAtom = atom<{ drawId: string; entries: number }[]>({

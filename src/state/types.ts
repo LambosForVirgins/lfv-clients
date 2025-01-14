@@ -28,7 +28,6 @@ export type EntryRecord = {
 
 export type DrawRecord = {
   id: string;
-  giveawayId: string;
   timeOpens: number;
   timeCloses: number;
   timeDraws: number;
@@ -57,7 +56,10 @@ export type GiveawayRecord = {
   description: string | undefined | null;
   active: boolean;
   providers: string[];
-  criteria: EntryCriteria[];
+  constraints?: {
+    minBalance?: number;
+    maxBalance?: number;
+  };
 };
 
 export type Giveaway = GiveawayRecord & {

@@ -4,6 +4,7 @@ import { useGiveaways } from "@/state/giveaways/useGiveaways";
 import styles from "./GiveawaysSection.module.css";
 import { useMembership } from "@/hooks/useMembership";
 import { DailyEntrySlider } from "@/components/DailyEntrySlider/DailyEntrySlider";
+import { lamportsToMint } from "@/utils/locker/constants";
 
 const HEADLINES = [
   "Daily Giveaway!",
@@ -55,8 +56,11 @@ export const GiveawayListPage = ({
             giveawayId={promo.id}
             label={promo.title}
             description={promo.description}
-            memberBalance={member?.totalAmount.toNumber()}
-            criteria={promo.criteria}
+            memberBalance={
+              member?.totalAmount &&
+              lamportsToMint(member?.totalAmount).toNumber()
+            }
+            constraints={promo.constraints}
           />
         ))}
       </div>

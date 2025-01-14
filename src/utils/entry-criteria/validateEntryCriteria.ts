@@ -2,19 +2,12 @@ import { EntryCriteria } from "@/state/types";
 import { ValidationResult } from "./types";
 
 export const validateEntryCriteria = (
-  criteria: EntryCriteria[],
+  constraints: { minBalance?: number; maxBalance?: number } | undefined,
   balance: number
 ): ValidationResult => {
-  const isDisabled = criteria.some((criterion) => {
-    if (criterion.type === "balance" && criterion.value) {
-      if (criterion.value instanceof Array) {
-        return balance < criterion.value[0] || balance > criterion.value[1];
-      }
-
-      return balance < criterion.value;
-    }
-    return false;
-  });
+  const isDisabled =
+    (constraints?.minBalance && constraints.minBalance > balance) ||
+    (constraints?.maxBalance && constraints.maxBalance < balance);
 
   return {
     errors: isDisabled ? [{ message: "Not enough tokens" }] : [],
