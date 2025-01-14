@@ -17,7 +17,7 @@ export const memberAuthorizedSelector = selectorFamily<
     },
 });
 
-const EPOCH_DURATION = 3000;
+const EPOCH_DURATION = 3 * 1000; // 86400 * 1000;
 
 export const outstandingRewardEpochsSelector = selectorFamily<
   number,
@@ -31,7 +31,7 @@ export const outstandingRewardEpochsSelector = selectorFamily<
 
       if (!member) return 0;
 
-      const rewardTime = member.timeRewarded.toNumber() * 1000 + EPOCH_DURATION;
+      const rewardTime = member.timeRewarded.toNumber() + EPOCH_DURATION;
       const timeDifference = Date.now() - rewardTime;
 
       return Math.floor(timeDifference / EPOCH_DURATION);

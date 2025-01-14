@@ -5,6 +5,10 @@ import styles from "./Header.module.css";
 
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { useClaimRewards } from "@/hooks/useClaimRewards";
+import { useRecoilValue } from "recoil";
+import { outstandingRewardsSelector } from "@/state/member/selectors";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 const GuestMenuItems = [
   {
@@ -37,6 +41,11 @@ export const Header = ({ testID, ...props }: HeaderProps) => {
 
   const navigateToPath = (path: string) => () => navigate(path);
 
+  const { publicKey } = useWallet();
+  const outstandingRewards = useRecoilValue(
+    outstandingRewardsSelector(publicKey)
+  );
+
   // Menu actions should be configurable per route and also communicate via channels with pages
 
   return (
@@ -58,8 +67,7 @@ export const Header = ({ testID, ...props }: HeaderProps) => {
         onClick={navigateToPath("/benefits")}
         label={`Discounts`}
         progress={10}
-        highlight
-        disabled
+        highlight={outstandingRewards > 0}
       />
       <span data-testid={`${testID}.spacer`} className={styles.spacer} />
       <MemberButton testID={`${testID}.member`} />

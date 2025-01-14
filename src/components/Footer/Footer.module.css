@@ -11,4 +11,5 @@
     grid-column: content;
     display: grid;
     grid-template-columns: var(--panel-layout);
+    row-gap: var(--size-500);
 }

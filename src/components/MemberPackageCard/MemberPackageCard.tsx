@@ -43,7 +43,7 @@ export const MemberPackageCard = ({
         props.highlight && styles.highlight
       )}
     >
-      <div data-testid={`${testID}.header`}>
+      <div data-testid={`${testID}.header`} className={styles.header}>
         <h3 data-testid={`${testID}.title`}>{props.title}</h3>
       </div>
       <h4 data-testid={`${testID}.subtitle`} className={styles.subtitle}>
