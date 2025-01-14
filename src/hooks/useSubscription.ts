@@ -3,7 +3,7 @@ import { amountToLamports, lamportsToMint } from "@/utils/locker/constants";
 import { useWallet } from "@solana/wallet-adapter-react";
 import BN from "bn.js";
 import { useRecoilValue } from "recoil";
-import { useDepositTokens } from "./useDepositTokens";
+import { useDepositTokens } from "./useTransferTokens";
 import { numberToTier } from "@/utils/tiers/formatters";
 
 export const useSubscription = () => {

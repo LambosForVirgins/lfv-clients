@@ -2,7 +2,8 @@ import { Section } from "@/components/Section/Section";
 import { MembershipSell } from "@/components/MembershipSell/MembershipSell";
 import { useMarketCap } from "@/state/marketCap";
 import { ProgressIndicator } from "@/components/ProgressIndicator/ProgressIndicator";
-import styles from "./MembershipSection.module.css";
+import styles from "./LandingPage.module.css";
+import { CreateAccount } from "@/components/CreateAccount/CreateAccount";
 
 const steps = [
   {
@@ -16,8 +17,8 @@ const steps = [
   },
 ];
 
-export const MembershipSection = ({
-  testID = "membership",
+export const LandingPage = ({
+  testID = "landing",
 }: Readonly<Partial<Common.ComponentProps>>) => {
   const { marketCapDiluted } = useMarketCap();
 
@@ -59,6 +60,7 @@ export const MembershipSection = ({
         style={{ maxWidth: "640px", justifySelf: "center" }}
         className={styles.directive}
       />
+      <CreateAccount testID={`${testID}.create`} className={styles.content} />
       <div className={styles.options}>
         <h3 className="text-2xl">Join the club today for only 1 VIRGIN</h3>
         <p className="text-xl">OR</p>

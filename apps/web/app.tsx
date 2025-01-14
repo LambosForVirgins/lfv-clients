@@ -8,12 +8,12 @@ import { PartnersPage } from "@/pages/partners/PartnersPage";
 import { StorePage } from "@/pages/store/StorePage";
 import { TreasuryPage } from "@/pages/treasury/TreasuryPage";
 import { Layout } from "@/components/Layout/Layout";
-import { MembershipSection } from "@/sections/MembershipSection/MembershipSection";
 import { EventsPage } from "@/pages/events/EventsPage";
 import { SingleGiveawayPage } from "./giveaways/[giveawayId]/GiveawayPage";
 import { SubscriptionPage } from "@/pages/subscription/SubscriptionPage";
 import { AccountPage } from "@/pages/account/AccountPage";
 import { withAuthenticated } from "@/components/RouteGuard/withAuthenticated";
+import { LandingPage } from "@/pages/landing/LandingPage";
 
 // export async function generateMetadata({
 //   params: { locale },
@@ -68,7 +68,7 @@ export const App = () => (
         <Page path={"treasury/*"}>
           <Page path={"vesting"} Component={TreasuryPage} />
         </Page>
-        <Page Component={MembershipSection} index />
+        <Page Component={LandingPage} index />
       </Switch>
     </Layout>
   </Router>

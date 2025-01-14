@@ -58,17 +58,17 @@ export const Header = ({ testID, ...props }: HeaderProps) => {
       />
       <BoostButton
         testID={`${testID}.store`}
-        onClick={navigateToPath("/store")}
+        onClick={navigateToPath("/subscription")}
         label={`Store`}
         icon={"store"}
       />
-      <BoostButton
+      {/* <BoostButton
         testID={`${testID}.discounts`}
         onClick={navigateToPath("/benefits")}
         label={`Discounts`}
         progress={10}
         highlight={outstandingRewards > 0}
-      />
+      /> */}
       <span data-testid={`${testID}.spacer`} className={styles.spacer} />
       <MemberButton testID={`${testID}.member`} />
     </nav>
