@@ -5,6 +5,7 @@
     flex: 1 1 auto;
     flex-direction: row;
     gap: var(--size-200);
+    grid-column: gutter;
 }
 
 .spacer {

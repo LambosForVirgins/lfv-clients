@@ -7,6 +7,8 @@
 
 .banner {
     display: grid;
+    text-align: center;
+    gap: var(--size-500);
 
     img {
         justify-self: center;
@@ -17,8 +19,6 @@
     font-size: 2rem;
     text-align: center;
 }
-
-
 
 .options,
 .directive,
@@ -59,11 +59,4 @@
     display: grid;
     gap: 1rem;
     text-align: center;
-}
-
-.equation {
-    display: grid;
-    gap: var(--size-100);
-    text-align: center;
-    justify-content: center;
 }

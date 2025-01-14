@@ -15,7 +15,7 @@ export const Layout = ({
   return (
     <div data-testid={testID} className={styles.frame}>
       <div data-testid={`${testID}.header`} className={styles.header}>
-        <Header testID={`header`} className={styles.content} />
+        <Header testID={`header`} />
       </div>
       <section data-testid={`${testID}.content`} className={styles.main}>
         <ErrorBoundary fallback={<h1>Error</h1>}>{children}</ErrorBoundary>
