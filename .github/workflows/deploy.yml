@@ -33,14 +33,6 @@ jobs:
       - name: Run tests
         run: yarn test:ci
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-          aws-region: ${{ vars.AWS_REGION }}
-          mask-aws-account-id: true
-
       - name: Build application
         run: yarn build
         env:
