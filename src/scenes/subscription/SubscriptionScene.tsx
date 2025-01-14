@@ -2,9 +2,8 @@ import { Button } from "@/elements";
 import { MembershipSell } from "@/components/MembershipSell/MembershipSell";
 import { useCancelSubscription } from "@/hooks/useCancelSubscription";
 import { UpgradeSlider } from "@/components/UpgradeSlider/UpgradeSlider";
-import { MemberTier } from "@/state/member/types";
 
-export const SubscriptionPage = ({
+export const SubscriptionScene = ({
   testID = "subscription",
 }: Readonly<Partial<Common.ComponentProps>>) => {
   const { cancelSubscription } = useCancelSubscription();

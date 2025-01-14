@@ -1,7 +1,7 @@
 import { GiveawayCard } from "@/components/GiveawayCard/GiveawayCard";
 
 import { useGiveaways } from "@/state/giveaways/useGiveaways";
-import styles from "./GiveawaysSection.module.css";
+import styles from "./GiveawaysScene.module.css";
 import { useMembership } from "@/hooks/useMembership";
 import { DailyEntrySlider } from "@/components/DailyEntrySlider/DailyEntrySlider";
 import { lamportsToMint } from "@/utils/locker/constants";
@@ -21,7 +21,7 @@ const SUBTITLES = [
   "Enjoy your virginity with our daily giveaways",
 ];
 
-export const GiveawayListPage = ({
+export const GiveawaysScene = ({
   testID = "giveaways",
 }: Readonly<Partial<Common.ComponentProps>>) => {
   const { giveaways, currentDraw } = useGiveaways();

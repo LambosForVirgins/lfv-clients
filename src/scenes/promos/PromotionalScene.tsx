@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import { useGiveaway } from "@/state/giveaways/useGiveaway";
-import styles from "./GiveawayPage.module.css";
+import styles from "./PromotionalScene.module.css";
 import { associatedDrawsSelector } from "@/state/draws/selectors";
 import { DrawMachine } from "@/components/DrawMachine/DrawMachine";
 import { format } from "date-fns/format";
@@ -8,8 +8,8 @@ import { isFuture } from "date-fns/isFuture";
 import { DrawStatus } from "@/state/types";
 import { useParams } from "react-router";
 
-export const SingleGiveawayPage = ({
-  testID = "giveaway",
+export const PromotionalScene = ({
+  testID = "promo",
 }: Readonly<Partial<Common.ComponentProps>>) => {
   const { giveawayId = "" } = useParams<{ giveawayId: string }>();
   const { giveaway } = useGiveaway(giveawayId);

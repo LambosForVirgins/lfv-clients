@@ -1,4 +1,4 @@
-export const PartnersPage = () => {
+export const PartnersScene = () => {
   return (
     <div className="grid col-content p-5">
       <h1>Partnerships</h1>

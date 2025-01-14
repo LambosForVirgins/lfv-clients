@@ -3,17 +3,17 @@ import {
   Routes as Switch,
   Route as Page,
 } from "react-router";
-import { GiveawayListPage } from "./giveaways/GiveawayListPage";
-import { PartnersPage } from "@/pages/partners/PartnersPage";
-import { StorePage } from "@/pages/store/StorePage";
-import { TreasuryPage } from "@/pages/treasury/TreasuryPage";
+import { PartnersScene } from "@/scenes/partners/PartnersScene";
+import { StoreScene } from "@/scenes/store/StoreScene";
+import { TreasuryScene } from "@/scenes/treasury/TreasuryScene";
 import { Layout } from "@/components/Layout/Layout";
-import { EventsPage } from "@/pages/events/EventsPage";
-import { SingleGiveawayPage } from "./giveaways/[giveawayId]/GiveawayPage";
-import { SubscriptionPage } from "@/pages/subscription/SubscriptionPage";
-import { AccountPage } from "@/pages/account/AccountPage";
+import { EventsScene } from "@/scenes/events/EventsScene";
+import { SubscriptionScene } from "@/scenes/subscription/SubscriptionScene";
+import { AccountScene } from "@/scenes/account/AccountScene";
 import { withAuthenticated } from "@/components/RouteGuard/withAuthenticated";
-import { LandingPage } from "@/pages/landing/LandingPage";
+import { LandingScene } from "@/scenes/landing/LandingScene";
+import { GiveawaysScene } from "@/scenes/giveaways/GiveawaysScene";
+import { PromotionalScene } from "@/scenes/promos/PromotionalScene";
 
 // export async function generateMetadata({
 //   params: { locale },
@@ -51,24 +51,24 @@ export const App = () => (
       <Switch>
         <Page
           path={"giveaways"}
-          Component={withAuthenticated(GiveawayListPage)}
+          Component={withAuthenticated(GiveawaysScene)}
         />
         <Page
           path={"subscription"}
-          Component={withAuthenticated(SubscriptionPage)}
+          Component={withAuthenticated(SubscriptionScene)}
         />
-        <Page path={"account"} Component={withAuthenticated(AccountPage)} />
+        <Page path={"account"} Component={withAuthenticated(AccountScene)} />
         <Page
           path={"giveaways/:giveawayId"}
-          Component={withAuthenticated(SingleGiveawayPage)}
+          Component={withAuthenticated(PromotionalScene)}
         />
-        <Page path={"events"} Component={withAuthenticated(EventsPage)} />
-        <Page path={"partners"} Component={withAuthenticated(PartnersPage)} />
-        <Page path={"store"} Component={withAuthenticated(StorePage)} />
+        <Page path={"events"} Component={withAuthenticated(EventsScene)} />
+        <Page path={"partners"} Component={withAuthenticated(PartnersScene)} />
+        <Page path={"store"} Component={withAuthenticated(StoreScene)} />
         <Page path={"treasury/*"}>
-          <Page path={"vesting"} Component={TreasuryPage} />
+          <Page path={"vesting"} Component={TreasuryScene} />
         </Page>
-        <Page Component={LandingPage} index />
+        <Page Component={LandingScene} index />
       </Switch>
     </Layout>
   </Router>

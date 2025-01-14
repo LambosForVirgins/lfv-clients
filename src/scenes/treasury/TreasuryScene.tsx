@@ -1,11 +1,20 @@
 import { useEffect, useState } from "react";
-import { AccountCollection } from "../../../apps/nextjs-api/app/api/treasury/vesting/route";
+
+// Carried over from old NextJS stuff
+type AccountCollection = Record<
+  string,
+  {
+    contractId: string;
+    wallet: string;
+    seed: string;
+  }[]
+>;
 
 const fetchVestingDetails = async (): Promise<AccountCollection> => {
   return await fetch("/api/treasury/vesting").then((res) => res.json());
 };
 
-export const TreasuryPage = () => {
+export const TreasuryScene = () => {
   const [details, setDetails] = useState<AccountCollection | null>(null);
 
   useEffect(() => {

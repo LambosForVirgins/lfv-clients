@@ -1,6 +1,6 @@
-import styles from "./EventsPage.module.css";
+import styles from "./EventsScene.module.css";
 
-export const EventsPage = ({
+export const EventsScene = ({
   testID = "events",
 }: Readonly<Partial<Common.ComponentProps>>) => {
   return (

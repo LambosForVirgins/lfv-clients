@@ -1,6 +1,6 @@
 import { Button } from "@/elements";
 import { useDevToggles } from "@/state/system/useDevToggles";
-import styles from "./AccountPage.module.css";
+import styles from "./AccountScene.module.css";
 import { useMembership } from "@/hooks/useMembership";
 import { lamportsToMint } from "@/utils/locker/constants";
 import { statusToString, tierToString } from "@/utils/tiers/formatters";
@@ -13,7 +13,7 @@ import { MemberStatus } from "@/state/member/types";
 
 const EPOCH_DURATION = 3000;
 
-export const AccountPage = ({
+export const AccountScene = ({
   testID = "account",
 }: Readonly<Partial<Common.ComponentProps>>) => {
   const { isEnabled, someEnabled } = useDevToggles();

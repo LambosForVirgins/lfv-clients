@@ -1,6 +1,6 @@
-import styles from "./StorePage.module.css";
+import styles from "./StoreScene.module.css";
 
-export const StorePage = ({
+export const StoreScene = ({
   testID = "store",
 }: Readonly<Partial<Common.ComponentProps>>) => {
   return (
