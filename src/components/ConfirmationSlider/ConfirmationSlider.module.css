@@ -1,0 +1,57 @@
+.frame {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    background-color: #fff;
+}
+
+.channel {
+    height: 60px;
+    border: 2px solid #171717;
+    border-radius: 8px;
+}
+
+.handle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    aspect-ratio: 1;
+    background-color: var(--bg-red-400);
+    transition: transform 300ms ease;
+    border-radius: 6px;
+    cursor: pointer;
+
+    &:active {
+        transition: none;
+    }
+}
+
+.pulse {
+    animation: heartbeat 1600ms infinite;
+}
+
+.honeypot {
+    height: 0;
+    width: 0;
+    opacity: 0;
+    position: absolute;
+    left: -9999px;
+    visibility: hidden;
+}
+
+@keyframes heartbeat {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.25;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,63 @@
+.frame {
+    anchor-name: --member-options;
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.25);
+    font-family: var(--font-leading);
+    color: #fff;
+    max-height: 46px;
+    font-size: 21px;
+    border-radius: 16px;
+    padding: 8px;
+    gap: 8px;
+    cursor: pointer;
+
+    @media screen and (min-width: 768px) {
+        border-radius: 16px;
+        font-size: 14px;
+        padding: 8px;
+        gap: 8px;
+    }
+}
+
+.content {
+    flex: 1 1;
+    text-align: left;
+    display: grid;
+    align-items: center;
+    grid-template-rows: 1fr auto;
+    min-width: 5ch;
+    height: 100%;
+}
+
+.icon {
+    width: 26px;
+    aspect-ratio: 1;
+
+    &.badge {
+        background: url('/svg/award.svg') no-repeat center center;
+    }
+
+    &.more {
+        background: url('/svg/caret-down.svg') no-repeat center center;
+    }
+}
+
+.progress {
+    height: 6px;
+    border-radius: 100vw;
+    background-color: rgba(0, 0, 0, 0.25);
+
+    @media screen and (min-width: 768px) {
+        height: 8px;
+    }
+
+    .indicator {
+        display: block;
+        height: 100%;
+        border-radius: 100vw;
+        background-color: #ffcd02;
+        border-top: 2px solid rgba(255, 255, 255, 0.3);
+        transition: width 300ms ease-in-out;
+    }
+}

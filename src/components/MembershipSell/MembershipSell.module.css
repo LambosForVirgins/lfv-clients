@@ -1,0 +1,11 @@
+.frame {
+    grid-column: content;
+    container-name: membership-sell;
+    container-type: inline-size;
+}
+
+.options {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}

@@ -1,0 +1,14 @@
+.frame {
+    color: #fff;
+    background-color: #1f1f1f;
+    display: grid;
+    grid-column: full;
+    grid-template-columns: var(--column-layout);
+    padding: 2rem;
+}
+
+.content {
+    grid-column: content;
+    display: grid;
+    grid-template-columns: var(--panel-layout);
+}

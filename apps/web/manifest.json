@@ -1,0 +1,21 @@
+{
+    "name": "LambosForVirgins",
+    "short_name": "LFV",
+    "start_url": "/?source=pwa",
+    "display": "standalone",
+    "background_color": "#c12126",
+    "theme_color": "#2c0d2a",
+    "description": "Member Rewards Platform",
+    "icons": [
+        {
+            "src": "/icons/icon@1x.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/icons/icon@2x.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}

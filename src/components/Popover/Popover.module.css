@@ -1,0 +1,70 @@
+.frame {
+    position-anchor: --member-options;
+    border: 0;
+    outline: 0;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: #2c2d30;
+    color: #fff;
+    position: absolute;
+    margin: 0;
+    inset: auto;
+    top: anchor(bottom);
+    right: anchor(right);
+    margin-block-start: 0;
+    margin-inline-start: 8px;
+    opacity: 0;
+    min-width: 160px;
+    font-size: var(--size-500);
+
+    transition-property: display, opacity, margin-block-start;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+    transition-behavior: allow-discrete;
+
+    &:popover-open {
+        display: grid;
+        opacity: 1;
+        margin-block-start: 4px;
+
+        @starting-style {
+            opacity: 0;
+            margin-block-start: 0;
+        }
+    }
+
+    ul.list li {
+        display: flex;
+        padding: 4px 8px;
+        text-align: left;
+        border-radius: 4px;
+    }
+
+    ul.list li span {
+        flex: 1 0 auto;
+    }
+
+    ul.list li:hover {
+        background-color: rgba(0, 0, 0, 0.25);
+    }
+
+    li.caution {
+        background-color: var(--bg-red-500);
+    }
+}
+
+.badge {
+    flex-grow: 0;
+    flex-shrink: 1;
+    min-width: min-content;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100vw;
+    background-color: var(--bg-red-500);
+    color: #fff;
+    padding: 0px;
+    font-size: var(--size-400);
+    text-align: center;
+    white-space: nowrap;
+}

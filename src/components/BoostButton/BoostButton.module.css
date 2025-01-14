@@ -1,0 +1,61 @@
+.frame {
+    position: relative;
+    display: grid;
+    color: white;
+    position: relative;
+    border-radius: 16px;
+    background-color: rgba(0, 0, 0, 0.2);
+    min-width: 48px;
+    min-height: 48px;
+    transition: background-color 300ms;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 4px;
+        border-radius: 13px;
+        font-size: 16px;
+        background: url('/svg/present.svg') no-repeat center center;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-color: var(--bg-red-500);
+        transition: transform 150ms ease-in-out;
+    }
+
+    &:hover::before {
+        transform: scale(1.05);
+    }
+
+    &.highlight::before {
+        color: #ffcd02;
+        border: 2px solid #ffcd02;
+        background: url('/svg/lightning.svg') no-repeat center center;
+        background-color: var(--bg-red-400);
+    }
+
+    .label {
+        display: none;
+    }
+
+    &:disabled {
+        background-color: rgba(0, 0, 0, 0.15);
+        cursor: initial;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    &:disabled::before {
+        opacity: 0.8;
+    }
+}

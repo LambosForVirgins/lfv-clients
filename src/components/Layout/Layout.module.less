@@ -1,0 +1,41 @@
+.frame {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .content {
+        grid-column: content;
+    }
+    
+    .full {
+        grid-column: full;
+    }
+}
+
+.header {
+    grid-column: full;
+    display: grid;
+    grid-template-columns: var(--column-layout);
+    background-color: var(--bg-red-500);
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+}
+
+.main {
+    grid-column: full;
+    display: grid;
+    grid-template-columns: var(--column-layout);
+    flex-grow: 1;
+}
+
+.promo {
+    grid-column: full;
+    position: sticky;
+    gap: 2rem;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

@@ -1,0 +1,68 @@
+.frame {
+    grid-column: content;
+    display: grid;
+    grid-gap: 1rem;
+    justify-content: center;
+}
+
+.banner {
+    display: grid;
+
+    img {
+        justify-self: center;
+    }
+}
+
+.title {
+    font-size: 2rem;
+    text-align: center;
+}
+
+
+
+.options,
+.directive,
+.content {
+    grid-column: content;
+}
+
+.directive {
+    display: grid;
+    grid-template-areas: "right right" "buy lock" "left left";
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+    *[data-attr='buy'] {
+        grid-area: buy;
+    }
+
+    *[data-attr='lock'] {
+        grid-area: lock;
+    }
+
+    .arrow {
+        min-height: 64px;
+        grid-area: left;
+        outline: 2px solid red;
+
+        &[data-attr='right'] {
+            grid-area: right;
+        }
+
+        &[data-attr='left'] {
+            grid-area: left;
+        }
+    }
+}
+
+.options {
+    display: grid;
+    gap: 1rem;
+    text-align: center;
+}
+
+.equation {
+    display: grid;
+    gap: var(--size-100);
+    text-align: center;
+    justify-content: center;
+}

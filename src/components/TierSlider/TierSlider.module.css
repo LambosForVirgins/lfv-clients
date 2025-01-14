@@ -1,0 +1,6 @@
+.frame {
+    display: flex;
+    align-items: center;
+    position: relative;
+    outline: 2px solid red;
+}
