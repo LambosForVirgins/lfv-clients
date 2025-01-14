@@ -12,7 +12,10 @@ import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 const local = false;
 const endpoint = local ? "http://127.0.0.1:8899" : clusterApiUrl("devnet");
 
-const wallets = [new walletAdapterWallets.TrustWalletAdapter()];
+const wallets = [
+  new walletAdapterWallets.TrustWalletAdapter(),
+  new walletAdapterWallets.PhantomWalletAdapter(),
+];
 
 export const SolanaProvider = ({ children }: React.PropsWithChildren) => {
   return (

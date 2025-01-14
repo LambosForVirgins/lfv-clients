@@ -59,26 +59,6 @@ export const MembershipSection = ({
         style={{ maxWidth: "640px", justifySelf: "center" }}
         className={styles.directive}
       />
-      {/* <div className={styles.directive}>
-        <span className={styles.arrow} data-attr={"right"} />
-        <div data-attr={"buy"}>
-          <h4 className={styles.title}>Buy</h4>
-          <span className={styles.equation}>
-            <p>More tokens</p>
-            <p style={{ transform: "scale(1.5)" }}>=</p>
-            <p>Greater benefits</p>
-          </span>
-        </div>
-        <div data-attr={"lock"}>
-          <h4 className={styles.title}>Lock</h4>
-          <span className={styles.equation}>
-            <p>More time</p>
-            <p style={{ transform: "scale(1.5)" }}>=</p>
-            <p>More rewards</p>
-          </span>
-        </div>
-        <span className={styles.arrow} data-attr={"left"} />
-      </div> */}
       <div className={styles.options}>
         <h3 className="text-2xl">Join the club today for only 1 VIRGIN</h3>
         <p className="text-xl">OR</p>
