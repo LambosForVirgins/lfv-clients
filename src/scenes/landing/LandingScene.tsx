@@ -22,6 +22,7 @@ export const LandingScene = ({
   testID = "landing",
 }: Readonly<Partial<Common.ComponentProps>>) => {
   const { isEnabled } = useDevToggles();
+  const { marketCapDiluted } = useMarketCap();
 
   return (
     <Section testID="membership" id={"membership"}>
@@ -44,7 +45,11 @@ export const LandingScene = ({
           {`We're celebrating $100 million market cap with a Lambo giveaway!`}
         </h1>
         {isEnabled("market_cap") && (
-          <ProgressIndicator testID={`${testID}.progress`} />
+          <ProgressIndicator
+            testID={`${testID}.progress`}
+            progress={marketCapDiluted / 100_000_000}
+            label={`$${Math.floor(marketCapDiluted / 100_000) / 10} Million`}
+          />
         )}
         <p style={{ textAlign: "center" }}>
           Gain access to our exclusive club and member benefits by locking one
