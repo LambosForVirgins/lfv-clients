@@ -96,6 +96,9 @@ export const MOCKS: Giveaway[] = [
     active: true,
     description: null,
     title: "Gold Bullion",
+    constraints: {
+      minBalance: 250_000,
+    },
     draws: [],
     providers: ["daee8b06-b6f2-11ef-b6d2-ebc5e4d8a9fe"],
   },

@@ -17,7 +17,7 @@ export const memberAuthorizedSelector = selectorFamily<
     },
 });
 
-const EPOCH_DURATION = 3 * 1000; // 86400 * 1000;
+const EPOCH_DURATION = (86400 / 4) * 1000;
 
 export const outstandingRewardEpochsSelector = selectorFamily<
   number,
