@@ -16,6 +16,7 @@ const initialKeys = {
   disclaimers: false,
   subscription_slider: false,
   previous_giveaways: false,
+  market_cap: false,
 };
 
 const toBoolean = (value: string | null, defaultValue: boolean): boolean => {

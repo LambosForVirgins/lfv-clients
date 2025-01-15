@@ -4,6 +4,7 @@ import { useMarketCap } from "@/state/marketCap";
 import { ProgressIndicator } from "@/components/ProgressIndicator/ProgressIndicator";
 import styles from "./LandingScene.module.css";
 import { CreateAccount } from "@/components/CreateAccount/CreateAccount";
+import { useDevToggles } from "@/state/system/useDevToggles";
 
 const steps = [
   {
@@ -20,7 +21,7 @@ const steps = [
 export const LandingScene = ({
   testID = "landing",
 }: Readonly<Partial<Common.ComponentProps>>) => {
-  const { marketCapDiluted } = useMarketCap();
+  const { isEnabled } = useDevToggles();
 
   return (
     <Section testID="membership" id={"membership"}>
@@ -42,16 +43,16 @@ export const LandingScene = ({
         <h1 className={styles.title}>
           {`We're celebrating $100 million market cap with a Lambo giveaway!`}
         </h1>
-        <ProgressIndicator
-          testID={`${testID}.progress`}
-          progress={marketCapDiluted / 100_000_000}
-          label={`$${Math.floor(marketCapDiluted / 100_000) / 10} Million`}
-        />
-        <p>
+        {isEnabled("market_cap") && (
+          <ProgressIndicator testID={`${testID}.progress`} />
+        )}
+        <p style={{ textAlign: "center" }}>
           Gain access to our exclusive club and member benefits by locking one
           or more $VIRGIN tokens to be eligible for this giveaway and more!
         </p>
-        <h2>Plus many more weekly member giveaways</h2>
+        <h2 style={{ textAlign: "center" }}>
+          Plus many more weekly member giveaways
+        </h2>
       </div>
       <img
         src="/svg/test.svg"

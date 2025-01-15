@@ -30,6 +30,13 @@ export const MemberButton = forwardRef<HTMLButtonElement, MemberButtonProps>(
       return maturity * 100;
     }, [member]);
 
+    const labelText = useMemo(() => {
+      return (
+        member?.totalEntries.toNumber() ||
+        formatShortAddress(publicKey?.toBase58())
+      );
+    }, [member, publicKey]);
+
     return (
       <button
         {...props}
@@ -64,19 +71,21 @@ export const MemberButton = forwardRef<HTMLButtonElement, MemberButtonProps>(
               className={clsx(styles.icon, styles.badge)}
             />
             <span data-testid={`${testID}.content`} className={styles.content}>
-              <span>
-                {member?.totalEntries.toNumber() ||
-                  formatShortAddress(publicKey?.toBase58())}
-              </span>
-              {/* <span>{}</span> */}
-              <span className={styles.progress}>
+              <span data-testid={`${testID}.label`}>{labelText}</span>
+              <span
+                data-testid={`${testID}.progress`}
+                className={styles.progress}
+              >
                 <span
                   className={styles.indicator}
                   style={{ width: `${progress}%` }}
                 />
               </span>
             </span>
-            <span className={clsx(styles.icon, styles.more)} />
+            <span
+              data-testid={`${testID}.indicator`}
+              className={clsx(styles.icon, styles.more)}
+            />
             <Popover
               testID={`${testID}.options`}
               id="members"
