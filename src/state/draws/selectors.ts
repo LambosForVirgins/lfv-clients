@@ -58,19 +58,3 @@ export const associatedDrawsSelector = selectorFamily<DrawRound[], string>({
       return rounds.filter((round) => round.giveawayId === giveawayId);
     },
 });
-
-export const dailyGiveawayDrawSelector = selector<DrawRound | null>({
-  key: "daily-giveaway-draw-selector",
-  get: ({ get }) => {
-    const draws = get(associatedDrawsSelector("giveaway-bc923fbe"));
-
-    return draws[draws.length - 1] ?? null;
-  },
-  set: ({ set }, newValue) => {
-    if (newValue === null || newValue instanceof DefaultValue) return;
-
-    set(drawRoundsAtom, (prev) => {
-      return [...prev, newValue];
-    });
-  },
-});

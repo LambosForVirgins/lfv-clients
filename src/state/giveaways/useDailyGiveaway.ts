@@ -1,20 +1,24 @@
 import { useCallback, useState } from "react";
 import { enterDraw } from "../draws/functions";
-import { DrawEntry } from "../types";
+import { DrawEntry, DrawStatus } from "../types";
 import { useRecoilValue } from "recoil";
-import { dailyGiveawayDrawSelector } from "../draws/selectors";
+import { associatedDrawsSelector } from "../draws/selectors";
+import { DAILY_GIVEAWAY_ID } from "./mocks";
 
 export const useDailyGiveaway = () => {
   const [errors, setErrors] = useState<string[]>([]);
   const [pending, setPending] = useState(false);
-  const draw = useRecoilValue(dailyGiveawayDrawSelector);
+  const draws = useRecoilValue(associatedDrawsSelector(DAILY_GIVEAWAY_ID));
+
+  const currentDraw =
+    draws.find((draw) => draw.status === DrawStatus.Open) ?? null;
 
   const enterCurrentDraw = useCallback(
     async (details: DrawEntry) => {
-      if (!draw) return;
+      if (!currentDraw) return;
       setPending(true);
       try {
-        const result = await enterDraw(draw.id, details);
+        const result = await enterDraw(currentDraw.id, details);
 
         if (result.error) {
           throw new Error(result.error);
@@ -28,13 +32,13 @@ export const useDailyGiveaway = () => {
         throw err;
       }
     },
-    [draw, errors]
+    [currentDraw, errors]
   );
 
   return {
     errors,
     pending,
-    draw,
+    draw: currentDraw,
     enterDraw: enterCurrentDraw,
   };
 };

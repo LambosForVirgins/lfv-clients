@@ -31,7 +31,6 @@ export type DrawRecord = {
   timeOpens: number;
   timeCloses: number;
   timeDraws: number;
-  price: number;
   seed: string | null;
   winner: number | null;
   status: DrawStatus;
@@ -42,6 +41,7 @@ export type DrawRecord = {
 export type DrawRound = DrawRecord & {
   seed: null;
   winner: null;
+  giveawayId: string;
 };
 
 export type DrawResult = DrawRecord & {
