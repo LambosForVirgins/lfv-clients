@@ -5,10 +5,11 @@ import {
   TOKEN_PROGRAM_ID,
 } from "@solana/spl-token";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { MINT } from "@/utils/locker/constants";
 import { ASSOCIATED_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
+import { UNSAFE_requestTokenMint } from "@/utils/transactions/UNSAFE_requestTokenMint";
 
 export const useTokenMint = () => {
   const { connection } = useConnection();
@@ -36,7 +37,17 @@ export const useTokenMint = () => {
     });
   }, [publicKey]);
 
+  const requestTokens = useCallback(
+    async (amount: number) => {
+      if (!publicKey) return;
+
+      return UNSAFE_requestTokenMint(publicKey, amount);
+    },
+    [publicKey]
+  );
+
   return {
     balance,
+    requestTokens,
   };
 };
