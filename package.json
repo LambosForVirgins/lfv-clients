@@ -20,6 +20,7 @@
     "@raydium-io/raydium-sdk-v2": "^0.1.92-alpha",
     "@sentry/react": "^8.48.0",
     "@solana/pay": "^0.2.5",
+    "@solana/spl-token": "^0.4.9",
     "@solana/wallet-adapter-react": "^0.15.35",
     "@solana/wallet-adapter-react-ui": "^0.9.35",
     "@solana/wallet-adapter-wallets": "^0.19.32",

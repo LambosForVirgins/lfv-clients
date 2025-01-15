@@ -2752,7 +2752,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@solana/spl-token@npm:^0.4.8":
+"@solana/spl-token@npm:^0.4.8, @solana/spl-token@npm:^0.4.9":
   version: 0.4.9
   resolution: "@solana/spl-token@npm:0.4.9"
   dependencies:
@@ -9587,6 +9587,7 @@ __metadata:
     "@sentry/react": "npm:^8.48.0"
     "@sentry/vite-plugin": "npm:^2.22.7"
     "@solana/pay": "npm:^0.2.5"
+    "@solana/spl-token": "npm:^0.4.9"
     "@solana/wallet-adapter-react": "npm:^0.15.35"
     "@solana/wallet-adapter-react-ui": "npm:^0.9.35"
     "@solana/wallet-adapter-wallets": "npm:^0.19.32"
