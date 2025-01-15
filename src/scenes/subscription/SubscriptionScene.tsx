@@ -27,15 +27,12 @@ export const SubscriptionScene = ({
       )}
       <MembershipSell testID={`${testID}.promo`} />
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <h2>Cancellation</h2>
-        <p>No longer want to be a member?</p>
+        <h3>Membership not for you?</h3>
         <p>
           Cancelling your subscription unlocks your tokens for withdrawal after
-          the next subscription cycle.
-        </p>
-        <p>
-          You won't be rewarded with entries and will no longer have access to
-          member benefits.
+          the next subscription cycle. You will no longer be rewarded with
+          entries and will lose access to member benefits after the next
+          subscription cycle.
         </p>
         <Button
           testID={`${testID}.cancel`}

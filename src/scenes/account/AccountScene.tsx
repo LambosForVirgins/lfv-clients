@@ -71,17 +71,36 @@ export const AccountScene = ({
         </p>
         <p>Number of reward cycles {outstandingEpochs}</p>
         <p>Number of outstanding rewards {outstandingRewards}</p>
-        <Button testID={`${testID}.claim`} disabled={pending} onClick={claim}>
-          Claim
+        <Button
+          testID={`${testID}.claim`}
+          size={"small"}
+          disabled={pending}
+          onClick={claim}
+        >
+          Claim rewards
         </Button>
       </div>
       <div>
         <h2>Status</h2>
         {member && <p>Status {statusToString(member.status)}</p>}
-        <h3>Self exclusion</h3>
-        <Button testID={`${testID}.exclude`} onClick={selfExcludeMember}>
-          Exclude
-        </Button>
+        {isEnabled("self_exclude") && (
+          <div>
+            <h2>Problems with addiction?</h2>
+            <p>
+              If you're experiencing issues with addiction, we're here to help.
+              Self-exclusion prevents your account from giveaway eligibility and
+              ceases all entry rewards. This action is irreversible and you will
+              not be able to restore your account once excluded.
+            </p>
+            <Button
+              testID={`${testID}.exclude`}
+              size={"small"}
+              onClick={selfExcludeMember}
+            >
+              Self exclude
+            </Button>
+          </div>
+        )}
       </div>
       {someEnabled("transactions", "events", "partners") && (
         <div className={styles.body}>
