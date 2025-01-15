@@ -1,0 +1,8 @@
+.frame {
+    grid-column: content;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    /* ! Remove this! */
+    padding: var(--size-900) 0px;
+}

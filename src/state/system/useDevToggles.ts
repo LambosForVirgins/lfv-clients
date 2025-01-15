@@ -14,6 +14,8 @@ const initialKeys = {
   transactions: false,
   footer: false,
   disclaimers: false,
+  subscription_slider: false,
+  previous_giveaways: false,
 };
 
 const toBoolean = (value: string | null, defaultValue: boolean): boolean => {

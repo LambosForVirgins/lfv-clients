@@ -5,6 +5,7 @@ import styles from "./GiveawaysScene.module.css";
 import { useMembership } from "@/hooks/useMembership";
 import { DailyEntrySlider } from "@/components/DailyEntrySlider/DailyEntrySlider";
 import { lamportsToMint } from "@/utils/locker/constants";
+import { useDevToggles } from "@/state/system/useDevToggles";
 
 const HEADLINES = [
   "Daily Giveaway!",
@@ -26,6 +27,7 @@ export const GiveawaysScene = ({
 }: Readonly<Partial<Common.ComponentProps>>) => {
   const { giveaways, currentDraw } = useGiveaways();
   const { member } = useMembership();
+  const { isEnabled } = useDevToggles();
 
   return (
     <div data-testid={testID} className={styles.frame}>
@@ -64,9 +66,11 @@ export const GiveawaysScene = ({
           />
         ))}
       </div>
-      <div>
-        <h2>Previous Giveaways</h2>
-      </div>
+      {isEnabled("previous_giveaways") && (
+        <div>
+          <h2>Previous Giveaways</h2>
+        </div>
+      )}
     </div>
   );
 };

@@ -19,7 +19,7 @@ export const useDepositTokens = () => {
       );
 
       try {
-        await sendTransaction(transaction, connection)
+        return await sendTransaction(transaction, connection)
           .then((result) => console.log("Result", result))
           .catch((err) => console.log("err", err));
       } catch (error) {

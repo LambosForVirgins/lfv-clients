@@ -7,6 +7,8 @@ import { validateEntryCriteria } from "@/utils/entry-criteria/validateEntryCrite
 import { useNavigate } from "react-router";
 import { Button } from "@/elements";
 import { ButtonVariant } from "@/elements/Button/Button";
+import { useDepositTokens } from "@/hooks/useTransferTokens";
+import { useCallback, useState } from "react";
 
 interface RewardCardProps extends Common.ComponentProps {
   giveawayId: string;
@@ -32,18 +34,28 @@ export const GiveawayCard = ({
 }: RewardCardProps) => {
   const { errors } = validateEntryCriteria(constraints, memberBalance);
   const navigate = useNavigate();
+  const { depositTokens } = useDepositTokens();
+  const [loading, setLoading] = useState(false);
 
   const enterGiveaway = async () => {
-    console.log("Entering giveaway");
+    alert("Entering giveaway");
   };
 
   const isDisabled = errors.length > 0;
 
+  const amountToAdd = constraints?.minBalance
+    ? constraints.minBalance - memberBalance
+    : 0;
+
   const showMoreInformation = () => navigate(`/giveaways/${props.giveawayId}`);
 
-  const stakeMoreTokens = () => {
-    console.log("Should stake more");
-  };
+  const stakeMoreTokens = useCallback(async () => {
+    setLoading(true);
+    const txHash = await depositTokens(amountToAdd);
+    // ! Don't do this in the component. It should be dumber
+    // await connection.confirmTransaction(txHash, "finalized");
+    setLoading(false);
+  }, [amountToAdd]);
 
   const actions: Action[] = [
     {
@@ -53,8 +65,8 @@ export const GiveawayCard = ({
     },
     isDisabled
       ? {
-          label: "Stake more",
-          disabled: false,
+          label: `Deposit more`,
+          disabled: loading,
           onClick: stakeMoreTokens,
         }
       : {
