@@ -6,11 +6,11 @@ import { useRecoilValue } from "recoil";
 export const useAuthentication = () => {
   const { connected, publicKey } = useWallet();
 
-  const memberState = useRecoilValue(memberAuthorizedSelector(publicKey));
+  const isAuthorized = useRecoilValue(memberAuthorizedSelector(publicKey));
 
   const authenticated = useMemo(() => {
-    return connected && !!memberState;
-  }, [connected, memberState]);
+    return connected && !!isAuthorized;
+  }, [connected, isAuthorized]);
 
   return {
     authenticated,

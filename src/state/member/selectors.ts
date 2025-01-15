@@ -13,7 +13,7 @@ export const memberAuthorizedSelector = selectorFamily<
     (publicKey) =>
     ({ get }) => {
       const member = get(memberAccountAtom(publicKey));
-      return !!member && member.status > MemberStatus.Pending;
+      return !!member;
     },
 });
 
