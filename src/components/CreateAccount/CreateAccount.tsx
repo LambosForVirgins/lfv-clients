@@ -35,6 +35,7 @@ export const CreateAccount = ({ testID, ...props }: CreateAccountProps) => {
         <Button
           testID={`${testID}.connect`}
           disabled={visible}
+          style={{ maxWidth: "200px", alignSelf: "center" }}
           onClick={handleAction}
         >
           {connected && publicKey ? `Create Account` : `Connect wallet`}
