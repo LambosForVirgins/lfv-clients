@@ -31,7 +31,7 @@ export const outstandingRewardEpochsSelector = selectorFamily<
 
       if (!member) return 0;
 
-      const rewardTime = member.timeRewarded.toNumber() + EPOCH_DURATION;
+      const rewardTime = member.timeRewarded.toNumber() * 1000;
       const timeDifference = Date.now() - rewardTime;
 
       return Math.floor(timeDifference / EPOCH_DURATION);
