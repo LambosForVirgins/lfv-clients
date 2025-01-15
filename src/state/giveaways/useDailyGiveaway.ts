@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import { enterDraw } from "../draws/functions";
 import { DrawEntry, DrawStatus } from "../types";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { associatedDrawsSelector, roundSelector } from "../draws/selectors";

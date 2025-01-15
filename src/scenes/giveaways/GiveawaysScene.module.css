@@ -1,14 +1,13 @@
 .frame {
     grid-column: content;
     display: grid;
-    gap: 16px;
+    gap: var(--size-500);
 }
 
 .collection {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    padding: 16px;
-    gap: 16px;
+    gap: var(--size-500);
 }
 
 
@@ -19,12 +18,16 @@
 .banner {
     display: grid;
     grid-template-columns: subgrid;
+    /* ! Remove this */
+    padding-top: var(--size-900);
+    text-align: center;
+    gap: var(--size-500);
 
     .promo {
         grid-column: content;
         display: grid;
-        gap: 16px;
-        padding: 16px;
+        gap: var(--size-500);
+        padding: var(--size-500);
         justify-content: center;
     }
 
