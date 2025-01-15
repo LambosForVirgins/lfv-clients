@@ -64,7 +64,11 @@ export const MemberButton = forwardRef<HTMLButtonElement, MemberButtonProps>(
               className={clsx(styles.icon, styles.badge)}
             />
             <span data-testid={`${testID}.content`} className={styles.content}>
-              <span>{formatShortAddress(publicKey?.toBase58())}</span>
+              <span>
+                {member?.totalEntries.toNumber() ||
+                  formatShortAddress(publicKey?.toBase58())}
+              </span>
+              {/* <span>{}</span> */}
               <span className={styles.progress}>
                 <span
                   className={styles.indicator}
