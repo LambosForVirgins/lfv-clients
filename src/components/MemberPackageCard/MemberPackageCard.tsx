@@ -12,6 +12,7 @@ interface MembershipPackageCardProps extends Common.ComponentProps {
    */
   applied?: boolean;
   highlight?: boolean;
+  disabled?: boolean;
   className?: string;
   onClick?: (amount: number) => void;
 }
@@ -60,7 +61,7 @@ export const MemberPackageCard = ({
       </div>
       <Button
         testID={`${testID}.action`}
-        disabled={props.applied}
+        disabled={props.disabled || props.applied}
         onClick={selectMembershipAmount}
       >
         {props.applied ? "Current Plan" : "Select"}

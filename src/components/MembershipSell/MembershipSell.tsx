@@ -4,6 +4,7 @@ import clsx from "classnames";
 import { lamportsToMint } from "@/utils/locker/constants";
 import { MemberTier, MemberTierValues } from "@/state/member/types";
 import { useSubscription } from "@/hooks/useSubscription";
+import { useMembership } from "@/hooks/useMembership";
 
 interface SubscriptionPlansProps extends Common.ComponentProps {}
 
@@ -43,6 +44,7 @@ const tieredPackages = [
 
 export const MembershipSell = ({ testID }: SubscriptionPlansProps) => {
   const { tier, updateTier } = useSubscription();
+  const { member } = useMembership();
 
   const changeMembershipTier = (amount: number) => {
     // This should attempt to deposit or release tokens to meet their desired tier
@@ -61,6 +63,7 @@ export const MembershipSell = ({ testID }: SubscriptionPlansProps) => {
           onClick={changeMembershipTier}
           applied={tier === product.tier}
           highlight={product.highlight}
+          disabled={!member}
         />
       ))}
     </div>
