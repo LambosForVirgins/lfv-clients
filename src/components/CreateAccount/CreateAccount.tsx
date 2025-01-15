@@ -31,7 +31,7 @@ export const CreateAccount = ({ testID, ...props }: CreateAccountProps) => {
 
       {!!status ? (
         <p>Connected</p>
-      ) : balance > 0 ? (
+      ) : !connected || balance > 0 ? (
         <Button
           testID={`${testID}.connect`}
           disabled={visible}
