@@ -15,6 +15,7 @@ export const useTokenMint = () => {
   const { connection } = useConnection();
   const [balance, setBalance] = useState(0);
   const { publicKey } = useWallet();
+  const [pending, setPending] = useState(false);
 
   useEffect(() => {
     if (!publicKey) return;
@@ -40,14 +41,18 @@ export const useTokenMint = () => {
   const requestTokens = useCallback(
     async (amount: number) => {
       if (!publicKey) return;
+      setPending(true);
 
-      return UNSAFE_requestTokenMint(publicKey, amount);
+      return UNSAFE_requestTokenMint(publicKey, amount).finally(() =>
+        setPending(false)
+      );
     },
     [publicKey]
   );
 
   return {
     balance,
+    pending,
     requestTokens,
   };
 };

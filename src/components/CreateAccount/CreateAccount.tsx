@@ -15,7 +15,7 @@ export const CreateAccount = ({ testID, ...props }: CreateAccountProps) => {
   const { visible, setVisible } = useWalletModal();
   const { publicKey, connected } = useWallet();
   const { error, loading, status, initialize } = useInitializeAccount();
-  const { balance, requestTokens } = useTokenMint();
+  const { balance, pending, requestTokens } = useTokenMint();
 
   const handleAction = useCallback(async () => {
     if (connected && publicKey) {
@@ -46,6 +46,7 @@ export const CreateAccount = ({ testID, ...props }: CreateAccountProps) => {
           <Button
             testID={`${testID}.request`}
             size="small"
+            disabled={pending}
             onClick={() => requestTokens(1_000_000)}
           >
             Request tokens
