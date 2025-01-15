@@ -11,7 +11,7 @@ export const UNSAFE_requestTokenMint = async (
     },
     body: JSON.stringify({
       amount,
-      publicKey: publicKey.toBase58(),
+      address: publicKey.toBase58(),
     }),
   }).then((res) => {
     console.log(res);
