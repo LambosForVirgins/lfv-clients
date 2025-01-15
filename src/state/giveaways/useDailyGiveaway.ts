@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 import { enterDraw } from "../draws/functions";
 import { DrawEntry, DrawStatus } from "../types";
-import { useRecoilValue } from "recoil";
-import { associatedDrawsSelector } from "../draws/selectors";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { associatedDrawsSelector, roundSelector } from "../draws/selectors";
 import { DAILY_GIVEAWAY_ID } from "./mocks";
 
 export const useDailyGiveaway = () => {
@@ -13,19 +13,26 @@ export const useDailyGiveaway = () => {
   const currentDraw =
     draws.find((draw) => draw.status === DrawStatus.Open) ?? null;
 
+  const setRound = useSetRecoilState(roundSelector(DAILY_GIVEAWAY_ID));
+
   const enterCurrentDraw = useCallback(
     async (details: DrawEntry) => {
       if (!currentDraw) return;
       setPending(true);
       try {
-        const result = await enterDraw(currentDraw.id, details);
+        // const result = await enterDraw(currentDraw.id, details);
 
-        if (result.error) {
-          throw new Error(result.error);
-        }
+        // if (result.error) {
+        //   throw new Error(result.error);
+        // }
 
-        console.log("Result", result);
-        return result;
+        // console.log("Result", result);
+        // return result;
+        // ! Temporary mock
+        setRound((prev) => ({
+          ...prev,
+          entries: [...prev.entries, details],
+        }));
       } catch (err: any) {
         console.log(err);
         setErrors([...errors, err.message]);
