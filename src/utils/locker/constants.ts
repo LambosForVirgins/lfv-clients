@@ -19,6 +19,8 @@ export enum SeedKey {
   VaultTokenAccount = "vault_token_account",
 }
 
+export const EPOCH_DURATION = 600 * 1000; // (86400 / 4) * 1000;
+
 export const API_ENDPOINT = new URL("http://localhost:3000/api/");
 
 export const getApiEndpoint = (path: string = ""): URL => {

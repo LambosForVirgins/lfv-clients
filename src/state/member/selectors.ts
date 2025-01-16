@@ -2,7 +2,7 @@ import { selectorFamily } from "recoil";
 import { memberAccountAtom } from "./atoms";
 import { PublicKey } from "@solana/web3.js";
 import { MemberStatus } from "./types";
-import { lamportsToMint } from "@/utils/locker/constants";
+import { EPOCH_DURATION, lamportsToMint } from "@/utils/locker/constants";
 
 export const memberAuthorizedSelector = selectorFamily<
   boolean,
@@ -16,8 +16,6 @@ export const memberAuthorizedSelector = selectorFamily<
       return !!member;
     },
 });
-
-const EPOCH_DURATION = (86400 / 4) * 1000;
 
 export const outstandingRewardEpochsSelector = selectorFamily<
   number,
