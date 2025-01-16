@@ -1,3 +1,23 @@
 .frame {
     grid-column: content;
 }
+
+.content {
+    background-color: white;
+    border-radius: var(--size-500) var(--size-500) 0 0;
+    padding: var(--size-500);
+
+    ul {
+        display: grid;
+        gap: var(--size-100);
+        padding: var(--size-100);
+        margin: 0;
+        list-style: none;
+    }
+
+    .draw {
+        background-color: rgba(245, 245, 247);
+        border-radius: var(--size-100);
+        padding: var(--size-300);
+    }
+}

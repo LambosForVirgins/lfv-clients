@@ -1,4 +1,4 @@
-import { forwardRef, useMemo } from "react";
+import { forwardRef, useCallback, useMemo } from "react";
 import styles from "./MemberButton.module.css";
 import clsx from "classnames";
 import { Popover } from "../Popover/Popover";
@@ -9,6 +9,11 @@ import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 interface MemberButtonProps extends Common.ComponentProps {
   className?: string;
   onClick?: () => void;
+}
+
+enum MemberWalletStatus {
+  Disconnected = 0,
+  Connected,
 }
 
 const formatShortAddress = (address: string | undefined | null) => {
@@ -37,6 +42,22 @@ export const MemberButton = forwardRef<HTMLButtonElement, MemberButtonProps>(
       );
     }, [member, publicKey]);
 
+    const status = useMemo(() => {
+      if (connected) return MemberWalletStatus.Connected;
+
+      return MemberWalletStatus.Disconnected;
+    }, [connected]);
+
+    const handleAction = useCallback(() => {
+      switch (status) {
+        case MemberWalletStatus.Disconnected:
+          setVisible(true);
+          break;
+        default:
+          break;
+      }
+    }, [status]);
+
     return (
       <button
         {...props}
@@ -45,26 +66,9 @@ export const MemberButton = forwardRef<HTMLButtonElement, MemberButtonProps>(
         data-testid={testID}
         className={clsx(props.className, styles.frame)}
         disabled={visible}
-        onClick={
-          connected
-            ? undefined
-            : () => {
-                setVisible(true);
-                // TODO: Should have a wallet selection step, or present the modal
-                // const phantomWallet = wallets
-                //   .filter((wallet) => wallet.readyState === "Installed")
-                //   .map((wallet) => wallet.adapter.name)
-                //   .find((name) => name.match(/Phantom/gi));
-                // if (phantomWallet) {
-                //   select(phantomWallet);
-                //   connect().catch(() => {
-                //     // Silently catch because any errors are caught by the context `onError` handler
-                //   });
-                // }
-              }
-        }
+        onClick={handleAction}
       >
-        {connected ? (
+        {status === MemberWalletStatus.Connected ? (
           <>
             <span
               data-testid={`${testID}.badge`}
@@ -93,7 +97,7 @@ export const MemberButton = forwardRef<HTMLButtonElement, MemberButtonProps>(
             />
           </>
         ) : (
-          <span className={styles.content}>Connect</span>
+          <span className={styles.content}>Connect wallet</span>
         )}
       </button>
     );

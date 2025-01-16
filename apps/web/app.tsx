@@ -14,6 +14,7 @@ import { withAuthenticated } from "@/components/RouteGuard/withAuthenticated";
 import { LandingScene } from "@/scenes/landing/LandingScene";
 import { GiveawaysScene } from "@/scenes/giveaways/GiveawaysScene";
 import { PromotionalScene } from "@/scenes/promos/PromotionalScene";
+import { ProductScene } from "@/scenes/product/ProductScene";
 
 // export async function generateMetadata({
 //   params: { locale },
@@ -65,6 +66,10 @@ export const App = () => (
         <Page path={"events"} Component={withAuthenticated(EventsScene)} />
         <Page path={"partners"} Component={withAuthenticated(PartnersScene)} />
         <Page path={"store"} Component={withAuthenticated(StoreScene)} />
+        <Page
+          path={"store/:product"}
+          Component={withAuthenticated(ProductScene)}
+        />
         <Page path={"treasury/*"}>
           <Page path={"vesting"} Component={TreasuryScene} />
         </Page>

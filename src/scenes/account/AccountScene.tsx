@@ -44,14 +44,18 @@ export const AccountScene = ({
           <p>
             Locked tokens {lamportsToMint(member.totalAmount).toNumber()} VIRGIN
           </p>
-          <p>
-            Matured tokens {lamportsToMint(member.totalMatured).toNumber()}{" "}
-            VIRGIN
-          </p>
-          <p>
-            Unlocked tokens {lamportsToMint(member.totalPending).toNumber()}{" "}
-            VIRGIN
-          </p>
+          {isEnabled("balance_details") && (
+            <p>
+              Matured tokens {lamportsToMint(member.totalMatured).toNumber()}{" "}
+              VIRGIN
+            </p>
+          )}
+          {isEnabled("balance_details") && (
+            <p>
+              Unlocked tokens {lamportsToMint(member.totalPending).toNumber()}{" "}
+              VIRGIN
+            </p>
+          )}
           <p>
             Next unlock{" "}
             {new Date(
@@ -74,7 +78,7 @@ export const AccountScene = ({
         <Button
           testID={`${testID}.claim`}
           size={"small"}
-          disabled={pending}
+          disabled={pending || outstandingRewards === 0}
           onClick={claim}
         >
           Claim rewards

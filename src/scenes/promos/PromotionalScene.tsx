@@ -7,6 +7,24 @@ import { format } from "date-fns/format";
 import { isFuture } from "date-fns/isFuture";
 import { DrawStatus } from "@/state/types";
 import { useParams } from "react-router";
+import { DrawRound } from "../../state/types";
+
+export const DrawHistory = ({
+  testID,
+  ...props
+}: Common.ComponentProps & { draws: DrawRound[] }) => {
+  return (
+    <ul data-testid={testID}>
+      {props.draws.map((draw) => (
+        <li key={draw.id} className={styles.draw}>
+          <h2>{draw.status}</h2>
+          <p>opens: {format(draw.timeOpens, "yyyy")}</p>
+          <p>{isFuture(draw.timeOpens) ? "Coming soon" : "Closed"}</p>
+        </li>
+      ))}
+    </ul>
+  );
+};
 
 export const PromotionalScene = ({
   testID = "promo",
@@ -20,20 +38,12 @@ export const PromotionalScene = ({
 
   return (
     <div data-testid={testID} className={styles.frame}>
+      <h1 className="text-2xl">{giveaway?.title}</h1>
       {currentDraw?.status === DrawStatus.Open && (
         <DrawMachine testID={`${testID}.draw`} drawId={currentDraw.id} />
       )}
-      <div data-testid={`${testID}.feature`}>
-        <h1 className="text-2xl">{giveaway?.title}</h1>
-        <ul>
-          {draws.map((draw) => (
-            <li key={draw.id}>
-              <h2>{draw.status}</h2>
-              <p>opens: {format(draw.timeOpens, "yyyy")}</p>
-              <p>{isFuture(draw.timeOpens) ? "Coming soon" : "Closed"}</p>
-            </li>
-          ))}
-        </ul>
+      <div data-testid={`${testID}.feature`} className={styles.content}>
+        <DrawHistory testID={`${testID}.draws`} draws={draws} />
       </div>
     </div>
   );

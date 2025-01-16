@@ -18,6 +18,7 @@ const initialKeys = {
   previous_giveaways: false,
   market_cap: false,
   self_exclude: false,
+  balance_details: false,
 };
 
 const toBoolean = (value: string | null, defaultValue: boolean): boolean => {
