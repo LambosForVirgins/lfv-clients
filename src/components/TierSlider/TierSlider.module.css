@@ -2,5 +2,22 @@
     display: flex;
     align-items: center;
     position: relative;
-    outline: 2px solid red;
+
+    input {
+        position: absolute;
+        width: 100%;
+        appearance: none;
+        background: transparent;
+        pointer-events: all;
+        z-index: 1;
+    }
+
+    .player {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 2;
+        width: 100px;
+        height: 100px;
+    }
 }

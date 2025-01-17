@@ -12,7 +12,7 @@ export const UpgradeSlider = ({ testID, ...props }: SubscriptionTierSlider) => {
 
   useEffect(() => {
     const loadAnimation = async () => {
-      const data = await import("../../../public/lottie/test.json");
+      const data = await import("../../../public/lottie/evolution.json");
       setAnimationData(data.default || data);
     };
 
