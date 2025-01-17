@@ -12,6 +12,7 @@ export const useDepositTokens = () => {
   const depositTokens = useCallback(
     async (amount: number) => {
       if (!publicKey || amount <= 0) return;
+      console.log("depositTokens", amount);
       const transaction = await getDepositTokensTransaction(
         connection,
         publicKey,

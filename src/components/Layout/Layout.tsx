@@ -6,6 +6,7 @@ import { Footer } from "../Footer/Footer";
 import { Disclaimers } from "../Disclaimers/Disclaimers";
 import styles from "./Layout.module.less";
 import { useDevToggles } from "@/state/system/useDevToggles";
+import { Overlay } from "@/elements/Overlay/Overlay";
 
 export const Layout = ({
   testID = "layout",
@@ -17,6 +18,17 @@ export const Layout = ({
       <div data-testid={`${testID}.header`} className={styles.header}>
         <Header testID={`header`} />
       </div>
+
+      <Overlay testID={`${testID}.overlay`} id="overlay">
+        <div>
+          <ul>
+            <li>Notification 1</li>
+          </ul>
+        </div>
+      </Overlay>
+      <button popoverTarget={"overlay"} popoverTargetAction="show">
+        Start
+      </button>
       <section data-testid={`${testID}.content`} className={styles.main}>
         <ErrorBoundary fallback={<h1>Error</h1>}>{children}</ErrorBoundary>
       </section>

@@ -2,7 +2,6 @@ import { Button } from "@/elements";
 import { useDevToggles } from "@/state/system/useDevToggles";
 import styles from "./AccountScene.module.css";
 import { useMembership } from "@/hooks/useMembership";
-import { lamportsToMint } from "@/utils/locker/constants";
 import { statusToString, tierToString } from "@/utils/tiers/formatters";
 import { useClaimRewards } from "@/hooks/useClaimRewards";
 import { useRecoilValue } from "recoil";
@@ -10,8 +9,10 @@ import { outstandingRewardsSelector } from "@/state/member/selectors";
 import { outstandingRewardEpochsSelector } from "../../state/member/selectors";
 import { useUpdateStatus } from "@/hooks/useUpdateStatus";
 import { MemberStatus } from "@/state/member/types";
-
-const EPOCH_DURATION = 3000;
+import { isPast } from "date-fns/isPast";
+import { EPOCH_DURATION } from "@/utils/locker/constants";
+import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
+import { TransactionItem } from "@/components/TransactionItem/TransactionItem";
 
 export const AccountScene = ({
   testID = "account",
@@ -38,39 +39,97 @@ export const AccountScene = ({
       <h1>Account</h1>
       {isEnabled("breakdown") && member && (
         <div data-testid={`${testID}.breakdown`}>
-          <h2>All about your membership here</h2>
-          <p>Tier {tierToString(member.tier)}</p>
-          <p>Entries accrued {member.totalEntries.toNumber()}</p>
+          <p>{tierToString(member.tier)}</p>
           <p>
-            Locked tokens {lamportsToMint(member.totalAmount).toNumber()} VIRGIN
+            Member since {formatDistanceToNowStrict(member.timeCreated)} ago
           </p>
+          <p>Entries accrued {member.totalEntries.toLocaleString()}</p>
+          <p>Locked tokens {member.totalAmount.toLocaleString()} VIRGIN</p>
           {isEnabled("balance_details") && (
-            <p>
-              Matured tokens {lamportsToMint(member.totalMatured).toNumber()}{" "}
-              VIRGIN
-            </p>
+            <p>Matured tokens {member.totalMatured.toLocaleString()} VIRGIN</p>
           )}
           {isEnabled("balance_details") && (
-            <p>
-              Unlocked tokens {lamportsToMint(member.totalPending).toNumber()}{" "}
-              VIRGIN
-            </p>
+            <p>Unlocked tokens {member.totalPending.toLocaleString()} VIRGIN</p>
           )}
           <p>
-            Next unlock{" "}
-            {new Date(
-              member.timeRewarded.toNumber() * 1000 + EPOCH_DURATION
-            ).toLocaleString()}
+            Next reward{" "}
+            {member.timeRewarded &&
+              new Date(
+                member.timeRewarded.getTime() + EPOCH_DURATION
+              ).toLocaleString()}
           </p>
+          <h2>Transaction backlog</h2>
+          <p>
+            {`Tokens are required to complete the subscription cycle of ${formatDistanceToNowStrict(Date.now() + EPOCH_DURATION)} in order to honour the benefits and rewards granted on them.`}
+          </p>
+          <p>
+            This cooling period requires that token deposits must mature before
+            they are eligible for withdraw, where they must complete the cycle
+            before release.
+          </p>
+          <div className={styles.list}>
+            <h4 className={styles.header}>Today</h4>
+            <ul className={styles.transactions}>
+              {member.slots.length === 0 ? (
+                <div
+                  style={{
+                    gridColumn: "span 4",
+                    textAlign: "center",
+                    padding: "var(--size-500)",
+                  }}
+                >
+                  Nah you're cool - there's no pending deposits or withdrawals
+                </div>
+              ) : (
+                member.slots.map((slot) => {
+                  return slot.type === "deposit" ? (
+                    <TransactionItem
+                      key={slot.key}
+                      testID={`${testID}.slot`}
+                      type={"deposit"}
+                      amount={slot.amount}
+                      targetDate={slot.timeMatured}
+                      timeCreated={slot.timeCreated}
+                      onClaim={claim}
+                    />
+                  ) : (
+                    <li key={slot.key}>
+                      <span>
+                        <img alt="Unlock icon" />
+                      </span>
+                      <span className={styles.details}>
+                        <span className={styles.amount}>
+                          {slot.amount.toLocaleString()} VIRGIN
+                        </span>
+                        <span className={styles.time}>
+                          {slot.timeReleased.toLocaleString()}
+                        </span>
+                      </span>
+                      <span>
+                        <Button
+                          testID={`${testID}.withdraw`}
+                          size={"small"}
+                          disabled={isPast(slot.timeReleased)}
+                        >
+                          {isPast(slot.timeReleased) ? "Pending" : "Withdraw"}
+                        </Button>
+                      </span>
+                    </li>
+                  );
+                })
+              )}
+            </ul>
+            <h4 className={styles.header}>4 Feb 2025</h4>
+          </div>
         </div>
       )}
       <div>
         <h2>Claim rewards</h2>
         <p>
           Next reward cycle{" "}
-          {member &&
+          {member?.timeRewarded &&
             new Date(
-              member.timeRewarded.toNumber() * 1000 + EPOCH_DURATION
+              member.timeRewarded.getTime() + EPOCH_DURATION
             ).toLocaleString()}
         </p>
         <p>Number of reward cycles {outstandingEpochs}</p>

@@ -3,9 +3,11 @@ import { AtomEffect } from "recoil";
 import { MemberAccountStruct, program } from "@/utils/locker/setup";
 import { getConnection } from "@/utils/locker/constants";
 import { PDA } from "@/utils/locker";
+import { Member } from "./types";
+import { mapMemberFromStruct } from "./utils";
 
 export const effectMemberAccountSubscription =
-  (publicKey: PublicKey | null): AtomEffect<MemberAccountStruct | null> =>
+  (publicKey: PublicKey | null): AtomEffect<Member | null> =>
   ({ trigger, setSelf }) => {
     if (!publicKey) return;
 
@@ -16,7 +18,8 @@ export const effectMemberAccountSubscription =
     if (trigger === "get") {
       program.account.memberAccount
         .fetch(accountPDA)
-        .then(setSelf) // TODO: Remap the member data into a generic app member
+        .then(mapMemberFromStruct)
+        .then(setSelf)
         .catch((error) => {
           console.error(
             `Error fetching member account "${accountPDA.toBase58()}"`,
@@ -25,11 +28,11 @@ export const effectMemberAccountSubscription =
         });
       // Subscribe to member account changes and update the member state
       subscriptionId = connection.onAccountChange(accountPDA, (info) => {
-        const member = program.coder.accounts.decode<MemberAccountStruct>(
+        const memberStruct = program.coder.accounts.decode<MemberAccountStruct>(
           "MemberAccount",
           info.data
         );
-        setSelf(member); // TODO: Remap the member data into a generic app member
+        setSelf(mapMemberFromStruct(memberStruct));
       });
     }
 

@@ -4,7 +4,6 @@ import { useGiveaways } from "@/state/giveaways/useGiveaways";
 import styles from "./GiveawaysScene.module.css";
 import { useMembership } from "@/hooks/useMembership";
 import { DailyEntrySlider } from "@/components/DailyEntrySlider/DailyEntrySlider";
-import { lamportsToMint } from "@/utils/locker/constants";
 import { useDevToggles } from "@/state/system/useDevToggles";
 
 const HEADLINES = [
@@ -58,10 +57,7 @@ export const GiveawaysScene = ({
             giveawayId={promo.id}
             label={promo.title}
             description={promo.description}
-            memberBalance={
-              member?.totalAmount &&
-              lamportsToMint(member?.totalAmount).toNumber()
-            }
+            memberBalance={member?.totalAmount}
             constraints={promo.constraints}
           />
         ))}

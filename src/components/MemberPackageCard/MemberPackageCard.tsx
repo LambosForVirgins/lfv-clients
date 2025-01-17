@@ -12,6 +12,7 @@ interface MembershipPackageCardProps extends Common.ComponentProps {
    */
   applied?: boolean;
   highlight?: boolean;
+  selected?: boolean;
   disabled?: boolean;
   className?: string;
   onClick?: (amount: number) => void;

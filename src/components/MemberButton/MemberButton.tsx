@@ -29,17 +29,12 @@ export const MemberButton = forwardRef<HTMLButtonElement, MemberButtonProps>(
 
     const progress = useMemo(() => {
       if (!member?.totalAmount) return 0;
-      // TODO: Use native BN functions. Debug why BN functions like div() are not working
-      const maturity =
-        member.totalMatured.toNumber() / member.totalAmount.toNumber();
+      const maturity = member.totalMatured / member.totalAmount;
       return maturity * 100;
     }, [member]);
 
     const labelText = useMemo(() => {
-      return (
-        member?.totalEntries.toNumber() ||
-        formatShortAddress(publicKey?.toBase58())
-      );
+      return member?.totalEntries || formatShortAddress(publicKey?.toBase58());
     }, [member, publicKey]);
 
     const status = useMemo(() => {

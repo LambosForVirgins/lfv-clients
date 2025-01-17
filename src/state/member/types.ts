@@ -1,9 +1,9 @@
 export enum MemberTierValues {
   Pending = 1,
-  Virgin = 3_000_000_000_000,
-  Super = 100_000_000_000_000,
-  Mega = 2_000_000_000_000_000,
-  Giga = 5_000_000_000_000_000,
+  Virgin = 3000,
+  Super = 100_000,
+  Mega = 2_000_000,
+  Giga = 5_000_000,
 }
 
 export enum MemberTier {
@@ -21,3 +21,30 @@ export enum MemberStatus {
   Excluded,
   Suspended,
 }
+
+export type Transaction =
+  | {
+      key: string;
+      type: "withdraw";
+      amount: number;
+      timeReleased: Date;
+    }
+  | {
+      key: string;
+      type: "deposit";
+      amount: number;
+      timeCreated: Date;
+      timeMatured: Date;
+    };
+
+export type Member = {
+  status: MemberStatus;
+  tier: MemberTier;
+  totalAmount: number;
+  totalMatured: number;
+  totalPending: number;
+  totalEntries: number;
+  timeCreated: Date;
+  timeRewarded: Date | null;
+  slots: Transaction[];
+};
