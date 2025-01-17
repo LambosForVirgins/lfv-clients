@@ -1,41 +1,46 @@
 import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
-import { ProgressIndicator } from "../ProgressIndicator/ProgressIndicator";
 import styles from "./TransactionItem.module.css";
 import { Button } from "@/elements";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useCountdown } from "@/hooks/useCountdown";
+import { CircularProgress } from "../CircularIndicator/CircularIndicator";
 
 interface TransactionItemProps extends Common.ComponentProps {
-  type: "deposit" | "withdraw";
   amount: number;
   targetDate: Date;
-  timeCreated: Date;
+  startDate?: Date;
   onClaim: () => void;
 }
 
-export const TransactionItem = ({ testID, ...props }: TransactionItemProps) => {
-  const [timeString, setTimeString] = useState<string>("");
+export const TransactionItem = ({
+  testID,
+  startDate = new Date(),
+  ...props
+}: TransactionItemProps) => {
+  const [timeString, setTimeString] = useState<string>("Pending");
   const { progress } = useCountdown({
-    startDate: props.type === "deposit" ? props.timeCreated : new Date(),
+    startDate,
     targetDate: props.targetDate,
   });
 
   useEffect(() => {
-    if (progress >= 1) setTimeString("Matured");
-
-    setTimeString(`${formatDistanceToNowStrict(props.targetDate)} remaining`);
+    if (progress >= 1) {
+      setTimeString("Fully matured");
+    } else {
+      setTimeString(`${formatDistanceToNowStrict(props.targetDate)} remaining`);
+    }
   }, [progress]);
 
   return (
     <li data-testid={testID} className={styles.frame}>
+      <CircularProgress percentage={progress} size={46} strokeWidth={6} />
       <span>
-        <img alt="Lock icon" />
+        <div className={styles.amount}>
+          {props.amount.toLocaleString()} VIRGIN
+        </div>
+        <small className={styles.time}>{timeString}</small>
       </span>
-      <span className={styles.amount}>
-        {props.amount.toLocaleString()} VIRGIN
-        <ProgressIndicator testID={`${testID}.progress`} progress={progress} />
-      </span>
-      <span className={styles.time}>{timeString}</span>
+
       <span>
         <Button
           testID={`${testID}.withdraw`}

@@ -15,6 +15,12 @@
     gap: 16px;
 }
 
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-300);
+}
+
 .transactions {
     display: grid;
     gap: var(--size-300);
@@ -25,33 +31,9 @@
         gap: var(--size-100);
     }
 
-    li {
+    .empty {
         grid-column: span 4;
-        display: grid;
-        grid-template-columns: subgrid;
-        border-radius: var(--size-200);
-        padding: var(--size-200);
-        color: rgba(0, 0, 0, 0.75);
-        border: 2px dashed rgba(255, 255, 255, 0.75);
-        background-color: rgba(255, 255, 255, 0.2);
-        transition: background-color 300ms ease-in-out;
-
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.5);
-        }
-
-        img {
-            max-height: 46px;
-            aspect-ratio: 1;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 100vw;
-        }
-
-
-        .amount {
-            font-size: var(--size-700);
-            font-weight: bold;
-            color: var(--black);
-        }
+        text-align: center;
+        padding: var(--size-500);
     }
 }

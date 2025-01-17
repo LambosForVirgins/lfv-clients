@@ -1,5 +1,5 @@
 import { Button } from "@/elements";
-import { useDevToggles } from "@/state/system/useDevToggles";
+import { useDevToggles } from "@/state/application/useDevToggles";
 import styles from "./AccountScene.module.css";
 import { useMembership } from "@/hooks/useMembership";
 import { statusToString, tierToString } from "@/utils/tiers/formatters";
@@ -58,71 +58,45 @@ export const AccountScene = ({
                 member.timeRewarded.getTime() + EPOCH_DURATION
               ).toLocaleString()}
           </p>
-          <h2>Transaction backlog</h2>
-          <p>
-            {`Tokens are required to complete the subscription cycle of ${formatDistanceToNowStrict(Date.now() + EPOCH_DURATION)} in order to honour the benefits and rewards granted on them.`}
-          </p>
-          <p>
-            This cooling period requires that token deposits must mature before
-            they are eligible for withdraw, where they must complete the cycle
-            before release.
-          </p>
-          <div className={styles.list}>
-            <h4 className={styles.header}>Today</h4>
-            <ul className={styles.transactions}>
-              {member.slots.length === 0 ? (
-                <div
-                  style={{
-                    gridColumn: "span 4",
-                    textAlign: "center",
-                    padding: "var(--size-500)",
-                  }}
-                >
-                  Nah you're cool - there's no pending deposits or withdrawals
-                </div>
-              ) : (
-                member.slots.map((slot) => {
-                  return slot.type === "deposit" ? (
-                    <TransactionItem
-                      key={slot.key}
-                      testID={`${testID}.slot`}
-                      type={"deposit"}
-                      amount={slot.amount}
-                      targetDate={slot.timeMatured}
-                      timeCreated={slot.timeCreated}
-                      onClaim={claim}
-                    />
-                  ) : (
-                    <li key={slot.key}>
-                      <span>
-                        <img alt="Unlock icon" />
-                      </span>
-                      <span className={styles.details}>
-                        <span className={styles.amount}>
-                          {slot.amount.toLocaleString()} VIRGIN
-                        </span>
-                        <span className={styles.time}>
-                          {slot.timeReleased.toLocaleString()}
-                        </span>
-                      </span>
-                      <span>
-                        <Button
-                          testID={`${testID}.withdraw`}
-                          size={"small"}
-                          disabled={isPast(slot.timeReleased)}
-                        >
-                          {isPast(slot.timeReleased) ? "Pending" : "Withdraw"}
-                        </Button>
-                      </span>
-                    </li>
-                  );
-                })
-              )}
-            </ul>
-            <h4 className={styles.header}>4 Feb 2025</h4>
-          </div>
         </div>
       )}
+      <h2>Transaction backlog</h2>
+      <p>
+        {`Tokens are required to complete the subscription cycle of ${formatDistanceToNowStrict(Date.now() + EPOCH_DURATION)} in order to honour the benefits and rewards granted on them. This cooling period requires that token deposits must mature before they
+        are eligible for withdraw, where they must complete the cycle before
+        release.`}
+      </p>
+      <div className={styles.list}>
+        <h4 className={styles.header}>Today</h4>
+        <ul className={styles.transactions}>
+          {member?.slots.length === 0 ? (
+            <div className={styles.empty}>
+              Nah you're cool - there's no pending deposits or withdrawals
+            </div>
+          ) : (
+            member?.slots.map((slot) => {
+              return slot.type === "deposit" ? (
+                <TransactionItem
+                  key={slot.key}
+                  testID={`${testID}.deposit`}
+                  amount={slot.amount}
+                  targetDate={slot.timeMatured}
+                  startDate={slot.timeCreated}
+                  onClaim={claim}
+                />
+              ) : (
+                <TransactionItem
+                  key={slot.key}
+                  testID={`${testID}.withdraw`}
+                  amount={0}
+                  targetDate={slot.timeReleased}
+                  onClaim={() => alert("Withdraw tokens back to wallet")}
+                />
+              );
+            })
+          )}
+        </ul>
+      </div>
       <div>
         <h2>Claim rewards</h2>
         <p>

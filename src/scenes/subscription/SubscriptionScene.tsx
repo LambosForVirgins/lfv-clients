@@ -3,7 +3,7 @@ import { MembershipSell } from "@/components/MembershipSell/MembershipSell";
 import { useCancelSubscription } from "@/hooks/useCancelSubscription";
 import { UpgradeSlider } from "@/components/UpgradeSlider/UpgradeSlider";
 import styles from "./SubscriptionScene.module.css";
-import { useDevToggles } from "@/state/system/useDevToggles";
+import { useDevToggles } from "@/state/application/useDevToggles";
 
 export const SubscriptionScene = ({
   testID = "subscription",

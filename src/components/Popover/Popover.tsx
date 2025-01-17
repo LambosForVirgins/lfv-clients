@@ -3,7 +3,7 @@ import "@oddbird/css-anchor-positioning/fn";
 import styles from "./Popover.module.css";
 import { NavLink } from "react-router";
 import React, { useRef } from "react";
-import { useDevToggles } from "@/state/system/useDevToggles";
+import { useDevToggles } from "@/state/application/useDevToggles";
 
 interface PopoverProps extends Common.ComponentProps {
   id: string;

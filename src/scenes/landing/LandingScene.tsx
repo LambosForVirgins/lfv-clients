@@ -4,7 +4,7 @@ import { useMarketCap } from "@/state/marketCap";
 import { ProgressIndicator } from "@/components/ProgressIndicator/ProgressIndicator";
 import styles from "./LandingScene.module.css";
 import { CreateAccount } from "@/components/CreateAccount/CreateAccount";
-import { useDevToggles } from "@/state/system/useDevToggles";
+import { useDevToggles } from "@/state/application/useDevToggles";
 
 const steps = [
   {
