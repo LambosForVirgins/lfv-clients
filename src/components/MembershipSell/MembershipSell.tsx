@@ -1,7 +1,6 @@
 import { MemberPackageCard } from "../MemberPackageCard/MemberPackageCard";
 import styles from "./MembershipSell.module.css";
 import clsx from "classnames";
-import { lamportsToMint } from "@/utils/locker/constants";
 import { MemberTier, MemberTierValues } from "@/state/member/types";
 import { useSubscription } from "@/hooks/useSubscription";
 import { useMembership } from "@/hooks/useMembership";
@@ -58,7 +57,7 @@ export const MembershipSell = ({ testID }: SubscriptionPlansProps) => {
           key={`${product.tier}.${idx}`}
           testID={`${testID}.package`}
           title={product.title}
-          amount={lamportsToMint(product.amount)}
+          amount={product.amount}
           benefits={product.benefits}
           onClick={changeMembershipTier}
           applied={tier === product.tier}

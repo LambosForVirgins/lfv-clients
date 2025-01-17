@@ -22,6 +22,8 @@ export const useClaimRewards = () => {
         (err) => console.log("err", err)
       );
 
+      console.log("Claim TX", txHash);
+
       if (!txHash) return;
 
       await connection.confirmTransaction(txHash, "finalized");

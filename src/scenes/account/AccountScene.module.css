@@ -14,3 +14,26 @@
     text-align: center;
     gap: 16px;
 }
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-300);
+}
+
+.transactions {
+    display: grid;
+    gap: var(--size-300);
+    grid-template-columns: min-content 1fr max-content min-content;
+
+    ul {
+        display: grid;
+        gap: var(--size-100);
+    }
+
+    .empty {
+        grid-column: span 4;
+        text-align: center;
+        padding: var(--size-500);
+    }
+}

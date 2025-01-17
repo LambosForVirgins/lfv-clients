@@ -3,16 +3,20 @@ import BN from "bn.js";
 
 /** Address of the Token Locker Program */
 export const LOCKER_PROGRAM = new PublicKey(
-  "9JuJwm7kUPkCzHikuvMQozfrfbdt5nJZ1Wg9FPcQ4HeX"
+  "D1ZmpHZa291fL44NXE3Fksb7HpzDQer4bX1z8Hw5JeJ5" //"9JuJwm7kUPkCzHikuvMQozfrfbdt5nJZ1Wg9FPcQ4HeX"
 );
 
 export const MINT = new PublicKey(
-  "M1NTCgX3PG6hjpf4RAa7gjGrxz8rv4WeKzpW5cu31f8"
+  "LFVqPrRGnwYdCwFcDzShBxN2GMFmD4AoCMrjxjq4xdz"
 );
 
 export const DECIMALS = 9;
 
-const decimalFactor = new BN(10 ** DECIMALS);
+export const REWARD_FACTOR = 1000;
+
+export const decimalFactor = new BN(10 ** DECIMALS);
+
+export const timeFactor = new BN(1000);
 
 export enum SeedKey {
   MemberAccount = "member_account",

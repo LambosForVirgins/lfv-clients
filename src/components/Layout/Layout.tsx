@@ -5,7 +5,7 @@ import { Subscribe } from "../Subscribe/Subscribe";
 import { Footer } from "../Footer/Footer";
 import { Disclaimers } from "../Disclaimers/Disclaimers";
 import styles from "./Layout.module.less";
-import { useDevToggles } from "@/state/system/useDevToggles";
+import { useDevToggles } from "@/state/application/useDevToggles";
 
 export const Layout = ({
   testID = "layout",
@@ -17,6 +17,7 @@ export const Layout = ({
       <div data-testid={`${testID}.header`} className={styles.header}>
         <Header testID={`header`} />
       </div>
+
       <section data-testid={`${testID}.content`} className={styles.main}>
         <ErrorBoundary fallback={<h1>Error</h1>}>{children}</ErrorBoundary>
       </section>

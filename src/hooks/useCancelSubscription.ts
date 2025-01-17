@@ -1,7 +1,5 @@
 import { memberAccountAtom } from "@/state/member/atoms";
-import { lamportsToMint } from "@/utils/locker/constants";
 import { useWallet } from "@solana/wallet-adapter-react";
-import BN from "bn.js";
 import { useRecoilValue } from "recoil";
 import { useDepositTokens } from "./useTransferTokens";
 import { useState } from "react";
@@ -14,8 +12,8 @@ export const useCancelSubscription = () => {
 
   const cancelSubscription = () => {
     setLoading(true);
-    const currentBalance = member?.totalAmount || new BN(0);
-    withdrawTokens(lamportsToMint(currentBalance).toNumber());
+    const currentBalance = member?.totalAmount || 0;
+    withdrawTokens(currentBalance);
   };
 
   return {

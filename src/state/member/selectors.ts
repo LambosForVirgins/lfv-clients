@@ -1,8 +1,8 @@
 import { selectorFamily } from "recoil";
 import { memberAccountAtom } from "./atoms";
 import { PublicKey } from "@solana/web3.js";
-import { MemberStatus } from "./types";
-import { EPOCH_DURATION, lamportsToMint } from "@/utils/locker/constants";
+import { EPOCH_DURATION, REWARD_FACTOR } from "@/utils/locker/constants";
+import { differenceInMilliseconds } from "date-fns/differenceInMilliseconds";
 
 export const memberAuthorizedSelector = selectorFamily<
   boolean,
@@ -27,12 +27,15 @@ export const outstandingRewardEpochsSelector = selectorFamily<
     ({ get }) => {
       const member = get(memberAccountAtom(publicKey));
 
-      if (!member) return 0;
+      if (member?.timeRewarded) {
+        const timeDifference = differenceInMilliseconds(
+          Date.now(),
+          member.timeRewarded
+        );
+        return Math.floor(timeDifference / EPOCH_DURATION);
+      }
 
-      const rewardTime = member.timeRewarded.toNumber() * 1000;
-      const timeDifference = Date.now() - rewardTime;
-
-      return Math.floor(timeDifference / EPOCH_DURATION);
+      return 0;
     },
 });
 
@@ -49,9 +52,6 @@ export const outstandingRewardsSelector = selectorFamily<
 
       if (!member) return 0;
 
-      return (
-        outstandingEpochs *
-        Math.floor(lamportsToMint(member.totalMatured.toNumber()) / 100)
-      );
+      return (outstandingEpochs * member.totalMatured) / REWARD_FACTOR;
     },
 });
