@@ -9,7 +9,6 @@ import { outstandingRewardsSelector } from "@/state/member/selectors";
 import { outstandingRewardEpochsSelector } from "../../state/member/selectors";
 import { useUpdateStatus } from "@/hooks/useUpdateStatus";
 import { MemberStatus } from "@/state/member/types";
-import { isPast } from "date-fns/isPast";
 import { EPOCH_DURATION } from "@/utils/locker/constants";
 import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
 import { TransactionItem } from "@/components/TransactionItem/TransactionItem";
@@ -88,7 +87,7 @@ export const AccountScene = ({
                 <TransactionItem
                   key={slot.key}
                   testID={`${testID}.withdraw`}
-                  amount={0}
+                  amount={slot.amount}
                   targetDate={slot.timeReleased}
                   onClaim={() => alert("Withdraw tokens back to wallet")}
                 />
