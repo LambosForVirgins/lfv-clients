@@ -19,6 +19,7 @@ const initialKeys = {
   market_cap: false,
   self_exclude: false,
   balance_details: false,
+  transaction_actions: false,
 };
 
 const toBoolean = (value: string | null, defaultValue: boolean): boolean => {

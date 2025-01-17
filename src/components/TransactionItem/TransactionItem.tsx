@@ -1,7 +1,7 @@
 import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
 import styles from "./TransactionItem.module.css";
 import { Button } from "@/elements";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useCountdown } from "@/hooks/useCountdown";
 import { CircularProgress } from "../CircularIndicator/CircularIndicator";
 
@@ -15,19 +15,22 @@ interface TransactionItemProps extends Common.ComponentProps {
 export const TransactionItem = ({
   testID,
   startDate = new Date(),
+  targetDate,
   ...props
 }: TransactionItemProps) => {
   const [timeString, setTimeString] = useState<string>("Pending");
-  const { progress } = useCountdown({
-    startDate,
-    targetDate: props.targetDate,
-  });
+  const { progress } = useCountdown({ startDate, targetDate });
+
+  const isMatured = useMemo(
+    () => targetDate.getTime() < Date.now(),
+    [targetDate, progress]
+  );
 
   useEffect(() => {
-    if (progress >= 1) {
+    if (targetDate.getTime() < Date.now()) {
       setTimeString("Fully matured");
     } else {
-      setTimeString(`${formatDistanceToNowStrict(props.targetDate)} remaining`);
+      setTimeString(`${formatDistanceToNowStrict(targetDate)} remaining`);
     }
   }, [progress]);
 
@@ -45,10 +48,10 @@ export const TransactionItem = ({
         <Button
           testID={`${testID}.withdraw`}
           size={"small"}
-          disabled={progress < 1}
+          disabled={!isMatured}
           onClick={props.onClaim}
         >
-          {progress < 1 ? "Pending" : "Claim"}
+          {isMatured ? "Claim" : "Pending"}
         </Button>
       </span>
     </li>

@@ -12,6 +12,8 @@ import { MemberStatus } from "@/state/member/types";
 import { EPOCH_DURATION } from "@/utils/locker/constants";
 import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
 import { TransactionItem } from "@/components/TransactionItem/TransactionItem";
+import { Input } from "@/elements";
+import { DEV_TransactionActions } from "@/components/DEV_TransactionActions/TransactionActions";
 
 export const AccountScene = ({
   testID = "account",
@@ -59,6 +61,9 @@ export const AccountScene = ({
           </p>
         </div>
       )}
+
+      {isEnabled("transaction_actions") && <DEV_TransactionActions />}
+
       <h2>Transaction backlog</h2>
       <p>
         {`Tokens are required to complete the subscription cycle of ${formatDistanceToNowStrict(Date.now() + EPOCH_DURATION)} in order to honour the benefits and rewards granted on them. This cooling period requires that token deposits must mature before they
@@ -66,7 +71,7 @@ export const AccountScene = ({
         release.`}
       </p>
       <div className={styles.list}>
-        <h4 className={styles.header}>Today</h4>
+        <h4 className={styles.header}>Maturing today</h4>
         <ul className={styles.transactions}>
           {member?.slots.length === 0 ? (
             <div className={styles.empty}>

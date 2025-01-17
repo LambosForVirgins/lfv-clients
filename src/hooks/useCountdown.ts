@@ -1,19 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 
+interface CountdownOptions {
+  startDate?: Date;
+  targetDate: Date;
+}
+
 export const useCountdown = ({
   startDate = new Date(),
   targetDate,
-}: {
-  startDate?: Date;
-  targetDate: Date;
-}) => {
+}: CountdownOptions) => {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const [progress, setProgress] = useState<number>(0);
 
   useEffect(() => {
     // Initialize the countdown
     const updateCountdown = () => {
-      const timeSpan = targetDate.getTime() - startDate.getTime();
+      const timeSpan = Math.max(targetDate.getTime() - startDate.getTime(), 0);
       const elapsed = Date.now() - startDate.getTime();
 
       setProgress(Math.min(1, elapsed / timeSpan));

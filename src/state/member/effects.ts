@@ -15,6 +15,8 @@ export const effectMemberAccountSubscription =
     const accountPDA = PDA.memberAccountAddress(publicKey, program.programId);
     let subscriptionId: number | null = null;
 
+    console.log("Member account", accountPDA.toBase58());
+
     if (trigger === "get") {
       program.account.memberAccount
         .fetch(accountPDA)

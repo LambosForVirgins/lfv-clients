@@ -6,7 +6,7 @@ import { getProgressFromBalance } from "@/utils/membership/getProgressFromBalanc
 import { validateEntryCriteria } from "@/utils/entry-criteria/validateEntryCriteria";
 import { useNavigate } from "react-router";
 import { Button } from "@/elements";
-import { ButtonVariant } from "@/elements/Button/Button";
+import { ButtonVariant } from "@/elements/Buttons/Button";
 import { useDepositTokens } from "@/hooks/useTransferTokens";
 import { useCallback, useState } from "react";
 
