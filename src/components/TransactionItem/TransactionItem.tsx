@@ -9,6 +9,7 @@ interface TransactionItemProps extends Common.ComponentProps {
   amount: number;
   targetDate: Date;
   startDate?: Date;
+  media?: { src?: string };
   onClaim: () => void;
 }
 
@@ -42,7 +43,7 @@ export const TransactionItem = ({
         size={46}
         strokeWidth={6}
       >
-        <img src="svg/coin.svg" width={"100%"} />
+        <img src={props.media?.src} width={"100%"} />
       </CircularProgress>
       <span>
         <div className={styles.amount}>

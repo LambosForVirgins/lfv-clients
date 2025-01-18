@@ -85,6 +85,9 @@ export const AccountScene = ({
                 <TransactionItem
                   key={slot.key}
                   testID={`${testID}.deposit`}
+                  media={{
+                    src: "svg/coin.svg",
+                  }}
                   amount={slot.amount}
                   targetDate={slot.timeMatured}
                   startDate={slot.timeCreated}
@@ -94,6 +97,9 @@ export const AccountScene = ({
                 <TransactionItem
                   key={slot.key}
                   testID={`${testID}.withdraw`}
+                  media={{
+                    src: "images/lfv.png",
+                  }}
                   amount={slot.amount}
                   targetDate={slot.timeReleased}
                   onClaim={() => alert("Withdraw tokens back to wallet")}

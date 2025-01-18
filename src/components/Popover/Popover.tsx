@@ -6,7 +6,7 @@ import React, { useRef } from "react";
 import { useDevToggles } from "@/state/application/useDevToggles";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useRecoilValue } from "recoil";
-import { outstandingRewardsSelector } from "@/state/member/selectors";
+import { outstandingRewardEpochsSelector } from "@/state/member/selectors";
 
 interface PopoverProps extends Common.ComponentProps {
   id: string;
@@ -17,8 +17,8 @@ export const Popover = ({ testID, ...props }: PopoverProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const { isEnabled } = useDevToggles();
   const { publicKey } = useWallet();
-  const outstandingRewards = useRecoilValue(
-    outstandingRewardsSelector(publicKey)
+  const outstanding = useRecoilValue(
+    outstandingRewardEpochsSelector(publicKey)
   );
 
   const dismissPopover: React.MouseEventHandler<HTMLElement> = () => {
@@ -41,8 +41,8 @@ export const Popover = ({ testID, ...props }: PopoverProps) => {
         <NavLink to="/account">
           <li>
             <span>Account</span>
-            {outstandingRewards > 0 && (
-              <span className={styles.badge}>{outstandingRewards}</span>
+            {outstanding > 0 && (
+              <span className={styles.badge}>{outstanding}</span>
             )}
           </li>
         </NavLink>
