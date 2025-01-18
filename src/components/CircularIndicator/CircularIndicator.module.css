@@ -1,0 +1,8 @@
+.frame {
+    position: relative;
+}
+
+.inner {
+    position: absolute;
+    inset: 4px;
+}

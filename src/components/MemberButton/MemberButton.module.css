@@ -36,7 +36,8 @@
     aspect-ratio: 1;
 
     &.badge {
-        background: url('/svg/award.svg') no-repeat center center;
+        background: url('/svg/coin.svg') no-repeat center center;
+        background-size: contain;
     }
 
     &.more {

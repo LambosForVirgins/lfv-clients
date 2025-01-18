@@ -36,7 +36,14 @@ export const TransactionItem = ({
 
   return (
     <li data-testid={testID} className={styles.frame}>
-      <CircularProgress percentage={progress} size={46} strokeWidth={6} />
+      <CircularProgress
+        testID={`${testID}.progress`}
+        percentage={progress}
+        size={46}
+        strokeWidth={6}
+      >
+        <img src="svg/coin.svg" width={"100%"} />
+      </CircularProgress>
       <span>
         <div className={styles.amount}>
           {props.amount.toLocaleString()} VIRGIN

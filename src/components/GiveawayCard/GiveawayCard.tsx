@@ -83,7 +83,12 @@ export const GiveawayCard = ({
       onClick={props.onClick}
     >
       <div className={styles.image}>
-        <img src="/images/coin.png" alt={"coins"} width={160} height={160} />
+        <img
+          src="/images/coin-stack.png"
+          alt={"coins"}
+          width={160}
+          height={160}
+        />
       </div>
 
       <div className={styles.featured}>

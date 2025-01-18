@@ -37,6 +37,11 @@ const tieredPackages = [
       { label: "VIP event access & treatment" },
       { label: "Access the biggest giveaways" },
     ],
+    expectations: [
+      { label: "Immediate access to all tier benefits" },
+      { label: "Receive 1,000 entries today" },
+      { label: "Cancel anytime" },
+    ],
     amount: MemberTierValues.Giga,
   },
 ];
