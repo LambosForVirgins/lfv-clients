@@ -61,6 +61,7 @@ export const Header = ({ testID, ...props }: HeaderProps) => {
         onClick={navigateToPath("/subscription")}
         label={`Store`}
         icon={"store"}
+        highlight={outstandingRewards > 0}
       />
       {/* <BoostButton
         testID={`${testID}.discounts`}

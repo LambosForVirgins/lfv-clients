@@ -62,7 +62,9 @@ export const AccountScene = ({
         </div>
       )}
 
-      {isEnabled("transaction_actions") && <DEV_TransactionActions />}
+      {isEnabled("transaction_actions") && (
+        <DEV_TransactionActions testID={`${testID}.dev`} />
+      )}
 
       <h2>Transaction backlog</h2>
       <p>

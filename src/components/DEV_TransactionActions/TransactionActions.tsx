@@ -7,15 +7,15 @@ export const DEV_TransactionActions = ({ testID }: Common.ComponentProps) => {
   const { depositTokens, withdrawTokens } = useDepositTokens();
 
   const handleDeposit = () => {
-    depositTokens(amount);
+    depositTokens(amount).then(() => setAmount(0));
   };
 
   const handleWithdraw = () => {
-    withdrawTokens(amount);
+    withdrawTokens(amount).then(() => setAmount(0));
   };
 
   return (
-    <div>
+    <div data-testid={testID}>
       <h2>Development transactions</h2>
       <p>Force any size transaction for testing purposes only.</p>
       <div>
@@ -28,7 +28,11 @@ export const DEV_TransactionActions = ({ testID }: Common.ComponentProps) => {
           >
             Deposit
           </Button>
-          <Input onChange={({ target }) => setAmount(+target.value)} />
+          <Input
+            type="number"
+            value={amount}
+            onChange={({ target }) => setAmount(+target.value)}
+          />
           <Button
             testID={`${testID}.withdraw`}
             size={"small"}

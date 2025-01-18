@@ -4,6 +4,9 @@ import styles from "./Popover.module.css";
 import { NavLink } from "react-router";
 import React, { useRef } from "react";
 import { useDevToggles } from "@/state/application/useDevToggles";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useRecoilValue } from "recoil";
+import { outstandingRewardsSelector } from "@/state/member/selectors";
 
 interface PopoverProps extends Common.ComponentProps {
   id: string;
@@ -13,6 +16,10 @@ interface PopoverProps extends Common.ComponentProps {
 export const Popover = ({ testID, ...props }: PopoverProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const { isEnabled } = useDevToggles();
+  const { publicKey } = useWallet();
+  const outstandingRewards = useRecoilValue(
+    outstandingRewardsSelector(publicKey)
+  );
 
   const dismissPopover: React.MouseEventHandler<HTMLElement> = () => {
     if (!dialogRef.current) return;
@@ -34,7 +41,9 @@ export const Popover = ({ testID, ...props }: PopoverProps) => {
         <NavLink to="/account">
           <li>
             <span>Account</span>
-            <span className={styles.badge}>1</span>
+            {outstandingRewards > 0 && (
+              <span className={styles.badge}>{outstandingRewards}</span>
+            )}
           </li>
         </NavLink>
         <NavLink to="/giveaways">
