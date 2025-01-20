@@ -1,3 +1,4 @@
+import "./instrument";
 import "./reset.css";
 import "./globals.css";
 import "@solana/wallet-adapter-react-ui/styles.css";
@@ -6,8 +7,8 @@ import ReactDOM from "react-dom/client";
 import { App } from "./app";
 import { RecoilRoot } from "recoil";
 import { SolanaProvider } from "@/providers/Solana/SolanaProvider";
-import { ErrorBoundary } from "@/components/ErrorBoundary/errors";
 import { LocaleProvider } from "@/providers/Locale/LocaleProvider";
+import * as Sentry from "@sentry/react";
 
 // export const metadata: Metadata = {
 //   title: Brand.displayName,
@@ -53,13 +54,9 @@ import { LocaleProvider } from "@/providers/Locale/LocaleProvider";
 //   );
 // }
 
-// import { sentryInit } from "./sentry";
-
-// sentryInit();
-
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ErrorBoundary fallback={<h1>Error</h1>}>
+    <Sentry.ErrorBoundary fallback={<p>An error has occurred</p>}>
       <SolanaProvider>
         <RecoilRoot>
           <LocaleProvider initialLocale="en">
@@ -67,6 +64,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           </LocaleProvider>
         </RecoilRoot>
       </SolanaProvider>
-    </ErrorBoundary>
+    </Sentry.ErrorBoundary>
   </React.StrictMode>
 );

@@ -1,6 +1,6 @@
 import {
   BrowserRouter as Router,
-  Routes as Switch,
+  Routes,
   Route as Page,
 } from "react-router";
 import { PartnersScene } from "@/scenes/partners/PartnersScene";
@@ -15,6 +15,9 @@ import { LandingScene } from "@/scenes/landing/LandingScene";
 import { GiveawaysScene } from "@/scenes/giveaways/GiveawaysScene";
 import { PromotionalScene } from "@/scenes/promos/PromotionalScene";
 import { ProductScene } from "@/scenes/product/ProductScene";
+import * as Sentry from "@sentry/react";
+
+const SentryRoutes = Sentry.withSentryReactRouterV7Routing(Routes);
 
 // export async function generateMetadata({
 //   params: { locale },
@@ -49,7 +52,7 @@ import { ProductScene } from "@/scenes/product/ProductScene";
 export const App = () => (
   <Router>
     <Layout testID={"layout"}>
-      <Switch>
+      <SentryRoutes>
         <Page
           path={"giveaways"}
           Component={withAuthenticated(GiveawaysScene)}
@@ -74,7 +77,7 @@ export const App = () => (
           <Page path={"vesting"} Component={TreasuryScene} />
         </Page>
         <Page Component={LandingScene} index />
-      </Switch>
+      </SentryRoutes>
     </Layout>
   </Router>
 );
