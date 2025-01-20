@@ -46,6 +46,20 @@ We use the Raydium API to fetch token prices, generate a swap quote, and finally
 </p>
 </details>
 
+## Minting
+
+### Creating the entry rewards mint
+
+```
+spl-token --program-id TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb create-token --enable-non-transferable --decimals 4 --enable-metadata <PATH_TO_KEYPAIR>
+```
+
+Initialize the metadata for the entry token
+
+```
+spl-token initialize-metadata <MINT_ADDRESS> Entries ENTRY https://cdn.lambosforvirgins.com/meta/entry.json
+```
+
 ## Troubleshooting
 
 ### Anchor build - Lock file version
