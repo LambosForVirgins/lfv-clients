@@ -1,0 +1,30 @@
+.frame {
+    .card {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        border-radius: var(--size-300);
+        background-color: rgba(255, 255, 255, 1);
+    }
+
+    .list {
+        display: grid;
+        gap: var(--size-100);
+        grid-template-columns: repeat(2, 1fr) min-content;
+        grid-template-rows: repeat(auto-fill, minmax(46px, 96px));
+        overflow-y: scroll;
+        max-height: 300px;
+        padding: var(--size-300);
+    }
+
+    .row {
+        display: grid;
+        grid-column: span 3;
+        grid-template-columns: subgrid;
+        border-radius: var(--size-200);
+        padding: var(--size-100);
+        color: rgba(0, 0, 0, 0.75);
+        border: 2px dashed rgba(255, 255, 255, 0.75);
+        background-color: rgba(255, 255, 255, 0.2);
+        outline: 1px solid red;
+    }
+}
