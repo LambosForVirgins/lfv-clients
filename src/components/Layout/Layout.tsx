@@ -23,7 +23,9 @@ export const Layout = ({
       </section>
       <PromoSection testID={`${testID}.promo`} className={styles.promo} />
       <Subscribe testID={`${testID}.subscribe`} className={styles.full} />
-      <Footer testID={`${testID}.footer`} className={styles.full} />
+      {isEnabled("footer") && (
+        <Footer testID={`${testID}.footer`} className={styles.full} />
+      )}
       {isEnabled("disclaimers") && (
         <Disclaimers testID={`${testID}.disclaimers`} className={styles.full} />
       )}
