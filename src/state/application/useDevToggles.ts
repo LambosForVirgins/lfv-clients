@@ -20,6 +20,7 @@ const initialKeys = {
   self_exclude: false,
   balance_details: false,
   transaction_actions: false,
+  onboardingv2: false,
 };
 
 const toBoolean = (value: string | null, defaultValue: boolean): boolean => {
