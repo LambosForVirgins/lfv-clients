@@ -23,6 +23,8 @@ export type SubscriptionAccountStruct =
 
 export type WithdrawMethod = (typeof program)["methods"]["withdraw"];
 
+export type ReleaseMethod = (typeof program)["methods"]["release"];
+
 export type DepositMethod = (typeof program)["methods"]["deposit"];
 
-export type TransferMethod = WithdrawMethod | DepositMethod;
+export type TransferMethod = ReleaseMethod | DepositMethod;
