@@ -1,6 +1,6 @@
 import clsx from "classnames";
 import { MemberButton } from "../MemberButton/MemberButton";
-import { BoostButton } from "../BoostButton/BoostButton";
+import { HeaderButton } from "../HeaderButton/HeaderButton";
 import styles from "./Header.module.css";
 
 import { useTranslation } from "react-i18next";
@@ -50,20 +50,21 @@ export const Header = ({ testID, ...props }: HeaderProps) => {
 
   return (
     <nav data-testid={testID} className={clsx(props.className, styles.frame)}>
-      <BoostButton
+      <HeaderButton
         testID={`${testID}.giveaways`}
         onClick={navigateToPath("/giveaways")}
         label={`Giveaways`}
         icon={"present"}
       />
-      <BoostButton
-        testID={`${testID}.store`}
+      <HeaderButton
+        testID={`${testID}.subscription`}
         onClick={navigateToPath("/subscription")}
         label={`Store`}
-        icon={"store"}
+        icon={"star"}
         highlight={outstandingRewards > 0}
       />
-      {/* <BoostButton
+
+      {/* <HeaderButton
         testID={`${testID}.discounts`}
         onClick={navigateToPath("/benefits")}
         label={`Discounts`}

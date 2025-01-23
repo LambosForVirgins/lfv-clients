@@ -24,23 +24,28 @@
         inset: 4px;
         border-radius: 13px;
         font-size: 16px;
-        background: url('/svg/present.svg') no-repeat center center;
-        background-repeat: no-repeat;
-        background-position: center center;
         background-color: var(--bg-red-500);
         transition: transform 150ms ease-in-out;
     }
 
-    &:hover::before {
-        transform: scale(1.05);
+    img {
+        align-self: center;
+        justify-self: center;
+        width: 24px;
+        height: 24px;
+        z-index: 2;
     }
 
-    &.highlight::before {
+    /* &:hover::before {
+        transform: scale(1.05);
+    } */
+
+    /* &.highlight::before {
         color: #ffcd02;
         border: 2px solid #ffcd02;
         background: url('/svg/lightning.svg') no-repeat center center;
         background-color: var(--bg-red-400);
-    }
+    } */
 
     .label {
         display: none;
