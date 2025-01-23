@@ -1,18 +1,23 @@
 import { decimalFactor, timeFactor } from "@/utils/locker/constants";
-import { MemberAccountStruct } from "@/utils/locker/setup";
+import { SubscriptionAccountStruct } from "@/utils/locker/setup";
 import { Member, Transaction } from "./types";
 import { v5 as generateHash } from "uuid";
 import BN from "bn.js";
 
 const NAMESPACE = "e1e690c7-1da1-4063-90b7-599db1294277";
 
-const isInitialAccount = (account: MemberAccountStruct): boolean =>
+const isInitialAccount = (account: SubscriptionAccountStruct): boolean =>
   account.timeCreated.eq(account.timeRewarded) && account.totalMatured.isZero();
 
-const dateFromBigNumber = (bigNumber: BN): Date =>
-  new Date(bigNumber.mul(timeFactor).toNumber());
+const dateFromBigNumber = (bigNumber: BN): Date => {
+  console.log(bigNumber.toNumber());
+  return new Date();
+  return new Date(bigNumber.mul(timeFactor).toNumber());
+};
 
-export const mapTransactionFromStruct = (slots: MemberAccountStruct["slots"]) =>
+export const mapTransactionFromStruct = (
+  slots: SubscriptionAccountStruct["slots"]
+) =>
   slots.reduce<Transaction[]>((slots, { withdraw, deposit }) => {
     if (withdraw) {
       slots.push({
@@ -36,14 +41,17 @@ export const mapTransactionFromStruct = (slots: MemberAccountStruct["slots"]) =>
     return slots;
   }, []);
 
-export const mapMemberFromStruct = (account: MemberAccountStruct): Member => {
+export const mapMemberFromStruct = (
+  account: SubscriptionAccountStruct
+): Member => {
+  console.log(account);
   return {
     status: account.status,
     tier: account.tier,
     totalAmount: account.totalAmount.div(decimalFactor).toNumber(),
     totalMatured: account.totalMatured.div(decimalFactor).toNumber(),
-    totalPending: account.totalPending.div(decimalFactor).toNumber(),
-    totalEntries: account.totalEntries.toNumber(),
+    totalReleased: account.totalReleased.div(decimalFactor).toNumber(),
+    totalEntries: 0,
     timeCreated: dateFromBigNumber(account.timeCreated),
     timeRewarded: isInitialAccount(account)
       ? null

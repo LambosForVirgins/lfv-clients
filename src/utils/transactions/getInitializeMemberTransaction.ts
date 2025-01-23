@@ -1,5 +1,5 @@
 import { Connection, PublicKey } from "@solana/web3.js";
-import { PDA, program } from "../locker";
+import { program } from "../locker";
 import {
   SystemProgram,
   TransactionMessage,
@@ -7,23 +7,23 @@ import {
 } from "@solana/web3.js";
 import { MINT } from "../locker/constants";
 import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
+import {
+  findSubscriptionAccountAddress,
+  findVaultTokenAccountAddress,
+} from "../locker/PDA";
 
 export const getInitializeMemberTransaction = async (
   connection: Connection,
   publicKey: PublicKey
 ) => {
   const latestBlock = await connection.getLatestBlockhash(),
-    memberAccount = PDA.memberAccountAddress(publicKey, program.programId),
-    vaultTokenAccount = PDA.vaultTokenAddress(
-      MINT,
-      publicKey,
-      program.programId
-    );
+    subscription = findSubscriptionAccountAddress(publicKey),
+    vaultTokenAccount = findVaultTokenAccountAddress(MINT, publicKey);
 
   const instruction = await program.methods
     .initialize()
     .accounts({
-      memberAccount,
+      subscription,
       vaultTokenAccount,
       mint: MINT,
       signer: publicKey,

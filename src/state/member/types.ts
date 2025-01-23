@@ -42,7 +42,7 @@ export type Member = {
   tier: MemberTier;
   totalAmount: number;
   totalMatured: number;
-  totalPending: number;
+  totalReleased: number;
   totalEntries: number;
   timeCreated: Date;
   timeRewarded: Date | null;

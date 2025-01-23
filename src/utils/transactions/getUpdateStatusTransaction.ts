@@ -1,8 +1,9 @@
 import { Connection, PublicKey } from "@solana/web3.js";
-import { PDA, program } from "../locker";
+import { program } from "../locker";
 import { TransactionMessage, VersionedTransaction } from "@solana/web3.js";
 import { MemberStatus } from "@/state/member/types";
 import { statusToString } from "../tiers/formatters";
+import { findSubscriptionAccountAddress } from "../locker/PDA";
 
 export const getUpdateStatusTransaction = async (
   connection: Connection,
@@ -10,7 +11,7 @@ export const getUpdateStatusTransaction = async (
   status: MemberStatus
 ) => {
   const latestBlock = await connection.getLatestBlockhash(),
-    memberAccount = PDA.memberAccountAddress(publicKey, program.programId);
+    subscription = findSubscriptionAccountAddress(publicKey);
 
   if (status !== MemberStatus.Excluded) {
     throw new Error(
@@ -21,7 +22,7 @@ export const getUpdateStatusTransaction = async (
   const instruction = await program.methods
     .exclude()
     .accounts({
-      memberAccount,
+      subscription,
       signer: publicKey,
     })
     .instruction();
