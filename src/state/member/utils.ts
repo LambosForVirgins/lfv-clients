@@ -10,8 +10,6 @@ const isInitialAccount = (account: SubscriptionAccountStruct): boolean =>
   account.timeCreated.eq(account.timeRewarded) && account.totalMatured.isZero();
 
 const dateFromBigNumber = (bigNumber: BN): Date => {
-  console.log(bigNumber.toNumber());
-  return new Date();
   return new Date(bigNumber.mul(timeFactor).toNumber());
 };
 
