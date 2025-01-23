@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { DrawEntry, DrawStatus } from "../types";
+import { DrawEntry, DrawStatus } from "../draws/types";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { associatedDrawsSelector, roundSelector } from "../draws/selectors";
 import { DAILY_GIVEAWAY_ID } from "./mocks";

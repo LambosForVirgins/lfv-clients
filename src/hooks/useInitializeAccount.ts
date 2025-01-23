@@ -1,4 +1,4 @@
-import { memberAccountAtom } from "@/state/member/atoms";
+import { memberAccountAtom } from "@/state/subscription/atoms";
 import { getInitializeMemberTransaction } from "@/utils/transactions/getInitializeMemberTransaction";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import {

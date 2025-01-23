@@ -1,7 +1,7 @@
 import { MemberPackageCard } from "../MemberPackageCard/MemberPackageCard";
 import styles from "./MembershipSell.module.css";
 import clsx from "classnames";
-import { MemberTier, MemberTierValues } from "@/state/member/types";
+import { MemberTier, MemberTierValues } from "@/state/subscription/types";
 import { useSubscription } from "@/hooks/useSubscription";
 import { useMembership } from "@/hooks/useMembership";
 

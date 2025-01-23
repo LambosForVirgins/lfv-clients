@@ -2,7 +2,7 @@ import { useRecoilValue } from "recoil";
 import { giveawaysAtom } from "./atoms";
 import { useCallback, useMemo, useState } from "react";
 import { drawRoundsAtom } from "../draws/atoms";
-import { DrawEntry, DrawStatus } from "../types";
+import { DrawEntry, DrawStatus } from "../draws/types";
 import { enterDraw } from "../draws/functions";
 
 export const useGiveaways = () => {

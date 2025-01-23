@@ -42,7 +42,6 @@ export const mapTransactionFromStruct = (
 export const mapMemberFromStruct = (
   account: SubscriptionAccountStruct
 ): Member => {
-  console.log(account);
   return {
     status: account.status,
     tier: account.tier,

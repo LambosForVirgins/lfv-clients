@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
-import { DrawRound } from "../types";
+import { DrawRound } from "./types";
 import { roundSelector } from "./selectors";
 import { rollDraw } from "./functions";
 

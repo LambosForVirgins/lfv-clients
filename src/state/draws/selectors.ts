@@ -1,5 +1,5 @@
 import { DefaultValue, selector, selectorFamily } from "recoil";
-import { DrawRound } from "../types";
+import { DrawRound } from "./types";
 import { drawRoundsAtom } from "./atoms";
 
 export const drawRoundSelector = selectorFamily<DrawRound | null, string>({
