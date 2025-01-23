@@ -50,7 +50,9 @@ export const AccountScene = ({
             <p>Matured tokens {member.totalMatured.toLocaleString()} VIRGIN</p>
           )}
           {isEnabled("balance_details") && (
-            <p>Unlocked tokens {member.totalPending.toLocaleString()} VIRGIN</p>
+            <p>
+              Unlocked tokens {member.totalReleased.toLocaleString()} VIRGIN
+            </p>
           )}
           <p>
             Next reward{" "}
