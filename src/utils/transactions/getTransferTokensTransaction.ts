@@ -51,7 +51,7 @@ const getTransferTokensInstruction = async (
   return new VersionedTransaction(messageV0);
 };
 
-export const getWithdrawTokensTransaction = async (
+export const getReleaseTokensTransaction = async (
   connection: Connection,
   publicKey: PublicKey,
   amount: number

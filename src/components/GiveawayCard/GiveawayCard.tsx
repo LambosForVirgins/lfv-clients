@@ -7,7 +7,7 @@ import { validateEntryCriteria } from "@/utils/entry-criteria/validateEntryCrite
 import { useNavigate } from "react-router";
 import { Button } from "@/elements";
 import { ButtonVariant } from "@/elements/Buttons/Button";
-import { useDepositTokens } from "@/hooks/useTransferTokens";
+import { useTokenTransfer } from "@/hooks/useTransferTokens";
 import { useCallback, useState } from "react";
 
 interface RewardCardProps extends Common.ComponentProps {
@@ -34,7 +34,7 @@ export const GiveawayCard = ({
 }: RewardCardProps) => {
   const { errors } = validateEntryCriteria(constraints, memberBalance);
   const navigate = useNavigate();
-  const { depositTokens } = useDepositTokens();
+  const { depositTokens } = useTokenTransfer();
   const [loading, setLoading] = useState(false);
 
   const enterGiveaway = async () => {

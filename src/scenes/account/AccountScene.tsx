@@ -12,8 +12,8 @@ import { MemberStatus } from "@/state/member/types";
 import { EPOCH_DURATION } from "@/utils/locker/constants";
 import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
 import { TransactionItem } from "@/components/TransactionItem/TransactionItem";
-import { Input } from "@/elements";
 import { DEV_TransactionActions } from "@/components/DEV_TransactionActions/TransactionActions";
+import { useWithdrawTokens } from "@/hooks/useWithdrawTokens";
 
 export const AccountScene = ({
   testID = "account",
@@ -22,6 +22,7 @@ export const AccountScene = ({
   const { claim, pending } = useClaimRewards();
   const { updateStatus } = useUpdateStatus();
   const { member, publicKey } = useMembership();
+  const { withdrawTokens } = useWithdrawTokens();
 
   const outstandingRewards = useRecoilValue(
     outstandingRewardsSelector(publicKey)
@@ -45,6 +46,12 @@ export const AccountScene = ({
             Member since {formatDistanceToNowStrict(member.timeCreated)} ago
           </p>
           <p>Entries accrued {member.totalEntries.toLocaleString()}</p>
+          <img
+            alt="Virgin token"
+            src="./images/lfv.png"
+            width={64}
+            style={{ backgroundColor: "transparent", borderRadius: "100vw" }}
+          />
           <p>Locked tokens {member.totalAmount.toLocaleString()} VIRGIN</p>
           {isEnabled("balance_details") && (
             <p>Matured tokens {member.totalMatured.toLocaleString()} VIRGIN</p>
@@ -93,7 +100,10 @@ export const AccountScene = ({
                   amount={slot.amount}
                   targetDate={slot.timeMatured}
                   startDate={slot.timeCreated}
-                  onClaim={claim}
+                  action={{
+                    label: "Claim",
+                    onClick: claim,
+                  }}
                 />
               ) : (
                 <TransactionItem
@@ -104,7 +114,10 @@ export const AccountScene = ({
                   }}
                   amount={slot.amount}
                   targetDate={slot.timeReleased}
-                  onClaim={() => alert("Withdraw tokens back to wallet")}
+                  action={{
+                    label: "Withdraw",
+                    onClick: withdrawTokens,
+                  }}
                 />
               );
             })

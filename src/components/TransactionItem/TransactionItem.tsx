@@ -10,7 +10,7 @@ interface TransactionItemProps extends Common.ComponentProps {
   targetDate: Date;
   startDate?: Date;
   media?: { src?: string };
-  onClaim: () => void;
+  action: { label?: string; onClick: () => void };
 }
 
 export const TransactionItem = ({
@@ -57,9 +57,9 @@ export const TransactionItem = ({
           testID={`${testID}.withdraw`}
           size={"small"}
           disabled={!isMatured}
-          onClick={props.onClaim}
+          onClick={props.action.onClick}
         >
-          {isMatured ? "Claim" : "Pending"}
+          {isMatured ? props.action.label : "Pending"}
         </Button>
       </span>
     </li>

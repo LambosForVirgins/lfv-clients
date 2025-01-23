@@ -1,11 +1,11 @@
 import {
   getDepositTokensTransaction,
-  getWithdrawTokensTransaction,
+  getReleaseTokensTransaction,
 } from "@/utils/transactions/getTransferTokensTransaction";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useCallback } from "react";
 
-export const useDepositTokens = () => {
+export const useTokenTransfer = () => {
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
 
@@ -30,11 +30,10 @@ export const useDepositTokens = () => {
     [publicKey]
   );
 
-  const withdrawTokens = useCallback(
+  const releaseTokens = useCallback(
     async (amount: number) => {
-      console.log("withdrawTokens", amount);
       if (!publicKey || amount <= 0) return;
-      const transaction = await getWithdrawTokensTransaction(
+      const transaction = await getReleaseTokensTransaction(
         connection,
         publicKey,
         amount
@@ -51,5 +50,5 @@ export const useDepositTokens = () => {
     [publicKey]
   );
 
-  return { depositTokens, withdrawTokens };
+  return { depositTokens, releaseTokens };
 };

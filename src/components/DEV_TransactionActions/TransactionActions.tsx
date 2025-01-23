@@ -1,17 +1,17 @@
 import { Button, Input } from "@/elements";
-import { useDepositTokens } from "@/hooks/useTransferTokens";
+import { useTokenTransfer } from "@/hooks/useTransferTokens";
 import { useState } from "react";
 
 export const DEV_TransactionActions = ({ testID }: Common.ComponentProps) => {
   const [amount, setAmount] = useState<number>(0);
-  const { depositTokens, withdrawTokens } = useDepositTokens();
+  const { depositTokens, releaseTokens } = useTokenTransfer();
 
   const handleDeposit = () => {
     depositTokens(amount).then(() => setAmount(0));
   };
 
   const handleWithdraw = () => {
-    withdrawTokens(amount).then(() => setAmount(0));
+    releaseTokens(amount).then(() => setAmount(0));
   };
 
   return (
