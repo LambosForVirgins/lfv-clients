@@ -3,7 +3,7 @@ import BN from "bn.js";
 
 /** Address of the Token Locker Program */
 export const LOCKER_PROGRAM = new PublicKey(
-  "D1ZmpHZa291fL44NXE3Fksb7HpzDQer4bX1z8Hw5JeJ5" //"9JuJwm7kUPkCzHikuvMQozfrfbdt5nJZ1Wg9FPcQ4HeX"
+  "5FMGC6UGHY62NsitCmbkqwn5hJ7533mGRoxogf8JU8sM" // "D1ZmpHZa291fL44NXE3Fksb7HpzDQer4bX1z8Hw5JeJ5"
 );
 
 export const MINT = new PublicKey(

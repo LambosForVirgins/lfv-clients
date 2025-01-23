@@ -1,10 +1,10 @@
 import { PublicKey } from "@solana/web3.js";
 import { AtomEffect } from "recoil";
-import { MemberAccountStruct, program } from "@/utils/locker/setup";
+import { SubscriptionAccountStruct, program } from "@/utils/locker/setup";
 import { getConnection } from "@/utils/locker/constants";
-import { PDA } from "@/utils/locker";
 import { Member } from "./types";
 import { mapMemberFromStruct } from "./utils";
+import { findSubscriptionAccountAddress } from "@/utils/locker/PDA";
 
 export const effectMemberAccountSubscription =
   (publicKey: PublicKey | null): AtomEffect<Member | null> =>
@@ -12,13 +12,13 @@ export const effectMemberAccountSubscription =
     if (!publicKey) return;
 
     const connection = getConnection();
-    const accountPDA = PDA.memberAccountAddress(publicKey, program.programId);
+    const accountPDA = findSubscriptionAccountAddress(publicKey);
     let subscriptionId: number | null = null;
 
     console.log("Member account", accountPDA.toBase58());
 
     if (trigger === "get") {
-      program.account.memberAccount
+      program.account.subscriptionAccount
         .fetch(accountPDA)
         .then(mapMemberFromStruct)
         .then(setSelf)
@@ -30,10 +30,11 @@ export const effectMemberAccountSubscription =
         });
       // Subscribe to member account changes and update the member state
       subscriptionId = connection.onAccountChange(accountPDA, (info) => {
-        const memberStruct = program.coder.accounts.decode<MemberAccountStruct>(
-          "MemberAccount",
-          info.data
-        );
+        const memberStruct =
+          program.coder.accounts.decode<SubscriptionAccountStruct>(
+            "SubscriptionAccount",
+            info.data
+          );
         setSelf(mapMemberFromStruct(memberStruct));
       });
     }

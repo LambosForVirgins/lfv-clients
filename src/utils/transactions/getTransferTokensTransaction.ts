@@ -1,5 +1,5 @@
 import { Connection, PublicKey } from "@solana/web3.js";
-import { PDA, program } from "../locker";
+import { program } from "../locker";
 
 import { amountToLamports, MINT } from "@/utils/locker/constants";
 import {
@@ -13,6 +13,10 @@ import {
 } from "@solana/web3.js";
 import { BN } from "bn.js";
 import { TransferMethod } from "../locker/setup";
+import {
+  findSubscriptionAccountAddress,
+  findVaultTokenAccountAddress,
+} from "../locker/PDA";
 
 const getTransferTokensInstruction = async (
   connection: Connection,
@@ -22,17 +26,13 @@ const getTransferTokensInstruction = async (
 ) => {
   const latestBlock = await connection.getLatestBlockhash(),
     lamports = amountToLamports(new BN(amount)),
-    memberAccount = PDA.memberAccountAddress(publicKey, program.programId),
-    vaultTokenAccount = PDA.vaultTokenAddress(
-      MINT,
-      publicKey,
-      program.programId
-    ),
+    subscription = findSubscriptionAccountAddress(publicKey),
+    vaultTokenAccount = findVaultTokenAccountAddress(MINT, publicKey),
     sourceTokenAccount = getAssociatedTokenAddressSync(MINT, publicKey);
 
   const instruction = await method(lamports)
     .accounts({
-      memberAccount,
+      subscription,
       vaultTokenAccount,
       sourceTokenAccount,
       mint: MINT,
@@ -59,7 +59,7 @@ export const getWithdrawTokensTransaction = async (
   getTransferTokensInstruction(
     connection,
     publicKey,
-    program.methods.withdraw,
+    program.methods.release,
     amount
   );
 

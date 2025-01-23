@@ -1,22 +1,23 @@
 import { Connection, PublicKey } from "@solana/web3.js";
-import { PDA, program } from "../locker";
+import { program } from "../locker";
 import {
   SystemProgram,
   TransactionMessage,
   VersionedTransaction,
 } from "@solana/web3.js";
+import { findSubscriptionAccountAddress } from "../locker/PDA";
 
 export const getClaimRewardsTransaction = async (
   connection: Connection,
   publicKey: PublicKey
 ) => {
   const latestBlock = await connection.getLatestBlockhash(),
-    memberAccount = PDA.memberAccountAddress(publicKey, program.programId);
+    subscription = findSubscriptionAccountAddress(publicKey);
 
   const instruction = await program.methods
     .claim()
     .accounts({
-      memberAccount,
+      subscription,
       signer: publicKey,
       systemProgram: SystemProgram.programId,
     })
