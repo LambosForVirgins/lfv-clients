@@ -51,7 +51,7 @@ export const CreateAccount = ({ testID, ...props }: CreateAccountProps) => {
       setStatus(SetupStatus.RequestTokens);
     } else if (pending) {
       setStatus(SetupStatus.PendingTokens);
-    } else if (!!memberStatus) {
+    } else if (memberStatus === undefined && !loading) {
       setStatus(SetupStatus.CreateAccount);
     } else if (loading) {
       setStatus(SetupStatus.PendingAccount);
@@ -104,7 +104,7 @@ export const CreateAccount = ({ testID, ...props }: CreateAccountProps) => {
       case SetupStatus.PendingAccount:
         return (
           <div>
-            <p>Waiting for account</p>
+            <p>Initializing account</p>
           </div>
         );
       case SetupStatus.DepositTokens:
