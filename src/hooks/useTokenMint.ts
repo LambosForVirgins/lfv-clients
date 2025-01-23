@@ -1,54 +1,32 @@
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import {
-  getAccount,
-  getAssociatedTokenAddressSync,
-  TOKEN_PROGRAM_ID,
-} from "@solana/spl-token";
-
+import { useWallet } from "@solana/wallet-adapter-react";
 import { useCallback, useEffect, useState } from "react";
-
 import { MINT } from "@/utils/locker/constants";
-import { ASSOCIATED_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
 import { UNSAFE_requestTokenMint } from "@/utils/transactions/UNSAFE_requestTokenMint";
+import { useRecoilValue } from "recoil";
+import { mintAccountAtom } from "@/state/mints/atoms";
 
 export const useTokenMint = () => {
-  const { connection } = useConnection();
-  const [balance, setBalance] = useState(0);
   const { publicKey } = useWallet();
   const [pending, setPending] = useState(false);
-
-  useEffect(() => {
-    if (!publicKey) return;
-
-    const sourceTokenAccount = getAssociatedTokenAddressSync(
-      MINT,
-      publicKey,
-      false,
-      TOKEN_PROGRAM_ID,
-      ASSOCIATED_PROGRAM_ID
-    );
-
-    getAccount(
-      connection,
-      sourceTokenAccount,
-      "confirmed",
-      TOKEN_PROGRAM_ID
-    ).then((account) => {
-      setBalance(Number(account.amount));
-    });
-  }, [publicKey]);
+  const balance = useRecoilValue(
+    mintAccountAtom({ mint: MINT, owner: publicKey })
+  );
 
   const requestTokens = useCallback(
     async (amount: number) => {
       if (!publicKey) return;
       setPending(true);
 
-      return UNSAFE_requestTokenMint(publicKey, amount).finally(() =>
-        setPending(false)
-      );
+      return UNSAFE_requestTokenMint(publicKey, amount);
     },
     [publicKey]
   );
+
+  useEffect(() => {
+    if (pending && balance > 0) {
+      setPending(false);
+    }
+  }, [balance, pending]);
 
   return {
     balance,

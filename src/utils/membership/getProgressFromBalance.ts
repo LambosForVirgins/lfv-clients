@@ -1,5 +1,3 @@
-import { EntryCriteria } from "@/state/types";
-
 export const getProgressFromBalance = (
   constraints: { minBalance?: number; maxBalance?: number } | undefined,
   balance: number

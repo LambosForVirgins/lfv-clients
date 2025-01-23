@@ -1,4 +1,4 @@
-import { memberAccountAtom } from "@/state/member/atoms";
+import { memberAccountAtom } from "@/state/subscription/atoms";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useRecoilValue } from "recoil";
 import { useTokenTransfer } from "./useTransferTokens";

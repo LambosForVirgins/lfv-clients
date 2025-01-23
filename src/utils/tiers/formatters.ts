@@ -1,4 +1,4 @@
-import { MemberStatus, MemberTier } from "@/state/member/types";
+import { MemberStatus, MemberTier } from "@/state/subscription/types";
 
 export const tierToString = (tier: MemberTier | undefined | null) => {
   switch (tier) {

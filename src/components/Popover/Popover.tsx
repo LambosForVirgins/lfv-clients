@@ -6,7 +6,7 @@ import React, { useRef } from "react";
 import { useDevToggles } from "@/state/application/useDevToggles";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useRecoilValue } from "recoil";
-import { outstandingRewardEpochsSelector } from "@/state/member/selectors";
+import { outstandingRewardEpochsSelector } from "@/state/subscription/selectors";
 
 interface PopoverProps extends Common.ComponentProps {
   id: string;

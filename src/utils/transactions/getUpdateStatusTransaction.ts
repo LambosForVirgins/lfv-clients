@@ -1,7 +1,7 @@
 import { Connection, PublicKey } from "@solana/web3.js";
 import { program } from "../locker";
 import { TransactionMessage, VersionedTransaction } from "@solana/web3.js";
-import { MemberStatus } from "@/state/member/types";
+import { MemberStatus } from "@/state/subscription/types";
 import { statusToString } from "../tiers/formatters";
 import { findSubscriptionAccountAddress } from "../locker/PDA";
 

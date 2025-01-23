@@ -1,4 +1,4 @@
-import { EntryCriteria } from "@/state/types";
+import { EntryCriteria } from "@/state/draws/types";
 import { ValidationResult } from "./types";
 
 export const validateEntryCriteria = (

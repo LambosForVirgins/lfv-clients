@@ -1,5 +1,5 @@
 import { DefaultValue, selectorFamily } from "recoil";
-import { type GiveawayRecord } from "../types";
+import { type GiveawayRecord } from "../draws/types";
 import { giveawaysAtom } from "./atoms";
 import { drawEntriesAtom } from "../draws/atoms";
 

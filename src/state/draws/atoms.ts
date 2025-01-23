@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { type DrawRound } from "../types";
+import { type DrawRound } from "./types";
 import { getAllDraws } from "./functions";
 import { MOCKS } from "../giveaways/mocks";
 

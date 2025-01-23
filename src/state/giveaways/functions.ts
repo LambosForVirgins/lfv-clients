@@ -1,5 +1,5 @@
 import { getApiEndpoint } from "@/utils/locker/constants";
-import { Giveaway } from "../types";
+import { Giveaway } from "../draws/types";
 import { MOCKS } from "./mocks";
 
 export const fetchGiveaways = async (): Promise<Giveaway[]> => {

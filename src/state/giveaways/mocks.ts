@@ -1,4 +1,4 @@
-import { DrawStatus, Giveaway, type GiveawayRecord } from "../types";
+import { DrawStatus, Giveaway, type GiveawayRecord } from "../draws/types";
 import { v4 as generateUnique } from "uuid";
 
 export const DAILY_GIVEAWAY_ID = "b0917b7a-b6f2-11ef-86c8-273af6a30755";
