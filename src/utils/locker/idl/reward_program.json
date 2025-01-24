@@ -3,7 +3,7 @@
   "name": "reward_program",
   "instructions": [
     {
-      "name": "initialize",
+      "name": "createAccount",
       "accounts": [
         {
           "name": "subscription",
@@ -318,6 +318,10 @@
           {
             "name": "status",
             "type": "u8"
+          },
+          {
+            "name": "entries",
+            "type": "u64"
           },
           {
             "name": "totalAmount",

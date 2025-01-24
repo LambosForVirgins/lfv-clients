@@ -57,6 +57,10 @@ mark {
   padding: 0.37rem 2rem;
 }
 
+dialog {
+  outline: none;
+  border: none;
+}
 
 .text-balance {
   text-wrap: balance;
