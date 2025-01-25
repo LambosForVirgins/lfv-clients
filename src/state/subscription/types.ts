@@ -43,7 +43,6 @@ export type Member = {
   totalAmount: number;
   totalMatured: number;
   totalReleased: number;
-  totalEntries: number;
   timeCreated: Date;
   timeRewarded: Date | null;
   slots: Transaction[];

@@ -1,11 +1,13 @@
 import { PublicKey } from "@solana/web3.js";
 import { LOCKER_PROGRAM } from "./constants";
+import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
+import { ASSOCIATED_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
 
 enum Seed {
   SubscriptionAccount = "subscription",
   MemberAccount = "member",
   VaultTokenAccount = "vault",
-  RewardTokenAccount = "reward",
+  RewardTokenMint = "reward",
 }
 
 export const findSubscriptionAccountAddress = (publicKey: PublicKey) => {
@@ -26,20 +28,23 @@ export const findMemberAccountAddress = (publicKey: PublicKey) => {
   return pda;
 };
 
-export const findRewardTokenAccountAddress = (
-  mintKey: PublicKey,
-  publicKey: PublicKey
-) => {
+export const findRewardTokenMint = () => {
   const [pda] = PublicKey.findProgramAddressSync(
-    [
-      Buffer.from(Seed.RewardTokenAccount),
-      mintKey.toBuffer(),
-      publicKey.toBuffer(),
-    ],
+    [Buffer.from(Seed.RewardTokenMint)],
     LOCKER_PROGRAM
   );
 
   return pda;
+};
+
+export const findRewardTokenAccountAddress = (publicKey: PublicKey) => {
+  const mint = findRewardTokenMint();
+  const [associatedTokenAddress] = PublicKey.findProgramAddressSync(
+    [publicKey.toBuffer(), TOKEN_PROGRAM_ID.toBuffer(), mint.toBuffer()],
+    ASSOCIATED_PROGRAM_ID
+  );
+
+  return associatedTokenAddress;
 };
 
 export const findVaultTokenAccountAddress = (

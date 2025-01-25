@@ -3,8 +3,6 @@ import IDL from "./idl/reward_program.json";
 import { RewardProgram } from "./idl/reward_program";
 import { clusterApiUrl } from "@solana/web3.js";
 import { LOCKER_PROGRAM } from "./constants";
-import { MethodsFn } from "@coral-xyz/anchor/dist/cjs/program/namespace/types";
-import { IdlInstruction } from "@coral-xyz/anchor/dist/cjs/idl";
 
 const connection = new web3.Connection(clusterApiUrl("devnet"), "confirmed");
 

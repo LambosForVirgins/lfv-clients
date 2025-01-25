@@ -1,5 +1,5 @@
 import { memberAccountAtom } from "@/state/subscription/atoms";
-import { getInitializeMemberTransaction } from "@/utils/transactions/getInitializeMemberTransaction";
+import { getInitializeMemberInstruction } from "@/utils/transactions/getInitializeMemberTransaction";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import {
   WalletSignTransactionError,
@@ -8,6 +8,12 @@ import {
 } from "@solana/wallet-adapter-base";
 import { useCallback, useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
+import { Transaction } from "@solana/web3.js";
+import { createAssociatedTokenAccountInstruction } from "@solana/spl-token";
+import {
+  findRewardTokenAccountAddress,
+  findRewardTokenMint,
+} from "@/utils/locker";
 
 const handleSendError = (error: any): InitializeAccountError => {
   if (error instanceof WalletNotConnectedError) {
@@ -54,15 +60,26 @@ export const useInitializeAccount = () => {
     setError(null);
     setLoading(true);
 
+    const mint = findRewardTokenMint();
+    const associatedTokenAddress = findRewardTokenAccountAddress(publicKey);
+
     try {
-      const transaction = await getInitializeMemberTransaction(
-        connection,
-        publicKey
+      const transaction = new Transaction().add(
+        // Initialize the associated token account for the rewards
+        createAssociatedTokenAccountInstruction(
+          publicKey,
+          associatedTokenAddress,
+          publicKey,
+          mint
+        ),
+        await getInitializeMemberInstruction(publicKey)
       );
 
-      const txHash = await sendTransaction(transaction, connection);
-
-      if (!txHash) return;
+      const txHash = await sendTransaction(transaction, connection).catch(
+        (err) => {
+          throw new WalletSendTransactionError(err.message);
+        }
+      );
 
       await connection.confirmTransaction(txHash, "finalized");
     } catch (error) {

@@ -45,7 +45,6 @@ export const AccountScene = ({
           <p>
             Member since {formatDistanceToNowStrict(member.timeCreated)} ago
           </p>
-          <p>Entries accrued {member.totalEntries.toLocaleString()}</p>
           <img
             alt="Virgin token"
             src="./images/lfv.png"
