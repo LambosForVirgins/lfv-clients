@@ -3,7 +3,7 @@ export type RewardProgram = {
   "name": "reward_program",
   "instructions": [
     {
-      "name": "initialize",
+      "name": "createAccount",
       "accounts": [
         {
           "name": "subscription",
@@ -318,6 +318,10 @@ export type RewardProgram = {
           {
             "name": "status",
             "type": "u8"
+          },
+          {
+            "name": "entries",
+            "type": "u64"
           },
           {
             "name": "totalAmount",
@@ -565,7 +569,7 @@ export const IDL: RewardProgram = {
   "name": "reward_program",
   "instructions": [
     {
-      "name": "initialize",
+      "name": "createAccount",
       "accounts": [
         {
           "name": "subscription",
@@ -880,6 +884,10 @@ export const IDL: RewardProgram = {
           {
             "name": "status",
             "type": "u8"
+          },
+          {
+            "name": "entries",
+            "type": "u64"
           },
           {
             "name": "totalAmount",

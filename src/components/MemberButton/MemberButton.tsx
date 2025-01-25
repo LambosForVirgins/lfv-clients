@@ -5,6 +5,7 @@ import { Popover } from "../Popover/Popover";
 import { useMembership } from "@/hooks/useMembership";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import { useRewardMint } from "@/hooks/useTokenMint";
 
 interface MemberButtonProps extends Common.ComponentProps {
   className?: string;
@@ -26,6 +27,7 @@ export const MemberButton = forwardRef<HTMLButtonElement, MemberButtonProps>(
     const { visible, setVisible } = useWalletModal();
     const { connect, select, wallets, connected, disconnect } = useWallet();
     const { member, publicKey } = useMembership();
+    const { balance } = useRewardMint();
 
     const progress = useMemo(() => {
       if (!member?.totalAmount) return 0;
@@ -34,8 +36,8 @@ export const MemberButton = forwardRef<HTMLButtonElement, MemberButtonProps>(
     }, [member]);
 
     const labelText = useMemo(() => {
-      return member?.totalEntries || formatShortAddress(publicKey?.toBase58());
-    }, [member, publicKey]);
+      return balance || formatShortAddress(publicKey?.toBase58());
+    }, [member, publicKey, balance]);
 
     const status = useMemo(() => {
       if (connected) return MemberWalletStatus.Connected;

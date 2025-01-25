@@ -25,6 +25,7 @@
     "@solana/wallet-adapter-react-ui": "^0.9.35",
     "@solana/wallet-adapter-wallets": "^0.19.32",
     "@solana/web3.js": "^1.95.4",
+    "@xstate/react": "^5.0.2",
     "bignumber.js": "^9.1.2",
     "bn.js": "^5.2.1",
     "bs58": "^6.0.0",
@@ -38,7 +39,8 @@
     "react-dom": "^18",
     "react-i18next": "^15.4.0",
     "react-router": "^7.1.1",
-    "recoil": "^0.7.7"
+    "recoil": "^0.7.7",
+    "xstate": "^5.19.2"
   },
   "devDependencies": {
     "@edgedb/generate": "^0.5.6",

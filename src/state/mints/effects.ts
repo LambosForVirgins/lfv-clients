@@ -23,7 +23,7 @@ export const effectMintAccountAtom =
     if (trigger === "get") {
       getAccount(connection, associatedTokenAccount, "confirmed")
         .then((data) => {
-          setSelf(Math.round(Number(data.amount) / 10 ** 9));
+          setSelf(Math.round(Number(data.amount)));
         })
         .catch((error) => {
           console.error(
@@ -37,7 +37,7 @@ export const effectMintAccountAtom =
         (info) => {
           try {
             const accountData = AccountLayout.decode(info.data);
-            setSelf(Math.round(Number(accountData.amount) / 10 ** 9));
+            setSelf(Math.round(Number(accountData.amount)));
           } catch (error) {
             console.error(
               `Error decoding token account "${associatedTokenAccount.toBase58()}"`,

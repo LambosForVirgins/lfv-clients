@@ -1,4 +1,4 @@
-import { Connection, PublicKey } from "@solana/web3.js";
+import { PublicKey, type TransactionInstruction } from "@solana/web3.js";
 import { program } from "../locker";
 import {
   SystemProgram,
@@ -12,15 +12,13 @@ import {
   findVaultTokenAccountAddress,
 } from "../locker/PDA";
 
-export const getInitializeMemberTransaction = async (
-  connection: Connection,
+export const getInitializeMemberInstruction = async (
   publicKey: PublicKey
-) => {
-  const latestBlock = await connection.getLatestBlockhash(),
-    subscription = findSubscriptionAccountAddress(publicKey),
+): Promise<TransactionInstruction> => {
+  const subscription = findSubscriptionAccountAddress(publicKey),
     vaultTokenAccount = findVaultTokenAccountAddress(MINT, publicKey);
 
-  const instruction = await program.methods
+  return program.methods
     .initialize()
     .accounts({
       subscription,
@@ -32,11 +30,11 @@ export const getInitializeMemberTransaction = async (
     })
     .instruction();
 
-  const messageV0 = new TransactionMessage({
-    payerKey: publicKey,
-    recentBlockhash: latestBlock.blockhash,
-    instructions: [instruction],
-  }).compileToV0Message();
+  // const messageV0 = new TransactionMessage({
+  //   payerKey: publicKey,
+  //   recentBlockhash: latestBlock.blockhash,
+  //   instructions: [instruction],
+  // }).compileToV0Message();
   // Construct a versioned transaction
   return new VersionedTransaction(messageV0);
 };
