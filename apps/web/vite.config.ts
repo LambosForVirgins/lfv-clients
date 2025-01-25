@@ -2,7 +2,6 @@ import react from "@vitejs/plugin-react-swc";
 import { loadEnv, type UserConfig, defineConfig, type ConfigEnv } from "vite";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
-
 import { name, version } from "./package.json";
 import path from "path";
 
@@ -46,12 +45,12 @@ export default function Config({ mode }: ConfigEnv): UserConfig {
         },
       }),
       react(),
-      //   sentryVitePlugin({
-      //     org: "moonshot-llc",
-      //     project: "lfv",
-      //     authToken: env.VITE_SENTRY_AUTH_TOKEN,
-      //     disable: env.VITE_SENTRY_ENV === "dev",
-      //   }),
+      sentryVitePlugin({
+        org: "moonshot-llc",
+        project: "lfv",
+        authToken: env.VITE_SENTRY_AUTH_TOKEN,
+        disable: env.VITE_SENTRY_ENV === "dev",
+      }),
     ],
   });
 }
