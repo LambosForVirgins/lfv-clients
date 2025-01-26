@@ -14236,7 +14236,6 @@ __metadata:
     "@storybook/core-events": "npm:8.5.1"
     "@storybook/manager-api": "npm:8.5.1"
     "@storybook/preview-api": "npm:8.5.1"
-    "@storybook/react": "npm:8.5.1"
     "@storybook/react-vite": "npm:8.5.1"
     "@storybook/test": "npm:8.5.1"
     "@storybook/testing-library": "npm:0.2.2"
