@@ -1,22 +1,9 @@
 import { Section } from "@/components/Section/Section";
-import { MembershipSell } from "@/components/MembershipSell/MembershipSell";
 import { useMarketCap } from "@/state/marketCap";
 import { ProgressIndicator } from "@/components/ProgressIndicator/ProgressIndicator";
 import styles from "./LandingScene.module.css";
 import { CreateAccount } from "@/components/CreateAccount/CreateAccount";
 import { useDevToggles } from "@/state/application/useDevToggles";
-
-const steps = [
-  {
-    label: "Connect your wallet",
-  },
-  {
-    label: "Hold 1 or more VIRGIN tokens",
-  },
-  {
-    label: "Access the members area",
-  },
-];
 
 export const LandingScene = ({
   testID = "landing",
@@ -72,7 +59,6 @@ export const LandingScene = ({
         <p className="text-xl">OR</p>
         <h3 className="text-2xl">Become a Chad</h3>
       </div>
-      <MembershipSell testID={`${testID}.promo`} />
       <div className={styles.content} style={{ textAlign: "center" }}>
         <p>Membership not for you?</p>
         <p>

@@ -5,6 +5,14 @@
     gap: 1rem;
 }
 
+.header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    padding: var(--size-500);
+    gap: var(--size-500);
+    align-items: center;
+}
+
 .content {
     grid-column: content;
     display: flex;

@@ -49,6 +49,11 @@ export const Popover = ({ testID, ...props }: PopoverProps) => {
         <NavLink to="/giveaways">
           <li>Giveaways</li>
         </NavLink>
+        {isEnabled("tickets") && (
+          <NavLink to="/tickets">
+            <li>Tickets</li>
+          </NavLink>
+        )}
         {isEnabled("merchandise") && (
           <NavLink to="/store">
             <li>Merchandise</li>

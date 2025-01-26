@@ -9,6 +9,7 @@ import { Button } from "@/elements";
 import { ButtonVariant } from "@/elements/Buttons/Button";
 import { useTokenTransfer } from "@/hooks/useTransferTokens";
 import { useCallback, useState } from "react";
+import { useDevToggles } from "@/state/application/useDevToggles";
 
 interface RewardCardProps extends Common.ComponentProps {
   giveawayId: string;
@@ -22,6 +23,7 @@ interface RewardCardProps extends Common.ComponentProps {
 type Action = {
   label: string;
   variant?: ButtonVariant;
+  hidden?: boolean;
   disabled?: boolean;
   onClick: () => void;
 };
@@ -34,6 +36,7 @@ export const GiveawayCard = ({
 }: RewardCardProps) => {
   const { errors } = validateEntryCriteria(constraints, memberBalance);
   const navigate = useNavigate();
+  const { isEnabled } = useDevToggles();
   const { depositTokens } = useTokenTransfer();
   const [loading, setLoading] = useState(false);
 
@@ -51,16 +54,14 @@ export const GiveawayCard = ({
 
   const stakeMoreTokens = useCallback(async () => {
     setLoading(true);
-    const txHash = await depositTokens(amountToAdd);
-    // ! Don't do this in the component. It should be dumber
-    // await connection.confirmTransaction(txHash, "finalized");
-    setLoading(false);
+    await depositTokens(amountToAdd).finally(() => setLoading(false));
   }, [amountToAdd]);
 
   const actions: Action[] = [
     {
       label: "More info",
       variant: "muted",
+      hidden: !isEnabled("giveaway_info"),
       onClick: showMoreInformation,
     },
     isDisabled
@@ -92,6 +93,12 @@ export const GiveawayCard = ({
       </div>
 
       <div className={styles.featured}>
+        <h2 data-testid={`${testID}.label`} className={styles.title}>
+          {props.label}
+        </h2>
+      </div>
+
+      <div className={styles.content}>
         {isDisabled && (
           <ProgressIndicator
             testID={`${testID}.progress`}
@@ -99,28 +106,32 @@ export const GiveawayCard = ({
             progress={getProgressFromBalance(constraints, memberBalance)}
           />
         )}
-      </div>
 
-      <div className={styles.content}>
-        <h2 data-testid={`${testID}.label`} className={styles.title}>
-          {props.label}
-        </h2>
+        {amountToAdd > 0 && (
+          <p
+            className={styles.description}
+          >{`Deposit ${amountToAdd.toLocaleString()} VIRGIN to be eligible`}</p>
+        )}
 
-        <p className={styles.description}>{props.description}</p>
+        {props.description && (
+          <p className={styles.description}>{props.description}</p>
+        )}
 
         {actions.length > 0 && (
           <div className={styles.actions}>
-            {actions.map((action) => (
-              <Button
-                testID={`${testID}.button`}
-                variant={action.variant}
-                size={"small"}
-                onClick={action.onClick}
-                disabled={action.disabled}
-              >
-                {action.label}
-              </Button>
-            ))}
+            {actions
+              .filter(({ hidden }) => !hidden)
+              .map((action) => (
+                <Button
+                  testID={`${testID}.button`}
+                  variant={action.variant}
+                  size={"small"}
+                  onClick={action.onClick}
+                  disabled={action.disabled}
+                >
+                  {action.label}
+                </Button>
+              ))}
           </div>
         )}
       </div>

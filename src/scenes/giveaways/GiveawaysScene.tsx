@@ -62,7 +62,7 @@ export const GiveawaysScene = ({
           />
         ))}
       </div>
-      {isEnabled("previous_giveaways") && (
+      {isEnabled("giveaways_history") && (
         <div>
           <h2>Previous Giveaways</h2>
         </div>

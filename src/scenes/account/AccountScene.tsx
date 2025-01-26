@@ -2,7 +2,7 @@ import { Button } from "@/elements";
 import { useDevToggles } from "@/state/application/useDevToggles";
 import styles from "./AccountScene.module.css";
 import { useMembership } from "@/hooks/useMembership";
-import { statusToString, tierToString } from "@/utils/tiers/formatters";
+import { tierToString } from "@/utils/tiers/formatters";
 import { useClaimRewards } from "@/hooks/useClaimRewards";
 import { useRecoilValue } from "recoil";
 import { outstandingRewardsSelector } from "@/state/subscription/selectors";
@@ -14,6 +14,7 @@ import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
 import { TransactionItem } from "@/components/TransactionItem/TransactionItem";
 import { DEV_TransactionActions } from "@/components/DEV_TransactionActions/TransactionActions";
 import { useWithdrawTokens } from "@/hooks/useWithdrawTokens";
+import { MembershipSell } from "@/components/MembershipSell/MembershipSell";
 
 export const AccountScene = ({
   testID = "account",
@@ -38,19 +39,25 @@ export const AccountScene = ({
 
   return (
     <div data-testid={testID} className={styles.frame}>
-      <h1>Account</h1>
+      <div className={styles.header}>
+        <img
+          alt="Virgin token"
+          src="./images/lfv.png"
+          width={64}
+          style={{ backgroundColor: "transparent", borderRadius: "100vw" }}
+        />
+        <div>
+          <p>{tierToString(member?.tier)}</p>
+          {member?.timeCreated && (
+            <p>
+              Member since {formatDistanceToNowStrict(member.timeCreated)} ago
+            </p>
+          )}
+        </div>
+      </div>
+
       {isEnabled("breakdown") && member && (
         <div data-testid={`${testID}.breakdown`}>
-          <p>{tierToString(member.tier)}</p>
-          <p>
-            Member since {formatDistanceToNowStrict(member.timeCreated)} ago
-          </p>
-          <img
-            alt="Virgin token"
-            src="./images/lfv.png"
-            width={64}
-            style={{ backgroundColor: "transparent", borderRadius: "100vw" }}
-          />
           <p>Locked tokens {member.totalAmount.toLocaleString()} VIRGIN</p>
           {isEnabled("balance_details") && (
             <p>Matured tokens {member.totalMatured.toLocaleString()} VIRGIN</p>
@@ -58,6 +65,11 @@ export const AccountScene = ({
           {isEnabled("balance_details") && (
             <p>
               Unlocked tokens {member.totalReleased.toLocaleString()} VIRGIN
+            </p>
+          )}
+          {isEnabled("balance_details") && (
+            <p>
+              Unrealized rewards {member.totalRewards.toLocaleString()} ENTRY
             </p>
           )}
           <p>
@@ -144,31 +156,38 @@ export const AccountScene = ({
           Claim rewards
         </Button>
       </div>
-      <div>
-        <h2>Status</h2>
-        {member && <p>Status {statusToString(member.status)}</p>}
-        {isEnabled("self_exclude") && (
-          <div>
-            <h2>Problems with addiction?</h2>
-            <p>
-              If you're experiencing issues with addiction, we're here to help.
-              Self-exclusion prevents your account from giveaway eligibility and
-              ceases all entry rewards. This action is irreversible and you will
-              not be able to restore your account once excluded.
-            </p>
-            <Button
-              testID={`${testID}.exclude`}
-              size={"small"}
-              onClick={selfExcludeMember}
-            >
-              Self exclude
-            </Button>
-          </div>
-        )}
-      </div>
+
+      {isEnabled("tickets") && (
+        <div>
+          <h2>Tickets</h2>
+          <p>Display the ticket NFT's here</p>
+        </div>
+      )}
+
+      <h2>Your subscription</h2>
+      <MembershipSell testID={`${testID}.subscription`} />
+
+      {isEnabled("self_exclude") && (
+        <div>
+          <h2>Problems with addiction?</h2>
+          <p>
+            If you're experiencing issues with addiction, we're here to help.
+            Self-exclusion prevents your account from giveaway eligibility and
+            ceases all entry rewards. This action is irreversible and you will
+            not be able to restore your account once excluded.
+          </p>
+          <Button
+            testID={`${testID}.exclude`}
+            size={"small"}
+            onClick={selfExcludeMember}
+          >
+            Self exclude
+          </Button>
+        </div>
+      )}
+
       {someEnabled("transactions", "events", "partners") && (
         <div className={styles.body}>
-          <h3>Work in progress</h3>
           {isEnabled("transactions") && (
             <div>
               <p>
@@ -186,17 +205,13 @@ export const AccountScene = ({
           )}
           {isEnabled("events") && (
             <div>
-              <h2>Special event</h2>
+              <h2>Event invitations</h2>
               <p>Special event details and stuff here</p>
             </div>
           )}
-          <div>
-            <h2>Sponsored bonus</h2>
-            <p>Promotional bonus stuff</p>
-          </div>
           {isEnabled("partners") && (
             <div>
-              <h2>Partner offer #1</h2>
+              <h2>Partner offers</h2>
             </div>
           )}
         </div>
