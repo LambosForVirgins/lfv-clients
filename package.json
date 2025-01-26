@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "start": "vite --config ./apps/web/vite.config.ts",
+    "storybook": "yarn workspace storybook start",
     "build": "vite build --config ./apps/web/vite.config.ts",
     "test": "vitest",
     "test:ci": "yarn test"
@@ -25,6 +26,7 @@
     "@solana/wallet-adapter-react-ui": "^0.9.35",
     "@solana/wallet-adapter-wallets": "^0.19.32",
     "@solana/web3.js": "^1.95.4",
+    "@storybook/react": "^8.5.1",
     "@xstate/react": "^5.0.2",
     "bignumber.js": "^9.1.2",
     "bn.js": "^5.2.1",
