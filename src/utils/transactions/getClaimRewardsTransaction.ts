@@ -6,6 +6,7 @@ import {
   VersionedTransaction,
 } from "@solana/web3.js";
 import {
+  findRewardTokenAccountAddress,
   findRewardTokenMint,
   findSubscriptionAccountAddress,
 } from "../locker/PDA";
@@ -22,28 +23,21 @@ export const getClaimRewardsTransaction = async (
 ) => {
   const latestBlock = await connection.getLatestBlockhash(),
     subscription = findSubscriptionAccountAddress(publicKey),
-    rewardMint = findRewardTokenMint();
-
-  const rewardsTokenAccount = getAssociatedTokenAddressSync(
-    rewardMint,
-    publicKey,
-    false,
-    TOKEN_PROGRAM_ID,
-    ASSOCIATED_PROGRAM_ID
-  );
+    mint = findRewardTokenMint(),
+    destinationTokenAccount = findRewardTokenAccountAddress(publicKey);
 
   console.log(
     "Reward token",
-    rewardMint.toBase58(),
-    rewardsTokenAccount.toBase58()
+    mint.toBase58(),
+    destinationTokenAccount.toBase58()
   );
 
   const instruction = await program.methods
     .claim()
     .accounts({
       subscription,
-      mint: rewardMint,
-      tokenAccount: rewardsTokenAccount,
+      mint,
+      destinationTokenAccount,
       signer: publicKey,
       systemProgram: SystemProgram.programId,
       tokenProgram: TOKEN_PROGRAM_ID,
