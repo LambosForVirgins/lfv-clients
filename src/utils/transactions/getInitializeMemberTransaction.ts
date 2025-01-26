@@ -1,10 +1,6 @@
 import { PublicKey, type TransactionInstruction } from "@solana/web3.js";
 import { program } from "../locker";
-import {
-  SystemProgram,
-  TransactionMessage,
-  VersionedTransaction,
-} from "@solana/web3.js";
+import { SystemProgram } from "@solana/web3.js";
 import { MINT } from "../locker/constants";
 import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
 import {
@@ -29,12 +25,4 @@ export const getInitializeMemberInstruction = async (
       systemProgram: SystemProgram.programId,
     })
     .instruction();
-
-  // const messageV0 = new TransactionMessage({
-  //   payerKey: publicKey,
-  //   recentBlockhash: latestBlock.blockhash,
-  //   instructions: [instruction],
-  // }).compileToV0Message();
-  // Construct a versioned transaction
-  return new VersionedTransaction(messageV0);
 };
