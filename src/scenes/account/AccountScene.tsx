@@ -125,6 +125,7 @@ export const AccountScene = ({
       </div>
       <div>
         <h2>Claim rewards</h2>
+        <p>{`You're rewarded 1 giveaway entry every ${formatDistanceToNowStrict(Date.now() + EPOCH_DURATION)} for every 1000 matured tokens.`}</p>
         <p>
           Next reward cycle{" "}
           {member?.timeRewarded &&
