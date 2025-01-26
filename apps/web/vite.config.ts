@@ -5,7 +5,6 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 import { name, version } from "./package.json";
 import path from "path";
 
-// https://vitejs.dev/config/
 export default function Config({ mode }: ConfigEnv): UserConfig {
   const env = loadEnv(mode, process.cwd(), "");
 
