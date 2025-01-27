@@ -137,14 +137,16 @@ export const AccountScene = ({
       </div>
       <div>
         <h2>Claim rewards</h2>
-        <p>{`You receive 1 entry for every 1000 tokens deposited plus receive 1 entry every ${formatDistanceToNowStrict(Date.now() + EPOCH_DURATION)} for every 1000 matured tokens.`}</p>
         <p>
           Next reward cycle{" "}
-          {member?.timeRewarded &&
-            new Date(
-              member.timeRewarded.getTime() + EPOCH_DURATION
-            ).toLocaleString()}
+          <strong>
+            {member?.timeRewarded &&
+              new Date(
+                member.timeRewarded.getTime() + EPOCH_DURATION
+              ).toLocaleDateString()}
+          </strong>
         </p>
+        <p>{`You receive 1 entry for every 1000 tokens deposited plus receive 1 entry every ${formatDistanceToNowStrict(Date.now() + EPOCH_DURATION)} for every 1000 matured tokens.`}</p>
         <p>Number of reward cycles {outstandingEpochs}</p>
         <p>Number of unclaimed rewards {outstandingRewards}</p>
         <Button

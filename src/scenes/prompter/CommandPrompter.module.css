@@ -1,0 +1,98 @@
+.frame {
+    grid-column: gutter;
+    margin: auto;
+    background-color: #141414;
+    color: rgba(255, 255, 255, 0.75);
+    font-family: 'Courier New', 'Fira Code', monospace;
+    /* border-radius: var(--size-400) var(--size-400) 0 0; */
+    width: 100%;
+    min-height: 90%;
+    max-height: 100%;
+    max-width: 60ch;
+    overflow-y: auto;
+    backdrop-filter: blur(8px);
+    transition: height 500ms;
+    padding: 0px;
+    color: #41FF00;
+
+    .options {
+        display: grid;
+        grid-auto-flow: row;
+        padding: var(--size-300);
+    }
+
+    button.wallet {
+        outline: none;
+        border: none;
+        font-family: 'Courier New', 'Fira Code', monospace;
+        font-size: var(--size-600);
+        color: #41FF00;
+        text-shadow: 2px -1px 2px rgba(251, 12, 12, 1), 0px 4px 2px rgba(12, 251, 12, 0.5), -1px 1px 2px rgba(12, 79, 251, 0.5);
+        background-color: transparent;
+        padding: var(--size-300);
+        cursor: pointer;
+        text-align: left;
+
+        &:hover,
+        &.selected {
+            outline: 1px solid #41FF0099;
+            box-shadow: 2px -1px 2px rgba(251, 12, 12, 0.75), -1px 1px 2px rgba(12, 79, 251, 0.5);
+        }
+
+        &:hover::before {
+            content: '> ';
+        }
+
+        &:disabled,
+        &:disabled:hover::before {
+            content: initial;
+            color: grey;
+            text-shadow: 2px -1px 2px rgba(251, 248, 255, 0.3), -1px 1px 2px rgba(12, 79, 251, 0.25);
+            cursor: not-allowed;
+            outline: none;
+            box-shadow: initial;
+        }
+    }
+
+    &::backdrop {
+        background-color: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px);
+    }
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    color: #fff;
+    background-color: grey;
+    padding: var(--size-300);
+    font-family: monospace;
+
+    button {
+        color: #fff;
+        font-family: monospace;
+        outline: none;
+        border: none;
+        background-color: transparent;
+    }
+}
+
+.window {
+    padding: var(--size-500);
+}
+
+.block {
+
+    &.center {
+        text-align: center;
+    }
+}
+
+.output {
+    font-family: 'Courier New', 'Fira Code', monospace;
+    font-size: var(--size-600);
+    color: #41FF00;
+    white-space: pre-wrap;
+    text-shadow: 2px -1px 2px rgba(251, 12, 12, 1), 0px 4px 2px rgba(12, 251, 12, 0.5), -1px 1px 2px rgba(12, 79, 251, 0.5);
+    user-select: none;
+}
