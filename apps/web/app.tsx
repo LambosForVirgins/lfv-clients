@@ -73,9 +73,7 @@ export const App = () => (
           path={"store/:product"}
           Component={withAuthenticated(ProductScene)}
         />
-        <Page path={"treasury/*"}>
-          <Page path={"vesting"} Component={TreasuryScene} />
-        </Page>
+        <Page path={"tokenomics/*"} Component={TreasuryScene} />
         <Page Component={LandingScene} index />
       </SentryRoutes>
     </Layout>

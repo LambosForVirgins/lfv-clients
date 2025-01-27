@@ -1,0 +1,19 @@
+.frame {
+    grid-column: content;
+
+
+}
+
+.portion {
+    display: grid;
+    gap: var(--size-100);
+    padding: var(--size-500);
+    text-align: center;
+}
+
+.split {
+    display: grid;
+    gap: var(--size-100);
+    padding: var(--size-500);
+    text-align: center;
+}
