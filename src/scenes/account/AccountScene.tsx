@@ -137,7 +137,7 @@ export const AccountScene = ({
       </div>
       <div>
         <h2>Claim rewards</h2>
-        <p>{`You're rewarded 1 giveaway entry every ${formatDistanceToNowStrict(Date.now() + EPOCH_DURATION)} for every 1000 matured tokens.`}</p>
+        <p>{`You receive 1 entry for every 1000 tokens deposited plus receive 1 entry every ${formatDistanceToNowStrict(Date.now() + EPOCH_DURATION)} for every 1000 matured tokens.`}</p>
         <p>
           Next reward cycle{" "}
           {member?.timeRewarded &&
@@ -146,7 +146,7 @@ export const AccountScene = ({
             ).toLocaleString()}
         </p>
         <p>Number of reward cycles {outstandingEpochs}</p>
-        <p>Number of outstanding rewards {outstandingRewards}</p>
+        <p>Number of unclaimed rewards {outstandingRewards}</p>
         <Button
           testID={`${testID}.claim`}
           size={"small"}
@@ -167,6 +167,26 @@ export const AccountScene = ({
       <h2>Your subscription</h2>
       <MembershipSell testID={`${testID}.subscription`} />
 
+      {someEnabled("events", "partners") && (
+        <div className={styles.body}>
+          {isEnabled("events") && (
+            <div>
+              <h2>Event invitations</h2>
+              <p>Special event details and stuff here</p>
+            </div>
+          )}
+          {isEnabled("partners") && (
+            <div>
+              <h2>Partner offers</h2>
+              <p>
+                Special offers from partners. This is another area for our
+                partners to market to members
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+
       {isEnabled("self_exclude") && (
         <div>
           <h2>Problems with addiction?</h2>
@@ -183,37 +203,6 @@ export const AccountScene = ({
           >
             Self exclude
           </Button>
-        </div>
-      )}
-
-      {someEnabled("transactions", "events", "partners") && (
-        <div className={styles.body}>
-          {isEnabled("transactions") && (
-            <div>
-              <p>
-                Show the giveaways entered into. Feed life from entry to daily
-                giveaway
-              </p>
-              <div>
-                {["Daily Draw 2000 VIRGIN", "Daily Draw 5000 PEACH"].map(
-                  (title) => (
-                    <div key={title}>{title}</div>
-                  )
-                )}
-              </div>
-            </div>
-          )}
-          {isEnabled("events") && (
-            <div>
-              <h2>Event invitations</h2>
-              <p>Special event details and stuff here</p>
-            </div>
-          )}
-          {isEnabled("partners") && (
-            <div>
-              <h2>Partner offers</h2>
-            </div>
-          )}
         </div>
       )}
     </div>

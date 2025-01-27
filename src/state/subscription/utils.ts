@@ -48,6 +48,7 @@ export const mapMemberFromStruct = (
     totalAmount: account.totalAmount.div(decimalFactor).toNumber(),
     totalMatured: account.totalMatured.div(decimalFactor).toNumber(),
     totalReleased: account.totalReleased.div(decimalFactor).toNumber(),
+    totalRewards: account.totalRewards.toNumber(),
     timeCreated: dateFromBigNumber(account.timeCreated),
     timeRewarded: isInitialAccount(account)
       ? null

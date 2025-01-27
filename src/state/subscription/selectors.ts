@@ -52,6 +52,9 @@ export const outstandingRewardsSelector = selectorFamily<
 
       if (!member) return 0;
 
-      return (outstandingEpochs * member.totalMatured) / REWARD_FACTOR;
+      return (
+        (outstandingEpochs * member.totalMatured) / REWARD_FACTOR +
+        member.totalRewards
+      );
     },
 });

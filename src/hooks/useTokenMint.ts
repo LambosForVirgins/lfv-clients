@@ -42,7 +42,9 @@ export const useRewardMint = () => {
   const mint = findRewardTokenMint();
   const { publicKey } = useWallet();
   const [pending, setPending] = useState(false);
-  const balance = useRecoilValue(mintAccountAtom({ mint, owner: publicKey }));
+  const balance = useRecoilValue(
+    mintAccountAtom({ mint, owner: publicKey, decimals: 4 })
+  );
 
   const requestTokens = useCallback(
     async (amount: number) => {
