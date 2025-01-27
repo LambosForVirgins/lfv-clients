@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useMemo, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./CommandPrompter.module.css";
 import clsx from "classnames";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { useMembership } from "@/hooks/useMembership";
 import { useNavigate } from "react-router";
+import { useInitializeAccount } from "@/hooks/useInitializeAccount";
 
 type StepOption<T> = {
   key: string;
@@ -27,8 +27,8 @@ type StepDefinition<T = any> = {
 export const CommandPrompter: React.FC = () => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [blockIndex, setBlockIndex] = useState(0);
-  const { select, wallet, wallets } = useWallet();
-  const { member } = useMembership();
+  const { select, connected, wallet, wallets } = useWallet();
+  const { status, initialize, loading } = useInitializeAccount();
 
   const navigate = useNavigate();
 
@@ -91,7 +91,35 @@ export const CommandPrompter: React.FC = () => {
     {
       key: "initializeMember",
       lines: ["Initializing ascension protocol..."],
-      delay: 6000,
+      // options: [
+      //   {
+      //     key: "initialize",
+      //     label: "Initialize",
+      //     value: "initialize",
+      //     disabled: loading,
+      //     onSelect: () => {
+      //       initialize();
+      //     },
+      //   },
+      // ],
+      onEnter: () => {
+        if (status !== undefined) return;
+        initialize().catch((err) => {
+          console.error(err);
+          setBlockIndex((prev) => prev - 1);
+        });
+      },
+      delay: 1000,
+    },
+    {
+      key: "loadingMember",
+      lines: ["Checking virginity..."],
+      delay: 5000,
+    },
+    {
+      key: "loadingResult",
+      lines: ["Loading lambos..."],
+      delay: 2000,
     },
     // {
     //   key: "checkVirginity",
@@ -99,13 +127,6 @@ export const CommandPrompter: React.FC = () => {
     //   delay: 5000,
     // },
     // { key: "requestTokens", lines: ["Requesting tokens..."], delay: 3000 },
-    {
-      key: "redirect",
-      lines: ["Loading lambos..."],
-      onEnter: () => {
-        navigate("/giveaways");
-      },
-    },
   ];
 
   useEffect(() => {
@@ -118,6 +139,12 @@ export const CommandPrompter: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    if (status !== undefined) {
+      navigate("/giveaways");
+    }
+  }, [status]);
+
+  useEffect(() => {
     if (loadingSteps[blockIndex]?.onEnter) {
       loadingSteps[blockIndex].onEnter();
     }
@@ -125,9 +152,11 @@ export const CommandPrompter: React.FC = () => {
 
   useEffect(() => {
     const getStep = () => {
-      if (!!member) {
+      if (status !== undefined) {
         return loadingSteps.findIndex(({ key }) => key === "redirect");
-      } else if (wallet && !member) {
+      } else if (loading) {
+        return loadingSteps.findIndex(({ key }) => key === "loadingMember");
+      } else if (connected && !status) {
         return loadingSteps.findIndex(({ key }) => key === "initializeMember");
       } else if (!wallet) {
         return loadingSteps.findIndex(({ key }) => key === "selectWallet");
@@ -143,7 +172,7 @@ export const CommandPrompter: React.FC = () => {
         setBlockIndex(nextStep);
       }, step.delay || 0);
     }
-  }, [wallet, member]);
+  }, [wallet, connected, status, loading]);
 
   const open = () => dialogRef.current?.showModal();
   const close = () => dialogRef.current?.close();
