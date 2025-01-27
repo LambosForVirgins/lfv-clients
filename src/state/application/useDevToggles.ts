@@ -14,7 +14,6 @@ const initialKeys = {
   giveaways_history: false,
   tickets: false,
   partners: false,
-  transactions: false,
   footer: false,
   disclaimers: false,
   subscription_slider: false,

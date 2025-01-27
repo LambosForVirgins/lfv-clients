@@ -1,6 +1,6 @@
 import { PublicKey } from "@solana/web3.js";
 import { AtomEffect } from "recoil";
-import { getConnection } from "@/utils/locker/constants";
+import { DECIMALS, getConnection } from "@/utils/locker/constants";
 import {
   getAssociatedTokenAddressSync,
   getAccount,
@@ -8,7 +8,11 @@ import {
 } from "@solana/spl-token";
 
 export const effectMintAccountAtom =
-  (mint: PublicKey, publicKey: PublicKey | null): AtomEffect<number> =>
+  (
+    mint: PublicKey,
+    publicKey: PublicKey | null,
+    decimals: number
+  ): AtomEffect<number> =>
   ({ trigger, setSelf }) => {
     if (!publicKey) return;
 
@@ -23,7 +27,7 @@ export const effectMintAccountAtom =
     if (trigger === "get") {
       getAccount(connection, associatedTokenAccount, "confirmed")
         .then((data) => {
-          setSelf(Math.round(Number(data.amount)));
+          setSelf(Math.floor(Number(data.amount) / Math.pow(10, decimals)));
         })
         .catch((error) => {
           console.error(
