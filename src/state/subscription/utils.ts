@@ -1,4 +1,4 @@
-import { decimalFactor, timeFactor } from "@/utils/locker/constants";
+import { decimalFactor, millisecondFactor } from "@/utils/locker/constants";
 import { SubscriptionAccountStruct } from "@/utils/locker/setup";
 import { Member, Transaction } from "./types";
 import { v5 as generateHash } from "uuid";
@@ -10,7 +10,7 @@ const isInitialAccount = (account: SubscriptionAccountStruct): boolean =>
   account.timeCreated.eq(account.timeRewarded) && account.totalMatured.isZero();
 
 const dateFromBigNumber = (bigNumber: BN): Date => {
-  return new Date(bigNumber.mul(timeFactor).toNumber());
+  return new Date(bigNumber.mul(millisecondFactor).toNumber());
 };
 
 export const mapTransactionFromStruct = (

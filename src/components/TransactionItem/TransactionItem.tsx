@@ -4,6 +4,8 @@ import { Button } from "@/elements";
 import { useEffect, useMemo, useState } from "react";
 import { useCountdown } from "@/hooks/useCountdown";
 import { CircularProgress } from "../CircularIndicator/CircularIndicator";
+import { REWARD_FACTOR } from "@/utils/locker/constants";
+import clsx from "classnames";
 
 interface TransactionItemProps extends Common.ComponentProps {
   amount: number;
@@ -11,6 +13,7 @@ interface TransactionItemProps extends Common.ComponentProps {
   startDate?: Date;
   media?: { src?: string };
   action: { label?: string; onClick: () => void };
+  loading?: boolean;
 }
 
 export const TransactionItem = ({
@@ -26,6 +29,11 @@ export const TransactionItem = ({
     () => targetDate.getTime() < Date.now(),
     [targetDate, progress]
   );
+
+  const totalLapsedCycles = useMemo(() => {
+    const cycleDuration = targetDate.getTime() - startDate.getTime();
+    return Math.floor((Date.now() - startDate.getTime()) / cycleDuration);
+  }, [targetDate, startDate, progress]);
 
   useEffect(() => {
     if (targetDate.getTime() < Date.now()) {
@@ -44,11 +52,14 @@ export const TransactionItem = ({
         strokeWidth={6}
       >
         <img src={props.media?.src} width={"100%"} />
+        <span className={styles.badge}>
+          {Math.floor(props.amount / REWARD_FACTOR) * totalLapsedCycles}
+        </span>
       </CircularProgress>
       <span>
-        <div className={styles.amount}>
-          {props.amount.toLocaleString()} VIRGIN
-        </div>
+        <h3 className={styles.amount}>
+          +{props.amount.toLocaleString()} VIRGIN
+        </h3>
         <small className={styles.time}>{timeString}</small>
       </span>
 
@@ -56,7 +67,7 @@ export const TransactionItem = ({
         <Button
           testID={`${testID}.withdraw`}
           size={"small"}
-          disabled={!isMatured}
+          disabled={props.loading || !isMatured}
           onClick={props.action.onClick}
         >
           {isMatured ? props.action.label : "Pending"}

@@ -41,7 +41,9 @@ export const effectMintAccountAtom =
         (info) => {
           try {
             const accountData = AccountLayout.decode(info.data);
-            setSelf(Math.round(Number(accountData.amount)));
+            setSelf(
+              Math.round(Number(accountData.amount) / Math.pow(10, decimals))
+            );
           } catch (error) {
             console.error(
               `Error decoding token account "${associatedTokenAccount.toBase58()}"`,
