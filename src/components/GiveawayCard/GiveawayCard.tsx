@@ -54,7 +54,8 @@ export const GiveawayCard = ({
 
   const stakeMoreTokens = useCallback(async () => {
     setLoading(true);
-    await depositTokens(amountToAdd).finally(() => setLoading(false));
+    await depositTokens(amountToAdd);
+    setLoading(false);
   }, [amountToAdd]);
 
   const actions: Action[] = [

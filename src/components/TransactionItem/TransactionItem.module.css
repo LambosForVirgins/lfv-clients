@@ -21,6 +21,23 @@
         border-radius: 100vw;
     }
 
+    .badge {
+        display: grid;
+        position: absolute;
+        top: -8px;
+        left: -8px;
+        min-width: 21px;
+        min-height: 21px;
+        background-color: var(--bg-red-500);
+        color: var(--white);
+        border-radius: 100vw;
+        font-size: var(--size-300);
+        font-weight: bold;
+        text-align: center;
+        align-items: center;
+        padding: 0px var(--size-100);
+    }
+
 
     .amount {
         font-size: var(--size-700);

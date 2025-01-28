@@ -6,6 +6,9 @@ on:
     
   workflow_dispatch:
 
+env:
+  VITE_SOLANA_RPC_URL: ${{ vars.SOLANA_RPC_URL}}
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref || github.run_id }}
   cancel-in-progress: true
