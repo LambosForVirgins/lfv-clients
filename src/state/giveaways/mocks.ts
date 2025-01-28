@@ -151,7 +151,7 @@ export const MOCKS: Giveaway[] = [
     description: "Celebrating $100M USD Market Cap with a Lambo giveaway",
     title: "$100M Lambo",
     constraints: {
-      minBalance: 3000,
+      minBalance: 2000,
     },
     draws: [],
     providers: ["daee4f06-b6f2-11ef-b6d2-1f52d6bbb5bd"],
