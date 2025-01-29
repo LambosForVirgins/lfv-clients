@@ -28,6 +28,7 @@ const isDev = !import.meta.env.PROD;
 
 export const CommandPrompter: React.FC = () => {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const scrollContainer = useRef<HTMLDivElement>(null);
   const [blockIndex, setBlockIndex] = useState(0);
   const { select, connected, wallet, wallets } = useWallet();
   const { status, initialize, loading } = useInitializeAccount();
@@ -155,6 +156,10 @@ export const CommandPrompter: React.FC = () => {
     if (loadingSteps[blockIndex]?.onEnter) {
       loadingSteps[blockIndex].onEnter();
     }
+
+    scrollContainer.current?.lastElementChild?.scrollIntoView({
+      behavior: "smooth",
+    });
   }, [blockIndex]);
 
   useEffect(() => {
@@ -190,7 +195,7 @@ export const CommandPrompter: React.FC = () => {
         <span>LambosForVirgins.exe</span>
         <button onClick={close}>close</button>
       </div>
-      <div className={styles.window}>
+      <div ref={scrollContainer} className={styles.window}>
         {loadingSteps.slice(0, blockIndex + 1).map((message) => (
           <div
             key={message.key}
