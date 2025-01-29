@@ -3,11 +3,13 @@ import BN from "bn.js";
 
 /** Address of the Token Locker Program */
 export const LOCKER_PROGRAM = new PublicKey(
-  "LFV1t2uUvpEZuhduXTepyimVJ35ZANUThNPH8yp1w7o"
+  import.meta.env.VITE_REWARD_PROGRAM_ADDRESS ||
+    "LFV1t2uUvpEZuhduXTepyimVJ35ZANUThNPH8yp1w7o"
 );
 
 export const MINT = new PublicKey(
-  "7kB8ZkSBJr2uiBWfveqkVBN7EpZMFom5PqeWUB62DCRD"
+  import.meta.env.VITE_MINT_ADDRESS ||
+    "7kB8ZkSBJr2uiBWfveqkVBN7EpZMFom5PqeWUB62DCRD"
 );
 
 export const DECIMALS = 9;
@@ -27,7 +29,9 @@ export enum SeedKey {
 /** Monthly milliseconds */
 export const EPOCH_DURATION = 2629800 * 1000;
 
-export const API_ENDPOINT = new URL("https://api.lambosforvirgins.com");
+export const API_ENDPOINT = new URL(
+  import.meta.env.VITE_API_ENDPOINT || "https://api.lambosforvirgins.com"
+);
 
 export const getApiEndpoint = (path: string = ""): URL => {
   return new URL(path, API_ENDPOINT);
@@ -51,11 +55,11 @@ export const amountToLamports = <T extends number | BN>(amount: T): T => {
   return adjusted as T;
 };
 
-export const getRpcUrl = (): string => {
-  const local = false;
-  return local ? "http://127.0.0.1:8899" : clusterApiUrl("devnet");
+export const solanaRpcUrl = (): string => {
+  return import.meta.env.VITE_SOLANA_RPC_URL || clusterApiUrl("devnet");
 };
 
 export const getConnection = (): Connection => {
-  return new Connection(getRpcUrl());
+  console.log("connection", import.meta.env.VITE_SOLANA_RPC_URL);
+  return new Connection(solanaRpcUrl());
 };

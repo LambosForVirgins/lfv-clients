@@ -1,16 +1,10 @@
 import { Section } from "@/components/Section/Section";
-import { useMarketCap } from "@/state/marketCap";
-import { ProgressIndicator } from "@/components/ProgressIndicator/ProgressIndicator";
 import styles from "./LandingScene.module.css";
-import { useDevToggles } from "@/state/application/useDevToggles";
 import { CommandPrompter } from "@/scenes/prompter/CommandPrompter";
 
 export const LandingScene = ({
   testID = "landing",
 }: Readonly<Partial<Common.ComponentProps>>) => {
-  const { isEnabled } = useDevToggles();
-  const { marketCapDiluted } = useMarketCap();
-
   return (
     <Section testID="membership" id={"membership"}>
       <div className={styles.frame}>

@@ -8,6 +8,9 @@ on:
 
 env:
   VITE_SOLANA_RPC_URL: ${{ vars.SOLANA_RPC_URL}}
+  VITE_REWARD_PROGRAM_ADDRESS: ${{ vars.REWARD_PROGRAM_ADDRESS}}
+  VITE_MINT_ADDRESS: ${{ vars.MINT_ADDRESS}}
+  VITE_API_ENDPOINT: ${{ vars.API_ENDPOINT}}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref || github.run_id }}
