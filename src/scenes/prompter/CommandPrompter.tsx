@@ -24,6 +24,8 @@ type StepDefinition<T = any> = {
   onEnter?: () => void;
 };
 
+const isDev = !import.meta.env.PROD;
+
 export const CommandPrompter: React.FC = () => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [blockIndex, setBlockIndex] = useState(0);
@@ -121,13 +123,18 @@ export const CommandPrompter: React.FC = () => {
       lines: ["Loading lambos..."],
       delay: 2000,
     },
-    // {
-    //   key: "checkVirginity",
-    //   lines: ["Checking virginity...", "Virgin confirmed"],
-    //   delay: 5000,
-    // },
-    // { key: "requestTokens", lines: ["Requesting tokens..."], delay: 3000 },
   ];
+
+  if (isDev) {
+    loadingSteps.push(
+      {
+        key: "checkVirginity",
+        lines: ["Checking virginity...", "Virgin confirmed"],
+        delay: 5000,
+      },
+      { key: "requestTokens", lines: ["Requesting tokens..."], delay: 3000 }
+    );
+  }
 
   useEffect(() => {
     open();
