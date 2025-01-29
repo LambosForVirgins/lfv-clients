@@ -3,7 +3,7 @@ export type RewardProgram = {
   "name": "reward_program",
   "instructions": [
     {
-      "name": "createAccount",
+      "name": "initialize",
       "accounts": [
         {
           "name": "subscription",
@@ -42,20 +42,52 @@ export type RewardProgram = {
       "args": []
     },
     {
-      "name": "exclude",
+      "name": "initializeMint",
       "accounts": [
         {
-          "name": "subscription",
+          "name": "metadata",
           "isMut": true,
           "isSigner": false
         },
         {
-          "name": "signer",
+          "name": "mint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "admin",
           "isMut": true,
           "isSigner": true
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMetadataProgram",
+          "isMut": false,
+          "isSigner": false
         }
       ],
-      "args": []
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": "InitializeRewardsParams"
+          }
+        }
+      ]
     },
     {
       "name": "deposit",
@@ -94,11 +126,6 @@ export type RewardProgram = {
           "name": "systemProgram",
           "isMut": false,
           "isSigner": false
-        },
-        {
-          "name": "clock",
-          "isMut": false,
-          "isSigner": false
         }
       ],
       "args": [
@@ -117,17 +144,27 @@ export type RewardProgram = {
           "isSigner": false
         },
         {
+          "name": "mint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "destinationTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
           "name": "signer",
           "isMut": true,
           "isSigner": true
         },
         {
-          "name": "systemProgram",
+          "name": "tokenProgram",
           "isMut": false,
           "isSigner": false
         },
         {
-          "name": "clock",
+          "name": "systemProgram",
           "isMut": false,
           "isSigner": false
         }
@@ -169,11 +206,6 @@ export type RewardProgram = {
         },
         {
           "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "clock",
           "isMut": false,
           "isSigner": false
         }
@@ -222,80 +254,12 @@ export type RewardProgram = {
           "name": "systemProgram",
           "isMut": false,
           "isSigner": false
-        },
-        {
-          "name": "clock",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": []
-    },
-    {
-      "name": "cancel",
-      "accounts": [
-        {
-          "name": "subscription",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "signer",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "clock",
-          "isMut": false,
-          "isSigner": false
         }
       ],
       "args": []
     }
   ],
   "accounts": [
-    {
-      "name": "hostAccount",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "version",
-            "docs": [
-              "Schema version from v0 up to v255. Defaults to the `LATEST_VERSION` constant."
-            ],
-            "type": "u8"
-          },
-          {
-            "name": "maturationPeriod",
-            "docs": [
-              "Monthly slot locking period"
-            ],
-            "type": "u64"
-          },
-          {
-            "name": "rewardFactor",
-            "docs": [
-              "Ratio of entries granted to tokens locked"
-            ],
-            "type": "u64"
-          },
-          {
-            "name": "totalMembers",
-            "type": "u64"
-          },
-          {
-            "name": "totalLocked",
-            "type": "u64"
-          }
-        ]
-      }
-    },
     {
       "name": "subscriptionAccount",
       "type": {
@@ -320,10 +284,6 @@ export type RewardProgram = {
             "type": "u8"
           },
           {
-            "name": "entries",
-            "type": "u64"
-          },
-          {
             "name": "totalAmount",
             "docs": [
               "Total amount of tokens managed by the account"
@@ -341,6 +301,13 @@ export type RewardProgram = {
             "name": "totalReleased",
             "docs": [
               "Amount of tokens pending release"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "totalRewards",
+            "docs": [
+              "Amount of unclaimed entry tokens"
             ],
             "type": "u64"
           },
@@ -402,6 +369,30 @@ export type RewardProgram = {
   ],
   "types": [
     {
+      "name": "InitializeRewardsParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "type": "string"
+          },
+          {
+            "name": "uri",
+            "type": "string"
+          },
+          {
+            "name": "decimals",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
       "name": "MemberError",
       "type": {
         "kind": "enum",
@@ -410,7 +401,10 @@ export type RewardProgram = {
             "name": "AccountSuspended"
           },
           {
-            "name": "ImmutableAccountStatus"
+            "name": "AccountDisabled"
+          },
+          {
+            "name": "AccountImmutable"
           }
         ]
       }
@@ -442,6 +436,9 @@ export type RewardProgram = {
         "variants": [
           {
             "name": "InvalidTimestamp"
+          },
+          {
+            "name": "NoRewards"
           },
           {
             "name": "InvalidPauseAuthority"
@@ -569,7 +566,7 @@ export const IDL: RewardProgram = {
   "name": "reward_program",
   "instructions": [
     {
-      "name": "createAccount",
+      "name": "initialize",
       "accounts": [
         {
           "name": "subscription",
@@ -608,20 +605,52 @@ export const IDL: RewardProgram = {
       "args": []
     },
     {
-      "name": "exclude",
+      "name": "initializeMint",
       "accounts": [
         {
-          "name": "subscription",
+          "name": "metadata",
           "isMut": true,
           "isSigner": false
         },
         {
-          "name": "signer",
+          "name": "mint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "admin",
           "isMut": true,
           "isSigner": true
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMetadataProgram",
+          "isMut": false,
+          "isSigner": false
         }
       ],
-      "args": []
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": "InitializeRewardsParams"
+          }
+        }
+      ]
     },
     {
       "name": "deposit",
@@ -660,11 +689,6 @@ export const IDL: RewardProgram = {
           "name": "systemProgram",
           "isMut": false,
           "isSigner": false
-        },
-        {
-          "name": "clock",
-          "isMut": false,
-          "isSigner": false
         }
       ],
       "args": [
@@ -683,17 +707,27 @@ export const IDL: RewardProgram = {
           "isSigner": false
         },
         {
+          "name": "mint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "destinationTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
           "name": "signer",
           "isMut": true,
           "isSigner": true
         },
         {
-          "name": "systemProgram",
+          "name": "tokenProgram",
           "isMut": false,
           "isSigner": false
         },
         {
-          "name": "clock",
+          "name": "systemProgram",
           "isMut": false,
           "isSigner": false
         }
@@ -735,11 +769,6 @@ export const IDL: RewardProgram = {
         },
         {
           "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "clock",
           "isMut": false,
           "isSigner": false
         }
@@ -788,80 +817,12 @@ export const IDL: RewardProgram = {
           "name": "systemProgram",
           "isMut": false,
           "isSigner": false
-        },
-        {
-          "name": "clock",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": []
-    },
-    {
-      "name": "cancel",
-      "accounts": [
-        {
-          "name": "subscription",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "signer",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "clock",
-          "isMut": false,
-          "isSigner": false
         }
       ],
       "args": []
     }
   ],
   "accounts": [
-    {
-      "name": "hostAccount",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "version",
-            "docs": [
-              "Schema version from v0 up to v255. Defaults to the `LATEST_VERSION` constant."
-            ],
-            "type": "u8"
-          },
-          {
-            "name": "maturationPeriod",
-            "docs": [
-              "Monthly slot locking period"
-            ],
-            "type": "u64"
-          },
-          {
-            "name": "rewardFactor",
-            "docs": [
-              "Ratio of entries granted to tokens locked"
-            ],
-            "type": "u64"
-          },
-          {
-            "name": "totalMembers",
-            "type": "u64"
-          },
-          {
-            "name": "totalLocked",
-            "type": "u64"
-          }
-        ]
-      }
-    },
     {
       "name": "subscriptionAccount",
       "type": {
@@ -886,10 +847,6 @@ export const IDL: RewardProgram = {
             "type": "u8"
           },
           {
-            "name": "entries",
-            "type": "u64"
-          },
-          {
             "name": "totalAmount",
             "docs": [
               "Total amount of tokens managed by the account"
@@ -907,6 +864,13 @@ export const IDL: RewardProgram = {
             "name": "totalReleased",
             "docs": [
               "Amount of tokens pending release"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "totalRewards",
+            "docs": [
+              "Amount of unclaimed entry tokens"
             ],
             "type": "u64"
           },
@@ -968,6 +932,30 @@ export const IDL: RewardProgram = {
   ],
   "types": [
     {
+      "name": "InitializeRewardsParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "type": "string"
+          },
+          {
+            "name": "uri",
+            "type": "string"
+          },
+          {
+            "name": "decimals",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
       "name": "MemberError",
       "type": {
         "kind": "enum",
@@ -976,7 +964,10 @@ export const IDL: RewardProgram = {
             "name": "AccountSuspended"
           },
           {
-            "name": "ImmutableAccountStatus"
+            "name": "AccountDisabled"
+          },
+          {
+            "name": "AccountImmutable"
           }
         ]
       }
@@ -1008,6 +999,9 @@ export const IDL: RewardProgram = {
         "variants": [
           {
             "name": "InvalidTimestamp"
+          },
+          {
+            "name": "NoRewards"
           },
           {
             "name": "InvalidPauseAuthority"
