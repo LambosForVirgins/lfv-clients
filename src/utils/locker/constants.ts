@@ -1,15 +1,15 @@
 import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
 import BN from "bn.js";
 
-/** Address of the Token Locker Program */
+/** Address of the Rewards Program */
 export const LOCKER_PROGRAM = new PublicKey(
-  import.meta.env.VITE_REWARD_PROGRAM_ADDRESS ||
-    "LFV1t2uUvpEZuhduXTepyimVJ35ZANUThNPH8yp1w7o"
+  import.meta.env.VITE_REWARD_PROGRAM_ADDRESS
 );
 
-export const MINT = new PublicKey(
-  import.meta.env.VITE_MINT_ADDRESS ||
-    "7kB8ZkSBJr2uiBWfveqkVBN7EpZMFom5PqeWUB62DCRD"
+export const MINT = new PublicKey(import.meta.env.VITE_MINT_ADDRESS);
+
+export const REWARD_MINT = new PublicKey(
+  import.meta.env.VITE_REWARD_MINT_ADDRESS
 );
 
 export const DECIMALS = 9;
