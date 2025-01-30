@@ -4,8 +4,8 @@
     "version": "0.0.1",
     "type": "module",
     "scripts": {
-        "start": "vite --host",
-        "build": "rm -rf dist && vite build",
+        "start": "vite --host --config ./vite.config.ts",
+        "build": "rm -rf dist && vite build --config ./vite.config.ts",
         "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview"
     },
