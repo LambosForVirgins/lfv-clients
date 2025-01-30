@@ -10,7 +10,6 @@ const pathFromRoot = (...args: string[]) =>
 
 export default function Config({ mode }: ConfigEnv): UserConfig {
   const env = loadEnv(mode, process.cwd(), "");
-  console.log("Config env", env);
 
   return defineConfig({
     root: process.cwd(),
