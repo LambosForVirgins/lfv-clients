@@ -6,7 +6,6 @@ import { tierToString } from "@/utils/tiers/formatters";
 import { useClaimRewards } from "@/hooks/useClaimRewards";
 import { useRecoilValue } from "recoil";
 import { outstandingRewardsSelector } from "@/state/subscription/selectors";
-import { outstandingRewardEpochsSelector } from "../../state/subscription/selectors";
 import { useUpdateStatus } from "@/hooks/useUpdateStatus";
 import { MemberStatus } from "@/state/subscription/types";
 import { EPOCH_DURATION } from "@/utils/locker/constants";
@@ -27,10 +26,6 @@ export const AccountScene = ({
 
   const outstandingRewards = useRecoilValue(
     outstandingRewardsSelector(publicKey)
-  );
-
-  const outstandingEpochs = useRecoilValue(
-    outstandingRewardEpochsSelector(publicKey)
   );
 
   const selfExcludeMember = () => {
@@ -89,11 +84,20 @@ export const AccountScene = ({
       <h2>Transaction backlog</h2>
       <p>
         {`Tokens are required to complete the subscription cycle of ${formatDistanceToNowStrict(Date.now() + EPOCH_DURATION)} in order to honour the benefits and rewards granted on them. This cooling period requires that token deposits must mature before they
-        are eligible for withdraw, where they must complete the cycle before
+        are eligible for withdrawal, where they must complete the cycle before
         release.`}
       </p>
       <div className={styles.list}>
-        <h4 className={styles.header}>Maturing today</h4>
+        <h4 className={styles.header}>{`Maturing ${formatDistanceToNowStrict(
+          member?.slots[0]?.type === "deposit"
+            ? member.slots[0].timeMatured
+            : member?.slots[0]?.timeReleased || Date.now(),
+          {
+            addSuffix: true,
+            unit: "day",
+            roundingMethod: "floor",
+          }
+        )}`}</h4>
         <ul className={styles.transactions}>
           {member?.slots.length === 0 ? (
             <div className={styles.empty}>
