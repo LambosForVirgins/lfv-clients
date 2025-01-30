@@ -4,9 +4,9 @@
   "packageManager": "yarn@4.6.0",
   "private": true,
   "scripts": {
-    "start": "vite --config ./apps/web/vite.config.ts",
+    "start": "yarn workspace web start",
     "storybook": "yarn workspace storybook start",
-    "build": "vite build --config ./apps/web/vite.config.ts",
+    "build": "yarn workspace web build",
     "test": "vitest",
     "test:ci": "yarn test"
   },

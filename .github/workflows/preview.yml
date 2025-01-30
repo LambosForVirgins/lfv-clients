@@ -2,7 +2,7 @@ name: Build and Deploy
 
 on:
   push:
-    branches: ['main']
+    branches: ['preview']
     
   workflow_dispatch:
 
@@ -20,7 +20,7 @@ jobs:
   build-deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
-    environment: production
+    environment: preview
 
     steps:
       - name: Checkout repository
@@ -44,7 +44,7 @@ jobs:
         env:
           VITE_SENTRY_DSN: ${{ vars.SENTRY_DSN }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ENV: production
+          SENTRY_ENV: preview
 
       - name: Deploy to S3
         uses: kersvers/s3-sync-with-cloudfront-invalidation@v1.0.0
