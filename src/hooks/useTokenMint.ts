@@ -1,5 +1,5 @@
 import { useWallet } from "@solana/wallet-adapter-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { MINT } from "@/utils/locker/constants";
 import { UNSAFE_requestTokenMint } from "@/utils/transactions/UNSAFE_requestTokenMint";
 import { useRecoilValue } from "recoil";
@@ -9,7 +9,7 @@ import { findRewardTokenMint } from "@/utils/locker";
 export const useTokenMint = () => {
   const { publicKey } = useWallet();
   const [pending, setPending] = useState(false);
-  const lamports = useRecoilValue(
+  const balance = useRecoilValue(
     mintAccountAtom({ mint: MINT, owner: publicKey })
   );
 
@@ -23,15 +23,14 @@ export const useTokenMint = () => {
     [publicKey]
   );
 
-  const balance = lamports / 10 ** 9;
-
   useEffect(() => {
-    if (pending && balance > 0) {
+    if (pending && balance) {
       setPending(false);
     }
   }, [balance, pending]);
 
   return {
+    exists: balance !== null,
     balance,
     pending,
     requestTokens,
@@ -57,12 +56,13 @@ export const useRewardMint = () => {
   );
 
   useEffect(() => {
-    if (pending && balance > 0) {
+    if (pending && balance) {
       setPending(false);
     }
   }, [balance, pending]);
 
   return {
+    exists: balance !== null,
     balance,
     pending,
     requestTokens,
