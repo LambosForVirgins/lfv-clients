@@ -3,13 +3,13 @@ import { getInitializeRewardsInstruction } from "@/utils/transactions/getInitial
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { Transaction } from "@solana/web3.js";
 import { useCallback, useState } from "react";
-
-const createTokenAccount = true;
+import { useRewardMint } from "./useTokenMint";
 
 export const useClaimRewards = () => {
   const { connection } = useConnection();
   const [pending, setPending] = useState(false);
   const { publicKey, sendTransaction } = useWallet();
+  const { exists } = useRewardMint();
 
   const claim = useCallback(async () => {
     if (!publicKey || pending) return;
@@ -19,7 +19,7 @@ export const useClaimRewards = () => {
     try {
       const transaction = new Transaction();
 
-      if (createTokenAccount) {
+      if (!exists) {
         transaction.add(getInitializeRewardsInstruction(publicKey));
       }
 
