@@ -19,7 +19,7 @@ export const millisecondFactor = new BN(1000);
 export enum SeedKey {
   SubscriptionSeed = "subscription",
   VaultSeed = "vault",
-  RewardsSeed = "rewards",
+  RewardsSeed = "reward",
 }
 
 /** Monthly milliseconds */
