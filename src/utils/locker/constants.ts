@@ -1,14 +1,23 @@
 import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
 import BN from "bn.js";
 
-const env = import.meta.env;
+console.log("Constants env", import.meta.env);
 
 /** Address of the Rewards Program */
-export const LOCKER_PROGRAM = new PublicKey(env.VITE_REWARD_PROGRAM_ADDRESS);
+export const LOCKER_PROGRAM = new PublicKey(
+  import.meta.env.VITE_REWARD_PROGRAM_ADDRESS ||
+    "9QZ5nMuz1cH4Nb7mWwSDrXy5zMWg1DT6TSjdgga933wU"
+);
 
-export const MINT = new PublicKey(env.VITE_MINT_ADDRESS);
+export const MINT = new PublicKey(
+  import.meta.env.VITE_MINT_ADDRESS ||
+    "LFVqPrRGnwYdCwFcDzShBxN2GMFmD4AoCMrjxjq4xdz"
+);
 
-export const REWARD_MINT = new PublicKey(env.VITE_REWARD_MINT_ADDRESS);
+export const REWARD_MINT = new PublicKey(
+  import.meta.env.VITE_REWARD_MINT_ADDRESS ||
+    "8MvGosSYqUBwpKTJZp2oQHM2siNaPNcA4dAeHehqR1wr"
+);
 
 export const DECIMALS = 9;
 
@@ -27,7 +36,9 @@ export enum SeedKey {
 /** Monthly milliseconds */
 export const EPOCH_DURATION = 2629800 * 1000;
 
-export const API_ENDPOINT = new URL(env.VITE_API_ENDPOINT);
+export const API_ENDPOINT = new URL(
+  import.meta.env.VITE_API_ENDPOINT || "https://api.lambosforvirgins.com"
+);
 
 export const getApiEndpoint = (path: string = ""): URL => {
   return new URL(path, API_ENDPOINT);
@@ -52,7 +63,7 @@ export const amountToLamports = <T extends number | BN>(amount: T): T => {
 };
 
 export const solanaRpcUrl = (): string => {
-  return env.VITE_SOLANA_RPC_URL || clusterApiUrl("devnet");
+  return import.meta.env.VITE_SOLANA_RPC_URL || clusterApiUrl("devnet");
 };
 
 export const getConnection = (): Connection => {
