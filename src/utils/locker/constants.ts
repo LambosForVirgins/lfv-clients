@@ -1,6 +1,8 @@
 import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
 import BN from "bn.js";
 
+console.log("Constants env", import.meta.env);
+
 /** Address of the Rewards Program */
 export const LOCKER_PROGRAM = new PublicKey(
   import.meta.env.VITE_REWARD_PROGRAM_ADDRESS ||

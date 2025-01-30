@@ -51,8 +51,8 @@ export default function Config({ mode }: ConfigEnv): UserConfig {
       sentryVitePlugin({
         org: "moonshot-llc",
         project: "lfv",
-        authToken: env.VITE_SENTRY_AUTH_TOKEN,
-        disable: env.VITE_SENTRY_ENV === "dev",
+        authToken: env.SENTRY_AUTH_TOKEN,
+        disable: env.SENTRY_ENV === "dev",
       }),
     ],
   });
