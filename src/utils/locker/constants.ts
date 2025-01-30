@@ -1,15 +1,22 @@
 import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
 import BN from "bn.js";
 
+console.log("Constants env", import.meta.env);
+
 /** Address of the Rewards Program */
 export const LOCKER_PROGRAM = new PublicKey(
-  import.meta.env.VITE_REWARD_PROGRAM_ADDRESS
+  import.meta.env.VITE_REWARD_PROGRAM_ADDRESS ||
+    "9QZ5nMuz1cH4Nb7mWwSDrXy5zMWg1DT6TSjdgga933wU"
 );
 
-export const MINT = new PublicKey(import.meta.env.VITE_MINT_ADDRESS);
+export const MINT = new PublicKey(
+  import.meta.env.VITE_MINT_ADDRESS ||
+    "LFVqPrRGnwYdCwFcDzShBxN2GMFmD4AoCMrjxjq4xdz"
+);
 
 export const REWARD_MINT = new PublicKey(
-  import.meta.env.VITE_REWARD_MINT_ADDRESS
+  import.meta.env.VITE_REWARD_MINT_ADDRESS ||
+    "8MvGosSYqUBwpKTJZp2oQHM2siNaPNcA4dAeHehqR1wr"
 );
 
 export const DECIMALS = 9;

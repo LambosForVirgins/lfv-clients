@@ -43,8 +43,8 @@ jobs:
         run: yarn build
         env:
           VITE_SENTRY_DSN: ${{ vars.SENTRY_DSN }}
-          VITE_SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          VITE_SENTRY_ENV: production
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ENV: production
 
       - name: Deploy to S3
         uses: kersvers/s3-sync-with-cloudfront-invalidation@v1.0.0
