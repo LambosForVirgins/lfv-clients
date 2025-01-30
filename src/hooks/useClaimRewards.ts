@@ -1,6 +1,10 @@
 import { getClaimRewardsTransaction } from "@/utils/transactions/getClaimRewardsTransaction";
+import { getInitializeRewardsInstruction } from "@/utils/transactions/getInitializeRewardsTransaction";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { Transaction } from "@solana/web3.js";
 import { useCallback, useState } from "react";
+
+const createTokenAccount = true;
 
 export const useClaimRewards = () => {
   const { connection } = useConnection();
@@ -13,10 +17,13 @@ export const useClaimRewards = () => {
     setPending(true);
 
     try {
-      const transaction = await getClaimRewardsTransaction(
-        connection,
-        publicKey
-      );
+      const transaction = new Transaction();
+
+      if (createTokenAccount) {
+        transaction.add(getInitializeRewardsInstruction(publicKey));
+      }
+
+      transaction.add(await getClaimRewardsTransaction(publicKey));
 
       const txHash = await sendTransaction(transaction, connection).catch(
         (err) => console.log("err", err)

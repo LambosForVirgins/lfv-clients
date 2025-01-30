@@ -1,7 +1,7 @@
 import { Button } from "@/elements";
 import styles from "./CreateAccount.module.css";
 import clsx from "classnames";
-import { useInitializeAccount } from "@/hooks/useInitializeAccount";
+import { useInitializeSubscription } from "@/hooks/useInitializeSubscription";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useCallback, useEffect, useState } from "react";
@@ -32,7 +32,7 @@ export const CreateAccount = ({ testID, ...props }: CreateAccountProps) => {
     loading,
     status: memberStatus,
     initialize,
-  } = useInitializeAccount();
+  } = useInitializeSubscription();
   const { balance, pending, requestTokens } = useTokenMint();
 
   const handleAction = useCallback(async () => {

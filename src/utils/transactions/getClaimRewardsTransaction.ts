@@ -1,28 +1,20 @@
 import {
-  Connection,
   PublicKey,
   SystemProgram,
-  TransactionMessage,
-  VersionedTransaction,
+  TransactionInstruction,
 } from "@solana/web3.js";
 import {
   findRewardTokenAccountAddress,
   findRewardTokenMint,
   findSubscriptionAccountAddress,
 } from "../locker/PDA";
-import {
-  getAssociatedTokenAddressSync,
-  TOKEN_PROGRAM_ID,
-} from "@solana/spl-token";
-import { ASSOCIATED_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
+import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
 import { program } from "../locker";
 
 export const getClaimRewardsTransaction = async (
-  connection: Connection,
   publicKey: PublicKey
-) => {
-  const latestBlock = await connection.getLatestBlockhash(),
-    subscription = findSubscriptionAccountAddress(publicKey),
+): Promise<TransactionInstruction> => {
+  const subscription = findSubscriptionAccountAddress(publicKey),
     mint = findRewardTokenMint(),
     destinationTokenAccount = findRewardTokenAccountAddress(publicKey);
 
@@ -32,7 +24,7 @@ export const getClaimRewardsTransaction = async (
     destinationTokenAccount.toBase58()
   );
 
-  const instruction = await program.methods
+  return program.methods
     .claim()
     .accounts({
       subscription,
@@ -43,12 +35,4 @@ export const getClaimRewardsTransaction = async (
       tokenProgram: TOKEN_PROGRAM_ID,
     })
     .instruction();
-
-  const messageV0 = new TransactionMessage({
-    payerKey: publicKey,
-    recentBlockhash: latestBlock.blockhash,
-    instructions: [instruction],
-  }).compileToV0Message();
-  // Construct a versioned transaction
-  return new VersionedTransaction(messageV0);
 };

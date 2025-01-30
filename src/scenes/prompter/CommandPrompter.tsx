@@ -3,7 +3,7 @@ import styles from "./CommandPrompter.module.css";
 import clsx from "classnames";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useNavigate } from "react-router";
-import { useInitializeAccount } from "@/hooks/useInitializeAccount";
+import { useInitializeSubscription } from "@/hooks/useInitializeSubscription";
 
 type StepOption<T> = {
   key: string;
@@ -31,7 +31,7 @@ export const CommandPrompter: React.FC = () => {
   const scrollContainer = useRef<HTMLDivElement>(null);
   const [blockIndex, setBlockIndex] = useState(0);
   const { select, connected, wallet, wallets } = useWallet();
-  const { status, initialize, loading } = useInitializeAccount();
+  const { status, initialize, loading } = useInitializeSubscription();
 
   const navigate = useNavigate();
 
@@ -55,21 +55,6 @@ export const CommandPrompter: React.FC = () => {
       delay: 500,
       noise: 0.8,
       align: "center",
-    },
-    {
-      key: "outlineMission",
-      lines: [
-        "Project:       LambosForVirgins",
-        "Symbol:        $VIRGIN",
-        "\n",
-        "Objective:",
-        "The virginity pandemic is in full effect and the world's population is in decline.",
-        "\n",
-        "Mission:",
-        "Cure virginity, one lambo at a time.",
-        "\n",
-      ],
-      delay: 1000,
     },
     {
       key: "establishConnection",
@@ -117,12 +102,31 @@ export const CommandPrompter: React.FC = () => {
     {
       key: "loadingMember",
       lines: ["Checking virginity..."],
-      delay: 5000,
+      delay: 3000,
+      onEnter: () => setBlockIndex((prev) => prev++),
+    },
+    {
+      key: "outlineMission",
+      lines: [
+        "\n",
+        "Project:       LambosForVirgins",
+        "Symbol:        $VIRGIN",
+        "\n",
+        "Objective:",
+        "The virginity pandemic is in full effect and the world's population is in decline.",
+        "\n",
+        "Mission:",
+        "Cure virginity, one lambo at a time.",
+        "\n",
+      ],
+      delay: 2000,
+      onEnter: () => setBlockIndex((prev) => prev++),
     },
     {
       key: "loadingResult",
       lines: ["Loading lambos..."],
       delay: 2000,
+      onEnter: () => setBlockIndex((prev) => prev++),
     },
   ];
 
