@@ -9,11 +9,6 @@ import {
 import { useCallback, useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { Transaction } from "@solana/web3.js";
-import { createAssociatedTokenAccountInstruction } from "@solana/spl-token";
-import {
-  findRewardTokenAccountAddress,
-  findRewardTokenMint,
-} from "@/utils/locker";
 
 const handleSendError = (error: any): InitializeAccountError => {
   if (error instanceof WalletNotConnectedError) {
@@ -44,7 +39,7 @@ type InitializeAccountError = {
   message: string;
 };
 
-export const useInitializeAccount = () => {
+export const useInitializeSubscription = () => {
   const { connection } = useConnection();
   const [loading, setLoading] = useState(false);
   const { publicKey, sendTransaction } = useWallet();
@@ -60,18 +55,8 @@ export const useInitializeAccount = () => {
     setError(null);
     setLoading(true);
 
-    const mint = findRewardTokenMint();
-    const associatedTokenAddress = findRewardTokenAccountAddress(publicKey);
-
     try {
       const transaction = new Transaction().add(
-        // Initialize the associated token account for the rewards
-        createAssociatedTokenAccountInstruction(
-          publicKey,
-          associatedTokenAddress,
-          publicKey,
-          mint
-        ),
         await getInitializeMemberInstruction(publicKey)
       );
 
