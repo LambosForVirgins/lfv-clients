@@ -1,7 +1,6 @@
 import { IdlAccounts, Program, web3 } from "@coral-xyz/anchor";
 import IDL from "./idl/reward_program.json";
 import { RewardProgram } from "./idl/reward_program";
-import { clusterApiUrl } from "@solana/web3.js";
 import { REWARD_PROGRAM, solanaRpcUrl } from "./constants";
 
 const endpoint = solanaRpcUrl();

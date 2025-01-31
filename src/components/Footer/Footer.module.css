@@ -5,6 +5,11 @@
     grid-column: full;
     grid-template-columns: var(--column-layout);
     padding: 2rem;
+    gap: var(--size-500);
+}
+
+.socials {
+    grid-column: content;
 }
 
 .content {
