@@ -7,6 +7,9 @@
     border-radius: 8px;
     transition: transform 300ms ease;
     aspect-ratio: 1;
+    width: 100%;
+    max-width: 460px;
+    justify-self: center;
 
     &.disabled {
         color: rgba(0, 0, 0, 0.75);
