@@ -8,7 +8,7 @@ const isDev = import.meta.env.DEV;
 export const MOCKS: Giveaway[] = [
   {
     id: "b0917b7a-b6f2-11ef-86c8-273af6a30755",
-    active: true,
+    active: isDev,
     description:
       "Top up your holdings with 10,000 and 100,000 VIRGIN awarded every day",
     title: "Daily Top Up",

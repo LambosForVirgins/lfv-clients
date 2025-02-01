@@ -21,6 +21,7 @@ const initialKeys = {
   self_exclude: false,
   balance_details: false,
   transaction_actions: false,
+  daily_giveaways: false,
   onboardingv2: false,
 };
 
