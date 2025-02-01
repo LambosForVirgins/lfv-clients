@@ -30,24 +30,26 @@ export const GiveawaysScene = ({
 
   return (
     <div data-testid={testID} className={styles.frame}>
-      <div data-testid={`${testID}.banner`} className={styles.banner}>
-        <div data-testid={`${testID}.promo`} className={styles.promo}>
-          <h2 data-testid={`${testID}.title`} className={styles.title}>
-            <mark>{HEADLINES[0]}</mark>
-          </h2>
-          <h2>{"Fill your VIRGIN pockets"}</h2>
-          <h3 data-testid={`${testID}.subtitle`} className={styles.subtitle}>
-            {SUBTITLES[0]}
-          </h3>
-          <DailyEntrySlider testID={`${testID}.daily`} />
-          <p
-            data-testid={`${testID}.description`}
-            className={styles.description}
-          >
-            ~ Drawn next day ~
-          </p>
+      {isEnabled("daily_giveaways") && (
+        <div data-testid={`${testID}.banner`} className={styles.banner}>
+          <div data-testid={`${testID}.promo`} className={styles.promo}>
+            <h2 data-testid={`${testID}.title`} className={styles.title}>
+              <mark>{HEADLINES[0]}</mark>
+            </h2>
+            <h2>{"Fill your VIRGIN pockets"}</h2>
+            <h3 data-testid={`${testID}.subtitle`} className={styles.subtitle}>
+              {SUBTITLES[0]}
+            </h3>
+            <DailyEntrySlider testID={`${testID}.daily`} />
+            <p
+              data-testid={`${testID}.description`}
+              className={styles.description}
+            >
+              ~ Drawn next day ~
+            </p>
+          </div>
         </div>
-      </div>
+      )}
 
       <div data-testid={`${testID}.collection`} className={styles.collection}>
         {giveaways.map((promo) => (

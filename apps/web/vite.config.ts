@@ -25,13 +25,6 @@ export default function Config({ mode }: ConfigEnv): UserConfig {
       modules: {
         scopeBehaviour: "local",
       },
-      preprocessorOptions: {
-        less: {
-          math: "always",
-          relativeUrls: true,
-          javascriptEnabled: true,
-        },
-      },
     },
     resolve: {
       alias: {
