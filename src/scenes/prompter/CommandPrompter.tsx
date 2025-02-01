@@ -152,7 +152,7 @@ export const CommandPrompter: React.FC = () => {
 
   useEffect(() => {
     if (status !== undefined) {
-      navigate("/giveaways");
+      navigate("/account");
     }
   }, [status]);
 
