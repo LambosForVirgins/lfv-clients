@@ -1,0 +1,9 @@
+.frame {
+    grid-column: content;
+    display: flex;
+    flex-direction: column;
+}
+
+.center {
+    text-align: center;
+}
