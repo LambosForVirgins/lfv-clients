@@ -47,7 +47,7 @@ export const MOCKS: Giveaway[] = [
       {
         id: "5941e502-b6f3-11ef-9935-f74ceb9fe5b6",
         seed: "b1a5cb92",
-        status: DrawStatus.Open,
+        status: DrawStatus.Closed,
         timeOpens: new Date("2025-01-15").getTime(),
         timeCloses: new Date("2025-01-16").getTime(),
         timeDraws: new Date("2025-01-17").getTime(),
@@ -58,7 +58,7 @@ export const MOCKS: Giveaway[] = [
       {
         id: "5941e692-b6f3-11ef-9935-7f8c9326aece",
         seed: "a45758cc",
-        status: DrawStatus.Pending,
+        status: DrawStatus.Closed,
         timeOpens: new Date("2025-01-16").getTime(),
         timeCloses: new Date("2025-01-17").getTime(),
         timeDraws: new Date("2025-01-18").getTime(),
@@ -69,7 +69,7 @@ export const MOCKS: Giveaway[] = [
       {
         id: "3b1d189a-3dbf-4931-bdcf-96b0e559b300",
         seed: "a45758cc",
-        status: DrawStatus.Pending,
+        status: DrawStatus.Closed,
         timeOpens: new Date("2025-01-17").getTime(),
         timeCloses: new Date("2025-01-18").getTime(),
         timeDraws: new Date("2025-01-19").getTime(),
@@ -80,7 +80,7 @@ export const MOCKS: Giveaway[] = [
       {
         id: "2b257ce2-3faf-4b29-8f8f-83a39946fc04",
         seed: "a45758cc",
-        status: DrawStatus.Pending,
+        status: DrawStatus.Closed,
         timeOpens: new Date("2025-01-18").getTime(),
         timeCloses: new Date("2025-01-19").getTime(),
         timeDraws: new Date("2025-01-20").getTime(),
