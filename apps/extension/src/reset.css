@@ -1,0 +1,56 @@
+/* Box-sizing reset */
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+/* Margin reset */
+* {
+    margin: 0;
+}
+
+/* Body reset */
+html {
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    /* Prevents font scaling in Safari */
+}
+
+body {
+    margin: 0;
+    font-family: inherit;
+    line-height: inherit;
+}
+
+/* List reset */
+ol,
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Anchor reset */
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+/* Form element reset */
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: inherit;
+    margin: 0;
+}
+
+/* Table reset */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}

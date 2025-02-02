@@ -6,7 +6,11 @@
   "scripts": {
     "start": "yarn workspace web start",
     "storybook": "yarn workspace storybook start",
-    "build": "yarn workspace web build",
+    "__build__": "",
+    "build": "yarn build:web",
+    "build:web": "yarn workspace web build",
+    "build:extension": "yarn workspace extension build",
+    "__test__": "",
     "test": "vitest",
     "test:ci": "yarn test"
   },

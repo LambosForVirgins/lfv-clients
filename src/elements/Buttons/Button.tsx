@@ -4,7 +4,7 @@ import clsx from "classnames";
 
 export type ButtonVariant = "primary" | "secondary" | "muted";
 
-export type ButtonSize = "small" | "medium" | "large";
+export type ButtonSize = "mini" | "small" | "medium" | "large";
 
 interface ButtonProps
   extends Common.ComponentProps,
@@ -30,6 +30,7 @@ export const Button = forwardRef<
         styles.frame,
         props.variant === "muted" && styles.muted,
         props.size === "small" && styles.small,
+        props.size === "mini" && styles.mini,
         inverted && styles.inverted
       )}
       disabled={props.disabled || loading}
