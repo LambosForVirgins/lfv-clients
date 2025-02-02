@@ -7,6 +7,7 @@ export const MOCKS: Merchandise[] = [
     active: true,
     title: "Virgin Condoms",
     description: null,
+    media: [],
     providers: ["daee4f06-b6f2-11ef-b6d2-1f52d6bbb5bd"],
     price: 100_000,
   },
@@ -16,6 +17,7 @@ export const MOCKS: Merchandise[] = [
     active: true,
     title: "Cum Socks",
     description: null,
+    media: [],
     constraints: {
       minBalance: 250_000,
     },
@@ -23,11 +25,34 @@ export const MOCKS: Merchandise[] = [
     price: 250_000,
   },
   {
+    id: "930be8a7-1d6c-4af0-81c9-31afde5a04dd",
+    sku: "e90be35f-1ee9-4224-878b-47ed049c5934",
+    active: true,
+    title: "Surface-to-Air Guidance Not-missile",
+    description: "It's not the size but how you use it.",
+    media: [],
+    constraints: {
+      minBalance: 5_000_000,
+    },
+    providers: ["daee4f06-b6f2-11ef-b6d2-1f52d6bbb5bd"],
+    price: [
+      {
+        value: 750_000,
+        currency: "VIRGIN",
+      },
+      {
+        value: 1500,
+        currency: "USD",
+      },
+    ],
+  },
+  {
     id: "d9e2d0e8-5e8a-4663-972c-129b14e0cc9c",
     sku: "da171a34-37fb-4467-8208-b66f1d3fcede",
     active: true,
     title: "Sticker Pack",
     description: null,
+    media: [],
     constraints: {
       minBalance: 250_000,
     },
