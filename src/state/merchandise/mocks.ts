@@ -7,6 +7,7 @@ export const MOCKS: Merchandise[] = [
     active: true,
     title: "Virgin Condoms",
     description: null,
+    media: [],
     providers: ["daee4f06-b6f2-11ef-b6d2-1f52d6bbb5bd"],
     price: 100_000,
   },
@@ -16,6 +17,7 @@ export const MOCKS: Merchandise[] = [
     active: true,
     title: "Cum Socks",
     description: null,
+    media: [],
     constraints: {
       minBalance: 250_000,
     },
@@ -28,6 +30,7 @@ export const MOCKS: Merchandise[] = [
     active: true,
     title: "Surface-to-Air Guidance Not-missile",
     description: "It's not the size but how you use it.",
+    media: [],
     constraints: {
       minBalance: 5_000_000,
     },
@@ -49,6 +52,7 @@ export const MOCKS: Merchandise[] = [
     active: true,
     title: "Sticker Pack",
     description: null,
+    media: [],
     constraints: {
       minBalance: 250_000,
     },

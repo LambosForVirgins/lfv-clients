@@ -53,10 +53,14 @@
 
     &:disabled {
         background-color: rgba(0, 0, 0, 0.15);
-        cursor: initial;
+        cursor: not-allowed;
 
         &:hover {
             background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            opacity: 0.5;
         }
     }
 
