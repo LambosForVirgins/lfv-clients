@@ -5,10 +5,10 @@ import styles from "./Header.module.css";
 
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import { useClaimRewards } from "@/hooks/useClaimRewards";
 import { useRecoilValue } from "recoil";
 import { outstandingRewardsSelector } from "@/state/subscription/selectors";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { useSession } from "@/providers/Sessions/SessionProvider";
 
 const GuestMenuItems = [
   {
@@ -38,6 +38,8 @@ interface HeaderProps extends Common.ComponentProps {
 export const Header = ({ testID, ...props }: HeaderProps) => {
   const { t } = useTranslation("Header");
   const navigate = useNavigate();
+  const { wallet } = useWallet();
+  const { loadSession } = useSession();
 
   const navigateToPath = (path: string) => () => navigate(path);
 
@@ -50,19 +52,24 @@ export const Header = ({ testID, ...props }: HeaderProps) => {
 
   return (
     <nav data-testid={testID} className={clsx(props.className, styles.frame)}>
-      <HeaderButton
-        testID={`${testID}.giveaways`}
-        onClick={navigateToPath("/giveaways")}
-        label={`Giveaways`}
-        icon={"present"}
-      />
-      <HeaderButton
-        testID={`${testID}.subscription`}
-        onClick={navigateToPath("/subscription")}
-        label={`Store`}
-        icon={"star"}
-        highlight={outstandingRewards > 0}
-      />
+      {!!wallet && (
+        <HeaderButton
+          testID={`${testID}.giveaways`}
+          onClick={navigateToPath("/giveaways")}
+          label={`Giveaways`}
+          icon={"present"}
+        />
+      )}
+
+      {!!wallet && (
+        <HeaderButton
+          testID={`${testID}.subscription`}
+          onClick={navigateToPath("/subscription")}
+          label={`Store`}
+          icon={"star"}
+          highlight={outstandingRewards > 0}
+        />
+      )}
 
       {/* <HeaderButton
         testID={`${testID}.discounts`}
@@ -72,7 +79,7 @@ export const Header = ({ testID, ...props }: HeaderProps) => {
         highlight={outstandingRewards > 0}
       /> */}
       <span data-testid={`${testID}.spacer`} className={styles.spacer} />
-      <MemberButton testID={`${testID}.member`} />
+      <MemberButton testID={`${testID}.member`} onClick={loadSession} />
     </nav>
   );
 };

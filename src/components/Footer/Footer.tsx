@@ -41,6 +41,7 @@ export const Footer = ({ testID, ...props }: FooterProps) => {
             <NavLink to={"/tokenomics"}>
               <li>Tokenomics</li>
             </NavLink>
+            <li>Timeline</li>
           </ul>
         </div>
         <div>

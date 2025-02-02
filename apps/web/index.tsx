@@ -9,6 +9,7 @@ import { RecoilRoot } from "recoil";
 import { SolanaProvider } from "@/providers/Solana/SolanaProvider";
 import { LocaleProvider } from "@/providers/Locale/LocaleProvider";
 import * as Sentry from "@sentry/react";
+import { SessionProvider } from "@/providers/Sessions/SessionProvider";
 
 // export const metadata: Metadata = {
 //   title: Brand.displayName,
@@ -60,7 +61,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <SolanaProvider>
         <RecoilRoot>
           <LocaleProvider initialLocale="en">
-            <App />
+            <SessionProvider>
+              <App />
+            </SessionProvider>
           </LocaleProvider>
         </RecoilRoot>
       </SolanaProvider>

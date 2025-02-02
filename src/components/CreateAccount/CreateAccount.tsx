@@ -6,8 +6,6 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useCallback, useEffect, useState } from "react";
 import { useTokenMint } from "@/hooks/useTokenMint";
-import { useRecoilValue } from "recoil";
-import { mintAccountAtom } from "@/state/mints/atoms";
 import { MembershipSell } from "../MembershipSell/MembershipSell";
 
 interface CreateAccountProps extends Common.ComponentProps {

@@ -1,7 +1,6 @@
 import { Section } from "@/components/Section/Section";
 import styles from "./LandingScene.module.css";
-import { CommandPrompter } from "@/scenes/prompter/CommandPrompter";
-import { Button } from "@/elements";
+import { CommandPrompter } from "../prompter/CommandPrompter";
 
 export const LandingScene = ({
   testID = "landing",
@@ -23,13 +22,8 @@ export const LandingScene = ({
             style={{ maxWidth: "100%" }}
           />
         </div>
-
-        <Button testID={`${testID}.connect`} className={styles.button}>
-          Connect wallet
-        </Button>
       </div>
-
-      <CommandPrompter />
+      <CommandPrompter testID={`${testID}.onboarding`} />
     </Section>
   );
 };
