@@ -5,15 +5,17 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 import { name, version } from "./package.json";
 import path from "path";
 
-// https://vitejs.dev/config/
+const pathFromRoot = (...args: string[]) =>
+  path.join(process.cwd(), "../..", ...args);
+
 export default function Config({ mode }: ConfigEnv): UserConfig {
   const env = loadEnv(mode, process.cwd(), "");
 
   return defineConfig({
-    root: path.join(process.cwd(), "apps/web"),
-    publicDir: path.join(process.cwd(), "public"),
+    root: process.cwd(),
+    publicDir: pathFromRoot("public"),
     build: {
-      outDir: path.join(process.cwd(), "dist"),
+      outDir: pathFromRoot("dist"),
       sourcemap: true,
     },
     define: {
@@ -23,17 +25,10 @@ export default function Config({ mode }: ConfigEnv): UserConfig {
       modules: {
         scopeBehaviour: "local",
       },
-      preprocessorOptions: {
-        less: {
-          math: "always",
-          relativeUrls: true,
-          javascriptEnabled: true,
-        },
-      },
     },
     resolve: {
       alias: {
-        "@": path.join(process.cwd(), "src"),
+        "@": pathFromRoot("src"),
       },
     },
     plugins: [
@@ -48,8 +43,8 @@ export default function Config({ mode }: ConfigEnv): UserConfig {
       sentryVitePlugin({
         org: "moonshot-llc",
         project: "lfv",
-        authToken: env.VITE_SENTRY_AUTH_TOKEN,
-        disable: env.VITE_SENTRY_ENV === "dev",
+        authToken: env.SENTRY_AUTH_TOKEN,
+        disable: env.SENTRY_ENV === "dev",
       }),
     ],
   });

@@ -2,7 +2,7 @@
  * Obviously not secure by any means. This is just a simple
  * way to mix the strings that doesn't require polyfills.
  */
-export const mergeRandomly = (str1: string, str2: string): string => {
+export const UNSAFE_mergeRandomly = (str1: string, str2: string): string => {
   if (str1.length !== 8 || str2.length !== 8) {
     throw new Error("Both strings must be exactly 8 characters long");
   }

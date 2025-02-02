@@ -12,7 +12,7 @@ export const effectMintAccountAtom =
     mint: PublicKey,
     publicKey: PublicKey | null,
     decimals: number
-  ): AtomEffect<number> =>
+  ): AtomEffect<number | null> =>
   ({ trigger, setSelf }) => {
     if (!publicKey) return;
 
@@ -30,6 +30,7 @@ export const effectMintAccountAtom =
           setSelf(Math.floor(Number(data.amount) / Math.pow(10, decimals)));
         })
         .catch((error) => {
+          setSelf(null);
           console.error(
             `Error fetching token account "${associatedTokenAccount.toBase58()}"`,
             error
@@ -41,8 +42,11 @@ export const effectMintAccountAtom =
         (info) => {
           try {
             const accountData = AccountLayout.decode(info.data);
-            setSelf(Math.round(Number(accountData.amount)));
+            setSelf(
+              Math.round(Number(accountData.amount) / Math.pow(10, decimals))
+            );
           } catch (error) {
+            setSelf(null);
             console.error(
               `Error decoding token account "${associatedTokenAccount.toBase58()}"`,
               error

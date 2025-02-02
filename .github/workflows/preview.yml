@@ -1,0 +1,59 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: ['preview']
+    
+  workflow_dispatch:
+
+env:
+  VITE_SOLANA_RPC_URL: ${{ vars.SOLANA_RPC_URL}}
+  VITE_REWARD_PROGRAM_ADDRESS: ${{ vars.REWARD_PROGRAM_ADDRESS}}
+  VITE_MINT_ADDRESS: ${{ vars.MINT_ADDRESS}}
+  VITE_API_ENDPOINT: ${{ vars.API_ENDPOINT}}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    environment: preview
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
+          architecture: x64
+          cache: yarn
+      
+      - name: Yarn install
+        run: yarn install --immutable
+
+      - name: Run tests
+        run: yarn test:ci
+
+      - name: Build application
+        run: yarn build
+        env:
+          VITE_SENTRY_DSN: ${{ vars.SENTRY_DSN }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ENV: preview
+
+      - name: Deploy to S3
+        uses: kersvers/s3-sync-with-cloudfront-invalidation@v1.0.0
+        with:
+          args: --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ vars.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          AWS_REGION: ${{ vars.AWS_REGION }}
+          DISTRIBUTION_ID: ${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
+          SOURCE_DIR: dist

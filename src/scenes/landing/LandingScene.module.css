@@ -1,8 +1,10 @@
 .frame {
     grid-column: content;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     grid-gap: 1rem;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .banner {

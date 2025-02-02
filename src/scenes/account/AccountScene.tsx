@@ -14,7 +14,7 @@ import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
 import { TransactionItem } from "@/components/TransactionItem/TransactionItem";
 import { DEV_TransactionActions } from "@/components/DEV_TransactionActions/TransactionActions";
 import { useWithdrawTokens } from "@/hooks/useWithdrawTokens";
-import { MembershipSell } from "@/components/MembershipSell/MembershipSell";
+import { SubscriptionScene } from "../subscription/SubscriptionScene";
 
 export const AccountScene = ({
   testID = "account",
@@ -136,17 +136,17 @@ export const AccountScene = ({
         </ul>
       </div>
       <div>
-        <h2>Claim rewards</h2>
-        <p>{`You receive 1 entry for every 1000 tokens deposited plus receive 1 entry every ${formatDistanceToNowStrict(Date.now() + EPOCH_DURATION)} for every 1000 matured tokens.`}</p>
+        <h2>Outstanding rewards</h2>
+        <p>{`You receive 1 entry for every 1000 tokens deposited, plus receive an additional entry every ${formatDistanceToNowStrict(Date.now() + EPOCH_DURATION)} for every 1000 matured tokens.`}</p>
         <p>
           Next reward cycle{" "}
-          {member?.timeRewarded &&
-            new Date(
-              member.timeRewarded.getTime() + EPOCH_DURATION
-            ).toLocaleString()}
+          <strong>
+            {member?.timeRewarded &&
+              new Date(
+                member.timeRewarded.getTime() + EPOCH_DURATION
+              ).toLocaleDateString()}
+          </strong>
         </p>
-        <p>Number of reward cycles {outstandingEpochs}</p>
-        <p>Number of unclaimed rewards {outstandingRewards}</p>
         <Button
           testID={`${testID}.claim`}
           size={"small"}
@@ -164,8 +164,7 @@ export const AccountScene = ({
         </div>
       )}
 
-      <h2>Your subscription</h2>
-      <MembershipSell testID={`${testID}.subscription`} />
+      <SubscriptionScene testID={`${testID}.subscription`} />
 
       {someEnabled("events", "partners") && (
         <div className={styles.body}>

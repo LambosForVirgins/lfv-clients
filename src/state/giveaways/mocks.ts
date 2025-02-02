@@ -3,10 +3,12 @@ import { v4 as generateUnique } from "uuid";
 
 export const DAILY_GIVEAWAY_ID = "b0917b7a-b6f2-11ef-86c8-273af6a30755";
 
+const isDev = import.meta.env.DEV;
+
 export const MOCKS: Giveaway[] = [
   {
     id: "b0917b7a-b6f2-11ef-86c8-273af6a30755",
-    active: true,
+    active: isDev,
     description:
       "Top up your holdings with 10,000 and 100,000 VIRGIN awarded every day",
     title: "Daily Top Up",
@@ -93,7 +95,7 @@ export const MOCKS: Giveaway[] = [
   },
   {
     id: "cc35068e-b6f3-11ef-9935-3b89a2cb274d",
-    active: true,
+    active: isDev,
     description: null,
     title: "Gold Bullion",
     constraints: {
@@ -104,7 +106,7 @@ export const MOCKS: Giveaway[] = [
   },
   {
     id: "433b8cf8-b6f4-11ef-97c4-1fcb6de3dc2e",
-    active: true,
+    active: isDev,
     description: "Only the purest virgins can qualify for this giveaway",
     title: "Jeffrey's Island",
     constraints: {
@@ -115,7 +117,7 @@ export const MOCKS: Giveaway[] = [
   },
   {
     id: "433b96ee-b6f4-11ef-97c4-2ba747ecd978",
-    active: true,
+    active: isDev,
     description: null,
     title: "Rolex Giveaway",
     draws: [],
@@ -123,7 +125,7 @@ export const MOCKS: Giveaway[] = [
   },
   {
     id: "433b9824-b6f4-11ef-97c4-e345c9682b0b",
-    active: true,
+    active: isDev,
     description: null,
     title: "$10K Cash",
     draws: [],
@@ -131,7 +133,7 @@ export const MOCKS: Giveaway[] = [
   },
   {
     id: "433b9914-b6f4-11ef-97c4-4b7adfdcc5a1",
-    active: false,
+    active: isDev,
     title: "Bahamas Escape",
     description: null,
     draws: [],
@@ -139,7 +141,7 @@ export const MOCKS: Giveaway[] = [
   },
   {
     id: "433b99fa-b6f4-11ef-97c4-37fa46f8adaf",
-    active: false,
+    active: isDev,
     description: "Mary Magdalene did it with her legs closed",
     title: "Baby Jesus",
     draws: [],
@@ -151,7 +153,7 @@ export const MOCKS: Giveaway[] = [
     description: "Celebrating $100M USD Market Cap with a Lambo giveaway",
     title: "$100M Lambo",
     constraints: {
-      minBalance: 3000,
+      minBalance: 2000,
     },
     draws: [],
     providers: ["daee4f06-b6f2-11ef-b6d2-1f52d6bbb5bd"],
