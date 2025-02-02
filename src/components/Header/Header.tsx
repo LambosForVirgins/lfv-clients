@@ -8,28 +8,8 @@ import { useNavigate } from "react-router";
 import { useRecoilValue } from "recoil";
 import { outstandingRewardsSelector } from "@/state/subscription/selectors";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { useDevToggles } from "@/state/application/useDevToggles";
 import { useSession } from "@/providers/Sessions/SessionProvider";
-
-const GuestMenuItems = [
-  {
-    key: "About",
-    url: "/#about",
-  },
-  {
-    key: "Store",
-    url: "/store",
-  },
-  {
-    key: "Community",
-    url: "/#community",
-  },
-  {
-    key: "Submissions",
-    url: "/#submissions",
-  },
-];
-
-const MENU_ACTIONS = [];
 
 interface HeaderProps extends Common.ComponentProps {
   className?: string;
@@ -37,6 +17,7 @@ interface HeaderProps extends Common.ComponentProps {
 
 export const Header = ({ testID, ...props }: HeaderProps) => {
   const { t } = useTranslation("Header");
+  const { allEnabled } = useDevToggles();
   const navigate = useNavigate();
   const { wallet } = useWallet();
   const { loadSession } = useSession();
@@ -58,9 +39,9 @@ export const Header = ({ testID, ...props }: HeaderProps) => {
           onClick={navigateToPath("/giveaways")}
           label={`Giveaways`}
           icon={"present"}
+          disabled={!allEnabled("daily_giveaways", "giveaways")}
         />
       )}
-
       {!!wallet && (
         <HeaderButton
           testID={`${testID}.subscription`}

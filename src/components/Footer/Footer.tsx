@@ -35,7 +35,7 @@ export const Footer = ({ testID, ...props }: FooterProps) => {
         <div>
           <h3 className="text-xl">Project</h3>
           <ul>
-            <NavLink to={"/team"}>
+            <NavLink to={"/about"}>
               <li>About us</li>
             </NavLink>
             <NavLink to={"/tokenomics"}>
