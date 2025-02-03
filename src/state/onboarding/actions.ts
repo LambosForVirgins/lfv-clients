@@ -3,6 +3,10 @@ import { Effect } from "effect";
 import { BaseWalletAdapter } from "@solana/wallet-adapter-base";
 import { findSubscriptionAccountAddress } from "@/utils/locker";
 import { getInitializeMemberInstruction } from "@/utils/transactions/getInitializeMemberTransaction";
+import {
+  PhantomWalletAdapter,
+  SolflareWalletAdapter,
+} from "@solana/wallet-adapter-wallets";
 
 export const fetchSolanaNetworkConnection = async (): Promise<Connection> =>
   new Promise<Connection>((resolve, reject) => {
@@ -15,6 +19,35 @@ interface SolanaBalanceInput {
   connection: Connection;
   wallet: BaseWalletAdapter;
 }
+
+export const loadWalletAdapters = async () => {
+  return new Promise((resolve) => {
+    resolve([new PhantomWalletAdapter(), new SolflareWalletAdapter()]);
+  });
+};
+
+export const completeAuthentication = async () => {
+  console.log("Completing authentication...");
+};
+
+export const waitForFocus = async () =>
+  new Promise<void>((resolve) => {
+    // Resolve immediately if the window is already focused,
+    if (document.hasFocus()) return resolve();
+    // Define a listener that will resolve the promise when the window gets focus.
+    const onFocus = () => {
+      if (document.hasFocus()) {
+        resolve();
+        window.removeEventListener("focus", onFocus);
+      }
+    };
+    // Listen for the focus event.
+    window.addEventListener("focus", onFocus);
+  });
+
+export const openRaydiumExchange = async () => {
+  console.log("Opening Raydium exchange...");
+};
 
 export const checkSolanaBalance = async ({
   input,

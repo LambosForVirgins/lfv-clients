@@ -27,7 +27,6 @@ export const CommandPrompter = ({ testID }: Common.ComponentProps) => {
   };
 
   const close = () => {
-    actorRef.current.stop();
     dialogRef.current?.close();
   };
 

@@ -13,8 +13,10 @@ export interface OnboardingContext {
   wallet: BaseWalletAdapter | null;
   wallets: BaseWalletAdapter[];
   balance: number;
+  minimumBalance: number;
   retryAttempts: number;
   maxAttempts: number;
+  initialized: boolean;
   initializationAttempts: number;
   blocks: StepDefinition[];
 }
@@ -35,7 +37,8 @@ type WalletActions =
 
 type BalanceActions =
   | { type: "BALANCE_CHANGE"; balance: number }
-  | { type: "PURCHASE_SOLANA" };
+  | { type: "PURCHASE_SOLANA"; amount: number }
+  | { type: "CANCEL_PURCHASE" };
 
 type MemberActions =
   | { type: "INITIALIZE_SUBSCRIPTION" }
@@ -49,12 +52,12 @@ export type OnboardingEvents =
   | BalanceActions
   | MemberActions;
 
-export type StepOption<T> = {
+export type StepOption<T, E = OnboardingEvents["type"]> = {
   key: string;
   label: string;
   value: T;
   disabled?: boolean;
-  event: string;
+  event: E;
 };
 
 export type StepDefinition<T = any> = {
@@ -82,11 +85,16 @@ export enum NetworkStateKey {
 export enum WalletStateKey {
   Loading = "wallet.loading",
   Displaying = "wallet.displaying",
+  Connecting = "wallet.connecting",
+  Ready = "wallet.ready",
+  Failed = "wallet.failed",
 }
 
 export enum SolanaBalanceKey {
+  Loading = "balance.loading",
   Sufficient = "balance.sufficient",
   Low = "balance.low",
+  Link = "balance.link",
 }
 
 export enum MemberAccountKey {
@@ -94,4 +102,5 @@ export enum MemberAccountKey {
   Initializing = "member.initializing",
   Pending = "member.pending",
   Terminate = "member.terminate",
+  Finished = "member.finished",
 }

@@ -9,7 +9,7 @@ interface SessionContextProps {
 interface SessionProviderProps extends Partial<Common.ComponentProps> {}
 
 const SessionContext = createContext<SessionContextProps>({
-  showing: false,
+  showing: true,
   loadSession: () => {
     throw new Error("loadSession function not implemented");
   },
@@ -19,7 +19,7 @@ export const SessionProvider = ({
   testID = "sessions",
   children,
 }: React.PropsWithChildren<SessionProviderProps>) => {
-  const [showing, setShowing] = useState(false);
+  const [showing, setShowing] = useState(true);
 
   const loadSession = () => {
     setShowing((prev) => !prev);
