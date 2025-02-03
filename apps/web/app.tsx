@@ -13,6 +13,7 @@ import { PromotionalScene } from "@/scenes/promos/PromotionalScene";
 import { ProductScene } from "@/scenes/product/ProductScene";
 import * as Sentry from "@sentry/react";
 import { AboutScene } from "@/scenes/about/AboutScene";
+import { DownloadScene } from "@/scenes/downloads/DownloadScene";
 
 const SentryRoutes = Sentry.withSentryReactRouterV7Routing(Routes);
 
@@ -70,6 +71,7 @@ export const App = () => (
           path={"store/:product"}
           Component={withAuthenticated(ProductScene)}
         />
+        <Page path={"downloads"} Component={DownloadScene} />
         <Page path={"about"} Component={AboutScene} />
         <Page path={"tokenomics/*"} Component={TreasuryScene} />
         <Page Component={LandingScene} index />
