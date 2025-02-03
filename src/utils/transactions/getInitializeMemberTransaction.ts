@@ -18,10 +18,7 @@ export const getInitializeMemberInstruction = async (
     .initialize()
     .accounts({
       subscription,
-      vaultTokenAccount,
-      mint: MINT,
       signer: publicKey,
-      tokenProgram: TOKEN_PROGRAM_ID,
       systemProgram: SystemProgram.programId,
     })
     .instruction();
