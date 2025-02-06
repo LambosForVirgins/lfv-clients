@@ -6,11 +6,6 @@
     background-color: white;
     border-radius: 0.5rem;
     border: 2px solid none;
-
-    button {
-        visibility: hidden;
-        display: none;
-    }
 }
 
 .header h3 {
@@ -33,11 +28,6 @@
 @container (width > 60ch) {
     .frame {
         border: none;
-
-        button {
-            visibility: visible;
-            display: initial;
-        }
     }
 
     .highlight {
