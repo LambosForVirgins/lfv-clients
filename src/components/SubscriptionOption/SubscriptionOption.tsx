@@ -7,6 +7,7 @@ interface SubscriptionOptionProps extends Common.ComponentProps {
   name: string;
   benefits: { label: string }[];
   amount: number;
+  amountRemaining?: number;
   /**
    * Specifies if the current subscription is the one
    * the user already has applied.
@@ -31,10 +32,11 @@ export const formatNumber = (value: number): string => {
 
 export const SubscriptionOption = ({
   testID,
+  amountRemaining = 0,
   ...props
 }: SubscriptionOptionProps) => {
   const selectMembershipAmount = () => {
-    props.onClick?.(props.amount);
+    props.onClick?.(amountRemaining);
   };
 
   return (
@@ -53,12 +55,16 @@ export const SubscriptionOption = ({
         type={"radio"}
         onChange={selectMembershipAmount}
         checked={props.selected}
+        disabled={props.disabled}
       />
       <div data-testid={`${testID}.header`} className={styles.header}>
         <h3 data-testid={`${testID}.title`}>{props.title}</h3>
       </div>
-      <h4 data-testid={`${testID}.subtitle`} className={styles.subtitle}>
+      <small data-testid={`${testID}.subtitle`} className={styles.subtitle}>
         {formatNumber(props.amount)} VIRGINS
+      </small>
+      <h4 data-testid={`${testID}.subtitle`} className={styles.subtitle}>
+        +{formatNumber(amountRemaining)} VIRGINS
       </h4>
       <div data-testid={`${testID}.content`} className={styles.content}>
         <ul data-testid={`${testID}.benefits`}>
@@ -69,13 +75,6 @@ export const SubscriptionOption = ({
           ))}
         </ul>
       </div>
-      <Button
-        testID={`${testID}.action`}
-        disabled={props.disabled || props.applied}
-        onClick={selectMembershipAmount}
-      >
-        {props.applied ? "Current Plan" : "Select"}
-      </Button>
     </label>
   );
 };

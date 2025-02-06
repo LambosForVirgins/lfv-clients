@@ -78,10 +78,6 @@ export const AccountScene = ({
         </div>
       )}
 
-      {isEnabled("transaction_actions") && (
-        <DEV_TransactionActions testID={`${testID}.dev`} />
-      )}
-
       <h2>Transaction backlog</h2>
       <p>
         {`Tokens are required to complete the subscription cycle of ${formatDistanceToNowStrict(Date.now() + EPOCH_DURATION)} in order to honour the benefits and rewards granted on them. This cooling period requires that token deposits must mature before they
@@ -160,6 +156,7 @@ export const AccountScene = ({
         </div>
       )}
 
+      <h2>Subscription</h2>
       <SubscriptionScene testID={`${testID}.subscription`} />
 
       {someEnabled("events", "partners") && (

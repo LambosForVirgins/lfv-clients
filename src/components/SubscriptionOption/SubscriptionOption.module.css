@@ -7,13 +7,13 @@
     border-radius: 0.5rem;
     border: 2px solid transparent;
 
-    button {
-        visibility: hidden;
-        display: none;
-    }
-
     &:has(input:checked) {
         border: 2px solid var(--bg-red-500);
+    }
+
+    &:has(input:disabled) {
+        opacity: 0.5;
+        cursor: not-allowed;
     }
 
     input {
@@ -30,6 +30,11 @@
     text-align: center;
 }
 
+small.subtitle {
+    font-size: 0.95rem;
+    text-decoration: line-through;
+}
+
 .content {
     flex-grow: 1;
 }
@@ -37,11 +42,6 @@
 @container (width > 60ch) {
     .frame {
         gap: 0.1rem;
-
-        button {
-            visibility: visible;
-            display: initial;
-        }
     }
 
     .highlight {

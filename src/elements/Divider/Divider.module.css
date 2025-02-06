@@ -1,0 +1,14 @@
+.frame {
+    display: flex;
+    outline: none;
+    border: none;
+    content: attr(data-label);
+
+    &::before,
+    &::after {
+        content: '';
+        background-color: var(--yellow-600);
+        height: 2px;
+        width: 100%;
+    }
+}

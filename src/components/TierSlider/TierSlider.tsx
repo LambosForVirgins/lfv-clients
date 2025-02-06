@@ -67,6 +67,8 @@ export const TierSlider = forwardRef<HTMLInputElement, TierSliderProps>(
       }
     };
 
+    const completion = (props.value - min) / (max - min);
+
     return (
       <div data-testid={props.testID} className={styles.frame}>
         <input
@@ -81,7 +83,10 @@ export const TierSlider = forwardRef<HTMLInputElement, TierSliderProps>(
         <div
           ref={lottieContainerRef}
           className={styles.player}
-          style={{ left: `${((props.value - min) / (max - min)) * 100}%` }}
+          style={{
+            left: `${completion * 100}%`,
+            transform: `translateX(${-100 * completion}%)`,
+          }}
         />
       </div>
     );
