@@ -29,10 +29,6 @@ export const AccountScene = ({
     outstandingRewardsSelector(publicKey)
   );
 
-  const outstandingEpochs = useRecoilValue(
-    outstandingRewardEpochsSelector(publicKey)
-  );
-
   const selfExcludeMember = () => {
     updateStatus(MemberStatus.Excluded);
   };

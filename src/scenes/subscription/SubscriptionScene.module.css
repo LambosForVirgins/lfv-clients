@@ -6,3 +6,15 @@
     /* ! Remove this! */
     padding: var(--size-900) 0px;
 }
+
+.collection {
+    grid-column: content;
+    container-name: membership-sell;
+    container-type: inline-size;
+}
+
+.options {
+    display: grid;
+    gap: var(--size-500);
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
