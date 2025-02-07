@@ -1,7 +1,6 @@
-import { Button, Divider } from "@/elements";
+import { Button } from "@/elements";
 import { useCancelSubscription } from "@/hooks/useCancelSubscription";
 import styles from "./SubscriptionScene.module.css";
-import { useDevToggles } from "@/state/application/useDevToggles";
 import clsx from "classnames";
 import { SubscriptionOption } from "@/components/SubscriptionOption/SubscriptionOption";
 import { useMembership } from "@/hooks/useMembership";
@@ -17,7 +16,6 @@ export const SubscriptionScene = ({
   testID = "subscription",
 }: Readonly<Partial<Common.ComponentProps>>) => {
   const { cancelSubscription } = useCancelSubscription();
-  const { isEnabled } = useDevToggles();
   const { tier, updateTier } = useSubscription();
   const { member } = useMembership();
   const { balance = 0 } = useTokenMint();
@@ -50,8 +48,38 @@ export const SubscriptionScene = ({
 
   return (
     <div data-testid={testID} className={styles.frame}>
+      <h2>Subscription</h2>
+
+      <div data-testid={`${testID}.header`} className={styles.header}>
+        <h3 data-testid={`${testID}.title`} className={styles.title}>
+          Set your amount
+        </h3>
+        <h4 data-testid={`${testID}.subtitle`} className={styles.subtitle}>
+          {amount.toLocaleString()} VIRGINS
+        </h4>
+        <Button
+          testID={`${testID}.maximum`}
+          size={"small"}
+          onClick={setMaximumRemaining}
+        >
+          {`Max`}
+        </Button>
+      </div>
+
+      {animationData && (
+        <TierSlider
+          testID={`${testID}.slider`}
+          value={amount}
+          onChange={changeMembershipTier}
+          step={10_000}
+          min={1000}
+          max={5_000_000}
+          animationData={animationData}
+        />
+      )}
+
       <div
-        data-testid={testID}
+        data-testid={`${testID}.collection`}
         className={clsx(styles.options, styles.collection)}
       >
         {packages.map((product, idx) => {
@@ -77,30 +105,9 @@ export const SubscriptionScene = ({
         })}
       </div>
 
-      <Divider testID={`${testID}.divider`} label={"OR"} />
-
-      <div data-testid={`${testID}.header`} className={styles.header}>
-        <h3 className={styles.title}>Set your amount</h3>
-        <h4 className={styles.subtitle}>{amount.toLocaleString()} VIRGINS</h4>
-        <Button
-          testID={`${testID}.maximum`}
-          size={"small"}
-          onClick={setMaximumRemaining}
-        >
-          {`Max`}
-        </Button>
-      </div>
-      {isEnabled("subscription_slider") && animationData && (
-        <TierSlider
-          testID={`${testID}.slider`}
-          value={amount}
-          onChange={changeMembershipTier}
-          step={10_000}
-          min={1000}
-          max={5_000_000}
-          animationData={animationData}
-        />
-      )}
+      <Button testID={`${testID}.submit`} onClick={() => updateTier(amount)}>
+        Apply changes
+      </Button>
 
       <div
         data-testid={`${testID}.cancellation`}

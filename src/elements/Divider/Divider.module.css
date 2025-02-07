@@ -2,13 +2,23 @@
     display: flex;
     outline: none;
     border: none;
-    content: attr(data-label);
+    align-items: center;
+    gap: var(--size-300);
+    color: var(--black);
 
     &::before,
     &::after {
         content: '';
-        background-color: var(--yellow-600);
-        height: 2px;
+        background-color: var(--black);
+        height: 1px;
         width: 100%;
+    }
+
+    &.left::before {
+        display: none;
+    }
+
+    &.right::after {
+        display: none;
     }
 }

@@ -2,19 +2,20 @@
     grid-column: content;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--size-500);
 }
 
 .collection {
     grid-column: content;
     container-name: membership-sell;
     container-type: inline-size;
+    padding: var(--size-500);
 }
 
 .options {
     display: grid;
     gap: var(--size-500);
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(calc(260px - var(--size-500)), 1fr));
 }
 
 .header {

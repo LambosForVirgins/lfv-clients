@@ -156,7 +156,6 @@ export const AccountScene = ({
         </div>
       )}
 
-      <h2>Subscription</h2>
       <SubscriptionScene testID={`${testID}.subscription`} />
 
       {someEnabled("events", "partners") && (

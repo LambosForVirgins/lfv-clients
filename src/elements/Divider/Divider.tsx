@@ -7,18 +7,27 @@ interface DividerProps extends Common.ComponentProps {
    */
   variant?: "primary" | "secondary";
   label?: string;
+  align?: "left" | "right" | "center";
+  className?: string;
 }
 
 export const Divider = ({
   testID,
   variant = "primary",
+  align = "center",
   ...props
 }: DividerProps) => {
   return (
-    <hr
+    <span
       data-testid={testID}
-      className={clsx(styles.frame, styles[variant])}
-      data-label={props.label}
-    />
+      className={clsx(
+        props.className,
+        styles.frame,
+        styles[variant],
+        styles[align]
+      )}
+    >
+      {props.label}
+    </span>
   );
 };

@@ -13,6 +13,7 @@
         background: transparent;
         pointer-events: all;
         z-index: 1;
+        opacity: 0;
     }
 
     .player {

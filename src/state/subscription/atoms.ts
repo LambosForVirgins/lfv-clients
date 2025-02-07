@@ -48,7 +48,7 @@ export const subscriptionOptionsAtom = atom({
       title: "GigaChad",
       benefits: [
         { label: "25% off virgin only merch" },
-        { label: "VIP event access & treatment" },
+        { label: "VIP event access" },
         { label: "Access the biggest giveaways" },
         {
           label: `${rewardsFromTokens(MemberTierValues.Giga)} entries per month`,

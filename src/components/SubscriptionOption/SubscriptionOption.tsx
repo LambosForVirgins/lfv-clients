@@ -1,4 +1,4 @@
-import { Button } from "@/elements";
+import { Button, Divider } from "@/elements";
 import styles from "./SubscriptionOption.module.css";
 import clsx from "classnames";
 
@@ -49,6 +49,28 @@ export const SubscriptionOption = ({
         props.highlight && styles.highlight
       )}
     >
+      <div data-testid={`${testID}.header`} className={styles.header}>
+        <h3 data-testid={`${testID}.title`}>{props.title}</h3>
+        <small data-testid={`${testID}.subtitle`} className={styles.subtitle}>
+          {formatNumber(props.amount)} VIRGINS
+        </small>
+        <h4 data-testid={`${testID}.subtitle`} className={styles.subtitle}>
+          +{amountRemaining.toLocaleString()} VIRGINS
+        </h4>
+      </div>
+      <Divider
+        testID={`${testID}.divider`}
+        label={"Benefits"}
+        align={"left"}
+        className={styles.divider}
+      />
+      <ul data-testid={`${testID}.benefits`} className={styles.content}>
+        {props.benefits.map((benefit) => (
+          <li key={benefit.label} data-testid={`${testID}.item`}>
+            {benefit.label}
+          </li>
+        ))}
+      </ul>
       <input
         id={props.amount.toString()}
         name={props.name}
@@ -57,24 +79,6 @@ export const SubscriptionOption = ({
         checked={props.selected}
         disabled={props.disabled}
       />
-      <div data-testid={`${testID}.header`} className={styles.header}>
-        <h3 data-testid={`${testID}.title`}>{props.title}</h3>
-      </div>
-      <small data-testid={`${testID}.subtitle`} className={styles.subtitle}>
-        {formatNumber(props.amount)} VIRGINS
-      </small>
-      <h4 data-testid={`${testID}.subtitle`} className={styles.subtitle}>
-        +{formatNumber(amountRemaining)} VIRGINS
-      </h4>
-      <div data-testid={`${testID}.content`} className={styles.content}>
-        <ul data-testid={`${testID}.benefits`}>
-          {props.benefits.map((benefit) => (
-            <li key={benefit.label} data-testid={`${testID}.item`}>
-              {benefit.label}
-            </li>
-          ))}
-        </ul>
-      </div>
     </label>
   );
 };

@@ -16,7 +16,6 @@ const initialKeys = {
   partners: false,
   footer: false,
   disclaimers: false,
-  subscription_slider: false,
   market_cap: false,
   self_exclude: false,
   balance_details: false,
