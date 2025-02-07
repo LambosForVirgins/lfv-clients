@@ -1,0 +1,24 @@
+.frame {
+    display: flex;
+    outline: none;
+    border: none;
+    align-items: center;
+    gap: var(--size-300);
+    color: var(--black);
+
+    &::before,
+    &::after {
+        content: '';
+        background-color: var(--black);
+        height: 1px;
+        width: 100%;
+    }
+
+    &.left::before {
+        display: none;
+    }
+
+    &.right::after {
+        display: none;
+    }
+}
