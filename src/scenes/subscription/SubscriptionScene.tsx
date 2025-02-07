@@ -7,7 +7,7 @@ import { useMembership } from "@/hooks/useMembership";
 import { useSubscription } from "@/hooks/useSubscription";
 import { subscriptionOptionsAtom } from "@/state/subscription/atoms";
 import { useRecoilValue } from "recoil";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { TierSlider } from "@/components/TierSlider/TierSlider";
 import { useTokenMint } from "@/hooks/useTokenMint";
 import { hasMaturingTokens } from "@/utils/membership/hasMaturingTokens";
@@ -20,8 +20,9 @@ export const SubscriptionScene = ({
   const { member } = useMembership();
   const { balance = 0 } = useTokenMint();
   const packages = useRecoilValue(subscriptionOptionsAtom);
-  const [amount, setAmount] = useState<number>(member?.totalAmount || 0);
+  const [amount, setAmount] = useState<number>(0);
   const [animationData, setAnimationData] = useState<object | null>(null);
+  const maximumAmount = balance - (member?.totalAmount || 0);
 
   useEffect(() => {
     const loadAnimation = async () => {
@@ -32,19 +33,17 @@ export const SubscriptionScene = ({
     loadAnimation();
   }, []);
 
-  const changeMembershipTier = (amount: number) => {
-    // This should attempt to deposit or release tokens to meet their desired tier
-    // updateTier(amount);
-    setAmount(amount);
-  };
+  const commitChanges = useCallback(
+    () => updateTier(amount),
+    [amount, updateTier]
+  );
 
   const presentCancellationConfirmation = () => {
     // TODO: Redirect or display a cancel confirmation modal
     cancelSubscription();
   };
 
-  const setMaximumRemaining = () =>
-    setAmount(balance - (member?.totalAmount || 0));
+  const setMaximumDeposit = () => setAmount(maximumAmount);
 
   return (
     <div data-testid={testID} className={styles.frame}>
@@ -60,7 +59,7 @@ export const SubscriptionScene = ({
         <Button
           testID={`${testID}.maximum`}
           size={"small"}
-          onClick={setMaximumRemaining}
+          onClick={setMaximumDeposit}
         >
           {`Max`}
         </Button>
@@ -70,9 +69,9 @@ export const SubscriptionScene = ({
         <TierSlider
           testID={`${testID}.slider`}
           value={amount}
-          onChange={changeMembershipTier}
+          onChange={setAmount}
           step={10_000}
-          min={1000}
+          min={0}
           max={5_000_000}
           animationData={animationData}
         />
@@ -95,7 +94,7 @@ export const SubscriptionScene = ({
               amount={product.amount}
               amountRemaining={remainingAmount}
               benefits={product.benefits}
-              onClick={changeMembershipTier}
+              onClick={setAmount}
               applied={tier === product.tier}
               selected={amount === remainingAmount}
               highlight={product.highlight}
@@ -105,8 +104,8 @@ export const SubscriptionScene = ({
         })}
       </div>
 
-      <Button testID={`${testID}.submit`} onClick={() => updateTier(amount)}>
-        Apply changes
+      <Button testID={`${testID}.submit`} onClick={commitChanges}>
+        {`Update subscription`}
       </Button>
 
       <div
@@ -120,12 +119,6 @@ export const SubscriptionScene = ({
           entries and will lose access to member benefits after the next
           subscription cycle.
         </p>
-        {hasMaturingTokens(member) && (
-          <small data-testid={`${testID}.warning`} className={styles.warning}>
-            You must wait until all pending deposits have matured before
-            cancelling your membership subscription.
-          </small>
-        )}
         <Button
           testID={`${testID}.cancel`}
           onClick={presentCancellationConfirmation}
@@ -133,6 +126,12 @@ export const SubscriptionScene = ({
         >
           Cancel my subscription
         </Button>
+        {hasMaturingTokens(member) && (
+          <small data-testid={`${testID}.warning`} className={styles.warning}>
+            You must wait until all pending deposits have matured before
+            cancelling your membership subscription.
+          </small>
+        )}
       </div>
     </div>
   );

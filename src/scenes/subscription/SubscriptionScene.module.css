@@ -9,7 +9,6 @@
     grid-column: content;
     container-name: membership-sell;
     container-type: inline-size;
-    padding: var(--size-500);
 }
 
 .options {

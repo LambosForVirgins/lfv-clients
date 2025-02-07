@@ -1,9 +1,9 @@
 .frame {
     display: flex;
     flex-direction: column;
-    padding: 0.8rem;
+    padding: var(--size-400);
     background-color: white;
-    border-radius: 0.5rem;
+    border-radius: var(--size-200);
     border: 2px solid transparent;
     user-select: none;
     cursor: pointer;
@@ -13,8 +13,9 @@
     }
 
     &:has(input:disabled) {
-        opacity: 0.5;
         cursor: not-allowed;
+        border: 2px dashed white;
+        background-color: rgba(255, 255, 255, 0.5);
     }
 
     input {
@@ -25,11 +26,11 @@
 .header {
     display: grid;
     grid-template-areas: 'title price' 'title remaining';
-    align-items: center;
 
     h3 {
         grid-area: title;
-        font-size: var(--size-800);
+        font-family: var(--font-leading);
+        font-size: var(--size-900);
         grid-row: span 2;
     }
 
@@ -38,6 +39,7 @@
         text-align: right;
         font-size: var(--size-300);
         text-decoration: line-through;
+        color: var(--bg-red-500);
     }
 
     h4 {
@@ -58,16 +60,18 @@ ul.content {
 }
 
 @container (width > 60ch) {
-
-
     .header {
-        grid-template-areas: 'title' 'price' 'remaining';
+        grid-template-areas: 'title' 'price remaining';
         justify-items: center;
 
         h4,
         h4,
         small {
             text-align: center;
+        }
+
+        h3 {
+            font-size: var(--size-900);
         }
     }
 

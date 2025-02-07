@@ -88,6 +88,7 @@ export const TierSlider = forwardRef<HTMLInputElement, TierSliderProps>(
             transform: `translateX(${-100 * completion}%)`,
           }}
         />
+        <span className={styles.channel} data-max={70} data-value={`30%`} />
       </div>
     );
   }
