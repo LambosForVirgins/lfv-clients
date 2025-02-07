@@ -104,7 +104,11 @@ export const SubscriptionScene = ({
         })}
       </div>
 
-      <Button testID={`${testID}.submit`} onClick={commitChanges}>
+      <Button
+        testID={`${testID}.submit`}
+        disabled={amount === 0 || amount > balance}
+        onClick={commitChanges}
+      >
         {`Update subscription`}
       </Button>
 
