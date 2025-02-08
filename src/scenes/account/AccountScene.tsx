@@ -29,10 +29,6 @@ export const AccountScene = ({
     outstandingRewardsSelector(publicKey)
   );
 
-  const outstandingEpochs = useRecoilValue(
-    outstandingRewardEpochsSelector(publicKey)
-  );
-
   const selfExcludeMember = () => {
     updateStatus(MemberStatus.Excluded);
   };
@@ -80,10 +76,6 @@ export const AccountScene = ({
               ).toLocaleString()}
           </p>
         </div>
-      )}
-
-      {isEnabled("transaction_actions") && (
-        <DEV_TransactionActions testID={`${testID}.dev`} />
       )}
 
       <h2>Transaction backlog</h2>

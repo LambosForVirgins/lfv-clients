@@ -4,12 +4,12 @@ import { PublicKey } from "@solana/web3.js";
 import { DECIMALS } from "@/utils/locker/constants";
 
 export const mintAccountAtom = atomFamily<
-  number | null,
+  number | undefined,
   { mint: PublicKey; owner: PublicKey | null; decimals?: number }
 >({
   key: "mint-holding-atom",
   effects: ({ mint, owner, decimals = DECIMALS }) => [
     effectMintAccountAtom(mint, owner, decimals),
   ],
-  default: null,
+  default: undefined,
 });
