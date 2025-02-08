@@ -12,6 +12,8 @@ export const DECIMALS = 9;
 
 export const REWARD_FACTOR = 1000;
 
+export const MAXIMUM_SLOTS = 8;
+
 export const decimalFactor = new BN(10 ** DECIMALS);
 
 export const millisecondFactor = new BN(1000);

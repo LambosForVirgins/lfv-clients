@@ -1,0 +1,86 @@
+.frame {
+    display: flex;
+    flex-direction: column;
+    padding: var(--size-400);
+    background-color: white;
+    border-radius: var(--size-200);
+    border: 2px solid transparent;
+    user-select: none;
+    cursor: pointer;
+
+    &:has(input:checked) {
+        border: 2px solid var(--bg-red-500);
+    }
+
+    &:has(input:disabled) {
+        cursor: not-allowed;
+        border: 2px dashed white;
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    input {
+        display: none;
+    }
+}
+
+.header {
+    display: grid;
+    grid-template-areas: 'title price' 'title remaining';
+
+    h3 {
+        grid-area: title;
+        font-family: var(--font-leading);
+        font-size: var(--size-900);
+        grid-row: span 2;
+    }
+
+    small {
+        grid-area: price;
+        text-align: right;
+        font-size: var(--size-300);
+        text-decoration: line-through;
+        color: var(--bg-red-500);
+    }
+
+    h4 {
+        grid-area: remaining;
+        text-align: right;
+        font-size: var(--size-600);
+    }
+}
+
+ul.content {
+    flex-grow: 1;
+    padding: var(--size-200);
+
+    li {
+        list-style: circle;
+        margin-left: var(--size-500);
+    }
+}
+
+@container (width > 60ch) {
+    .header {
+        grid-template-areas: 'title' 'price remaining';
+        justify-items: center;
+
+        h4,
+        h4,
+        small {
+            text-align: center;
+        }
+
+        h3 {
+            font-size: var(--size-900);
+        }
+    }
+
+    .divider {
+        display: none;
+    }
+
+    .highlight {
+        box-shadow: 0 2px 6px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        transform: scale(1.15);
+    }
+}

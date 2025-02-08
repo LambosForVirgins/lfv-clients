@@ -2,22 +2,55 @@
     display: flex;
     align-items: center;
     position: relative;
+    /** TODO: Make this height dynamic **/
+    height: 100px;
 
     input {
         position: absolute;
         width: 100%;
+        height: 100%;
         appearance: none;
         background: transparent;
         pointer-events: all;
         z-index: 1;
+        opacity: 0;
     }
 
     .player {
         position: absolute;
-        transform: translate(-50%, -50%);
+        transform: translate(0%, 0);
         pointer-events: none;
         z-index: 2;
         width: 100px;
         height: 100px;
+    }
+
+    .channel {
+        position: absolute;
+        height: var(--size-500);
+        width: calc(100% - 100px);
+        left: 50px;
+        border-radius: 100vw;
+        background-color: white;
+        border: 2px dashed white;
+        background-color: rgba(255, 255, 255, 0.5);
+
+        /* &::before {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 70%;
+            background-color: var(--white);
+            border-radius: 100vw;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: attr(data-value);
+            background-color: var(--bg-red-500);
+            border-radius: 100vw;
+        } */
     }
 }
