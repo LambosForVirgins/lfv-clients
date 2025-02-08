@@ -55,7 +55,7 @@ export const SubscriptionOption = ({
           {formatNumber(props.amount)} VIRGINS
         </small>
         <h4 data-testid={`${testID}.subtitle`} className={styles.subtitle}>
-          +{amountRemaining.toLocaleString()}
+          {amountRemaining === 0 ? `Current` : amountRemaining.toLocaleString()}
         </h4>
       </div>
       <Divider
