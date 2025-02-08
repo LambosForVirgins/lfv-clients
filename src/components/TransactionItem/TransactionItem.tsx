@@ -35,6 +35,10 @@ export const TransactionItem = ({
     return Math.floor((Date.now() - startDate.getTime()) / cycleDuration);
   }, [targetDate, startDate, progress]);
 
+  const outstandingRewards = useMemo(() => {
+    return Math.floor(props.amount / REWARD_FACTOR) * totalLapsedCycles;
+  }, [totalLapsedCycles, props.amount]);
+
   useEffect(() => {
     if (targetDate.getTime() < Date.now()) {
       setTimeString("Fully matured");
@@ -52,9 +56,9 @@ export const TransactionItem = ({
         strokeWidth={6}
       >
         <img src={props.media?.src} width={"100%"} />
-        <span className={styles.badge}>
-          {Math.floor(props.amount / REWARD_FACTOR) * totalLapsedCycles}
-        </span>
+        {outstandingRewards > 0 && (
+          <span className={styles.badge}>{outstandingRewards}</span>
+        )}
       </CircularProgress>
       <span>
         <h3 className={styles.amount}>
