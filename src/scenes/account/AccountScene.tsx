@@ -21,7 +21,8 @@ export const AccountScene = ({
   const { isEnabled, someEnabled } = useDevToggles();
   const { claim, pending } = useClaimRewards();
   const { updateStatus } = useUpdateStatus();
-  const { member, publicKey } = useMembership();
+  const { member, publicKey, transactions } = useMembership();
+
   const { withdrawTokens } = useWithdrawTokens();
 
   const outstandingRewards = useRecoilValue(
@@ -83,58 +84,61 @@ export const AccountScene = ({
         are eligible for withdrawal, where they must complete the cycle before
         release.`}
       </p>
-      <div className={styles.list}>
-        <h4 className={styles.header}>{`Maturing ${formatDistanceToNowStrict(
-          member?.slots[0]?.type === "deposit"
-            ? member.slots[0].timeMatured
-            : member?.slots[0]?.timeReleased || Date.now(),
-          {
-            addSuffix: true,
-            unit: "day",
-            roundingMethod: "floor",
-          }
-        )}`}</h4>
-        <ul className={styles.transactions}>
-          {member?.slots.length === 0 ? (
-            <div className={styles.empty}>
-              Nah you're cool - there's no pending deposits or withdrawals
-            </div>
-          ) : (
-            member?.slots.map((slot) => {
-              return slot.type === "deposit" ? (
-                <TransactionItem
-                  key={slot.key}
-                  testID={`${testID}.deposit`}
-                  media={{
-                    src: "svg/coin.svg",
-                  }}
-                  amount={slot.amount}
-                  targetDate={slot.timeMatured}
-                  startDate={slot.timeCreated}
-                  action={{
-                    label: "Claim",
-                    onClick: claim,
-                  }}
-                />
+
+      {Object.entries(transactions).map(([date, group]) => {
+        return (
+          <div className={styles.list}>
+            <h4
+              className={styles.header}
+            >{`Maturing ${formatDistanceToNowStrict(date, {
+              addSuffix: true,
+              unit: "day",
+              roundingMethod: "floor",
+            })}`}</h4>
+            <ul className={styles.transactions}>
+              {member?.slots.length === 0 ? (
+                <div className={styles.empty}>
+                  Nah you're cool - there's no pending deposits or withdrawals
+                </div>
               ) : (
-                <TransactionItem
-                  key={slot.key}
-                  testID={`${testID}.withdraw`}
-                  media={{
-                    src: "images/lfv.png",
-                  }}
-                  amount={slot.amount}
-                  targetDate={slot.timeReleased}
-                  action={{
-                    label: "Withdraw",
-                    onClick: withdrawTokens,
-                  }}
-                />
-              );
-            })
-          )}
-        </ul>
-      </div>
+                group.map((slot) => {
+                  return slot.type === "deposit" ? (
+                    <TransactionItem
+                      key={slot.key}
+                      testID={`${testID}.deposit`}
+                      media={{
+                        src: "svg/coin.svg",
+                      }}
+                      amount={slot.amount}
+                      targetDate={slot.timeMatured}
+                      startDate={slot.timeCreated}
+                      action={{
+                        label: "Claim",
+                        onClick: claim,
+                      }}
+                    />
+                  ) : (
+                    <TransactionItem
+                      key={slot.key}
+                      testID={`${testID}.withdraw`}
+                      media={{
+                        src: "images/lfv.png",
+                      }}
+                      amount={slot.amount}
+                      targetDate={slot.timeReleased}
+                      action={{
+                        label: "Withdraw",
+                        onClick: withdrawTokens,
+                      }}
+                    />
+                  );
+                })
+              )}
+            </ul>
+          </div>
+        );
+      })}
+
       <div>
         <h2>Outstanding rewards</h2>
         <p>{`You receive 1 entry for every 1000 tokens deposited, plus receive an additional entry every ${formatDistanceToNowStrict(Date.now() + EPOCH_DURATION)} for every 1000 matured tokens.`}</p>
