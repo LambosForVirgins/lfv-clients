@@ -9,6 +9,12 @@ interface FooterProps extends Common.ComponentProps {
   className?: string;
 }
 
+const socialLinks = [
+  { key: "twitter", icon: "x", label: "X", href: "" },
+  { key: "telegram", icon: "telegram", label: "Telegram", href: "" },
+  { key: "discord", icon: "discord", label: "Discord", href: "" },
+];
+
 export const Footer = ({ testID, ...props }: FooterProps) => {
   return (
     <footer
@@ -20,7 +26,6 @@ export const Footer = ({ testID, ...props }: FooterProps) => {
           <h3 className="text-xl">Links</h3>
           <ul>
             <li>Announcements</li>
-            <li>Community</li>
             <NavLink to={"/partners"}>
               <li>Become a Partner</li>
             </NavLink>
@@ -30,18 +35,17 @@ export const Footer = ({ testID, ...props }: FooterProps) => {
         <div>
           <h3 className="text-xl">Project</h3>
           <ul>
+            <NavLink to={"/about"}>
+              <li>About us</li>
+            </NavLink>
             <NavLink to={"/tokenomics"}>
               <li>Tokenomics</li>
-            </NavLink>
-            <NavLink to={"/tokenomics/vesting"}>
-              <li>Team Allocation</li>
             </NavLink>
           </ul>
         </div>
         <div>
           <h3 className="text-xl">Legal</h3>
           <ul>
-            <li>About us</li>
             <li>Terms & Conditions</li>
             <li>Privacy Policy</li>
             <li>Contact us</li>
@@ -53,6 +57,13 @@ export const Footer = ({ testID, ...props }: FooterProps) => {
           We started as a simple meme with a simple purpose, solve population
           decline by giving away Lambos to virgins, but we've grown since then.
         </small> */}
+      </div>
+      <div className={styles.socials}>
+        {socialLinks.map((link) => (
+          <a key={link.key} href={link.href}>
+            {link.label}
+          </a>
+        ))}
       </div>
     </footer>
   );

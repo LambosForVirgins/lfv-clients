@@ -1,3 +1,12 @@
 .frame {
     grid-column: content;
+    /* ! Remove this */
+    padding-top: var(--size-900);
+    padding-bottom: var(--size-900);
+}
+
+.collection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--size-500);
 }

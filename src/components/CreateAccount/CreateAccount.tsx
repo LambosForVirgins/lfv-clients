@@ -1,14 +1,11 @@
 import { Button } from "@/elements";
 import styles from "./CreateAccount.module.css";
 import clsx from "classnames";
-import { useInitializeAccount } from "@/hooks/useInitializeAccount";
+import { useInitializeSubscription } from "@/hooks/useInitializeSubscription";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useCallback, useEffect, useState } from "react";
 import { useTokenMint } from "@/hooks/useTokenMint";
-import { useRecoilValue } from "recoil";
-import { mintAccountAtom } from "@/state/mints/atoms";
-import { MembershipSell } from "../MembershipSell/MembershipSell";
 
 interface CreateAccountProps extends Common.ComponentProps {
   className?: string;
@@ -32,7 +29,7 @@ export const CreateAccount = ({ testID, ...props }: CreateAccountProps) => {
     loading,
     status: memberStatus,
     initialize,
-  } = useInitializeAccount();
+  } = useInitializeSubscription();
   const { balance, pending, requestTokens } = useTokenMint();
 
   const handleAction = useCallback(async () => {
@@ -107,8 +104,6 @@ export const CreateAccount = ({ testID, ...props }: CreateAccountProps) => {
             <p>Initializing account</p>
           </div>
         );
-      case SetupStatus.DepositTokens:
-        return <MembershipSell testID={`${testID}.promo`} />;
       default:
         return null;
     }

@@ -1,6 +1,6 @@
 import { PublicKey } from "@solana/web3.js";
 import { AtomEffect } from "recoil";
-import { DECIMALS, getConnection } from "@/utils/locker/constants";
+import { getConnection } from "@/utils/locker/constants";
 import {
   getAssociatedTokenAddressSync,
   getAccount,
@@ -12,7 +12,7 @@ export const effectMintAccountAtom =
     mint: PublicKey,
     publicKey: PublicKey | null,
     decimals: number
-  ): AtomEffect<number> =>
+  ): AtomEffect<number | undefined> =>
   ({ trigger, setSelf }) => {
     if (!publicKey) return;
 
@@ -30,6 +30,7 @@ export const effectMintAccountAtom =
           setSelf(Math.floor(Number(data.amount) / Math.pow(10, decimals)));
         })
         .catch((error) => {
+          setSelf(undefined);
           console.error(
             `Error fetching token account "${associatedTokenAccount.toBase58()}"`,
             error
@@ -45,6 +46,7 @@ export const effectMintAccountAtom =
               Math.round(Number(accountData.amount) / Math.pow(10, decimals))
             );
           } catch (error) {
+            setSelf(undefined);
             console.error(
               `Error decoding token account "${associatedTokenAccount.toBase58()}"`,
               error

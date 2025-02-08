@@ -12,13 +12,11 @@ export const useSubscription = () => {
 
   const updateTier = (amount: number) => {
     // Should create a deposit transaction to upgrade the user's tier
-    const currentBalance = member?.totalAmount || 0;
-    const changeInBalance = amount - currentBalance;
 
-    if (changeInBalance > 0) {
-      depositTokens(changeInBalance);
+    if (amount > 0) {
+      depositTokens(amount);
     } else {
-      releaseTokens(Math.abs(changeInBalance));
+      releaseTokens(Math.abs(amount));
     }
   };
 
