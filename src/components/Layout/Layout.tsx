@@ -11,6 +11,7 @@ export const Layout = ({
   children,
 }: React.PropsWithChildren<Common.ComponentProps>) => {
   const { isEnabled } = useDevToggles();
+
   return (
     <div data-testid={testID} className={styles.frame}>
       <div data-testid={`${testID}.header`} className={styles.header}>
