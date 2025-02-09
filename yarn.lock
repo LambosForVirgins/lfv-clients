@@ -9866,6 +9866,7 @@ __metadata:
     react-i18next: "npm:^15.4.0"
     react-router: "npm:^7.1.1"
     recoil: "npm:^0.7.7"
+    tweetnacl-util: "npm:^0.15.1"
     typescript: "npm:^5.7.3"
     vite: "npm:^6.0.7"
     vite-plugin-node-polyfills: "npm:^0.22.0"
@@ -13169,6 +13170,13 @@ __metadata:
   version: 2.4.0
   resolution: "turbo-stream@npm:2.4.0"
   checksum: 10/7079bbc82b58340f783144cd669cc7e598288523103a8d68bb8a4c6bb28c64eccb71d389b33aab07788d3a9030638b795709e15cb8486f722b1cdac59cb58afc
+  languageName: node
+  linkType: hard
+
+"tweetnacl-util@npm:^0.15.1":
+  version: 0.15.1
+  resolution: "tweetnacl-util@npm:0.15.1"
+  checksum: 10/ae6aa8a52cdd21a95103a4cc10657d6a2040b36c7a6da7b9d3ab811c6750a2d5db77e8c36969e75fdee11f511aa2b91c552496c6e8e989b6e490e54aca2864fc
   languageName: node
   linkType: hard
 
