@@ -78,13 +78,13 @@ export const Footer = ({ testID, ...props }: FooterProps) => {
           </a>
         ))}
       </div>
-      <div className={styles.markets}>
+      {/* <div className={styles.markets}>
         {marketLinks.map((market) => (
           <a key={market.market} href={market.url}>
             {market.label}
           </a>
         ))}
-      </div>
+      </div> */}
     </footer>
   );
 };

@@ -74,6 +74,7 @@ export const tokenGroupSelector = selector<TreasuryWalletGroup[]>({
 export interface TokenAllocation extends TreasuryWalletGroup {
   name: string;
   portion: number;
+  remainingPortion: number;
   holding: TreasuryHolding[];
 }
 
@@ -107,9 +108,12 @@ export const tokenAllocationSelector = selector<TokenAllocation[]>({
         0
       );
 
+      const remainingPortion = amount / CIRCULATING_SUPPLY;
+
       allocation.push({
         name: group.label,
-        portion: amount / CIRCULATING_SUPPLY,
+        portion: group.portion,
+        remainingPortion,
         holding: [{ amount, symbol: TOKEN_SYMBOL }],
         label: group.label,
         type: group.type,

@@ -59,14 +59,6 @@ export const TreasuryScene = ({
       </Switch>
       <div>
         <h2>Tokenomics</h2>
-        <p>
-          What started as a joke between friends has now become a matter of
-          global importance.
-        </p>
-        <p>
-          The world population is in decline and the alpha male GigaChad faces
-          extinction.
-        </p>
 
         {allocation.map((group) => (
           <span
@@ -77,12 +69,19 @@ export const TreasuryScene = ({
             <CircularProgress
               testID={`${testID}.progress`}
               percentage={group.portion}
-              size={64}
-              strokeWidth={6}
               label={`${Math.ceil(group.portion * 1000) / 10}%`}
             />
             <span className={styles.details}>
-              <h2>${(marketCap * group.portion).toLocaleString()} USD</h2>
+              <small style={{ textDecoration: "line-through" }}>
+                ${Math.floor(marketCap * group.portion).toLocaleString()} USD
+              </small>
+              <h2>
+                $
+                {Math.floor(
+                  marketCap * group.remainingPortion
+                ).toLocaleString()}{" "}
+                USD
+              </h2>
               <p>{group.name}</p>
               {group.description && <p>{group.description}</p>}
             </span>
