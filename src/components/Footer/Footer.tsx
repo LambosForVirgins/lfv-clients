@@ -15,6 +15,19 @@ const socialLinks = [
   { key: "discord", icon: "discord", label: "Discord", href: "" },
 ];
 
+const marketLinks = [
+  {
+    market: "Raydium",
+    label: "Raydium",
+    url: "https://raydium.io/swap/?outputCurrency=7kB8ZkSBJr2uiBWfveqkVBN7EpZMFom5PqeWUB62DCRD&inputMint=sol&outputMint=4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+  },
+  {
+    market: "Jupiter",
+    label: "Jupiter",
+    url: "https://jup.ag/tokens/7kB8ZkSBJr2uiBWfveqkVBN7EpZMFom5PqeWUB62DCRD",
+  },
+];
+
 export const Footer = ({ testID, ...props }: FooterProps) => {
   return (
     <footer
@@ -62,6 +75,13 @@ export const Footer = ({ testID, ...props }: FooterProps) => {
         {socialLinks.map((link) => (
           <a key={link.key} href={link.href}>
             {link.label}
+          </a>
+        ))}
+      </div>
+      <div className={styles.markets}>
+        {marketLinks.map((market) => (
+          <a key={market.market} href={market.url}>
+            {market.label}
           </a>
         ))}
       </div>

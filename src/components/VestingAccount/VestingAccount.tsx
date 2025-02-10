@@ -5,15 +5,21 @@ import { Button } from "@/elements";
 import { VestingStatus } from "@/state/treasury/types";
 import styles from "./VestingAccount.module.css";
 import { useParams } from "react-router";
+import { useEffect, useRef } from "react";
 
 export const VestingAccount = ({
   testID = "vesting",
 }: Readonly<Partial<Common.ComponentProps>>) => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const params = useParams<{ publicKey: string }>();
   const details = useRecoilValue(vestingAccountSelector(params.publicKey));
 
+  useEffect(() => {
+    dialogRef.current?.showModal();
+  }, []);
+
   return (
-    <div data-testid={testID} className={styles.frame}>
+    <dialog data-testid={testID} ref={dialogRef} className={styles.frame}>
       {details && (
         <div key={details.destinationAddress} className={styles.card}>
           <div>
@@ -52,6 +58,6 @@ export const VestingAccount = ({
           </ul>
         </div>
       )}
-    </div>
+    </dialog>
   );
 };
