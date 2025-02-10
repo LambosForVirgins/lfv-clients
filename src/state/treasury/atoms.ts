@@ -83,7 +83,7 @@ export const treasuryWalletGroupsAtom = atom<TreasuryWalletGroup[]>({
       type: TreasuryType.Operational,
       category: TreasuryCategory.External,
       department: TreasuryDepartment.Founders,
-      portion: 0.123,
+      portion: 0.12290502834493305,
       description:
         "Initial founding team and allocations for early contributors.",
       wallets: [],
@@ -91,7 +91,7 @@ export const treasuryWalletGroupsAtom = atom<TreasuryWalletGroup[]>({
     {
       label: "Exchange",
       type: TreasuryType.Operational,
-      portion: 0.161,
+      portion: 0.16097396702002448,
       category: TreasuryCategory.StrategicReserves,
       department: TreasuryDepartment.Liquidity,
       wallets: [],
@@ -132,6 +132,32 @@ export const treasuryWalletsAtom = atom<TreasuryWallet[]>({
         {
           symbol: "VIRGIN",
           amount: 1,
+        },
+      ],
+    },
+    {
+      name: "KGEN Campaign",
+      address: "LoCKtcey3kGaEMuXi6zDESgjN665ULt7MjYix8tHNuR",
+      type: TreasuryType.Operational,
+      category: TreasuryCategory.GrowthIncentiveEngagement,
+      department: TreasuryDepartment.Marketing,
+      holdings: [
+        {
+          symbol: "VIRGIN",
+          amount: 4_100_00,
+        },
+      ],
+    },
+    {
+      name: "Shawn's Campaign",
+      address: "",
+      type: TreasuryType.Operational,
+      category: TreasuryCategory.GrowthIncentiveEngagement,
+      department: TreasuryDepartment.Marketing,
+      holdings: [
+        {
+          symbol: "VIRGIN",
+          amount: 0,
         },
       ],
     },
@@ -264,6 +290,19 @@ export const treasuryWalletsAtom = atom<TreasuryWallet[]>({
       category: TreasuryCategory.GrowthIncentiveEngagement,
       department: TreasuryDepartment.Incentives,
       holdings: [],
+    },
+    {
+      name: "Senior Frontend Developer",
+      address: "GUW4mJTJZxgohHFcrZ7wLQ3XWhaKAPtUKzcCGDerrgqL",
+      type: TreasuryType.Operational,
+      category: TreasuryCategory.GrowthIncentiveEngagement,
+      department: TreasuryDepartment.Incentives,
+      holdings: [
+        {
+          symbol: "VIRGIN",
+          amount: 250_000,
+        },
+      ],
     },
     {
       name: "Exchange 1",

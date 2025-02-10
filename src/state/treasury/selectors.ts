@@ -82,6 +82,21 @@ const TOKEN_SYMBOL = "VIRGIN";
 
 const CIRCULATING_SUPPLY = 894_999_997;
 
+export const circulatingSupplySelector = selector<number>({
+  key: "circulating-supply-selector",
+  get: () => 0,
+});
+
+export const terminatedSupplySelector = selector<number>({
+  key: "terminated-supply-selector",
+  get: () => 0,
+});
+
+export const stakedSupplySelector = selector<number>({
+  key: "staked-supply-selector",
+  get: () => 0,
+});
+
 export const tokenAllocationSelector = selector<TokenAllocation[]>({
   key: "token-allocation-selector",
   get: ({ get }) => {

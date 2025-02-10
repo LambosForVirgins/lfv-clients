@@ -20,6 +20,7 @@ export type VestingAccount = {
 export enum TreasuryType {
   Operational = "operational",
   Capital = "capital",
+  Terminated = "terminated",
 }
 
 export enum TreasuryCategory {

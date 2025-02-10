@@ -42,6 +42,11 @@ export const TreasuryScene = ({
 
   const isProjectedPrice = marketCap > MARKET_CAP;
 
+  const totalAllocation = useMemo(
+    () => allocation.reduce((sum, acc) => sum + acc.portion, 0),
+    [allocation]
+  );
+
   return (
     <section data-testid={testID} className={styles.frame}>
       {/* <h2>Treasury Vesting Accounts</h2>
@@ -72,9 +77,12 @@ export const TreasuryScene = ({
               label={`${Math.ceil(group.portion * 1000) / 10}%`}
             />
             <span className={styles.details}>
-              <small style={{ textDecoration: "line-through" }}>
-                ${Math.floor(marketCap * group.portion).toLocaleString()} USD
-              </small>
+              {group.portion != group.remainingPortion && (
+                <small style={{ textDecoration: "line-through" }}>
+                  Initial balance $
+                  {Math.floor(marketCap * group.portion).toLocaleString()} USD
+                </small>
+              )}
               <h2>
                 $
                 {Math.floor(
@@ -89,6 +97,7 @@ export const TreasuryScene = ({
         ))}
 
         <span className={styles.portion}>
+          <h2>{Math.floor(totalAllocation * 10000) / 100}% Allocated</h2>
           <h2>{(1).toLocaleString()}B Tokens</h2>
           <h2>{TOTAL_SUPPLY.toLocaleString()} Tokens</h2>
           <h2>{CIRCULATING_SUPPLY.toLocaleString()}B Tokens</h2>
