@@ -1,4 +1,4 @@
-import { Connection, PublicKey } from "@solana/web3.js";
+import { PublicKey, Transaction } from "@solana/web3.js";
 import { program } from "../locker";
 
 import { amountToLamports, MINT } from "@/utils/locker/constants";
@@ -6,71 +6,69 @@ import {
   getAssociatedTokenAddressSync,
   TOKEN_PROGRAM_ID,
 } from "@solana/spl-token";
-import {
-  SystemProgram,
-  TransactionMessage,
-  VersionedTransaction,
-} from "@solana/web3.js";
+import { SystemProgram } from "@solana/web3.js";
 import { BN } from "bn.js";
 import { TransferMethod } from "../locker/setup";
 import {
   findSubscriptionAccountAddress,
   findVaultTokenAccountAddress,
 } from "../locker/PDA";
+import { getInitializeVaultInstruction } from "./getInitializeVaultTransaction";
 
 const getTransferTokensInstruction = async (
-  connection: Connection,
   publicKey: PublicKey,
   method: TransferMethod,
-  amount: number
-) => {
-  const latestBlock = await connection.getLatestBlockhash(),
+  amount: number,
+  initialize: boolean
+): Promise<Transaction> => {
+  const transaction = new Transaction(),
     lamports = amountToLamports(new BN(amount)),
     subscription = findSubscriptionAccountAddress(publicKey),
     vaultTokenAccount = findVaultTokenAccountAddress(MINT, publicKey),
     sourceTokenAccount = getAssociatedTokenAddressSync(MINT, publicKey);
 
-  const instruction = await method(lamports)
-    .accounts({
-      subscription,
-      vaultTokenAccount,
-      sourceTokenAccount,
-      mint: MINT,
-      signer: publicKey,
-      tokenProgram: TOKEN_PROGRAM_ID,
-      systemProgram: SystemProgram.programId,
-    })
-    .instruction();
+  if (initialize) {
+    // Initialize the vault token account
+    transaction.add(getInitializeVaultInstruction(publicKey));
+  }
 
-  const messageV0 = new TransactionMessage({
-    payerKey: publicKey,
-    recentBlockhash: latestBlock.blockhash,
-    instructions: [instruction],
-  }).compileToV0Message();
-  // Construct a versioned transaction
-  return new VersionedTransaction(messageV0);
+  transaction.add(
+    await method(lamports)
+      .accounts({
+        subscription,
+        vaultTokenAccount,
+        sourceTokenAccount,
+        mint: MINT,
+        signer: publicKey,
+        tokenProgram: TOKEN_PROGRAM_ID,
+        systemProgram: SystemProgram.programId,
+      })
+      .instruction()
+  );
+
+  return transaction;
 };
 
 export const getReleaseTokensTransaction = async (
-  connection: Connection,
   publicKey: PublicKey,
-  amount: number
-) =>
+  amount: number,
+  initialize: boolean = false
+): Promise<Transaction> =>
   getTransferTokensInstruction(
-    connection,
     publicKey,
     program.methods.release,
-    amount
+    amount,
+    initialize
   );
 
 export const getDepositTokensTransaction = async (
-  connection: Connection,
   publicKey: PublicKey,
-  amount: number
-) =>
+  amount: number,
+  initialize: boolean = false
+): Promise<Transaction> =>
   getTransferTokensInstruction(
-    connection,
     publicKey,
     program.methods.deposit,
-    amount
+    amount,
+    initialize
   );
