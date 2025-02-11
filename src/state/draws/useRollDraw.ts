@@ -4,8 +4,11 @@ import { DrawRound } from "./types";
 import { roundSelector } from "./selectors";
 import { rollDraw } from "./functions";
 
+const TOTAL_ENTRIES_FROM_DRAW_DB = 1245;
+
 export const useRollDraw = (drawId: string) => {
   const [loading, setLoading] = useState(false);
+  const [max, setMax] = useState(TOTAL_ENTRIES_FROM_DRAW_DB);
   const setRound = useSetRecoilState(roundSelector(drawId));
   const [selected, setSelected] = useState(0);
 
@@ -27,5 +30,5 @@ export const useRollDraw = (drawId: string) => {
     }
   };
 
-  return { roll: rollDrawHash, selected, loading };
+  return { roll: rollDrawHash, selected, loading, max };
 };

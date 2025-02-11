@@ -7,7 +7,7 @@ import { useMembership } from "@/hooks/useMembership";
 import { useSubscription } from "@/hooks/useSubscription";
 import { subscriptionOptionsAtom } from "@/state/subscription/atoms";
 import { useRecoilValue } from "recoil";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { TierSlider } from "@/components/TierSlider/TierSlider";
 import { useTokenMint } from "@/hooks/useTokenMint";
 import { hasMaturingTokens } from "@/utils/membership/hasMaturingTokens";
@@ -16,13 +16,12 @@ export const SubscriptionScene = ({
   testID = "subscription",
 }: Readonly<Partial<Common.ComponentProps>>) => {
   const { cancelSubscription } = useCancelSubscription();
-  const { tier, updateTier } = useSubscription();
+  const { tier, updateTier, loading } = useSubscription();
   const { member } = useMembership();
   const { balance = 0 } = useTokenMint();
   const packages = useRecoilValue(subscriptionOptionsAtom);
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number>(member?.totalAmount || 0);
   const [animationData, setAnimationData] = useState<object | null>(null);
-  const maximumAmount = balance - (member?.totalAmount || 0);
 
   useEffect(() => {
     const loadAnimation = async () => {
@@ -33,17 +32,22 @@ export const SubscriptionScene = ({
     loadAnimation();
   }, []);
 
-  const commitChanges = useCallback(
-    () => updateTier(amount),
-    [amount, updateTier]
+  const changeAmount = useMemo(
+    () => amount - (member?.totalAmount || 0),
+    [amount, member]
   );
+
+  const commitChanges = useCallback(() => {
+    updateTier(changeAmount);
+  }, [updateTier, changeAmount]);
 
   const presentCancellationConfirmation = () => {
     // TODO: Redirect or display a cancel confirmation modal
     cancelSubscription();
   };
 
-  const setMaximumDeposit = () => setAmount(maximumAmount);
+  const setMaximumDeposit = () =>
+    setAmount(balance + (member?.totalAmount || 0));
 
   return (
     <div data-testid={testID} className={styles.frame}>
@@ -72,7 +76,7 @@ export const SubscriptionScene = ({
           onChange={setAmount}
           step={10_000}
           min={0}
-          max={5_000_000}
+          max={Math.max(balance, 5_000_000)}
           animationData={animationData}
         />
       )}
@@ -83,22 +87,22 @@ export const SubscriptionScene = ({
       >
         {packages.map((product, idx) => {
           const lockedAmount = member?.totalAmount || 0;
-          const remainingAmount = product.amount - lockedAmount;
+          const value = product.amount - lockedAmount;
 
           return (
             <SubscriptionOption
-              key={`${product.tier}.${idx}`}
+              key={product.tier}
               testID={`${testID}.package`}
               name={"tier"}
               title={product.title}
               amount={product.amount}
-              amountRemaining={remainingAmount}
+              amountRemaining={value}
               benefits={product.benefits}
-              onClick={setAmount}
+              onClick={(value) => setAmount((member?.totalAmount || 0) + value)}
               applied={tier === product.tier}
-              selected={amount === remainingAmount}
+              selected={amount === product.amount}
               highlight={product.highlight}
-              disabled={!member || remainingAmount > balance}
+              disabled={value > balance}
             />
           );
         })}
@@ -106,7 +110,8 @@ export const SubscriptionScene = ({
 
       <Button
         testID={`${testID}.submit`}
-        disabled={amount === 0 || amount > balance}
+        loading={loading}
+        disabled={changeAmount === 0 || changeAmount > balance}
         onClick={commitChanges}
       >
         {`Update subscription`}
