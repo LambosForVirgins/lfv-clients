@@ -23,7 +23,8 @@
     transition-behavior: allow-discrete;
 
     &:popover-open {
-        display: grid;
+        display: flex;
+        flex-direction: column;
         opacity: 1;
         margin-block-start: 4px;
 

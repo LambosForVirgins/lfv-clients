@@ -31,8 +31,8 @@ export const SlotChannel = ({
     for (let i = entries.length - 1; i >= 0; i--) {
       const box = document.createElement("div");
       box.classList.add(styles.box);
-      box.style.width = element.clientWidth + "px";
-      box.style.height = element.clientWidth + "px";
+      // box.style.width = element.clientWidth + "px";
+      // box.style.height = element.clientWidth + "px";
       box.textContent = entries[i];
       boxes.appendChild(box);
     }

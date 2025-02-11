@@ -8,11 +8,11 @@ interface DrawMachineProps extends Common.ComponentProps {
 }
 
 export const DrawMachine = ({ testID, ...props }: DrawMachineProps) => {
-  const { roll, selected, loading } = useRollDraw(props.drawId);
+  const { roll, selected, loading, max } = useRollDraw(props.drawId);
 
   return (
     <div data-testid={testID} className="grid p-5">
-      <SlotMachine testID={testID} selected={selected} />
+      <SlotMachine testID={testID} value={selected} max={max} />
       <Button testID={`${testID}.roll`} onClick={roll} disabled={loading}>
         Roll
       </Button>
