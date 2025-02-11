@@ -1,13 +1,13 @@
-import { DrawMachine } from "./DrawMachine";
+import { SlotMachine } from "./SlotMachine";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
-  title: "Giveaways/DrawMachine",
-  component: DrawMachine,
+  title: "Giveaways/SlotMachine",
+  component: SlotMachine,
   args: {
-    testID: "draw-machine",
+    testID: "slot-machine",
   },
-} satisfies Meta<typeof DrawMachine>;
+} satisfies Meta<typeof SlotMachine>;
 
 export default meta;
 
@@ -15,6 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default = {
   args: {
-    drawId: "test-draw-id",
+    value: 0,
+    max: 1234,
   },
 } satisfies Story;
