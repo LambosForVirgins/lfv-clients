@@ -1,5 +1,3 @@
-import "@oddbird/popover-polyfill";
-import "@oddbird/css-anchor-positioning/fn";
 import styles from "./Popover.module.css";
 import { NavLink } from "react-router";
 import React, { useRef } from "react";
