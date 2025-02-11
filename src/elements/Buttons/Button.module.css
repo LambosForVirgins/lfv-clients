@@ -1,5 +1,5 @@
 .frame {
-    transition: transform 150ms ease, box-shadow 300ms ease, opacity 150ms ease;
+    transition: transform 150ms ease, box-shadow 300ms ease, opacity 150ms ease, background-color 300ms ease, color 150ms ease;
     padding: var(--size-300);
     border-radius: var(--size-400);
     font-family: var(--font-leading);

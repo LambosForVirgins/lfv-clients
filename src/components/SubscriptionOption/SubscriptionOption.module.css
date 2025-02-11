@@ -7,6 +7,7 @@
     border: 2px solid transparent;
     user-select: none;
     cursor: pointer;
+    transition: background-color 300ms ease, border 300ms ease, transform 300ms ease;
 
     &:has(input:checked) {
         border: 2px solid var(--bg-red-500);
