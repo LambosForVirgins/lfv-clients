@@ -8,6 +8,7 @@ interface ConfirmationSliderProps extends Common.ComponentProps {
   label: string;
   tolerance?: number;
   className?: string;
+  disabled?: boolean;
   loading?: boolean;
   onChange?: (percentage: number) => void;
   onComplete?: (metrics: InteractionMetrics) => Promise<boolean>;
@@ -22,6 +23,10 @@ type InteractionMetrics = {
 };
 
 const DEFAULT_COMPLETION_TOLERANCE = 0.65;
+
+const RESOLUTION = 0.00001;
+
+const MAX_VALUE = 100;
 
 /**
  * The confirmation slider should serve as a
@@ -40,14 +45,13 @@ export const ConfirmationSlider = ({
   tolerance = DEFAULT_COMPLETION_TOLERANCE,
   ...props
 }: ConfirmationSliderProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLLabelElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
-  const handleRef = useRef<HTMLSpanElement>(null);
+  const handleRef = useRef<HTMLOutputElement>(null);
   const mousePosition = useRef<{ x: number; y: number }>();
   const [completion, setCompletion] = useState(0);
   const [startTime, setStartTime] = useState(Date.now());
   const [reactionTime, setReactionTime] = useState(0);
-  const [isActive, setIsActive] = useState(false);
 
   const handleComplete = async () => {
     if (!props.onComplete) return;
@@ -80,13 +84,11 @@ export const ConfirmationSlider = ({
   };
 
   const handleMouseDown = (event: React.MouseEvent) => {
-    setIsActive(true);
     mousePosition.current = { x: event.clientX, y: event.clientY };
     setStartTime(Date.now());
   };
 
   const deselectSliderHandle = () => {
-    setIsActive(false);
     if (completion >= tolerance) {
       handleComplete();
       updateSliderPosition(1);
@@ -95,23 +97,13 @@ export const ConfirmationSlider = ({
     }
   };
 
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (
-      !isActive ||
-      !containerRef.current ||
-      !handleRef.current ||
-      !mousePosition.current
-    )
-      return;
+  const handleSlideProgress = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!containerRef.current || !handleRef.current) return;
 
-    const containerRect = containerRef.current.getBoundingClientRect(),
-      maxSlide = containerRect.width - handleRef.current.offsetWidth;
-    // Calculate new slider position as a percentage
-    const deltaX = event.clientX - mousePosition.current.x,
-      newSliderPosition = Math.max(0, Math.min(deltaX, maxSlide));
+    const progress = parseFloat(event.target.value) / 100;
     // Store randomness data
     // setRandomness((prev) => [...prev, deltaX]);
-    updateSliderPosition(newSliderPosition / maxSlide);
+    updateSliderPosition(progress);
 
     if (reactionTime === null) {
       setReactionTime(Date.now() - (startTime || 0));
@@ -119,30 +111,41 @@ export const ConfirmationSlider = ({
   };
 
   return (
-    <div
+    <label
       ref={containerRef}
       data-testid={testID}
       data-seed={generateRandom()}
+      htmlFor={props.name}
       className={clsx(
         props.className,
         styles.frame,
-        styles.channel,
         props.loading && styles.loading
       )}
-      onMouseMove={handleMouseMove}
+      onMouseDown={handleMouseDown}
       onMouseUp={deselectSliderHandle}
       onMouseLeave={deselectSliderHandle}
     >
-      <span
+      <span ref={labelRef} className={clsx(styles.label, styles.pulse)}>
+        {props.label}
+      </span>
+      <input
+        type="range"
+        value={completion * MAX_VALUE}
+        min={0}
+        max={MAX_VALUE}
+        step={RESOLUTION}
+        name={props.name}
+        onChange={handleSlideProgress}
+      />
+      <output
         ref={handleRef}
+        name={`${props.name}-output`}
+        htmlFor={props.name}
         data-testid={`${testID}.handle`}
         onMouseDown={handleMouseDown}
         className={styles.handle}
       />
-      <span ref={labelRef} className={clsx(styles.label, styles.pulse)}>
-        {props.label}
-      </span>
       <input type="checkbox" name="humanity" className={styles.honeypot} />
-    </div>
+    </label>
   );
 };
