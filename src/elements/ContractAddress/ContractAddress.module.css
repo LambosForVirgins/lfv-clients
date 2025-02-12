@@ -1,0 +1,32 @@
+.frame {
+    display: flex;
+    background-color: var(--white);
+    border-radius: var(--size-300);
+    padding: var(--size-300);
+    gap: var(--size-300);
+    align-items: center;
+    max-width: 100%;
+}
+
+.label {
+    display: grid;
+    height: 100%;
+    border-radius: var(--size-200);
+    color: var(--white);
+    background-color: var(--black);
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+}
+
+.address {
+    flex: 1 10 auto;
+    font-size: var(--size-600);
+
+    &.truncate {
+        white-space: nowrap;
+        text-wrap: wrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}

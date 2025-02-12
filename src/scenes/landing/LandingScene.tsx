@@ -2,6 +2,8 @@ import { Section } from "@/components/Section/Section";
 import styles from "./LandingScene.module.css";
 import { CommandPrompter } from "@/scenes/prompter/CommandPrompter";
 import { Button } from "@/elements";
+import { MINT } from "@/utils/locker/constants";
+import { ContractAddress } from "@/elements/ContractAddress/ContractAddress";
 
 export const LandingScene = ({
   testID = "landing",
@@ -23,6 +25,12 @@ export const LandingScene = ({
             style={{ maxWidth: "100%" }}
           />
         </div>
+
+        <ContractAddress
+          testID={`${testID}.mint`}
+          label={"CA"}
+          mint={MINT.toBase58()}
+        />
 
         <Button testID={`${testID}.connect`} className={styles.button}>
           Connect wallet

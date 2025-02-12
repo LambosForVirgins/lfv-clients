@@ -9,6 +9,7 @@ import { tokenAllocationSelector } from "@/state/treasury/selectors";
 import { totalTokenBalanceSelector } from "@/state/mints/selectors";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useMemo, useState } from "react";
+import { prettyAddress } from "@/utils/string/prettyAddress";
 
 const MARKET_CAP = 1_300_000,
   TOTAL_SUPPLY = 894_999_997,
@@ -49,16 +50,16 @@ export const TreasuryScene = ({
 
   return (
     <section data-testid={testID} className={styles.frame}>
-      {/* <h2>Treasury Vesting Accounts</h2>
+      <h2>Treasury Vesting Accounts</h2>
       <ul>
         {Object.keys(vestedAccounts).map((publicKey) => (
           <li key={publicKey}>
             <NavLink to={`/tokenomics/vesting/${publicKey}`}>
-              {publicKey}
+              {prettyAddress(publicKey)}
             </NavLink>
           </li>
         ))}
-      </ul> */}
+      </ul>
       <Switch>
         <Page path="/vesting/:publicKey" Component={VestingAccount} />
       </Switch>
