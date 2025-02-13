@@ -2,13 +2,15 @@ import { Section } from "@/components/Section/Section";
 import styles from "./LandingScene.module.css";
 import { CommandPrompter } from "@/scenes/prompter/CommandPrompter";
 import { Button } from "@/elements";
+import { MINT } from "@/utils/locker/constants";
+import { ContractAddress } from "@/elements/ContractAddress/ContractAddress";
 
 export const LandingScene = ({
   testID = "landing",
 }: Readonly<Partial<Common.ComponentProps>>) => {
   return (
-    <Section testID="membership" id={"membership"}>
-      <div className={styles.frame}>
+    <div data-testid="membership" id={"membership"} className={styles.frame}>
+      <div className={styles.header}>
         <div className={styles.banner}>
           <img
             src={"/images/logo-stamp.png"}
@@ -24,12 +26,20 @@ export const LandingScene = ({
           />
         </div>
 
+        <ContractAddress
+          testID={`${testID}.mint`}
+          label={"CA"}
+          mint={MINT.toBase58()}
+        />
+      </div>
+
+      <div className={styles.content}>
         <Button testID={`${testID}.connect`} className={styles.button}>
           Connect wallet
         </Button>
       </div>
 
       <CommandPrompter />
-    </Section>
+    </div>
   );
 };

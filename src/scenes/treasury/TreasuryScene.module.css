@@ -6,9 +6,16 @@
 
 .portion {
     display: grid;
+    grid-template-columns: auto 1fr;
     gap: var(--size-100);
-    padding: var(--size-500);
+    padding: var(--size-100);
     text-align: center;
+
+    .details {
+        display: grid;
+        padding: var(--size-500);
+        text-align: left;
+    }
 }
 
 .split {
@@ -16,4 +23,9 @@
     gap: var(--size-100);
     padding: var(--size-500);
     text-align: center;
+}
+
+.disabled {
+    opacity: 0.4;
+    text-decoration: line-through;
 }

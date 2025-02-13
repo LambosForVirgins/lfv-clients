@@ -27,6 +27,21 @@ export const MOCKS: Merchandise[] = [
     price: 250_000,
   },
   {
+    id: "f649e2bb-0d91-4ea0-8b12-f1209d56a85c",
+    sku: "e694ee20-c9fa-4300-95cf-fd25e05c9efb",
+    active: isDev,
+    title: "Large Load",
+    description: "1 Million VIRGIN for bulkiest buyers.",
+    media: [],
+    constraints: {
+      minBalance: 1_000_000,
+      limited: 100,
+      limit: 1,
+    },
+    providers: ["45bdeb8d-8fdc-4a73-ae6f-057aea599558"],
+    price: 250_000,
+  },
+  {
     id: "930be8a7-1d6c-4af0-81c9-31afde5a04dd",
     sku: "e90be35f-1ee9-4224-878b-47ed049c5934",
     active: isDev,
