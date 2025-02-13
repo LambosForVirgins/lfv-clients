@@ -85,7 +85,7 @@ export const treasuryWalletGroupsAtom = atom<TreasuryWalletGroup[]>({
       department: TreasuryDepartment.Founders,
       portion: 0.12290502834493305,
       description:
-        "Initial founding team and allocations for early contributors.",
+        "Initial founding team and allocations for early contributors. The founding team allocation is vested over 18 months, beginning January 2025 and releasing proportionally once every week.",
       wallets: [],
     },
     {

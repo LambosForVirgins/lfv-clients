@@ -1,7 +1,7 @@
-import { PublicKey } from "@solana/web3.js";
 import { Button } from "../Buttons/Button";
 import styles from "./ContractAddress.module.css";
 import clsx from "classnames";
+import { prettyAddress } from "@/utils/string/prettyAddress";
 
 interface ContractAddressProps extends Common.ComponentProps {
   label?: string;
@@ -20,14 +20,17 @@ export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
       <span
         data-testid={`${testID}.address`}
         className={clsx(styles.address, styles.truncate)}
+        data-short={prettyAddress(props.mint)}
       >
-        {props.mint.substring(0, props.mint.length - 4)}
+        <span>{props.mint}</span>
       </span>
-      <span data-testid={`${testID}.address`} className={styles.address}>
-        {props.mint.substring(props.mint.length - 4)}
-      </span>
-      <Button testID={`${testID}.copy`} size={"small"}>
-        Copy address
+      <Button
+        testID={`${testID}.copy`}
+        size={"small"}
+        data-short={"Copy"}
+        className={styles.button}
+      >
+        <span>Copy address</span>
       </Button>
     </span>
   );

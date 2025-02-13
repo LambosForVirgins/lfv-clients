@@ -9,8 +9,8 @@ export const LandingScene = ({
   testID = "landing",
 }: Readonly<Partial<Common.ComponentProps>>) => {
   return (
-    <Section testID="membership" id={"membership"}>
-      <div className={styles.frame}>
+    <div data-testid="membership" id={"membership"} className={styles.frame}>
+      <div className={styles.header}>
         <div className={styles.banner}>
           <img
             src={"/images/logo-stamp.png"}
@@ -31,13 +31,15 @@ export const LandingScene = ({
           label={"CA"}
           mint={MINT.toBase58()}
         />
+      </div>
 
+      <div className={styles.content}>
         <Button testID={`${testID}.connect`} className={styles.button}>
           Connect wallet
         </Button>
       </div>
 
       <CommandPrompter />
-    </Section>
+    </div>
   );
 };

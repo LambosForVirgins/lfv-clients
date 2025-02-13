@@ -10,6 +10,7 @@ import { totalTokenBalanceSelector } from "@/state/mints/selectors";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useMemo, useState } from "react";
 import { prettyAddress } from "@/utils/string/prettyAddress";
+import clsx from "classnames";
 
 const MARKET_CAP = 1_300_000,
   TOTAL_SUPPLY = 894_999_997,
@@ -31,7 +32,7 @@ const markets = [
 export const TreasuryScene = ({
   testID = "treasury",
 }: Readonly<Partial<Common.ComponentProps>>) => {
-  const { publicKey } = useWallet();
+  const { wallet, publicKey } = useWallet();
   const [marketCap, setMarketCap] = useState(MARKET_CAP);
   const vestedAccounts = useRecoilValue(vestedAccountsAtom);
   const allocation = useRecoilValue(tokenAllocationSelector);
@@ -51,6 +52,9 @@ export const TreasuryScene = ({
   return (
     <section data-testid={testID} className={styles.frame}>
       <h2>Treasury Vesting Accounts</h2>
+      <p>
+        {`There's ${(894_999_999).toLocaleString()} tokens available today, starting from the initial 1 billion supply and burning ${(1_000_000_000 - 894_999_999).toLocaleString()}. The founding team allocation is vested over 18 months, beginning January 2025.`}
+      </p>
       <ul>
         {Object.keys(vestedAccounts).map((publicKey) => (
           <li key={publicKey}>
@@ -60,9 +64,10 @@ export const TreasuryScene = ({
           </li>
         ))}
       </ul>
-      <Switch>
-        <Page path="/vesting/:publicKey" Component={VestingAccount} />
-      </Switch>
+      <VestingAccount
+        testID={`${testID}.vesting`}
+        publicKey={"M1TsVPdju4sdtFZGmpyCk9BHRLAoPqJUHMLbRpQCstV"}
+      />
       <div>
         <h2>Tokenomics</h2>
 
@@ -78,6 +83,7 @@ export const TreasuryScene = ({
               label={`${Math.ceil(group.portion * 1000) / 10}%`}
             />
             <span className={styles.details}>
+              <h3>{group.name}</h3>
               {group.portion != group.remainingPortion && (
                 <small style={{ textDecoration: "line-through" }}>
                   Initial balance $
@@ -91,7 +97,6 @@ export const TreasuryScene = ({
                 ).toLocaleString()}{" "}
                 USD
               </h2>
-              <p>{group.name}</p>
               {group.description && <p>{group.description}</p>}
             </span>
           </span>
@@ -107,12 +112,13 @@ export const TreasuryScene = ({
 
         <span>
           <h2>Projection</h2>
-          <p>Glimpse at future you.</p>
+          <p>Future you looks good. </p>
           <input
             type="range"
             min={MARKET_CAP}
             max={3_000_000_000}
             step={100_000_000}
+            disabled={!wallet}
             onChange={({ target }) => setMarketCap(+target.value)}
           />
           <p>Multiply your balance by the number of Lambo's given away.</p>
@@ -120,8 +126,11 @@ export const TreasuryScene = ({
 
         <span>
           <h2>Your holdings</h2>
-          <p>{totalHoldingBalance.toLocaleString()} VIRGIN</p>
-          <p>
+          {!wallet && <p>Connect your wallet to see your balance</p>}
+          <p className={clsx(!wallet && styles.disabled)}>
+            {totalHoldingBalance.toLocaleString()} VIRGIN
+          </p>
+          <p className={clsx(!wallet && styles.disabled)}>
             $
             {(
               Math.floor(tokenPrice * totalHoldingBalance * 100) / 100
