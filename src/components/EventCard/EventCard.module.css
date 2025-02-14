@@ -1,0 +1,25 @@
+.frame {
+    display: grid;
+    background-color: var(--white);
+    border-radius: var(--size-300);
+    overflow: hidden;
+}
+
+.gallery {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.tags {
+    display: flex;
+    flex-direction: row;
+    gap: var(--size-100);
+}
+
+.content {
+    display: grid;
+    grid-auto-flow: row;
+    padding: var(--size-300);
+    gap: var(--size-300);
+}

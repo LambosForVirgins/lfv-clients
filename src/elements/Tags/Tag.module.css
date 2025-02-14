@@ -1,0 +1,19 @@
+.frame {
+    background-color: var(--yellow-500);
+    padding: var(--size-200);
+    border-radius: var(--size-200);
+}
+
+.red {
+    color: var(--white);
+    background-color: var(--bg-red-500);
+}
+
+.green {}
+
+.blue {}
+
+.yellow {
+    color: var(--black);
+    background-color: var(--yellow-500);
+}
