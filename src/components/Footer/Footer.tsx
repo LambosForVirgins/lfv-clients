@@ -3,8 +3,6 @@ import styles from "./Footer.module.css";
 // import { LocaleButton } from "../Buttons/LocaleButton";
 import clsx from "classnames";
 
-const ShowLocale = true;
-
 interface FooterProps extends Common.ComponentProps {
   className?: string;
 }
@@ -13,6 +11,19 @@ const socialLinks = [
   { key: "twitter", icon: "x", label: "X", href: "" },
   { key: "telegram", icon: "telegram", label: "Telegram", href: "" },
   { key: "discord", icon: "discord", label: "Discord", href: "" },
+];
+
+const marketLinks = [
+  {
+    market: "Raydium",
+    label: "Raydium",
+    url: "https://raydium.io/swap/?outputCurrency=7kB8ZkSBJr2uiBWfveqkVBN7EpZMFom5PqeWUB62DCRD&inputMint=sol&outputMint=4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+  },
+  {
+    market: "Jupiter",
+    label: "Jupiter",
+    url: "https://jup.ag/tokens/7kB8ZkSBJr2uiBWfveqkVBN7EpZMFom5PqeWUB62DCRD",
+  },
 ];
 
 export const Footer = ({ testID, ...props }: FooterProps) => {
@@ -65,6 +76,14 @@ export const Footer = ({ testID, ...props }: FooterProps) => {
           </a>
         ))}
       </div>
+      {/* <div className={styles.markets}>
+        {marketLinks.map((market) => (
+          <a key={market.market} href={market.url}>
+            {market.label}
+          </a>
+        ))}
+      </div> */}
+      {/* <span>© 2025 Moonshot Gaming Pty Ltd. All rights reserved.</span> */}
     </footer>
   );
 };

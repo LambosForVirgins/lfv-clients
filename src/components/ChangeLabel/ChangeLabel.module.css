@@ -1,0 +1,29 @@
+.frame {
+    display: flex;
+    flex-direction: row;
+    gap: var(--size-200);
+    align-items: center;
+    padding: var(--size-100);
+
+    .amount {
+        font-size: var(--size-800);
+        color: var(--green-500);
+    }
+
+    .percentage {
+        font-size: var(--size-700);
+        padding: var(--size-100);
+        color: var(--green-500);
+        background-color: var(--green-100);
+        border-radius: var(--size-200);
+    }
+
+    &.negative .amount {
+        color: var(--bg-red-500);
+    }
+
+    &.negative .percentage {
+        color: var(--bg-red-500);
+        background-color: var(--bg-red-100);
+    }
+}

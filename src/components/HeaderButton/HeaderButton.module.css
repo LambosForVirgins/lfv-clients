@@ -48,7 +48,12 @@
     } */
 
     .label {
-        display: none;
+        /* display: none; */
+        color: var(--white);
+        z-index: 2;
+        align-self: center;
+        justify-self: center;
+        padding: 0 var(--size-200)
     }
 
     &:disabled {

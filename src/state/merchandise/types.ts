@@ -1,6 +1,8 @@
 type Constraint = {
   minBalance?: number;
   maxBalance?: number;
+  limited?: number;
+  limit?: number;
 };
 
 type Price = {
