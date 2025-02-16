@@ -24,11 +24,6 @@ const MENU_ITEMS = [
     path: "/subscription",
     icon: "star",
   },
-  {
-    key: "purchase",
-    label: "How to buy",
-    path: "/#purchasing",
-  },
 ];
 
 export const Header = ({ testID, ...props }: HeaderProps) => {

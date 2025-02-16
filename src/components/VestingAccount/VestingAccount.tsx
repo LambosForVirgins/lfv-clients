@@ -14,9 +14,9 @@ export const VestingAccount = ({
   const params = useParams<{ publicKey: string }>();
   const details = useRecoilValue(vestingAccountSelector(params.publicKey));
 
-  useEffect(() => {
-    dialogRef.current?.showModal();
-  }, []);
+  // useEffect(() => {
+  //   dialogRef.current?.showModal();
+  // }, []);
 
   return (
     <dialog data-testid={testID} ref={dialogRef} className={styles.frame}>

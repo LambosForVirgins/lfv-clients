@@ -3,8 +3,6 @@ import styles from "./Footer.module.css";
 // import { LocaleButton } from "../Buttons/LocaleButton";
 import clsx from "classnames";
 
-const ShowLocale = true;
-
 interface FooterProps extends Common.ComponentProps {
   className?: string;
 }
@@ -85,6 +83,7 @@ export const Footer = ({ testID, ...props }: FooterProps) => {
           </a>
         ))}
       </div> */}
+      {/* <span>© 2025 Moonshot Gaming Pty Ltd. All rights reserved.</span> */}
     </footer>
   );
 };
