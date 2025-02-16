@@ -8,7 +8,7 @@ import {
   TreasuryWalletGroup,
   VestingAccount,
 } from "./types";
-import { getMarketPrice } from "./functions";
+import { getMarketPrice, getPriceHistory } from "./functions";
 
 export const vestedAccountsAtom = atom<Record<string, string[]>>({
   key: "vested-accounts-atom",
@@ -550,19 +550,5 @@ export const tickerAtom = atom<number>({
 
 export const marketPricesAtom = atom<[number, number][]>({
   key: "market-prices-atom",
-  default: [
-    [1739636135440, 2007000],
-    [1739636366527, 6364374],
-    [1739636371701, 12001981],
-    [1739636374234, 13512936],
-    [1739636375579, 15156666],
-    [1739636377815, 20605476],
-    [1739636378662, 23705334],
-    [1739636382327, 30769535],
-    [1739636384119, 36957250],
-    [1739636384310, 36688773],
-    [1739636384489, 42646501],
-    [1739636386616, 45365471],
-    [1739636386773, 50759928],
-  ],
+  default: getPriceHistory(),
 });

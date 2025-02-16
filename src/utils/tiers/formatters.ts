@@ -3,9 +3,9 @@ import { MemberStatus, MemberTier } from "@/state/subscription/types";
 export const tierToString = (tier: MemberTier | undefined | null) => {
   switch (tier) {
     case MemberTier.Pending:
-      return "Pending";
-    case MemberTier.Virgin:
       return "Virgin";
+    case MemberTier.Virgin:
+      return "BabyChad";
     case MemberTier.SuperChad:
       return "SuperChad";
     case MemberTier.MegaChad:

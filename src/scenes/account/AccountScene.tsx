@@ -11,7 +11,6 @@ import { MemberStatus } from "@/state/subscription/types";
 import { EPOCH_DURATION } from "@/utils/locker/constants";
 import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
 import { TransactionItem } from "@/components/TransactionItem/TransactionItem";
-import { DEV_TransactionActions } from "@/components/DEV_TransactionActions/TransactionActions";
 import { useWithdrawTokens } from "@/hooks/useWithdrawTokens";
 import { SubscriptionScene } from "../subscription/SubscriptionScene";
 

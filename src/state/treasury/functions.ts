@@ -4,6 +4,11 @@ interface RaydiumPriceResponse<T extends string> {
   data: Record<T, string>;
 }
 
+interface PriceHistoryResponse {
+  data: [number, number][];
+  errors: any[] | null;
+}
+
 export const getMarketPrice = async (token: string): Promise<number> => {
   return fetch(
     "https://api-v3.raydium.io/mint/price?mints=7kB8ZkSBJr2uiBWfveqkVBN7EpZMFom5PqeWUB62DCRD"
@@ -15,5 +20,18 @@ export const getMarketPrice = async (token: string): Promise<number> => {
     .catch((error) => {
       console.error("Error fetching market price", error);
       return 0;
+    });
+};
+
+export const getPriceHistory = async (): Promise<[number, number][]> => {
+  return fetch("https://api.lambosforvirgins.com/ticker")
+    .then((res) => res.json())
+    .then((response: PriceHistoryResponse) => {
+      console.log(response);
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("Error fetching market price", error);
+      return [];
     });
 };
