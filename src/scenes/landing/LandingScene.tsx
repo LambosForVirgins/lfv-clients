@@ -4,16 +4,15 @@ import { Button } from "@/elements";
 import { ChangeLabel } from "@/components/ChangeLabel/ChangeLabel";
 import { LineChart } from "@/components/LineChart/LineChart";
 import { useMemo, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { marketPricesAtom } from "@/state/treasury/atoms";
 import { NavLink } from "react-router";
 import { fullyDilutedValue } from "@/utils/pricing/fullyDilutedValue";
-import { useDevToggles } from "@/state/application/useDevToggles";
 import { ContractAddress } from "@/elements/ContractAddress/ContractAddress";
 import { MINT } from "@/utils/locker/constants";
 
 export const PurchaseSection = ({ testID }: Common.ComponentProps) => {
-  const [dataPoints, setDataPoints] = useRecoilState(marketPricesAtom);
+  const dataPoints = useRecoilValue(marketPricesAtom);
 
   const marketCap = useMemo(() => {
     const lastDataPoint = dataPoints[dataPoints.length - 1];
@@ -137,7 +136,6 @@ export const LandingScene = ({
   testID = "landing",
 }: Readonly<Partial<Common.ComponentProps>>) => {
   const [tabIndex, setTabIndex] = useState(0);
-  const { isEnabled } = useDevToggles();
 
   const renderTab = () => {
     const Component = TABS[tabIndex].Component;
@@ -171,34 +169,32 @@ export const LandingScene = ({
 
       <span className={styles.cash} />
 
-      {isEnabled("landing_sections") && (
-        <div className={styles.content}>
-          <span
-            data-testid={`${testID}.navigation`}
-            className={styles.navigation}
-          >
-            {TABS.map((tab, index) => (
-              <button
-                key={tab.label}
-                onClick={() => setTabIndex(index)}
-                className={styles.tab}
-              >
-                {tab.label}
-              </button>
-            ))}
-            <button>close</button>
-            {/* <Button
+      <div className={styles.content}>
+        <span
+          data-testid={`${testID}.navigation`}
+          className={styles.navigation}
+        >
+          {TABS.map((tab, index) => (
+            <button
+              key={tab.label}
+              onClick={() => setTabIndex(index)}
+              className={styles.tab}
+            >
+              {tab.label}
+            </button>
+          ))}
+          {/* <button>close</button> */}
+          {/* <Button
             testID={`${testID}.connect`}
             className={styles.button}
             size={"small"}
           >
             Connect wallet
           </Button> */}
-          </span>
+        </span>
 
-          {renderTab()}
-        </div>
-      )}
+        {renderTab()}
+      </div>
 
       <CommandPrompter testID={`${testID}.onboarding`} />
     </div>
