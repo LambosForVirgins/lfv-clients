@@ -64,6 +64,7 @@
     height: 300px;
     overflow: hidden;
     border-radius: 6px;
+    user-select: none;
 
     &:before {
         content: "";
@@ -83,4 +84,6 @@
     justify-content: center;
     align-items: center;
     font-size: 3rem;
+    width: 100%;
+    aspect-ratio: 1;
 }

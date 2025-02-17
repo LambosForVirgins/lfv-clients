@@ -25,10 +25,6 @@ export const DailyEntrySlider = ({ testID }: Common.ComponentProps) => {
     }
   };
 
-  if (!draw) {
-    return null;
-  }
-
   if (hasEntered) {
     return (
       <div>
@@ -44,6 +40,7 @@ export const DailyEntrySlider = ({ testID }: Common.ComponentProps) => {
       name={"daily"}
       label={`Slide to enter today's draw`}
       onComplete={enterDailyDraw}
+      disabled={!draw || pending}
       loading={pending}
     />
   );

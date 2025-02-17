@@ -1,4 +1,4 @@
-import { ErrorBoundary } from "@/components/ErrorBoundary/errors";
+import { ErrorBoundary } from "@/components/ErrorBoundary/ErrorBoundary";
 import { Header } from "../Header/Header";
 import { Subscribe } from "../Subscribe/Subscribe";
 import { Footer } from "../Footer/Footer";

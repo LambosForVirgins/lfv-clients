@@ -5,7 +5,7 @@ const meta = {
   title: "Giveaways/DrawMachine",
   component: DrawMachine,
   args: {
-    testID: "DrawMachine",
+    testID: "draw-machine",
   },
 } satisfies Meta<typeof DrawMachine>;
 

@@ -1,10 +1,47 @@
 .frame {
+    grid-column: full;
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--column-layout);
+    justify-content: center;
+    gap: var(--size-900);
+    overflow-y: auto;
+    overflow-x: hidden;
+    perspective: 10px;
+}
+
+.header {
     grid-column: content;
     display: flex;
     flex-direction: column;
     grid-gap: 1rem;
     justify-content: space-around;
     align-items: center;
+}
+
+.cash {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    transform: translateZ(-20px) scale(3);
+    background-image: url('/svg/cash-midground.svg');
+
+    &::before {
+        content: '';
+        background-image: url('/svg/cash-background.svg');
+    }
+
+    &::after {
+        content: '';
+        background-image: url('/svg/cash-forground.svg');
+    }
+}
+
+.navigation {
+    display: flex;
+    flex-direction: row;
+    gap: var(--size-100);
 }
 
 .banner {
@@ -17,48 +54,28 @@
     }
 }
 
-.title {
-    font-size: 2rem;
-    text-align: center;
-}
-
-.options,
-.directive,
 .content {
-    grid-column: content;
-}
-
-.directive {
+    grid-column: gutter;
     display: grid;
-    grid-template-areas: "right right" "buy lock" "left left";
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    background-color: var(--white);
+    padding: var(--size-900);
+    border-radius: var(--size-900) var(--size-900) 0 0;
+    align-items: start;
+    gap: var(--size-900);
 
-    *[data-attr='buy'] {
-        grid-area: buy;
-    }
-
-    *[data-attr='lock'] {
-        grid-area: lock;
-    }
-
-    .arrow {
-        min-height: 120px;
-        grid-area: left;
-        background: url('/svg/arrow.svg') no-repeat center;
-        background-size: contain;
-
-        &[data-attr='right'] {
-            grid-area: right;
-        }
-
-        &[data-attr='left'] {
-            grid-area: left;
-        }
+    .header {
+        grid-column: none;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: var(--size-200);
     }
 }
 
-.options {
-    display: grid;
-    gap: 1rem;
-    text-align: center;
+.tab {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: var(--size-300);
+    padding: var(--size-200) var(--size-400);
+    cursor: pointer;
 }

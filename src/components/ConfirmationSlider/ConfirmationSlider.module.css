@@ -5,31 +5,57 @@
     align-items: center;
     user-select: none;
     background-color: #fff;
-}
-
-.channel {
     height: 60px;
     border: 2px solid #171717;
     border-radius: 8px;
-}
 
-.handle {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    aspect-ratio: 1;
-    background-color: var(--bg-red-400);
-    transition: transform 300ms ease;
-    border-radius: 6px;
-    cursor: pointer;
+    input[type=range] {
+        appearance: none;
+        position: absolute;
+        inset: 0px;
+        background: none;
+        padding: 20px;
+        opacity: 0;
+    }
 
-    &:active {
+    input[type=range]::-ms-track {
+        appearance: none;
+        opacity: 0;
+        /* Hides the slider so custom styles can be added */
+        background: transparent;
+        border-color: transparent;
+        color: transparent;
+    }
+
+    input[type=range]::-webkit-slider-thumb,
+    input[type=range]::-moz-range-thumb,
+    input[type=range]::-ms-thumb {
+        appearance: none;
+        opacity: 0;
+    }
+
+    .handle {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        aspect-ratio: 1;
+        background-color: var(--bg-red-400);
+        border-radius: var(--size-100);
+        cursor: pointer;
+        pointer-events: none;
+    }
+
+    &:has(:active) .handle {
         transition: none;
+    }
+
+    &:not(:active) .handle {
+        transition: transform 300ms ease;
     }
 }
 
-.pulse {
+.pulse:not(input[value="100"]) {
     animation: heartbeat 1600ms infinite;
 }
 

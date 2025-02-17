@@ -8,6 +8,16 @@ export const AboutScene = ({
   return (
     <Section testID={testID} className={styles.frame}>
       <p className={styles.center}>
+        What started as a joke between friends has now become a matter of global
+        importance.
+      </p>
+
+      <p className={styles.center}>
+        The world population is in decline and the alpha male GigaChad faces
+        extinction.
+      </p>
+
+      <p className={styles.center}>
         Gain access to our exclusive club and member benefits by locking one or
         more $VIRGIN tokens to be eligible for this giveaway and more!
       </p>

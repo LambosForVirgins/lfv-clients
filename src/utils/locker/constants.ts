@@ -18,6 +18,10 @@ export const decimalFactor = new BN(10 ** DECIMALS);
 
 export const millisecondFactor = new BN(1000);
 
+export const TOTAL_SUPPLY = 1_000_000_000;
+
+export const CIRCULATING_SUPPLY = 894_999_997;
+
 export enum SeedKey {
   SubscriptionSeed = "subscription",
   VaultSeed = "vault",
@@ -29,8 +33,14 @@ export const EPOCH_DURATION = 2629800 * 1000;
 
 export const API_ENDPOINT = new URL(import.meta.env.VITE_API_ENDPOINT);
 
+export const CDN_ENDPOINT = new URL(import.meta.env.VITE_CDN_ENDPOINT);
+
 export const getApiEndpoint = (path: string = ""): URL => {
   return new URL(path, API_ENDPOINT);
+};
+
+export const getCdnEndpoint = (path: string = ""): URL => {
+  return new URL(path, CDN_ENDPOINT);
 };
 
 export const lamportsToMint = <T extends number | BN>(lamports: T): T => {
