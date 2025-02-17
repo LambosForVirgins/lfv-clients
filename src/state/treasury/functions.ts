@@ -1,34 +1,30 @@
-interface RaydiumPriceResponse<T extends string> {
-  id: string;
-  success: boolean;
-  data: Record<T, string>;
-}
+import { getCdnEndpoint } from "@/utils/locker/constants";
+
+type PriceTime = number;
+type PriceNumber = number;
+type PriceRecord = {
+  id: number;
+  price: PriceNumber;
+  time: PriceTime;
+};
 
 interface PriceHistoryResponse {
-  data: [number, number][];
+  data: PriceRecord[];
   errors: any[] | null;
 }
 
-export const getMarketPrice = async (token: string): Promise<number> => {
-  return fetch(
-    "https://api-v3.raydium.io/mint/price?mints=7kB8ZkSBJr2uiBWfveqkVBN7EpZMFom5PqeWUB62DCRD"
-  )
-    .then((res) => res.json())
-    .then((data: RaydiumPriceResponse<typeof token>) =>
-      Math.floor(parseFloat(data.data[token]) * Math.pow(10, 9))
-    )
-    .catch((error) => {
-      console.error("Error fetching market price", error);
-      return 0;
-    });
-};
+// Sort in ascending order
+const sortPriceHistory = (history: PriceRecord[]) =>
+  history.sort((a, b) => a.id - b.id);
 
 export const getPriceHistory = async (): Promise<[number, number][]> => {
-  return fetch("https://api.lambosforvirgins.com/ticker")
+  return fetch(getCdnEndpoint("json/price/history.json"))
     .then((res) => res.json())
     .then((response: PriceHistoryResponse) => {
-      console.log(response);
-      return response.data;
+      return sortPriceHistory(response.data).map<[number, number]>((item) => [
+        item.time,
+        item.price,
+      ]);
     })
     .catch((error) => {
       console.error("Error fetching market price", error);

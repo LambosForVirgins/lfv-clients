@@ -8,7 +8,7 @@ import {
   TreasuryWalletGroup,
   VestingAccount,
 } from "./types";
-import { getMarketPrice, getPriceHistory } from "./functions";
+import { getPriceHistory } from "./functions";
 
 export const vestedAccountsAtom = atom<Record<string, string[]>>({
   key: "vested-accounts-atom",
@@ -541,11 +541,6 @@ export const vestingAccountAtom = atomFamily<VestingAccount | null, string>({
   key: "vesting-account-atom",
   effects: (publicKey) => [effectVestingAccountInformation(publicKey)],
   default: null,
-});
-
-export const tickerAtom = atom<number>({
-  key: "ticker-atom",
-  default: getMarketPrice("7kB8ZkSBJr2uiBWfveqkVBN7EpZMFom5PqeWUB62DCRD"),
 });
 
 export const marketPricesAtom = atom<[number, number][]>({
