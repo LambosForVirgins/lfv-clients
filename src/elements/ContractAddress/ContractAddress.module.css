@@ -1,6 +1,6 @@
 .frame {
     display: flex;
-    background-color: var(--white);
+    position: relative;
     border-radius: var(--size-300);
     padding: var(--size-300);
     align-items: center;
@@ -9,6 +9,24 @@
     max-width: 100%;
     container-type: inline-size;
     container-name: contract-address;
+    overflow: hidden;
+
+    /** TODO: Consider accessability */
+    &::before {
+        content: 'Copied to clipboard';
+        position: absolute;
+        display: grid;
+        inset: 0;
+        background-color: var(--white);
+        align-items: center;
+        justify-content: center;
+        font-size: var(--size-600);
+        z-index: -1;
+    }
+
+    &.copied .address {
+        opacity: 0;
+    }
 }
 
 .label {
@@ -28,7 +46,9 @@
     white-space: nowrap;
     text-wrap: wrap;
     text-overflow: ellipsis;
+    transition: opacity 0.5s;
     overflow: hidden;
+    background-color: var(--white);
 }
 
 .button {
