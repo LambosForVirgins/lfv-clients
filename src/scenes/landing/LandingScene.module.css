@@ -1,9 +1,13 @@
 .frame {
     grid-column: full;
+    position: relative;
     display: grid;
     grid-template-columns: var(--column-layout);
     justify-content: center;
     gap: var(--size-900);
+    overflow-y: auto;
+    overflow-x: hidden;
+    perspective: 10px;
 }
 
 .header {
@@ -13,6 +17,31 @@
     grid-gap: 1rem;
     justify-content: space-around;
     align-items: center;
+}
+
+.cash {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    transform: translateZ(-20px) scale(3);
+    background-image: url('/svg/cash-midground.svg');
+
+    &::before {
+        content: '';
+        background-image: url('/svg/cash-background.svg');
+    }
+
+    &::after {
+        content: '';
+        background-image: url('/svg/cash-forground.svg');
+    }
+}
+
+.navigation {
+    display: flex;
+    flex-direction: row;
+    gap: var(--size-100);
 }
 
 .banner {
@@ -27,7 +56,26 @@
 
 .content {
     grid-column: gutter;
+    display: grid;
     background-color: var(--white);
     padding: var(--size-900);
     border-radius: var(--size-900) var(--size-900) 0 0;
+    align-items: start;
+    gap: var(--size-900);
+
+    .header {
+        grid-column: none;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: var(--size-200);
+    }
+}
+
+.tab {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: var(--size-300);
+    padding: var(--size-200) var(--size-400);
+    cursor: pointer;
 }
