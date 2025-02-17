@@ -2,6 +2,7 @@ import styles from "./CircularIndicator.module.css";
 import clsx from "classnames";
 
 interface CircularProgressProps extends Common.ComponentProps {
+  label?: string | null;
   percentage: number; // Accepts percentage as a prop
   size?: number; // Optional size for the progress circle
   strokeWidth?: number; // Optional stroke width for the circle
@@ -11,6 +12,7 @@ interface CircularProgressProps extends Common.ComponentProps {
 export const CircularProgress = ({
   testID,
   percentage,
+  label,
   size = 100,
   strokeWidth = 10,
   className,
@@ -45,17 +47,19 @@ export const CircularProgress = ({
             transition: "stroke-dashoffset 0.5s ease",
           }}
         />
-        {/* <text
-        x="50%"
-        y="50%"
-        dominantBaseline="middle"
-        textAnchor="middle"
-        fontSize={24 * (size / 100)}
-        fill="rgba(0,0,0,0.8)"
-        fontWeight={700}
-      >
-        {`${Math.ceil(percentage * 1000) / 10}%`}
-      </text> */}
+        {label && (
+          <text
+            x="50%"
+            y="50%"
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fontSize={24 * (size / 100)}
+            fill="rgba(0,0,0,0.8)"
+            fontWeight={700}
+          >
+            {label}
+          </text>
+        )}
       </svg>
       <span className={styles.inner}>{children}</span>
     </span>

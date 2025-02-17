@@ -1,3 +1,42 @@
 .frame {
+    grid-column: full;
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: subgrid;
+    gap: var(--size-500);
+    /** DELETE THIS! **/
+    padding: var(--size-900) 0;
+}
+
+.banner {
     grid-column: content;
+    border-radius: var(--size-900);
+    background-color: var(--white);
+    width: 100%;
+    aspect-ratio: 2.35 / 1;
+}
+
+.header {
+    grid-column: content;
+}
+
+.collection {
+    grid-column: full;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(320px, 30%);
+    gap: var(--size-500);
+    overflow-x: scroll;
+    max-width: 100%;
+
+    .card {
+        flex: 1 1 420px;
+    }
+
+    &::before,
+    &::after {
+        content: '';
+        width: 10%;
+        height: 100%;
+    }
 }

@@ -15,6 +15,17 @@ interface HeaderProps extends Common.ComponentProps {
   className?: string;
 }
 
+const MENU_ITEMS = [
+  { key: "home", label: "Home", path: "/", icon: "home" },
+  { key: "giveaways", label: "Giveaways", path: "/giveaways", icon: "present" },
+  {
+    key: "subscription",
+    label: "Subscription",
+    path: "/subscription",
+    icon: "star",
+  },
+];
+
 export const Header = ({ testID, ...props }: HeaderProps) => {
   const { t } = useTranslation("Header");
   const { allEnabled } = useDevToggles();
@@ -27,32 +38,52 @@ export const Header = ({ testID, ...props }: HeaderProps) => {
     outstandingRewardsSelector(publicKey)
   );
 
+  const shouldDisplay = (key: string) => {
+    switch (key) {
+      case "home":
+      case "buy":
+        return !publicKey;
+      case "giveaways":
+      case "subscription":
+        return !!publicKey;
+      default:
+        return true;
+    }
+  };
+
+  const shouldDisable = (key: string) => {
+    switch (key) {
+      case "giveaways":
+        return !allEnabled("daily_giveaways", "giveaways");
+      default:
+        return false;
+    }
+  };
+
+  const shouldHighlight = (key: string) => {
+    switch (key) {
+      case "subscription":
+        return outstandingRewards > 0;
+      default:
+        return false;
+    }
+  };
+
   // Menu actions should be configurable per route and also communicate via channels with pages
 
   return (
     <nav data-testid={testID} className={clsx(props.className, styles.frame)}>
-      <HeaderButton
-        testID={`${testID}.giveaways`}
-        onClick={navigateToPath("/giveaways")}
-        label={`Giveaways`}
-        icon={"present"}
-        disabled={!allEnabled("daily_giveaways", "giveaways")}
-      />
-      <HeaderButton
-        testID={`${testID}.subscription`}
-        onClick={navigateToPath("/subscription")}
-        label={`Store`}
-        icon={"star"}
-        highlight={outstandingRewards > 0}
-      />
-
-      {/* <HeaderButton
-        testID={`${testID}.discounts`}
-        onClick={navigateToPath("/benefits")}
-        label={`Discounts`}
-        progress={10}
-        highlight={outstandingRewards > 0}
-      /> */}
+      {MENU_ITEMS.filter(({ key }) => shouldDisplay(key)).map((item) => (
+        <HeaderButton
+          key={item.key}
+          testID={`${testID}.button`}
+          onClick={navigateToPath(item.path)}
+          highlight={shouldHighlight(item.key)}
+          disabled={shouldDisable(item.key)}
+          label={item.label}
+          icon={item.icon}
+        />
+      ))}
       <span data-testid={`${testID}.spacer`} className={styles.spacer} />
       <MemberButton testID={`${testID}.member`} />
     </nav>
