@@ -2,7 +2,7 @@ import { Button } from "../Buttons/Button";
 import styles from "./ContractAddress.module.css";
 import clsx from "classnames";
 import { prettyAddress } from "@/utils/string/prettyAddress";
-import { useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 
 interface ContractAddressProps extends Common.ComponentProps {
   label?: string;
@@ -13,19 +13,40 @@ interface ContractAddressProps extends Common.ComponentProps {
 const CONFIRMATION_DURATION = 3000;
 
 export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
+  const addressRef = useRef<HTMLTextAreaElement>(null);
   const timerRef = useRef<NodeJS.Timeout>();
+  const [error, setError] = useState<string | null>(null);
   const [hasCopied, setHasCopied] = useState(false);
-  // Copy the address to clipboard
-  const copyAddress = () => {
-    navigator.clipboard.writeText(props.mint);
-    setHasCopied(true);
+
+  const copySupported = useMemo(
+    () =>
+      navigator.clipboard &&
+      typeof navigator.clipboard.writeText === "function",
+    [navigator.clipboard]
+  );
+  /**
+   * Copies the mint address to clipboard and displays a
+   * confirmation message for a short duration.
+   */
+  const copyAddress = useCallback(() => {
+    if (!copySupported) {
+      // Fallback for unsupported browsers
+      addressRef.current?.focus();
+      addressRef.current?.select();
+      document.execCommand("copy");
+      return;
+    }
+
+    navigator.clipboard.writeText(props.mint).then(() => {
+      setHasCopied(true);
+    });
 
     if (timerRef.current) clearTimeout(timerRef.current);
 
     timerRef.current = setTimeout(() => {
       setHasCopied(false);
     }, CONFIRMATION_DURATION);
-  };
+  }, [timerRef.current, props.mint, copySupported]);
 
   return (
     <span
@@ -44,9 +65,8 @@ export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
       <span
         data-testid={`${testID}.address`}
         className={clsx(styles.address, styles.truncate)}
-        data-short={prettyAddress(props.mint)}
       >
-        <span>{props.mint}</span>
+        <textarea ref={addressRef} value={props.mint} disabled />
       </span>
       <Button
         testID={`${testID}.copy`}

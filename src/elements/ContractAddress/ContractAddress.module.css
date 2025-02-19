@@ -11,6 +11,8 @@
     container-name: contract-address;
     overflow: hidden;
 
+
+
     /** TODO: Consider accessability */
     &::before {
         content: 'Copied to clipboard';
@@ -48,21 +50,37 @@
     text-overflow: ellipsis;
     transition: opacity 0.5s;
     overflow: hidden;
-    background-color: var(--white);
+    backdrop-filter: blur(8px);
+
+    textarea {
+        height: var(--size-900);
+        width: 100%;
+        user-select: none;
+        pointer-events: none;
+        outline: none;
+        border: none;
+        background-color: transparent;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: var(--white);
+        backdrop-filter: blur(4px);
+        opacity: 0.5;
+    }
 }
 
 .button {
     overflow: hidden;
     white-space: nowrap;
+    user-select: none;
 }
 
 @container (width < 40ch) {
     .address span {
         display: none;
-    }
-
-    .address::after {
-        content: attr(data-short);
     }
 
     .button span {

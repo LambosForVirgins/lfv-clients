@@ -19,7 +19,7 @@ export const Layout = ({
       </div>
 
       <section data-testid={`${testID}.content`} className={styles.main}>
-        <ErrorBoundary fallback={<h1>Error</h1>}>{children}</ErrorBoundary>
+        <ErrorBoundary>{children}</ErrorBoundary>
       </section>
       <div data-testid={testID} className={styles.promo}>
         <div className={styles.content}>

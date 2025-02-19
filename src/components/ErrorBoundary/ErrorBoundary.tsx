@@ -4,9 +4,10 @@ import React, {
   useState,
   useEffect,
 } from "react";
+import styles from "./ErrorBoundary.module.css";
 import { isRouteErrorResponse } from "react-router";
 
-type ErrorBoundaryProps = PropsWithChildren<{ fallback: ReactElement }>;
+type ErrorBoundaryProps = PropsWithChildren<{ fallback?: ReactElement | null }>;
 
 export const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({
   fallback,
@@ -38,7 +39,7 @@ export const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({
 const ErrorScene = ({ error }: { error: any }) => {
   if (isRouteErrorResponse(error)) {
     return (
-      <div>
+      <div className={styles.frame}>
         <h1>
           {error.status} {error.statusText}
         </h1>
@@ -47,7 +48,7 @@ const ErrorScene = ({ error }: { error: any }) => {
     );
   } else if (error instanceof Error) {
     return (
-      <div>
+      <div className={styles.frame}>
         <h1>Error</h1>
         <p>{error.message}</p>
         <p>The stack trace is:</p>

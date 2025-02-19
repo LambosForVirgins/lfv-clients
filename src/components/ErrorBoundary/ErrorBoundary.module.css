@@ -1,0 +1,4 @@
+.frame {
+    grid-column: content;
+    max-width: 100%;
+}
