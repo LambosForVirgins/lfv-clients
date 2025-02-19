@@ -5,12 +5,18 @@
     grid-template-columns: var(--column-layout);
     justify-content: center;
     gap: var(--size-900);
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden;
     perspective: 10px;
+    align-items: start;
 }
 
-.header {
+.hero {
+    justify-self: center;
+    grid-column: content;
+    max-width: 100%;
+}
+
+.banner {
     grid-column: content;
     display: flex;
     flex-direction: column;
@@ -20,6 +26,7 @@
 }
 
 .cash {
+    grid-column: full;
     position: absolute;
     height: 100%;
     width: 100%;
@@ -44,24 +51,15 @@
     gap: var(--size-100);
 }
 
-.banner {
-    display: grid;
-    text-align: center;
-    gap: var(--size-500);
-
-    img {
-        justify-self: center;
-    }
-}
-
 .content {
     grid-column: gutter;
     display: grid;
     background-color: var(--white);
-    padding: var(--size-900);
+    padding: var(--size-500);
     border-radius: var(--size-900) var(--size-900) 0 0;
     align-items: start;
-    gap: var(--size-900);
+    max-height: 714px;
+    transition: max-height 0.2s;
 
     .header {
         grid-column: none;
@@ -69,7 +67,22 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-between;
-        gap: var(--size-200);
+        align-items: center;
+
+        button {
+            background-color: transparent;
+        }
+    }
+
+    .section {
+        padding: var(--size-500);
+        gap: var(--size-500);
+    }
+
+    .actions {
+        display: grid;
+        grid-auto-flow: column;
+        gap: var(--size-500);
     }
 }
 

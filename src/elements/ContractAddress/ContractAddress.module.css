@@ -1,6 +1,6 @@
 .frame {
     display: flex;
-    background-color: var(--white);
+    position: relative;
     border-radius: var(--size-300);
     padding: var(--size-300);
     align-items: center;
@@ -9,6 +9,26 @@
     max-width: 100%;
     container-type: inline-size;
     container-name: contract-address;
+    overflow: hidden;
+
+
+
+    /** TODO: Consider accessability */
+    &::before {
+        content: 'Copied to clipboard';
+        position: absolute;
+        display: grid;
+        inset: 0;
+        background-color: var(--white);
+        align-items: center;
+        justify-content: center;
+        font-size: var(--size-600);
+        z-index: -1;
+    }
+
+    &.copied .address {
+        opacity: 0;
+    }
 }
 
 .label {
@@ -28,21 +48,39 @@
     white-space: nowrap;
     text-wrap: wrap;
     text-overflow: ellipsis;
+    transition: opacity 0.5s;
     overflow: hidden;
+    backdrop-filter: blur(8px);
+
+    textarea {
+        height: var(--size-900);
+        width: 100%;
+        user-select: none;
+        pointer-events: none;
+        outline: none;
+        border: none;
+        background-color: transparent;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: var(--white);
+        backdrop-filter: blur(4px);
+        opacity: 0.5;
+    }
 }
 
 .button {
     overflow: hidden;
     white-space: nowrap;
+    user-select: none;
 }
 
 @container (width < 40ch) {
     .address span {
         display: none;
-    }
-
-    .address::after {
-        content: attr(data-short);
     }
 
     .button span {

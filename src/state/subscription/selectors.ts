@@ -3,7 +3,8 @@ import { memberAccountAtom } from "./atoms";
 import { PublicKey } from "@solana/web3.js";
 import { EPOCH_DURATION, REWARD_FACTOR } from "@/utils/locker/constants";
 import { differenceInMilliseconds } from "date-fns/differenceInMilliseconds";
-import { Transaction } from "./types";
+import { TransactionGroup } from "./types";
+import { groupTransactions } from "../../utils/transactions/groupTransactions";
 
 export const memberAuthorizedSelector = selectorFamily<
   boolean,
@@ -60,16 +61,6 @@ export const outstandingRewardsSelector = selectorFamily<
     },
 });
 
-type TransactionGroup = Record<string, Transaction[]>;
-
-const getTransactionGroupKey = (transaction: Transaction): string => {
-  if (transaction.type === "deposit") {
-    return transaction.timeMatured.toISOString().slice(0, 10);
-  }
-
-  return transaction.timeReleased.toISOString().slice(0, 10);
-};
-
 export const pendingSlotsSelector = selectorFamily<
   TransactionGroup,
   PublicKey | null
@@ -82,13 +73,6 @@ export const pendingSlotsSelector = selectorFamily<
 
       if (!member) return {};
 
-      return member.slots.reduce<TransactionGroup>((groups, slot) => {
-        const key = getTransactionGroupKey(slot);
-
-        if (!groups[key]) groups[key] = [];
-        groups[key].push(slot);
-
-        return groups;
-      }, {});
+      return groupTransactions(member.slots);
     },
 });

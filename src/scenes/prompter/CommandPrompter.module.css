@@ -1,19 +1,17 @@
 .frame {
     grid-column: gutter;
     margin: auto;
-    background-color: #141414;
     color: rgba(255, 255, 255, 0.75);
     font-family: 'Courier New', 'Fira Code', monospace;
     /* border-radius: var(--size-400) var(--size-400) 0 0; */
     width: 100%;
-    min-height: 90%;
     max-height: 100%;
     max-width: 60ch;
-    overflow-y: auto;
     backdrop-filter: blur(8px);
     transition: height 500ms;
     padding: 0px;
     color: #41FF00;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
 
     .options {
         display: grid;
@@ -55,12 +53,17 @@
     }
 
     &::backdrop {
-        background-color: rgba(0, 0, 0, 0.85);
-        backdrop-filter: blur(8px);
+        transition: backdrop-filter 500ms;
+        background-color: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(8px) saturate(0.8) contrast(0.8);
     }
 }
 
 .header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
     display: grid;
     grid-template-columns: 1fr auto;
     color: #fff;
@@ -78,7 +81,11 @@
 }
 
 .window {
+    height: 100%;
+    max-height: 100%;
+    background-color: #141414FA;
     padding: var(--size-500);
+    overflow-y: auto;
 }
 
 .block {
