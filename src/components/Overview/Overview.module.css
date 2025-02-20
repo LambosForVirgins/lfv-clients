@@ -1,0 +1,32 @@
+.frame {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--size-300);
+}
+
+.box {
+    display: grid;
+    grid-template-areas: 'icon title' 'icon label';
+    grid-template-columns: auto 1fr;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--size-300);
+    padding: var(--size-300);
+    gap: 0 var(--size-300);
+
+    img {
+        grid-area: icon;
+        width: 24px;
+        height: 24px;
+        aspect-ratio: 1;
+    }
+
+    h2 {
+        grid-area: title;
+        font-size: var(--size-600);
+    }
+
+    p {
+        grid-area: label;
+        font-size: var(--size-400);
+    }
+}

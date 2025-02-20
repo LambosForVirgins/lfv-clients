@@ -13,6 +13,9 @@ import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
 import { TransactionItem } from "@/components/TransactionItem/TransactionItem";
 import { useWithdrawTokens } from "@/hooks/useWithdrawTokens";
 import { SubscriptionScene } from "../subscription/SubscriptionScene";
+import { format } from "date-fns/format";
+import { useRewardMint, useTokenMint } from "@/hooks/useTokenMint";
+import { Overview } from "@/components/Overview/Overview";
 
 export const AccountScene = ({
   testID = "account",
@@ -21,6 +24,8 @@ export const AccountScene = ({
   const { claim, pending } = useClaimRewards();
   const { updateStatus } = useUpdateStatus();
   const { member, publicKey, transactions } = useMembership();
+  const { balance: tokenBalance = 0 } = useTokenMint();
+  const { balance: rewardBalance = 0 } = useRewardMint();
 
   const { withdrawTokens } = useWithdrawTokens();
 
@@ -41,41 +46,22 @@ export const AccountScene = ({
           width={64}
           style={{ backgroundColor: "transparent", borderRadius: "100vw" }}
         />
-        <div>
-          <p>{tierToString(member?.tier)}</p>
+        <span>
+          <p>{tierToString(member?.tier)} member</p>
           {member?.timeCreated && (
-            <p>
-              Member since {formatDistanceToNowStrict(member.timeCreated)} ago
-            </p>
+            <p>Joined {format(member.timeCreated, "MMMM yyyy")}</p>
           )}
-        </div>
+        </span>
       </div>
 
-      {isEnabled("breakdown") && member && (
-        <div data-testid={`${testID}.breakdown`}>
-          <p>Locked tokens {member.totalAmount.toLocaleString()} VIRGIN</p>
-          {isEnabled("balance_details") && (
-            <p>Matured tokens {member.totalMatured.toLocaleString()} VIRGIN</p>
-          )}
-          {isEnabled("balance_details") && (
-            <p>
-              Unlocked tokens {member.totalReleased.toLocaleString()} VIRGIN
-            </p>
-          )}
-          {isEnabled("balance_details") && (
-            <p>
-              Unrealized rewards {member.totalRewards.toLocaleString()} ENTRY
-            </p>
-          )}
-          <p>
-            Next reward{" "}
-            {member.timeRewarded &&
-              new Date(
-                member.timeRewarded.getTime() + EPOCH_DURATION
-              ).toLocaleString()}
-          </p>
-        </div>
-      )}
+      <h2>Overview</h2>
+      <Overview
+        testID={`${testID}.overview`}
+        totalBalance={(member?.totalAmount || 0) + tokenBalance}
+        rewardBalance={rewardBalance}
+        ticketAmount={0}
+        streakCount={0}
+      />
 
       <h2>Transaction backlog</h2>
       <p>
