@@ -12,7 +12,11 @@ export const Overview = ({ testID, ...props }: OverviewProps) => {
   return (
     <span data-testid={testID} className={styles.frame}>
       <span className={styles.box}>
-        <img alt="VIRGIN" src="./images/lfv.png" />
+        <img
+          alt="VIRGIN"
+          src="./images/lfv.png"
+          style={{ borderRadius: "100vw" }}
+        />
         <h4>{props.totalBalance.toLocaleString()}</h4>
         <p>Total Virgins</p>
       </span>
