@@ -57,10 +57,32 @@ export const AccountScene = ({
       <h2>Overview</h2>
       <Overview
         testID={`${testID}.overview`}
-        totalBalance={(member?.totalAmount || 0) + tokenBalance}
-        rewardBalance={rewardBalance}
-        ticketAmount={0}
-        streakCount={0}
+        items={[
+          {
+            key: "total",
+            media: { src: "./images/lfv.png" },
+            value: (member?.totalAmount || 0) + tokenBalance,
+            label: "Total Virgin",
+          },
+          {
+            key: "reward",
+            media: { src: "./svg/coin.svg" },
+            value: rewardBalance,
+            label: "Entries",
+          },
+          {
+            key: "ticket",
+            media: { src: "./svg/present.svg" },
+            value: 0,
+            label: "Tickets",
+          },
+          {
+            key: "streak",
+            media: { src: "./svg/lightning.svg" },
+            value: 0,
+            label: "Streak",
+          },
+        ]}
       />
 
       <h2>Transaction backlog</h2>
