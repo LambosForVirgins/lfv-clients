@@ -57,13 +57,35 @@ export const AccountScene = ({
       <h2>Overview</h2>
       <Overview
         testID={`${testID}.overview`}
-        totalBalance={(member?.totalAmount || 0) + tokenBalance}
-        rewardBalance={rewardBalance}
-        ticketAmount={0}
-        streakCount={0}
+        items={[
+          {
+            key: "total",
+            media: { src: "./images/lfv.png" },
+            value: (member?.totalAmount || 0) + tokenBalance,
+            label: "Total Virgin",
+          },
+          {
+            key: "reward",
+            media: { src: "./svg/coin.svg" },
+            value: rewardBalance,
+            label: "Entries",
+          },
+          {
+            key: "ticket",
+            media: { src: "./svg/present.svg" },
+            value: 0,
+            label: "Tickets",
+          },
+          {
+            key: "streak",
+            media: { src: "./svg/lightning.svg" },
+            value: 0,
+            label: "Streak",
+          },
+        ]}
       />
 
-      <h2>Transaction backlog</h2>
+      <h2>Staking timeline</h2>
       <p>
         {`Tokens are required to complete the subscription cycle of ${formatDistanceToNowStrict(Date.now() + EPOCH_DURATION)} in order to honour the benefits and rewards granted on them. This cooling period requires that token deposits must mature before they
         are eligible for withdrawal, where they must complete the cycle before
