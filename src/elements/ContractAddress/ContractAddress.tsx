@@ -1,8 +1,7 @@
 import { Button } from "../Buttons/Button";
 import styles from "./ContractAddress.module.css";
 import clsx from "classnames";
-import { prettyAddress } from "@/utils/string/prettyAddress";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 interface ContractAddressProps extends Common.ComponentProps {
   label?: string;
@@ -18,35 +17,28 @@ export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
   const [error, setError] = useState<string | null>(null);
   const [hasCopied, setHasCopied] = useState(false);
 
-  const copySupported = useMemo(
-    () =>
-      navigator.clipboard &&
-      typeof navigator.clipboard.writeText === "function",
-    [navigator.clipboard]
-  );
   /**
    * Copies the mint address to clipboard and displays a
    * confirmation message for a short duration.
    */
   const copyAddress = useCallback(() => {
-    if (!copySupported) {
-      // Fallback for unsupported browsers
+    if (typeof navigator.clipboard?.writeText === "function") {
+      navigator.clipboard.writeText(props.mint).then(() => {
+        setHasCopied(true);
+      });
+    } else {
       addressRef.current?.focus();
       addressRef.current?.select();
       document.execCommand("copy");
-      return;
-    }
-
-    navigator.clipboard.writeText(props.mint).then(() => {
       setHasCopied(true);
-    });
+    }
 
     if (timerRef.current) clearTimeout(timerRef.current);
 
     timerRef.current = setTimeout(() => {
       setHasCopied(false);
     }, CONFIRMATION_DURATION);
-  }, [timerRef.current, props.mint, copySupported]);
+  }, [timerRef.current, props.mint]);
 
   return (
     <span
@@ -66,7 +58,7 @@ export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
         data-testid={`${testID}.address`}
         className={clsx(styles.address, styles.truncate)}
       >
-        <textarea ref={addressRef} value={props.mint} disabled />
+        <textarea ref={addressRef} value={props.mint} />
       </span>
       <Button
         testID={`${testID}.copy`}
@@ -75,8 +67,9 @@ export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
         disabled={hasCopied}
         onClick={copyAddress}
         className={styles.button}
+        disabled={hasCopied}
       >
-        <span>Copy address</span>
+        <span>{hasCopied ? `Copied` : `Copy address`}</span>
       </Button>
     </span>
   );

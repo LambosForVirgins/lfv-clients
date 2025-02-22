@@ -1,5 +1,8 @@
 .frame {
     display: flex;
+    background-color: var(--white);
+    display: grid;
+    grid-template-columns: min-content 1fr min-content;
     position: relative;
     border-radius: var(--size-300);
     padding: var(--size-300);
@@ -10,8 +13,6 @@
     container-type: inline-size;
     container-name: contract-address;
     overflow: hidden;
-
-
 
     /** TODO: Consider accessability */
     &::before {
@@ -33,16 +34,18 @@
 
 .label {
     display: grid;
-    height: 100%;
     border-radius: var(--size-200);
     color: var(--white);
+    height: 100%;
     background-color: var(--black);
     align-items: center;
     justify-content: center;
     aspect-ratio: 1;
+    user-select: none;
 }
 
 .address {
+    display: grid;
     flex: 1 10 auto;
     font-size: var(--size-700);
     white-space: nowrap;
@@ -51,24 +54,19 @@
     transition: opacity 0.5s;
     overflow: hidden;
     backdrop-filter: blur(8px);
+    align-items: center;
 
     textarea {
         height: var(--size-900);
         width: 100%;
-        user-select: none;
-        pointer-events: none;
         outline: none;
         border: none;
+        overflow: hidden;
         background-color: transparent;
-    }
-
-    &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-color: var(--white);
-        backdrop-filter: blur(4px);
-        opacity: 0.5;
+        --webkit-box-shadow: none;
+        --moz-box-shadow: none;
+        box-shadow: none;
+        resize: none;
     }
 }
 
@@ -79,10 +77,6 @@
 }
 
 @container (width < 40ch) {
-    .address span {
-        display: none;
-    }
-
     .button span {
         display: none;
     }
