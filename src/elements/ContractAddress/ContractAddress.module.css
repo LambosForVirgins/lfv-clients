@@ -1,6 +1,4 @@
 .frame {
-    display: flex;
-    background-color: var(--white);
     display: grid;
     grid-template-columns: min-content 1fr min-content;
     position: relative;
@@ -63,10 +61,17 @@
         border: none;
         overflow: hidden;
         background-color: transparent;
-        --webkit-box-shadow: none;
-        --moz-box-shadow: none;
         box-shadow: none;
         resize: none;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: var(--white);
+        backdrop-filter: blur(4px);
+        opacity: 0.5;
     }
 }
 
