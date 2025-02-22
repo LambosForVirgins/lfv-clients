@@ -6,7 +6,7 @@
     .content {
         grid-column: content;
     }
-    
+
     .full {
         grid-column: full;
     }
@@ -33,9 +33,17 @@
 
 .promo {
     grid-column: full;
+    display: grid;
+    gap: 2rem;
+    background-color: #ffd204;
     position: sticky;
     gap: 2rem;
     bottom: 0;
     left: 0;
     right: 0;
+
+    .content:not(:empty) {
+        grid-column: gutter;
+        height: 60px;
+    }
 }

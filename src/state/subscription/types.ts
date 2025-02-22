@@ -37,6 +37,8 @@ export type Transaction =
       timeMatured: Date;
     };
 
+export type TransactionGroup = Record<string, Transaction[]>;
+
 export type Member = {
   status: MemberStatus;
   tier: MemberTier;

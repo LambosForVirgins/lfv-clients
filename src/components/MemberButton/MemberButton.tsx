@@ -46,6 +46,11 @@ export const MemberButton = forwardRef<HTMLButtonElement, MemberButtonProps>(
     }, [connected]);
 
     const handleAction = useCallback(() => {
+      if (props.onClick) {
+        props.onClick();
+        return;
+      }
+
       switch (status) {
         case MemberWalletStatus.Disconnected:
           setVisible(true);

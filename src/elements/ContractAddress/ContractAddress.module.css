@@ -1,6 +1,4 @@
 .frame {
-    display: flex;
-    background-color: var(--white);
     display: grid;
     grid-template-columns: min-content 1fr min-content;
     position: relative;
@@ -51,6 +49,7 @@
     white-space: nowrap;
     text-wrap: wrap;
     text-overflow: ellipsis;
+    transition: opacity 0.5s;
     overflow: hidden;
     backdrop-filter: blur(8px);
     align-items: center;
@@ -62,16 +61,24 @@
         border: none;
         overflow: hidden;
         background-color: transparent;
-        --webkit-box-shadow: none;
-        --moz-box-shadow: none;
         box-shadow: none;
         resize: none;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: var(--white);
+        backdrop-filter: blur(4px);
+        opacity: 0.5;
     }
 }
 
 .button {
     overflow: hidden;
     white-space: nowrap;
+    user-select: none;
 }
 
 @container (width < 40ch) {

@@ -20,7 +20,6 @@ const initialKeys = {
   balance_details: false,
   daily_giveaways: false,
   onboardingv2: false,
-  landing_sections: false,
 };
 
 const toBoolean = (value: string | null, defaultValue: boolean): boolean => {

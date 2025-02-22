@@ -1,16 +1,15 @@
 import { Button } from "../Buttons/Button";
 import styles from "./ContractAddress.module.css";
 import clsx from "classnames";
-import { prettyAddress } from "@/utils/string/prettyAddress";
 import { useCallback, useRef, useState } from "react";
-
-const CONFIRMATION_DURATION = 3000;
 
 interface ContractAddressProps extends Common.ComponentProps {
   label?: string;
   mint: string;
   className?: string;
 }
+
+const CONFIRMATION_DURATION = 3000;
 
 export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
   const addressRef = useRef<HTMLTextAreaElement>(null);
@@ -58,7 +57,6 @@ export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
       <span
         data-testid={`${testID}.address`}
         className={clsx(styles.address, styles.truncate)}
-        data-short={prettyAddress(props.mint)}
       >
         <textarea ref={addressRef} value={props.mint} />
       </span>
@@ -66,8 +64,9 @@ export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
         testID={`${testID}.copy`}
         size={"small"}
         data-short={"Copy"}
-        className={styles.button}
+        disabled={hasCopied}
         onClick={copyAddress}
+        className={styles.button}
         disabled={hasCopied}
       >
         <span>{hasCopied ? `Copied` : `Copy address`}</span>
