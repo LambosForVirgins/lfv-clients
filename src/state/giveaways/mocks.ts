@@ -5,6 +5,15 @@ export const DAILY_GIVEAWAY_ID = "b0917b7a-b6f2-11ef-86c8-273af6a30755";
 
 const isDev = import.meta.env.DEV;
 
+type DrawAccount = {
+  drawId: number;
+  entries: any[];
+  giveawayId: number;
+  timeCreated: number;
+  totalEntries: number;
+  version: 1 | 0 | number;
+};
+
 export const MOCKS: Giveaway[] = [
   {
     id: "b0917b7a-b6f2-11ef-86c8-273af6a30755",

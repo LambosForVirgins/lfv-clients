@@ -6,7 +6,7 @@ import React, {
 } from "react";
 import { isRouteErrorResponse } from "react-router";
 
-type ErrorBoundaryProps = PropsWithChildren<{ fallback: ReactElement }>;
+type ErrorBoundaryProps = PropsWithChildren<{ fallback?: ReactElement }>;
 
 export const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({
   fallback,
