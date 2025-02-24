@@ -11,6 +11,7 @@ import { fullyDilutedValue } from "@/utils/pricing/fullyDilutedValue";
 import { ContractAddress } from "@/elements/ContractAddress/ContractAddress";
 import { MINT } from "@/utils/locker/constants";
 import { TabControl } from "@/elements/TabControl/TabControl";
+import clsx from "classnames";
 
 export const PurchaseSection = ({ testID }: Common.ComponentProps) => {
   const dataPoints = useRecoilValue(marketPricesAtom);
@@ -97,7 +98,56 @@ export const FAQSection = () => {
         An idea, behavior, style, or usage that spreads from person to person
         within a culture. -- Merriam-Webster's meme noun
       </p>
-      <h3>Why is KYC required to claim a giveaway?</h3>
+      <h3>What is LFV (LambosForVirgins)</h3>
+      <p></p>
+      <h3>How can I become a member?</h3>
+      <p>
+        After you acquire the $VIRGIN token, connect your wallet or open the
+        official LambosForVirgin website within you wallet and follow the
+        prompts to create a member account.
+      </p>
+      <h3>Are there fees when interacting with the program?</h3>
+      <p>
+        Unfortunately Solana is just like any other blockchain and requires a
+        small amount fee per transaction (similar to Ethereum gas). Solana also
+        requires "rent" to be paid when creating data accounts like your member
+        account, entry token account, and ticket accounts. All fees are paid in
+        SOL, however, rent fees are refunded when the data account is eventually
+        closed.
+      </p>
+      <h3>How can I access member benefits?</h3>
+      <p>
+        You will be eligible for member benefits once you have staked some
+        $VIRGIN tokens against your member account. You can get started by
+        staking the minimum 1000 VIRGIN tokens and advance into membership tiers
+        by staking more.
+      </p>
+      <h3>Can I get my staked token back?</h3>
+      <p>
+        Yes, your token is staked on a monthly basis just like a monthly
+        subscription. You can cancel this subscription at any time and your
+        tokens will become available for withdrawal after the current
+        subscription period ends.
+      </p>
+      <h3>Do entries expire?</h3>
+      <p>
+        Entry tokens do not expire, but only members can enter giveaway draws
+        with them. Entry tokens are minted to your Solana wallet and last for as
+        long as you'd like to hold them.
+      </p>
+      <h3>Can I enter any giveaway?</h3>
+      <p>
+        Possibly, as giveaways are promotional in nature, some may be reserved
+        for certain membership tiers in order to promote member growth in those
+        specified tiers.
+      </p>
+      <h3>Do giveaways have a minimum number of entries?</h3>
+      <p>
+        No, all giveaways eligible to your tier can be entered with one entry.
+        However, as entries function like raffle tickets, more entries equals a
+        greater chance of receiving the giveaway.
+      </p>
+      <h3>Why is KYC required when claiming a giveaway?</h3>
       <p>
         How else are we going to send you any goods? Our next best idea was just
         leaving a Lambo unlocked and hoping you'd be the first to take it.
@@ -107,7 +157,7 @@ export const FAQSection = () => {
       </p>
       <h3>How much do the founders own?</h3>
       <p>
-        The founders share in a combined 11% of total token supply which is
+        The founders share in a combined 11% of minted token supply, which is
         locked into the{" "}
         <a href={"https://github.com/Bonfida/token-vesting"}>
           Bonfida vesting contract
@@ -120,13 +170,18 @@ export const FAQSection = () => {
   );
 };
 
-export const MemberScene = () => {
+export const MemberScene = ({
+  testID = "members",
+}: Partial<Common.ComponentProps>) => {
   return (
     <div className={styles.section}>
       <p>
         Gain access to exclusive member benefits and giveaways when you stake
         $VIRGIN for 30 days.
       </p>
+      <Button testID={`${testID}.subscribe`} size={"small"}>
+        Become a member
+      </Button>
     </div>
   );
 };
@@ -144,7 +199,7 @@ const TABS = [
 export const LandingScene = ({
   testID = "landing",
 }: Readonly<Partial<Common.ComponentProps>>) => {
-  const [tabIndex, setTabIndex] = useState(2);
+  const [tabIndex, setTabIndex] = useState(1);
 
   const renderTab = () => {
     const Component = TABS[tabIndex].Component;
@@ -152,31 +207,36 @@ export const LandingScene = ({
   };
 
   return (
-    <div data-testid={testID} id={"membership"} className={styles.frame}>
-      <img
-        src={"/images/logo-stamp.png"}
-        alt={`VIRGIN stamp logo`}
-        width={400}
-        className={styles.hero}
-      />
-      <img
-        src={"/images/banner.png"}
-        alt={"banner"}
-        width={618}
-        className={styles.hero}
-      />
-      <ContractAddress
-        testID={`${testID}.mint`}
-        label={"CA"}
-        mint={MINT.toBase58()}
-        className={styles.hero}
-      />
-      <span className={styles.cash} />
+    <section
+      data-testid={testID}
+      id={"membership"}
+      className={clsx(styles.frame, styles.cash)}
+    >
+      <span className={styles.top}>
+        {/* <img
+          src={"/images/logo-stamp.png"}
+          alt={`VIRGIN stamp logo`}
+          className={clsx(styles.hero, styles.logo)}
+        />
+        <img
+          src={"/images/banner.png"}
+          alt={"banner"}
+          className={clsx(styles.hero, styles.banner)}
+        /> */}
+
+        <ContractAddress
+          testID={`${testID}.mint`}
+          label={"CA"}
+          mint={MINT.toBase58()}
+          className={styles.hero}
+        />
+      </span>
 
       <div className={styles.content}>
         <TabControl
           testID={`${testID}.tabs`}
           name={"section"}
+          className={styles.navigation}
           value={TABS[tabIndex].label}
           options={TABS.map((tab) => ({
             label: tab.label,
@@ -192,8 +252,6 @@ export const LandingScene = ({
 
         {renderTab()}
       </div>
-
-      {/* <CommandPrompter testID={`${testID}.onboarding`} /> */}
-    </div>
+    </section>
   );
 };

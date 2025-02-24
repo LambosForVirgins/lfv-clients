@@ -17,10 +17,7 @@ export const Layout = ({
       <div data-testid={`${testID}.header`} className={styles.header}>
         <Header testID={`header`} />
       </div>
-
-      <section data-testid={`${testID}.content`} className={styles.main}>
-        <ErrorBoundary>{children}</ErrorBoundary>
-      </section>
+      <ErrorBoundary>{children}</ErrorBoundary>
       <div data-testid={testID} className={styles.promo}>
         <div className={styles.content}>
           {/* <img

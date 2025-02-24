@@ -20,6 +20,7 @@ interface TabControlProps<TValue> extends Common.ComponentProps {
   outline?: boolean;
   background?: boolean;
   variant?: "dot" | "underline";
+  className?: string;
   onChange?: (value: TValue) => void;
 }
 
@@ -36,6 +37,7 @@ export const TabControl = <TValue extends string>({
   background,
   onChange,
   variant,
+  ...props
 }: TabControlProps<TValue>) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLSpanElement>(null);
@@ -94,6 +96,7 @@ export const TabControl = <TValue extends string>({
       ref={containerRef}
       role={"tablist"}
       className={clsx(
+        props.className,
         styles.frame,
         dense && styles.dense,
         outline && styles.outline,
