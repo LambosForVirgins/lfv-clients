@@ -1,19 +1,19 @@
 import styles from "./LandingScene.module.css";
 import { CommandPrompter } from "@/scenes/prompter/CommandPrompter";
 import { Button } from "@/elements";
-import { MINT } from "@/utils/locker/constants";
-import { ContractAddress } from "@/elements/ContractAddress/ContractAddress";
 import { ChangeLabel } from "@/components/ChangeLabel/ChangeLabel";
 import { LineChart } from "@/components/LineChart/LineChart";
 import { useMemo, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { marketPricesAtom } from "@/state/treasury/atoms";
 import { NavLink } from "react-router";
 import { fullyDilutedValue } from "@/utils/pricing/fullyDilutedValue";
-import { useDevToggles } from "@/state/application/useDevToggles";
+import { ContractAddress } from "@/elements/ContractAddress/ContractAddress";
+import { MINT } from "@/utils/locker/constants";
+import { TabControl } from "@/elements/TabControl/TabControl";
 
 export const PurchaseSection = ({ testID }: Common.ComponentProps) => {
-  const [dataPoints, setDataPoints] = useRecoilState(marketPricesAtom);
+  const dataPoints = useRecoilValue(marketPricesAtom);
 
   const marketCap = useMemo(() => {
     const lastDataPoint = dataPoints[dataPoints.length - 1];
@@ -25,8 +25,6 @@ export const PurchaseSection = ({ testID }: Common.ComponentProps) => {
   const change = useMemo(() => {
     const lastDataPoint = dataPoints[dataPoints.length - 1];
     const firstDataPoint = dataPoints[0];
-
-    console.log(lastDataPoint, firstDataPoint);
 
     const priceChange = lastDataPoint[1] - firstDataPoint[1];
     const amount = Math.floor(fullyDilutedValue(priceChange) * 100) / 100;
@@ -46,20 +44,36 @@ export const PurchaseSection = ({ testID }: Common.ComponentProps) => {
         />
       </span>
       <LineChart testID={`${testID}.chart`} data={dataPoints} />
-      <p>
-        The simplest way to buy is through the swap market with Solana or USDC
-        through Phantom Wallet. Alternatively you can trade $VIRGIN on Raydium
-        and Jupiter Exchange.
-      </p>
-      <Button testID={`${testID}.raydium`}>Buy on Raydium</Button>
-      <Button testID={`${testID}.raydium`}>Buy on Jupiter</Button>
+      <span>
+        <p>
+          Buy tokens early, subscribe by staking, and reap the member benefits.
+        </p>
+        <ol>
+          <li>
+            Download and connect your Solana wallet of choice. We like to use
+            Phantom wallet.
+          </li>
+          <li>
+            Purchase SOL to your wallet through MoonPay transfer from your
+            favorite exchange.
+          </li>
+          <li>
+            Purchase $VIRGIN by swapping SOL through Phantom wallet or one of
+            the decentralized exchanges below.
+          </li>
+        </ol>
+      </span>
+      <span className={styles.actions}>
+        <Button testID={`${testID}.raydium`}>Buy on Raydium</Button>
+        <Button testID={`${testID}.raydium`}>Buy on Jupiter</Button>
+      </span>
     </div>
   );
 };
 
 export const AboutSection = () => {
   return (
-    <div>
+    <div className={styles.section}>
       <p>
         The LambosForVirgin token ($VIRGIN) is minted on the Solana blockchain
         with a limited supply of 1 Billion tokens. We initially burned 105
@@ -77,13 +91,7 @@ export const AboutSection = () => {
 
 export const FAQSection = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "var(--size-300)",
-      }}
-    >
+    <div className={styles.section}>
       <h3>What is a meme?</h3>
       <p>
         An idea, behavior, style, or usage that spreads from person to person
@@ -114,7 +122,7 @@ export const FAQSection = () => {
 
 export const MemberScene = () => {
   return (
-    <div>
+    <div className={styles.section}>
       <p>
         Gain access to exclusive member benefits and giveaways when you stake
         $VIRGIN for 30 days.
@@ -125,7 +133,7 @@ export const MemberScene = () => {
 
 const TABS = [
   {
-    label: "How to buy",
+    label: "Buy",
     Component: PurchaseSection,
   },
   { label: "About", Component: AboutSection },
@@ -136,8 +144,7 @@ const TABS = [
 export const LandingScene = ({
   testID = "landing",
 }: Readonly<Partial<Common.ComponentProps>>) => {
-  const [tabIndex, setTabIndex] = useState(0);
-  const { isEnabled } = useDevToggles();
+  const [tabIndex, setTabIndex] = useState(2);
 
   const renderTab = () => {
     const Component = TABS[tabIndex].Component;
@@ -145,62 +152,48 @@ export const LandingScene = ({
   };
 
   return (
-    <div data-testid="membership" id={"membership"} className={styles.frame}>
-      <div className={styles.header}>
-        <div className={styles.banner}>
-          <img
-            src={"/images/logo-stamp.png"}
-            alt={`VIRGIN stamp logo`}
-            width={400}
-            style={{ maxWidth: "100%" }}
-          />
-          <img
-            src={"/images/banner.png"}
-            alt={"banner"}
-            width={618}
-            style={{ maxWidth: "100%" }}
-          />
-        </div>
-
-        <ContractAddress
-          testID={`${testID}.mint`}
-          label={"CA"}
-          mint={MINT.toBase58()}
-        />
-      </div>
-
+    <div data-testid={testID} id={"membership"} className={styles.frame}>
+      <img
+        src={"/images/logo-stamp.png"}
+        alt={`VIRGIN stamp logo`}
+        width={400}
+        className={styles.hero}
+      />
+      <img
+        src={"/images/banner.png"}
+        alt={"banner"}
+        width={618}
+        className={styles.hero}
+      />
+      <ContractAddress
+        testID={`${testID}.mint`}
+        label={"CA"}
+        mint={MINT.toBase58()}
+        className={styles.hero}
+      />
       <span className={styles.cash} />
 
-      {isEnabled("landing_sections") && (
-        <div className={styles.content}>
-          <span
-            data-testid={`${testID}.navigation`}
-            className={styles.navigation}
-          >
-            {TABS.map((tab, index) => (
-              <button
-                key={tab.label}
-                onClick={() => setTabIndex(index)}
-                className={styles.tab}
-              >
-                {tab.label}
-              </button>
-            ))}
-            <button>close</button>
-            {/* <Button
-            testID={`${testID}.connect`}
-            className={styles.button}
-            size={"small"}
-          >
-            Connect wallet
-          </Button> */}
-          </span>
+      <div className={styles.content}>
+        <TabControl
+          testID={`${testID}.tabs`}
+          name={"section"}
+          value={TABS[tabIndex].label}
+          options={TABS.map((tab) => ({
+            label: tab.label,
+            value: tab.label,
+          }))}
+          onChange={(value) => {
+            setTabIndex(TABS.findIndex((tab) => tab.label === value));
+          }}
+          rounded
+          dense
+          outline
+        />
 
-          {renderTab()}
-        </div>
-      )}
+        {renderTab()}
+      </div>
 
-      <CommandPrompter />
+      {/* <CommandPrompter testID={`${testID}.onboarding`} /> */}
     </div>
   );
 };
