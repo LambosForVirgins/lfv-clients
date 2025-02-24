@@ -42,54 +42,6 @@
       "args": []
     },
     {
-      "name": "initializeMint",
-      "accounts": [
-        {
-          "name": "metadata",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "mint",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "admin",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "rent",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "tokenProgram",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "tokenMetadataProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
-          "name": "params",
-          "type": {
-            "defined": "InitializeRewardsParams"
-          }
-        }
-      ]
-    },
-    {
       "name": "deposit",
       "accounts": [
         {
@@ -257,9 +209,181 @@
         }
       ],
       "args": []
+    },
+    {
+      "name": "openDraw",
+      "accounts": [
+        {
+          "name": "draw",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "Draw address should be a mix of the seed, giveaway, and draw"
+          ]
+        },
+        {
+          "name": "signer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "giveawayId",
+          "type": "u64"
+        },
+        {
+          "name": "drawNo",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "closeDraw",
+      "accounts": [
+        {
+          "name": "draw",
+          "isMut": true,
+          "isSigner": false,
+          "docs": [
+            "Draw address should be a mix of the giveaway, seed,"
+          ]
+        },
+        {
+          "name": "signer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "giveawayId",
+          "type": "u64"
+        },
+        {
+          "name": "drawNo",
+          "type": "u64"
+        },
+        {
+          "name": "seed",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "enter",
+      "accounts": [
+        {
+          "name": "draw",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "ticket",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "entries",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "entryTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "signer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
     }
   ],
   "accounts": [
+    {
+      "name": "DrawAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "version",
+            "docs": [
+              "Schema version from v0 up to v255. Defaults to the `LATEST_VERSION` constant."
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "giveawayId",
+            "type": "u64"
+          },
+          {
+            "name": "drawId",
+            "type": "u64"
+          },
+          {
+            "name": "totalEntries",
+            "docs": [
+              "Total amount of entries in the draw"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "limitEntries",
+            "docs": [
+              "Limited entries"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "timeCreated",
+            "docs": [
+              "Initial creation date of the members account"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "timeRewarded",
+            "docs": [
+              "Date of the last reward granted to matured tokens"
+            ],
+            "type": "u64"
+          }
+        ]
+      }
+    },
     {
       "name": "SubscriptionAccount",
       "type": {
@@ -333,6 +457,51 @@
             "type": {
               "vec": {
                 "defined": "Transaction"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "TicketAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "version",
+            "docs": [
+              "Schema version from v0 up to v255. Defaults to the `LATEST_VERSION` constant."
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "giveawayId",
+            "type": "u64"
+          },
+          {
+            "name": "drawId",
+            "type": "u64"
+          },
+          {
+            "name": "totalEntries",
+            "docs": [
+              "Total amount of entries consumed"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "timeCreated",
+            "docs": [
+              "Initial creation date of the ticket"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "entries",
+            "type": {
+              "vec": {
+                "defined": "Entry"
               }
             }
           }
@@ -430,6 +599,20 @@
       }
     },
     {
+      "name": "DrawError",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "GiveawayInvalid"
+          },
+          {
+            "name": "DrawInvalid"
+          }
+        ]
+      }
+    },
+    {
       "name": "HostError",
       "type": {
         "kind": "enum",
@@ -448,6 +631,31 @@
           },
           {
             "name": "NotPaused"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Entry",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "V1",
+            "fields": [
+              {
+                "name": "amount",
+                "type": "u64"
+              },
+              {
+                "name": "numStart",
+                "type": "u64"
+              },
+              {
+                "name": "numEnd",
+                "type": "u64"
+              }
+            ]
           }
         ]
       }
