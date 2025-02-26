@@ -6,6 +6,7 @@ import { atom, useRecoilState } from "recoil";
 const STORAGE_KEY = "dev-toggles";
 
 const initialKeys = {
+  subscribe: false,
   events: false,
   merchandise: false,
   giveaways: false,
