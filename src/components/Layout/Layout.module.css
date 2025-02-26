@@ -1,7 +1,7 @@
 .frame {
     height: 100%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: var(--column-layout);
 
     .full {
         grid-column: full;

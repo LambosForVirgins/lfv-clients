@@ -29,6 +29,7 @@ export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
       addressRef.current?.focus();
       addressRef.current?.select();
       document.execCommand("copy");
+      addressRef.current?.blur();
       setHasCopied(true);
     }
 
