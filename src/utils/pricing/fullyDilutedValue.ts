@@ -1,4 +1,4 @@
-import { CIRCULATING_SUPPLY } from "../locker/constants";
+import { TOTAL_SUPPLY } from "../locker/constants";
 
 export const fullyDilutedValue = (price: number): number =>
-  CIRCULATING_SUPPLY * price;
+  TOTAL_SUPPLY * price;

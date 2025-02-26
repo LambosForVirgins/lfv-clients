@@ -5,16 +5,17 @@ import { vestedAccountsAtom } from "@/state/treasury/atoms";
 
 import { Routes as Switch, Route as Page, NavLink } from "react-router";
 import { useRecoilValue } from "recoil";
-import { tokenAllocationSelector } from "@/state/treasury/selectors";
+import {
+  marketCapSelector,
+  tokenAllocationSelector,
+} from "@/state/treasury/selectors";
 import { totalTokenBalanceSelector } from "@/state/mints/selectors";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useMemo, useState } from "react";
 import { prettyAddress } from "@/utils/string/prettyAddress";
 import clsx from "classnames";
-
-const MARKET_CAP = 1_300_000,
-  TOTAL_SUPPLY = 894_999_997,
-  CIRCULATING_SUPPLY = 589_999_997;
+import { MAXIMUM_SUPPLY, TOTAL_SUPPLY } from "@/utils/locker/constants";
+import { fullyDilutedValue } from "@/utils/pricing/fullyDilutedValue";
 
 const markets = [
   {
@@ -33,16 +34,15 @@ export const TreasuryScene = ({
   testID = "treasury",
 }: Readonly<Partial<Common.ComponentProps>>) => {
   const { wallet, publicKey } = useWallet();
-  const [marketCap, setMarketCap] = useState(MARKET_CAP);
+  const currentMarketCap = useRecoilValue(marketCapSelector);
+  const [marketCap, setMarketCap] = useState(fullyDilutedValue(0.00019));
   const vestedAccounts = useRecoilValue(vestedAccountsAtom);
   const allocation = useRecoilValue(tokenAllocationSelector);
   const totalHoldingBalance = useRecoilValue(
     totalTokenBalanceSelector(publicKey)
   );
 
-  const tokenPrice = useMemo(() => marketCap / TOTAL_SUPPLY, [marketCap]);
-
-  const isProjectedPrice = marketCap > MARKET_CAP;
+  const tokenPrice = useMemo(() => marketCap / MAXIMUM_SUPPLY, [marketCap]);
 
   const totalAllocation = useMemo(
     () => allocation.reduce((sum, acc) => sum + acc.portion, 0),
@@ -105,8 +105,8 @@ export const TreasuryScene = ({
         <span className={styles.portion}>
           <h2>{Math.floor(totalAllocation * 10000) / 100}% Allocated</h2>
           <h2>{(1).toLocaleString()}B Tokens</h2>
-          <h2>{TOTAL_SUPPLY.toLocaleString()} Tokens</h2>
-          <h2>{CIRCULATING_SUPPLY.toLocaleString()}B Tokens</h2>
+          <h2>{MAXIMUM_SUPPLY.toLocaleString()} Tokens</h2>
+          <h2>{TOTAL_SUPPLY.toLocaleString()}B Tokens</h2>
           <p>Initial supply</p>
         </span>
 
@@ -115,7 +115,7 @@ export const TreasuryScene = ({
           <p>Future you looks good. </p>
           <input
             type="range"
-            min={MARKET_CAP}
+            min={currentMarketCap}
             max={3_000_000_000}
             step={100_000_000}
             disabled={!wallet}
