@@ -7,11 +7,6 @@ type OverviewItem = {
   label: string;
 };
 
-// totalBalance: number;
-// rewardBalance: number;
-// ticketAmount: number;
-// streakCount: number;
-
 interface OverviewProps extends Common.ComponentProps {
   items: OverviewItem[];
   className?: string;
@@ -21,8 +16,13 @@ export const Overview = ({ testID, ...props }: OverviewProps) => {
   return (
     <span data-testid={testID} className={styles.frame}>
       {props.items.map((item) => (
-        <span key={item.key} className={styles.box}>
+        <span
+          data-testid={`${testID}.container`}
+          key={item.key}
+          className={styles.box}
+        >
           <img
+            data-testid={`${testID}.image`}
             alt="VIRGIN"
             src={item.media.src}
             style={{ borderRadius: "100vw" }}

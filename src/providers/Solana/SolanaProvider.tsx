@@ -8,12 +8,10 @@ import { solanaRpcUrl } from "@/utils/locker/constants";
 
 const endpoint = solanaRpcUrl();
 
-const wallets = [new walletAdapterWallets.PhantomWalletAdapter()];
-
 export const SolanaProvider = ({ children }: React.PropsWithChildren) => {
   return (
     <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets} autoConnect>
+      <WalletProvider wallets={[]} autoConnect>
         <WalletModalProvider>{children}</WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>

@@ -1,10 +1,7 @@
 import { Button } from "../Buttons/Button";
 import styles from "./ContractAddress.module.css";
 import clsx from "classnames";
-import { prettyAddress } from "@/utils/string/prettyAddress";
 import { useCallback, useRef, useState } from "react";
-
-const CONFIRMATION_DURATION = 3000;
 
 interface ContractAddressProps extends Common.ComponentProps {
   label?: string;
@@ -12,10 +9,11 @@ interface ContractAddressProps extends Common.ComponentProps {
   className?: string;
 }
 
+const CONFIRMATION_DURATION = 3000;
+
 export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
   const addressRef = useRef<HTMLTextAreaElement>(null);
   const timerRef = useRef<NodeJS.Timeout>();
-  const [error, setError] = useState<string | null>(null);
   const [hasCopied, setHasCopied] = useState(false);
 
   /**
@@ -31,6 +29,7 @@ export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
       addressRef.current?.focus();
       addressRef.current?.select();
       document.execCommand("copy");
+      addressRef.current?.blur();
       setHasCopied(true);
     }
 
@@ -58,7 +57,6 @@ export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
       <span
         data-testid={`${testID}.address`}
         className={clsx(styles.address, styles.truncate)}
-        data-short={prettyAddress(props.mint)}
       >
         <textarea ref={addressRef} value={props.mint} />
       </span>
@@ -66,9 +64,9 @@ export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
         testID={`${testID}.copy`}
         size={"small"}
         data-short={"Copy"}
-        className={styles.button}
-        onClick={copyAddress}
         disabled={hasCopied}
+        onClick={copyAddress}
+        className={styles.button}
       >
         <span>{hasCopied ? `Copied` : `Copy address`}</span>
       </Button>
