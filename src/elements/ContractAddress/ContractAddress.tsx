@@ -1,7 +1,7 @@
 import { Button } from "../Buttons/Button";
 import styles from "./ContractAddress.module.css";
 import clsx from "classnames";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 
 interface ContractAddressProps extends Common.ComponentProps {
   label?: string;
@@ -15,6 +15,10 @@ export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
   const addressRef = useRef<HTMLTextAreaElement>(null);
   const timerRef = useRef<NodeJS.Timeout>();
   const [hasCopied, setHasCopied] = useState(false);
+
+  const statusLabel = useMemo(() => {
+    return hasCopied ? `Copied to clipboard` : null;
+  }, [hasCopied]);
 
   /**
    * Copies the mint address to clipboard and displays a
@@ -54,12 +58,20 @@ export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
           {props.label}
         </span>
       )}
-      <span
+      <label
         data-testid={`${testID}.address`}
-        className={clsx(styles.address, styles.truncate)}
+        htmlFor={"contract-address"}
+        className={styles.address}
       >
-        <textarea ref={addressRef} value={props.mint} />
-      </span>
+        <textarea
+          ref={addressRef}
+          name={"contract-address"}
+          value={props.mint}
+        />
+        <span className={clsx(styles.status, styles.truncate)}>
+          {statusLabel}
+        </span>
+      </label>
       <Button
         testID={`${testID}.copy`}
         size={"small"}

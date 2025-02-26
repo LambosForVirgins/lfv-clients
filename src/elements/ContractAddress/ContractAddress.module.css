@@ -11,23 +11,7 @@
     container-type: inline-size;
     container-name: contract-address;
     overflow: hidden;
-
-    /** TODO: Consider accessability */
-    &::before {
-        content: 'Copied to clipboard';
-        position: absolute;
-        display: grid;
-        inset: 0;
-        background-color: var(--white);
-        align-items: center;
-        justify-content: center;
-        font-size: var(--size-600);
-        z-index: -1;
-    }
-
-    &.copied .address {
-        opacity: 0;
-    }
+    background-color: var(--white);
 }
 
 .label {
@@ -43,18 +27,14 @@
 }
 
 .address {
+    position: relative;
     display: grid;
     flex: 1 10 auto;
-    font-size: var(--size-700);
-    white-space: nowrap;
-    text-wrap: wrap;
-    text-overflow: ellipsis;
-    transition: opacity 0.5s;
     overflow: hidden;
-    backdrop-filter: blur(8px);
     align-items: center;
 
     textarea {
+        font-size: var(--size-700);
         height: var(--size-900);
         width: 100%;
         outline: none;
@@ -65,13 +45,19 @@
         resize: none;
     }
 
-    &::before {
-        content: '';
+    .status {
+        display: grid;
         position: absolute;
         inset: 0;
         background-color: var(--white);
-        backdrop-filter: blur(4px);
-        opacity: 0.5;
+        font-size: var(--size-500);
+        align-items: center;
+        transition: opacity 300ms;
+        opacity: 0;
+    }
+
+    .status:not(:empty) {
+        opacity: 1;
     }
 }
 
