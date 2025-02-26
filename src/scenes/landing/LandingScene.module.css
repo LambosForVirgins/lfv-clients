@@ -12,6 +12,7 @@
     overflow-x: hidden;
     overflow-y: scroll;
     overscroll-behavior-y: none;
+    height: 100%;
 }
 
 .hero {
@@ -120,6 +121,7 @@
     }
 
     .section {
+        min-height: 100%;
         display: grid;
         max-width: 100%;
         padding: var(--size-500);

@@ -18,9 +18,9 @@ export const decimalFactor = new BN(10 ** DECIMALS);
 
 export const millisecondFactor = new BN(1000);
 
-export const TOTAL_SUPPLY = 1_000_000_000;
+export const MAXIMUM_SUPPLY = 1_000_000_000;
 
-export const CIRCULATING_SUPPLY = 894_999_997;
+export const TOTAL_SUPPLY = 894_999_997;
 
 export enum SeedKey {
   SubscriptionSeed = "subscription",

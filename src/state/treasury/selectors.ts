@@ -1,12 +1,14 @@
 import { selector, selectorFamily } from "recoil";
 import { TreasuryHolding, TreasuryWalletGroup, VestingAccount } from "./types";
 import {
+  marketPricesAtom,
   treasuryWalletGroupsAtom,
   treasuryWalletsAtom,
   vestedAccountsAtom,
   vestingAccountAtom,
 } from "./atoms";
 import { mergeAndSortSchedules } from "./utils";
+import { fullyDilutedValue } from "@/utils/pricing/fullyDilutedValue";
 
 const vestingAccountCollectionSelector = selectorFamily<
   string[],
@@ -80,7 +82,7 @@ export interface TokenAllocation extends TreasuryWalletGroup {
 
 const TOKEN_SYMBOL = "VIRGIN";
 
-const CIRCULATING_SUPPLY = 894_999_997;
+const TOTAL_SUPPLY = 894_999_997;
 
 export const circulatingSupplySelector = selector<number>({
   key: "circulating-supply-selector",
@@ -123,7 +125,7 @@ export const tokenAllocationSelector = selector<TokenAllocation[]>({
         0
       );
 
-      const remainingPortion = amount / CIRCULATING_SUPPLY;
+      const remainingPortion = amount / TOTAL_SUPPLY;
 
       allocation.push({
         name: group.label,
@@ -139,5 +141,16 @@ export const tokenAllocationSelector = selector<TokenAllocation[]>({
     });
 
     return allocation;
+  },
+});
+
+export const marketCapSelector = selector<number>({
+  key: "market-cap-selector",
+  get: ({ get }) => {
+    const dataPoints = get(marketPricesAtom);
+    const lastDataPoint = dataPoints[dataPoints.length - 1];
+    const lastPrice = lastDataPoint[1];
+
+    return Math.floor(fullyDilutedValue(lastPrice));
   },
 });

@@ -29,7 +29,9 @@ export const Layout = ({
         /> */}
         </div>
       </div>
-      <Subscribe testID={`${testID}.subscribe`} className={styles.full} />
+      {isEnabled("subscribe") && (
+        <Subscribe testID={`${testID}.subscribe`} className={styles.full} />
+      )}
       {isEnabled("footer") && (
         <Footer testID={`${testID}.footer`} className={styles.full} />
       )}

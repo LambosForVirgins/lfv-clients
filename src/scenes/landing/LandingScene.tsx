@@ -3,26 +3,38 @@ import { CommandPrompter } from "@/scenes/prompter/CommandPrompter";
 import { Button } from "@/elements";
 import { ChangeLabel } from "@/components/ChangeLabel/ChangeLabel";
 import { LineChart } from "@/components/LineChart/LineChart";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { marketPricesAtom } from "@/state/treasury/atoms";
-import { NavLink } from "react-router";
+import { useNavigate } from "react-router";
 import { fullyDilutedValue } from "@/utils/pricing/fullyDilutedValue";
 import { ContractAddress } from "@/elements/ContractAddress/ContractAddress";
 import { MINT } from "@/utils/locker/constants";
 import { TabControl } from "@/elements/TabControl/TabControl";
 import clsx from "classnames";
 import { faqAtom } from "@/state/application/atoms";
+import { marketCapSelector } from "@/state/treasury/selectors";
 
-export const PurchaseSection = ({ testID }: Common.ComponentProps) => {
+const markets = [
+  {
+    key: "raydium",
+    label: "Raydium",
+    href: "https://raydium.io/swap/?outputMint=7kB8ZkSBJr2uiBWfveqkVBN7EpZMFom5PqeWUB62DCRD",
+  },
+  {
+    key: "jupiter",
+    label: "Jupiter",
+    href: "https://jupiter-terminal.dexscreener.com/?inputMint=7kB8ZkSBJr2uiBWfveqkVBN7EpZMFom5PqeWUB62DCRD&outputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+  },
+];
+
+export const PurchaseSection = ({
+  id,
+  testID,
+}: Common.ComponentProps & { id: string }) => {
+  const navigate = useNavigate();
   const dataPoints = useRecoilValue(marketPricesAtom);
-
-  const marketCap = useMemo(() => {
-    const lastDataPoint = dataPoints[dataPoints.length - 1];
-    const lastPrice = lastDataPoint[1];
-
-    return Math.floor(fullyDilutedValue(lastPrice));
-  }, [dataPoints.length]);
+  const marketCap = useRecoilValue(marketCapSelector);
 
   const change = useMemo(() => {
     const lastDataPoint = dataPoints[dataPoints.length - 1];
@@ -36,7 +48,7 @@ export const PurchaseSection = ({ testID }: Common.ComponentProps) => {
   }, [dataPoints.length]);
 
   return (
-    <div data-testid={testID} className={styles.section}>
+    <div id={id} data-testid={testID} className={styles.section}>
       <span className={styles.header}>
         <h1>${marketCap.toLocaleString()}</h1>
         <ChangeLabel
@@ -65,17 +77,32 @@ export const PurchaseSection = ({ testID }: Common.ComponentProps) => {
           </li>
         </ol>
       </span>
-      <span className={styles.actions}>
-        <Button testID={`${testID}.raydium`}>Buy on Raydium</Button>
-        <Button testID={`${testID}.raydium`}>Buy on Jupiter</Button>
+      <h3>Already have Solana?</h3>
+      <p>
+        $VIRGIN is available for swaps on all Solana based decentralized
+        exchanges.
+      </p>
+      <span data-testid={`${testID}.actions`} className={styles.actions}>
+        {markets.map((market) => (
+          <Button
+            key={market.key}
+            testID={`${testID}.market`}
+            onClick={() => navigate(market.href, { replace: true })}
+          >
+            {market.label}
+          </Button>
+        ))}
       </span>
     </div>
   );
 };
 
-export const AboutSection = () => {
+export const AboutSection = ({
+  id,
+  testID,
+}: Common.ComponentProps & { id: string }) => {
   return (
-    <div className={styles.section}>
+    <div id={id} data-testid={testID} className={styles.section}>
       <p>The only utility meme coin on a mission to reward token holders!</p>
       <h3>A Token with the Utility to Change Lives.</h3>
       <p>
@@ -95,11 +122,14 @@ export const AboutSection = () => {
   );
 };
 
-export const FAQSection = () => {
+export const FAQSection = ({
+  id,
+  testID,
+}: Common.ComponentProps & { id: string }) => {
   const frequentlyAskedQuestions = useRecoilValue(faqAtom);
 
   return (
-    <div className={styles.section}>
+    <div id={id} data-testid={testID} className={styles.section}>
       {frequentlyAskedQuestions.map((faq) => (
         <span key={faq.id} className={styles.faq}>
           <h3>{faq.title}</h3>
@@ -111,10 +141,11 @@ export const FAQSection = () => {
 };
 
 export const MemberScene = ({
+  id,
   testID = "members",
-}: Partial<Common.ComponentProps>) => {
+}: Partial<Common.ComponentProps> & { id: string }) => {
   return (
-    <div className={styles.section}>
+    <div id={id} data-testid={testID} className={styles.section}>
       <p>
         Gain access to exclusive member benefits and giveaways when you stake
         $VIRGIN for 30 days.
@@ -127,13 +158,14 @@ export const MemberScene = ({
 };
 
 const TABS = [
-  { label: "About", Component: AboutSection },
+  { id: "about", label: "About", Component: AboutSection },
   {
+    id: "buy",
     label: "Buy",
     Component: PurchaseSection,
   },
-  { label: "FAQ", Component: FAQSection },
-  { label: "Members", Component: MemberScene },
+  { id: "faq", label: "FAQ", Component: FAQSection },
+  { id: "members", label: "Members", Component: MemberScene },
 ];
 
 export const LandingScene = ({
@@ -144,10 +176,13 @@ export const LandingScene = ({
   const [isExpanded, setExpanded] = useState(false);
   const [tabIndex, setTabIndex] = useState(0);
 
-  const renderTab = () => {
-    const Component = TABS[tabIndex].Component;
-    return <Component testID={`${testID}.section`} />;
-  };
+  const renderTab = useCallback(
+    (index: number) => {
+      const { Component, id } = TABS[index];
+      return <Component testID={`${testID}.section`} id={id} />;
+    },
+    [TABS]
+  );
 
   useEffect(() => {
     if (isExpanded && headerRef.current) {
@@ -203,7 +238,7 @@ export const LandingScene = ({
           <button onClick={() => setExpanded(false)}>close</button>
         </span>
 
-        {renderTab()}
+        {renderTab(tabIndex)}
       </div>
 
       <CommandPrompter />
