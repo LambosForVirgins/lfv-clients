@@ -14,7 +14,6 @@ const CONFIRMATION_DURATION = 3000;
 export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
   const addressRef = useRef<HTMLTextAreaElement>(null);
   const timerRef = useRef<NodeJS.Timeout>();
-  const [error, setError] = useState<string | null>(null);
   const [hasCopied, setHasCopied] = useState(false);
 
   /**
@@ -67,7 +66,6 @@ export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
         disabled={hasCopied}
         onClick={copyAddress}
         className={styles.button}
-        disabled={hasCopied}
       >
         <span>{hasCopied ? `Copied` : `Copy address`}</span>
       </Button>

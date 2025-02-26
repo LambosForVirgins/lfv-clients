@@ -3,7 +3,7 @@ import { CommandPrompter } from "@/scenes/prompter/CommandPrompter";
 import { Button } from "@/elements";
 import { ChangeLabel } from "@/components/ChangeLabel/ChangeLabel";
 import { LineChart } from "@/components/LineChart/LineChart";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { marketPricesAtom } from "@/state/treasury/atoms";
 import { NavLink } from "react-router";
@@ -75,11 +75,19 @@ export const PurchaseSection = ({ testID }: Common.ComponentProps) => {
 export const AboutSection = () => {
   return (
     <div className={styles.section}>
+      <p>The only utility meme coin rewarding token holders!</p>
       <p>
-        The LambosForVirgin token ($VIRGIN) is minted on the Solana blockchain
-        with a limited supply of 1 Billion tokens. We initially burned 105
-        Million tokens to celebrate the 1 million dollar market cap milestone,
-        leaving a final circulating supply of 895 million tokens.
+        LambosForVirgins ($VIRGIN) is the only utility-meme coin and rewards
+        club offering its members the chance to win everything from
+        Lamborghini's to daily cash and token prizes. Our subscription platform
+        rewards members who stake tokens by providing exclusive access to
+        merchandise, events, and promotional giveaways.
+      </p>
+      <p>
+        The LambosForVirgin token ($VIRGIN) and program operate on the Solana
+        blockchain network with a capped supply of 1 Billion tokens. After the
+        initial burn of 105 Million tokens, the final circulating supply of 895
+        million tokens.
       </p>
       <h3>A Token with the Utility to Change Lives.</h3>
       <p>
@@ -187,11 +195,11 @@ export const MemberScene = ({
 };
 
 const TABS = [
+  { label: "About", Component: AboutSection },
   {
     label: "Buy",
     Component: PurchaseSection,
   },
-  { label: "About", Component: AboutSection },
   { label: "FAQ", Component: FAQSection },
   { label: "Members", Component: MemberScene },
 ];
@@ -199,12 +207,27 @@ const TABS = [
 export const LandingScene = ({
   testID = "landing",
 }: Readonly<Partial<Common.ComponentProps>>) => {
-  const [tabIndex, setTabIndex] = useState(1);
+  const headerRef = useRef<HTMLSpanElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [isExpanded, setExpanded] = useState(false);
+  const [tabIndex, setTabIndex] = useState(0);
 
   const renderTab = () => {
     const Component = TABS[tabIndex].Component;
     return <Component testID={`${testID}.section`} />;
   };
+
+  useEffect(() => {
+    if (isExpanded && headerRef.current) {
+      // contract down to 56px and hide images
+      headerRef.current.style.height = "0px";
+      headerRef.current.style.overflow = "hidden";
+      headerRef.current.classList.add(styles.collapsed);
+    } else if (headerRef.current) {
+      headerRef.current.style.height = "auto";
+      headerRef.current.classList.remove(styles.collapsed);
+    }
+  }, [isExpanded]);
 
   return (
     <section
@@ -212,17 +235,12 @@ export const LandingScene = ({
       id={"membership"}
       className={clsx(styles.frame, styles.cash)}
     >
-      <span className={styles.top}>
-        {/* <img
+      <span ref={headerRef} className={styles.top}>
+        <img
           src={"/images/logo-stamp.png"}
           alt={`VIRGIN stamp logo`}
           className={clsx(styles.hero, styles.logo)}
         />
-        <img
-          src={"/images/banner.png"}
-          alt={"banner"}
-          className={clsx(styles.hero, styles.banner)}
-        /> */}
 
         <ContractAddress
           testID={`${testID}.mint`}
@@ -233,22 +251,25 @@ export const LandingScene = ({
       </span>
 
       <div className={styles.content}>
-        <TabControl
-          testID={`${testID}.tabs`}
-          name={"section"}
-          className={styles.navigation}
-          value={TABS[tabIndex].label}
-          options={TABS.map((tab) => ({
-            label: tab.label,
-            value: tab.label,
-          }))}
-          onChange={(value) => {
-            setTabIndex(TABS.findIndex((tab) => tab.label === value));
-          }}
-          rounded
-          dense
-          outline
-        />
+        <span className={styles.navigation}>
+          <TabControl
+            testID={`${testID}.tabs`}
+            name={"section"}
+            value={TABS[tabIndex].label}
+            options={TABS.map((tab) => ({
+              label: tab.label,
+              value: tab.label,
+            }))}
+            onChange={(value) => {
+              setExpanded(true);
+              setTabIndex(TABS.findIndex((tab) => tab.label === value));
+            }}
+            rounded
+            dense
+            outline
+          />
+          <button onClick={() => setExpanded(false)}>close</button>
+        </span>
 
         {renderTab()}
       </div>
