@@ -32,7 +32,6 @@ export const PurchaseSection = ({
   id,
   testID,
 }: Common.ComponentProps & { id: string }) => {
-  const navigate = useNavigate();
   const dataPoints = useRecoilValue(marketPricesAtom);
   const marketCap = useRecoilValue(marketCapSelector);
 
@@ -87,7 +86,9 @@ export const PurchaseSection = ({
           <Button
             key={market.key}
             testID={`${testID}.market`}
-            onClick={() => navigate(market.href, { replace: true })}
+            onClick={() => {
+              window.location.replace(market.href);
+            }}
           >
             {market.label}
           </Button>
@@ -171,7 +172,8 @@ const TABS = [
 export const LandingScene = ({
   testID = "landing",
 }: Readonly<Partial<Common.ComponentProps>>) => {
-  const headerRef = useRef<HTMLSpanElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  // const headerRef = useRef<HTMLSpanElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [isExpanded, setExpanded] = useState(false);
   const [tabIndex, setTabIndex] = useState(0);
@@ -184,25 +186,26 @@ export const LandingScene = ({
     [TABS]
   );
 
-  useEffect(() => {
-    if (isExpanded && headerRef.current) {
-      // contract down to 56px and hide images
-      headerRef.current.style.height = "0px";
-      headerRef.current.style.overflow = "hidden";
-      headerRef.current.classList.add(styles.collapsed);
-    } else if (headerRef.current) {
-      headerRef.current.style.height = "auto";
-      headerRef.current.classList.remove(styles.collapsed);
-    }
-  }, [isExpanded]);
+  // useEffect(() => {
+  //   if (isExpanded && headerRef.current) {
+  //     // contract down to 56px and hide images
+  //     headerRef.current.style.height = "0px";
+  //     headerRef.current.style.overflow = "hidden";
+  //     headerRef.current.classList.add(styles.collapsed);
+  //   } else if (headerRef.current) {
+  //     headerRef.current.style.height = "auto";
+  //     headerRef.current.classList.remove(styles.collapsed);
+  //   }
+  // }, [isExpanded]);
 
   return (
     <section
       data-testid={testID}
+      ref={containerRef}
       id={"membership"}
       className={clsx(styles.frame, styles.cash)}
     >
-      <span ref={headerRef} className={styles.top}>
+      <span data-testid={`${testID}.header`} className={styles.top}>
         <img
           src={"/images/logo-stamp.png"}
           alt={`VIRGIN stamp logo`}
@@ -217,8 +220,26 @@ export const LandingScene = ({
         />
       </span>
 
-      <div className={styles.content}>
-        <span className={styles.navigation}>
+      <div ref={contentRef} className={styles.content}>
+        <span
+          className={styles.navigation}
+          onClick={(event) => {
+            // Determine the distance from the top of containerRef to parent container
+            const focusTop =
+              contentRef.current?.getBoundingClientRect().top || 0;
+            const containerTop =
+              containerRef.current?.getBoundingClientRect().top || 0;
+            const distance = focusTop - containerTop;
+            console.log(focusTop);
+            if (containerRef.current && distance > 0) {
+              console.log("Scrolling", distance);
+              containerRef.current.scroll({
+                top: distance,
+                behavior: "smooth",
+              });
+            }
+          }}
+        >
           <TabControl
             testID={`${testID}.tabs`}
             name={"section"}
@@ -228,14 +249,12 @@ export const LandingScene = ({
               value: tab.label,
             }))}
             onChange={(value) => {
-              setExpanded(true);
               setTabIndex(TABS.findIndex((tab) => tab.label === value));
             }}
             rounded
             dense
             outline
           />
-          <button onClick={() => setExpanded(false)}>close</button>
         </span>
 
         {renderTab(tabIndex)}
