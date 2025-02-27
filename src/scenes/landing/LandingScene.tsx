@@ -4,7 +4,7 @@ import { Button } from "@/elements";
 import { ChangeLabel } from "@/components/ChangeLabel/ChangeLabel";
 import { LineChart } from "@/components/LineChart/LineChart";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { marketPricesAtom } from "@/state/treasury/atoms";
 import { useNavigate } from "react-router";
 import { fullyDilutedValue } from "@/utils/pricing/fullyDilutedValue";
@@ -14,6 +14,7 @@ import { TabControl } from "@/elements/TabControl/TabControl";
 import clsx from "classnames";
 import { faqAtom } from "@/state/application/atoms";
 import { marketCapSelector } from "@/state/treasury/selectors";
+import { TEMP_onBoardingDisplayAtom } from "@/state/subscription/atoms";
 
 const markets = [
   {
@@ -150,13 +151,19 @@ export const MemberScene = ({
   id,
   testID = "members",
 }: Partial<Common.ComponentProps> & { id: string }) => {
+  const setIsOpen = useSetRecoilState(TEMP_onBoardingDisplayAtom);
+
   return (
     <div id={id} data-testid={testID} className={styles.section}>
       <p>
         Gain access to exclusive member benefits and giveaways when you stake
         $VIRGIN for 30 days.
       </p>
-      <Button testID={`${testID}.subscribe`} size={"small"}>
+      <Button
+        testID={`${testID}.subscribe`}
+        size={"small"}
+        onClick={() => setIsOpen(true)}
+      >
         Become a member
       </Button>
     </div>
@@ -178,9 +185,7 @@ export const LandingScene = ({
   testID = "landing",
 }: Readonly<Partial<Common.ComponentProps>>) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  // const headerRef = useRef<HTMLSpanElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [isExpanded, setExpanded] = useState(false);
   const [tabIndex, setTabIndex] = useState(0);
 
   const renderTab = useCallback(
@@ -191,23 +196,10 @@ export const LandingScene = ({
     [TABS]
   );
 
-  // useEffect(() => {
-  //   if (isExpanded && headerRef.current) {
-  //     // contract down to 56px and hide images
-  //     headerRef.current.style.height = "0px";
-  //     headerRef.current.style.overflow = "hidden";
-  //     headerRef.current.classList.add(styles.collapsed);
-  //   } else if (headerRef.current) {
-  //     headerRef.current.style.height = "auto";
-  //     headerRef.current.classList.remove(styles.collapsed);
-  //   }
-  // }, [isExpanded]);
-
   return (
     <section
       data-testid={testID}
       ref={containerRef}
-      id={"membership"}
       className={clsx(styles.frame, styles.cash)}
     >
       <span data-testid={`${testID}.header`} className={styles.top}>
@@ -228,21 +220,12 @@ export const LandingScene = ({
       <div ref={contentRef} className={styles.content}>
         <span
           className={styles.navigation}
-          onClick={(event) => {
-            // Determine the distance from the top of containerRef to parent container
-            const focusTop =
-              contentRef.current?.getBoundingClientRect().top || 0;
-            const containerTop =
-              containerRef.current?.getBoundingClientRect().top || 0;
-            const distance = focusTop - containerTop;
-            console.log(focusTop);
-            if (containerRef.current && distance > 0) {
-              console.log("Scrolling", distance);
-              containerRef.current.scroll({
-                top: distance,
-                behavior: "smooth",
-              });
-            }
+          onClick={() => {
+            // TODO: Assign the changing tab component to a ref and scroll into view each time it changes
+            contentRef.current?.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
           }}
         >
           <TabControl

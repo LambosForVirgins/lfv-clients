@@ -15,6 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default = {
   args: {
+    label: "CA",
     mint: "LFVqPrRGnwYdCwFcDzShBxN2GMFmD4AoCMrjxjq4xdz",
   },
 } satisfies Story;
