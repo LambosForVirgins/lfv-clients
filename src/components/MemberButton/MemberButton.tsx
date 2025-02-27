@@ -4,8 +4,9 @@ import clsx from "classnames";
 import { Popover } from "../Popover/Popover";
 import { useMembership } from "@/hooks/useMembership";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useRewardMint } from "@/hooks/useTokenMint";
+import { TEMP_onBoardingDisplayAtom } from "@/state/subscription/atoms";
+import { useRecoilState } from "recoil";
 
 interface MemberButtonProps extends Common.ComponentProps {
   className?: string;
@@ -24,10 +25,10 @@ const formatShortAddress = (address: string | undefined | null) => {
 
 export const MemberButton = forwardRef<HTMLButtonElement, MemberButtonProps>(
   ({ testID, ...props }, ref) => {
-    const { visible, setVisible } = useWalletModal();
     const { connect, select, wallets, connected, disconnect } = useWallet();
     const { member, publicKey } = useMembership();
     const { balance } = useRewardMint();
+    const [isOpen, setIsOpen] = useRecoilState(TEMP_onBoardingDisplayAtom);
 
     const progress = useMemo(() => {
       if (!member?.totalAmount) return 0;
@@ -48,7 +49,7 @@ export const MemberButton = forwardRef<HTMLButtonElement, MemberButtonProps>(
     const handleAction = useCallback(() => {
       switch (status) {
         case MemberWalletStatus.Disconnected:
-          setVisible(true);
+          setIsOpen(true);
           break;
         default:
           break;
@@ -62,7 +63,7 @@ export const MemberButton = forwardRef<HTMLButtonElement, MemberButtonProps>(
         ref={ref}
         data-testid={testID}
         className={clsx(props.className, styles.frame)}
-        disabled={visible}
+        // disabled={isOpen}
         onClick={handleAction}
       >
         {status === MemberWalletStatus.Connected ? (

@@ -4,6 +4,8 @@ import clsx from "classnames";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useNavigate } from "react-router";
 import { useInitializeSubscription } from "@/hooks/useInitializeSubscription";
+import { useRecoilState } from "recoil";
+import { TEMP_onBoardingDisplayAtom } from "@/state/subscription/atoms";
 
 type StepOption<T> = {
   key: string;
@@ -31,6 +33,7 @@ export const CommandPrompter: React.FC = () => {
   const scrollContainer = useRef<HTMLDivElement>(null);
   const [blockIndex, setBlockIndex] = useState(0);
   const { select, connected, wallet, wallets } = useWallet();
+  const [isOpen, setIsOpen] = useRecoilState(TEMP_onBoardingDisplayAtom);
   const { status, initialize, loading } = useInitializeSubscription();
 
   const navigate = useNavigate();
@@ -142,13 +145,17 @@ export const CommandPrompter: React.FC = () => {
   }
 
   useEffect(() => {
-    open();
+    if (isOpen) {
+      open();
+    } else {
+      close();
+    }
 
     return () => {
       // cleanupTerminal();
       close();
     };
-  }, []);
+  }, [isOpen]);
 
   useEffect(() => {
     if (status !== undefined) {
@@ -191,13 +198,15 @@ export const CommandPrompter: React.FC = () => {
   }, [wallet, connected, status, loading]);
 
   const open = () => dialogRef.current?.showModal();
-  const close = () => dialogRef.current?.close();
+  const close = () => {
+    dialogRef.current?.close();
+  };
 
   return (
     <dialog ref={dialogRef} className={styles.frame}>
       <div className={styles.header}>
         <span>LambosForVirgins.exe</span>
-        <button onClick={close}>close</button>
+        <button onClick={() => setIsOpen(false)}>close</button>
       </div>
       <div ref={scrollContainer} className={styles.window}>
         {loadingSteps.slice(0, blockIndex + 1).map((message) => (

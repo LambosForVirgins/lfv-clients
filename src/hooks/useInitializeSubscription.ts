@@ -1,4 +1,7 @@
-import { memberAccountAtom } from "@/state/subscription/atoms";
+import {
+  memberAccountAtom,
+  TEMP_onBoardingDisplayAtom,
+} from "@/state/subscription/atoms";
 import { getInitializeMemberInstruction } from "@/utils/transactions/getInitializeMemberTransaction";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import {
@@ -7,7 +10,7 @@ import {
   WalletNotConnectedError,
 } from "@solana/wallet-adapter-base";
 import { useCallback, useMemo, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { Transaction } from "@solana/web3.js";
 
 const handleSendError = (error: any): InitializeAccountError => {

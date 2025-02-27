@@ -154,7 +154,7 @@
     flex-direction: row;
     background-color: var(--white);
     border-radius: var(--size-900) var(--size-900) 0 0;
-    padding: var(--size-200);
+    padding: var(--size-300);
     overflow: hidden;
     z-index: 2;
 }
