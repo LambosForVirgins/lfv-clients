@@ -7,7 +7,7 @@
     grid-template-columns: var(--column-layout);
     grid-template-rows: min-content auto;
     justify-content: center;
-    perspective: 10px;
+
     align-items: start;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -48,27 +48,16 @@
     }
 }
 
-.banner {
-    width: 618px;
-    max-width: 100%;
-    /* grid-column: content;
-    display: flex;
-    flex-direction: column;
-    grid-gap: 1rem;
-    justify-content: space-around;
-    align-items: center; */
-}
-
 .cash {
     grid-column: full;
-    /* transform: translateZ(-20px) scale(3); */
     background-image: url('/svg/cash-midground.svg');
+    perspective: 10px;
 
     &::before {
         content: '';
         background-image: url('/svg/cash-background.svg');
         position: absolute;
-        perspective: 50px;
+        transform: translateZ(-20px) scale(3);
         inset: 0;
         z-index: -1;
     }
@@ -77,7 +66,7 @@
         content: '';
         background-image: url('/svg/cash-forground.svg');
         position: absolute;
-        perspective: 25px;
+        transform: translateZ(-10px) scale(2);
         inset: 0;
         z-index: -1;
     }
