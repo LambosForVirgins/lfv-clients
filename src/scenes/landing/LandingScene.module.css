@@ -35,6 +35,7 @@
 
     ol {
         counter-reset: orderedlist;
+        padding: var(--size-300);
 
         li {
             align-items: center;
@@ -152,7 +153,9 @@
     display: flex;
     flex-direction: row;
     background-color: var(--white);
-    padding: var(--size-100);
+    border-radius: var(--size-900) var(--size-900) 0 0;
+    padding: var(--size-200);
+    overflow: hidden;
     z-index: 2;
 }
 
@@ -164,7 +167,7 @@
     align-items: start;
     max-height: 100%;
     height: 100%;
-    padding: var(--size-400);
+    /* padding: var(--size-500); */
     transition: height 300ms;
     grid-auto-rows: min-content;
 
@@ -182,6 +185,7 @@
         min-height: 100%;
         display: grid;
         max-width: 100%;
+        padding-top: 0;
         padding: var(--size-500);
         gap: var(--size-500);
     }
