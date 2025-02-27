@@ -4,6 +4,11 @@ import { PublicKey } from "@solana/web3.js";
 import { Member, MemberTier, MemberTierValues } from "./types";
 import { REWARD_FACTOR } from "@/utils/locker/constants";
 
+export const TEMP_onBoardingDisplayAtom = atom({
+  key: "temp-onboarding-display-atom",
+  default: false,
+});
+
 export const memberAccountAtom = atomFamily<Member | null, PublicKey | null>({
   key: "member-account-atom",
   effects: (param) => [effectMemberAccountSubscription(param)],
