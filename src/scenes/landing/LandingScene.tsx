@@ -46,6 +46,13 @@ export const PurchaseSection = ({
     return { amount, percentage };
   }, [dataPoints.length]);
 
+  const navigateTo = useCallback(
+    (href: string) => () => {
+      window.location.replace(href);
+    },
+    []
+  );
+
   return (
     <div id={id} data-testid={testID} className={styles.section}>
       <span className={styles.header}>
@@ -86,9 +93,7 @@ export const PurchaseSection = ({
           <Button
             key={market.key}
             testID={`${testID}.market`}
-            onClick={() => {
-              window.location.replace(market.href);
-            }}
+            onClick={navigateTo(market.href)}
           >
             {market.label}
           </Button>
