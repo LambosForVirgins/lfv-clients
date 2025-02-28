@@ -2,7 +2,7 @@ import { ConfirmationSlider } from "./ConfirmationSlider";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
-  title: "Elements/ConfirmationSlider",
+  title: "Giveaways/ConfirmationSlider",
   component: ConfirmationSlider,
   args: {
     testID: "confirmation-slider",
