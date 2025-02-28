@@ -1,14 +1,14 @@
 export enum MemberTierValues {
-  Pending = 1,
-  Virgin = 3000,
+  Virgin = 1,
+  Baby = 3000,
   Super = 100_000,
   Mega = 2_000_000,
   Giga = 5_000_000,
 }
 
 export enum MemberTier {
-  Pending = 0,
-  Virgin,
+  Virgin = 0,
+  BabyChad,
   SuperChad,
   MegaChad,
   GigaChad,
