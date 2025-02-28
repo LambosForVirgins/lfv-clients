@@ -1,9 +1,8 @@
-import { CircularProgress } from "@/components/CircularIndicator/CircularIndicator";
 import styles from "./TreasuryScene.module.css";
 import { VestingAccount } from "@/components/VestingAccount/VestingAccount";
 import { vestedAccountsAtom } from "@/state/treasury/atoms";
 
-import { Routes as Switch, Route as Page, NavLink } from "react-router";
+import { NavLink } from "react-router";
 import { useRecoilValue } from "recoil";
 import {
   marketCapSelector,
@@ -16,19 +15,8 @@ import { prettyAddress } from "@/utils/string/prettyAddress";
 import clsx from "classnames";
 import { MAXIMUM_SUPPLY, TOTAL_SUPPLY } from "@/utils/locker/constants";
 import { fullyDilutedValue } from "@/utils/pricing/fullyDilutedValue";
-
-const markets = [
-  {
-    market: "Raydium",
-    label: "Raydium",
-    url: "https://raydium.io/swap/?outputCurrency=7kB8ZkSBJr2uiBWfveqkVBN7EpZMFom5PqeWUB62DCRD&inputMint=sol&outputMint=4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
-  },
-  {
-    market: "Jupiter",
-    label: "Jupiter",
-    url: "https://jup.ag/tokens/7kB8ZkSBJr2uiBWfveqkVBN7EpZMFom5PqeWUB62DCRD",
-  },
-];
+import { AccountAllocation } from "@/components/AccountAllocation/AccountAllocation";
+import { TreasuryDepartment } from "@/state/treasury/types";
 
 export const TreasuryScene = ({
   testID = "treasury",
@@ -64,44 +52,32 @@ export const TreasuryScene = ({
           </li>
         ))}
       </ul>
-      <VestingAccount
-        testID={`${testID}.vesting`}
-        publicKey={"M1TsVPdju4sdtFZGmpyCk9BHRLAoPqJUHMLbRpQCstV"}
-      />
+      <VestingAccount testID={`${testID}.vesting`} />
       <div>
         <h2>Tokenomics</h2>
-
-        {allocation.map((group) => (
-          <span
-            key={group.label}
-            data-testid={`${testID}.fund`}
-            className={styles.portion}
-          >
-            <CircularProgress
-              testID={`${testID}.progress`}
-              percentage={group.portion}
-              label={`${Math.ceil(group.portion * 1000) / 10}%`}
+        {allocation.map((group) =>
+          group.department === TreasuryDepartment.Founders ? (
+            <AccountAllocation
+              key={group.label}
+              testID={`${testID}.fund`}
+              name={group.name}
+              marketCap={marketCap}
+              portion={group.portion}
+              remainingPortion={group.remainingPortion}
             />
-            <span className={styles.details}>
-              <h3>{group.name}</h3>
-              {group.portion != group.remainingPortion && (
-                <small style={{ textDecoration: "line-through" }}>
-                  Initial balance $
-                  {Math.floor(marketCap * group.portion).toLocaleString()} USD
-                </small>
-              )}
-              <h2>
-                $
-                {Math.floor(
-                  marketCap * group.remainingPortion
-                ).toLocaleString()}{" "}
-                USD
-              </h2>
-              {group.description && <p>{group.description}</p>}
-            </span>
-          </span>
-        ))}
-
+          ) : (
+            <AccountAllocation
+              key={group.label}
+              testID={`${testID}.fund`}
+              name={group.name}
+              marketCap={marketCap}
+              portion={group.portion}
+              remainingPortion={group.remainingPortion}
+            />
+          )
+        )}
+      </div>
+      <div>
         <span className={styles.portion}>
           <h2>{Math.floor(totalAllocation * 10000) / 100}% Allocated</h2>
           <h2>{(1).toLocaleString()}B Tokens</h2>
@@ -137,19 +113,6 @@ export const TreasuryScene = ({
             ).toLocaleString()}{" "}
             USD
           </p>
-        </span>
-
-        <span>
-          <h2>Markets</h2>
-          <ul>
-            {markets.map(({ market, label, url }) => (
-              <li key={market}>
-                <a href={url} target="_blank" rel="noopener noreferrer">
-                  {label}
-                </a>
-              </li>
-            ))}
-          </ul>
         </span>
       </div>
     </section>

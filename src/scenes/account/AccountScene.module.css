@@ -2,7 +2,8 @@
     grid-column: content;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--size-300);
+    padding: var(--size-500) 0;
 
     strong {
         font-size: var(--size-600);

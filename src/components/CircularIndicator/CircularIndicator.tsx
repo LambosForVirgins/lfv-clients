@@ -44,6 +44,7 @@ export const CircularProgress = ({
           cx={size / 2}
           cy={size / 2}
           style={{
+            // transform: "rotate(-90deg)",
             transition: "stroke-dashoffset 0.5s ease",
           }}
         />

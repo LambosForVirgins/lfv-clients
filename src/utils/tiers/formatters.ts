@@ -2,9 +2,9 @@ import { MemberStatus, MemberTier } from "@/state/subscription/types";
 
 export const tierToString = (tier: MemberTier | undefined | null) => {
   switch (tier) {
-    case MemberTier.Pending:
-      return "Virgin";
     case MemberTier.Virgin:
+      return "Virgin";
+    case MemberTier.BabyChad:
       return "BabyChad";
     case MemberTier.SuperChad:
       return "SuperChad";
@@ -20,7 +20,7 @@ export const tierToString = (tier: MemberTier | undefined | null) => {
 export const numberToTier = (key: number | null | undefined): MemberTier => {
   switch (key) {
     case 1:
-      return MemberTier.Virgin;
+      return MemberTier.BabyChad;
     case 2:
       return MemberTier.SuperChad;
     case 3:
@@ -28,7 +28,7 @@ export const numberToTier = (key: number | null | undefined): MemberTier => {
     case 4:
       return MemberTier.GigaChad;
     default:
-      return MemberTier.Pending;
+      return MemberTier.Virgin;
   }
 };
 

@@ -1,0 +1,15 @@
+.frame {
+    display: grid;
+    grid-template-columns: max(32px, 96px) 1fr;
+    gap: var(--size-500);
+
+    small {
+        text-decoration: line-through;
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}

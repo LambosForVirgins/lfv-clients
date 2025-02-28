@@ -14,8 +14,8 @@ import { TransactionItem } from "@/components/TransactionItem/TransactionItem";
 import { useWithdrawTokens } from "@/hooks/useWithdrawTokens";
 import { SubscriptionScene } from "../subscription/SubscriptionScene";
 import { format } from "date-fns/format";
-import { useRewardMint, useTokenMint } from "@/hooks/useTokenMint";
 import { Overview } from "@/components/Overview/Overview";
+import { overviewItemsAtom } from "@/state/account/selectors";
 
 export const AccountScene = ({
   testID = "account",
@@ -24,8 +24,7 @@ export const AccountScene = ({
   const { claim, pending } = useClaimRewards();
   const { updateStatus } = useUpdateStatus();
   const { member, publicKey, transactions } = useMembership();
-  const { balance: tokenBalance = 0 } = useTokenMint();
-  const { balance: rewardBalance = 0 } = useRewardMint();
+  const overviewItems = useRecoilValue(overviewItemsAtom(publicKey));
 
   const { withdrawTokens } = useWithdrawTokens();
 
@@ -55,35 +54,7 @@ export const AccountScene = ({
       </div>
 
       <h2>Overview</h2>
-      <Overview
-        testID={`${testID}.overview`}
-        items={[
-          {
-            key: "total",
-            media: { src: "./images/lfv.png" },
-            value: (member?.totalAmount || 0) + tokenBalance,
-            label: "Total Virgin",
-          },
-          {
-            key: "reward",
-            media: { src: "./svg/coin.svg" },
-            value: rewardBalance,
-            label: "Entries",
-          },
-          {
-            key: "ticket",
-            media: { src: "./svg/present.svg" },
-            value: 0,
-            label: "Tickets",
-          },
-          {
-            key: "streak",
-            media: { src: "./svg/lightning.svg" },
-            value: 0,
-            label: "Streak",
-          },
-        ]}
-      />
+      <Overview testID={`${testID}.overview`} items={overviewItems} />
 
       <h2>Staking timeline</h2>
       <p>
