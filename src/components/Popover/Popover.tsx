@@ -2,7 +2,6 @@ import styles from "./Popover.module.css";
 import { NavLink } from "react-router";
 import React, { useRef } from "react";
 import { useDevToggles } from "@/state/application/useDevToggles";
-import { useWallet } from "@solana/wallet-adapter-react";
 import { useRecoilValue } from "recoil";
 import { outstandingRewardEpochsSelector } from "@/state/subscription/selectors";
 
@@ -14,10 +13,7 @@ interface PopoverProps extends Common.ComponentProps {
 export const Popover = ({ testID, ...props }: PopoverProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const { isEnabled } = useDevToggles();
-  const { publicKey } = useWallet();
-  const outstanding = useRecoilValue(
-    outstandingRewardEpochsSelector(publicKey)
-  );
+  const outstanding = useRecoilValue(outstandingRewardEpochsSelector);
 
   const dismissPopover: React.MouseEventHandler<HTMLElement> = () => {
     if (!dialogRef.current) return;

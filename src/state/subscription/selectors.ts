@@ -1,63 +1,51 @@
-import { selectorFamily } from "recoil";
+import { selector } from "recoil";
 import { memberAccountAtom } from "./atoms";
-import { PublicKey } from "@solana/web3.js";
 import { EPOCH_DURATION, REWARD_FACTOR } from "@/utils/locker/constants";
 import { differenceInMilliseconds } from "date-fns/differenceInMilliseconds";
 import { Transaction } from "./types";
+import { publicKeyAtom } from "../account/atoms";
 
-export const memberAuthorizedSelector = selectorFamily<
-  boolean,
-  PublicKey | null
->({
+export const memberAuthorizedSelector = selector<boolean>({
   key: "member-authorized-selector",
-  get:
-    (publicKey) =>
-    ({ get }) => {
-      const member = get(memberAccountAtom(publicKey));
-      return !!member;
-    },
+  get: ({ get }) => {
+    const publicKey = get(publicKeyAtom);
+    const member = get(memberAccountAtom(publicKey));
+    return !!member;
+  },
 });
 
-export const outstandingRewardEpochsSelector = selectorFamily<
-  number,
-  PublicKey | null
->({
+export const outstandingRewardEpochsSelector = selector<number>({
   key: "outstanding-reward-epochs-selector",
-  get:
-    (publicKey) =>
-    ({ get }) => {
-      const member = get(memberAccountAtom(publicKey));
+  get: ({ get }) => {
+    const publicKey = get(publicKeyAtom);
+    const member = get(memberAccountAtom(publicKey));
 
-      if (member?.timeRewarded) {
-        const timeDifference = differenceInMilliseconds(
-          Date.now(),
-          member.timeRewarded
-        );
-        return Math.floor(timeDifference / EPOCH_DURATION);
-      }
+    if (member?.timeRewarded) {
+      const timeDifference = differenceInMilliseconds(
+        Date.now(),
+        member.timeRewarded
+      );
+      return Math.floor(timeDifference / EPOCH_DURATION);
+    }
 
-      return 0;
-    },
+    return 0;
+  },
 });
 
-export const outstandingRewardsSelector = selectorFamily<
-  number,
-  PublicKey | null
->({
+export const outstandingRewardsSelector = selector<number>({
   key: "outstanding-rewards-selector",
-  get:
-    (publicKey) =>
-    ({ get }) => {
-      const member = get(memberAccountAtom(publicKey));
-      const outstandingEpochs = get(outstandingRewardEpochsSelector(publicKey));
+  get: ({ get }) => {
+    const publicKey = get(publicKeyAtom);
+    const member = get(memberAccountAtom(publicKey));
+    const outstandingEpochs = get(outstandingRewardEpochsSelector);
 
-      if (!member) return 0;
+    if (!member) return 0;
 
-      return (
-        (outstandingEpochs * member.totalMatured) / REWARD_FACTOR +
-        member.totalRewards
-      );
-    },
+    return (
+      (outstandingEpochs * member.totalMatured) / REWARD_FACTOR +
+      member.totalRewards
+    );
+  },
 });
 
 type TransactionGroup = Record<string, Transaction[]>;
@@ -70,25 +58,21 @@ const getTransactionGroupKey = (transaction: Transaction): string => {
   return transaction.timeReleased.toISOString().slice(0, 10);
 };
 
-export const pendingSlotsSelector = selectorFamily<
-  TransactionGroup,
-  PublicKey | null
->({
+export const pendingSlotsSelector = selector<TransactionGroup>({
   key: "pending-slots-selector",
-  get:
-    (publicKey) =>
-    ({ get }) => {
-      const member = get(memberAccountAtom(publicKey));
+  get: ({ get }) => {
+    const publicKey = get(publicKeyAtom);
+    const member = get(memberAccountAtom(publicKey));
 
-      if (!member) return {};
+    if (!member) return {};
 
-      return member.slots.reduce<TransactionGroup>((groups, slot) => {
-        const key = getTransactionGroupKey(slot);
+    return member.slots.reduce<TransactionGroup>((groups, slot) => {
+      const key = getTransactionGroupKey(slot);
 
-        if (!groups[key]) groups[key] = [];
-        groups[key].push(slot);
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(slot);
 
-        return groups;
-      }, {});
-    },
+      return groups;
+    }, {});
+  },
 });

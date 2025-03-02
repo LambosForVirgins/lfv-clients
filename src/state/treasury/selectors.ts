@@ -1,4 +1,4 @@
-import { selector, selectorFamily } from "recoil";
+import { selector } from "recoil";
 import { TreasuryHolding, TreasuryWalletGroup, VestingAccount } from "./types";
 import {
   marketPricesAtom,
@@ -9,44 +9,37 @@ import {
 } from "./atoms";
 import { mergeAndSortSchedules } from "./utils";
 import { fullyDilutedValue } from "@/utils/pricing/fullyDilutedValue";
+import { publicKeyAtom } from "../account/atoms";
 
-const vestingAccountCollectionSelector = selectorFamily<
-  string[],
-  string | undefined
->({
+const vestingAccountCollectionSelector = selector<string[]>({
   key: "vesting-account-collection-selector",
-  get:
-    (publicKey) =>
-    ({ get }) => {
-      if (!publicKey) return [];
+  get: ({ get }) => {
+    const publicKey = get(publicKeyAtom);
+    if (!publicKey) return [];
 
-      return get(vestedAccountsAtom)[publicKey] || [];
-    },
+    return get(vestedAccountsAtom)[publicKey.toBase58()] || [];
+  },
 });
 
-export const vestingAccountSelector = selectorFamily<
-  VestingAccount | null,
-  string | undefined
->({
+export const vestingAccountSelector = selector<VestingAccount | null>({
   key: "vesting-account-selector",
-  get:
-    (publicKey) =>
-    async ({ get }) => {
-      if (!publicKey) return null;
+  get: async ({ get }) => {
+    const publicKey = get(publicKeyAtom);
+    if (!publicKey) return null;
 
-      const collection = get(vestingAccountCollectionSelector(publicKey));
+    const collection = get(vestingAccountCollectionSelector);
 
-      return collection.reduce<VestingAccount | null>((account, publicKey) => {
-        // Loads the current account from atom memory or fetches
-        const data = get(vestingAccountAtom(publicKey));
-        if (!data) return account;
+    return collection.reduce<VestingAccount | null>((account, publicKey) => {
+      // Loads the current account from atom memory or fetches
+      const data = get(vestingAccountAtom(publicKey));
+      if (!data) return account;
 
-        return {
-          ...data,
-          schedules: mergeAndSortSchedules(account?.schedules, data.schedules),
-        };
-      }, null);
-    },
+      return {
+        ...data,
+        schedules: mergeAndSortSchedules(account?.schedules, data.schedules),
+      };
+    }, null);
+  },
 });
 
 export const tokenGroupSelector = selector<TreasuryWalletGroup[]>({

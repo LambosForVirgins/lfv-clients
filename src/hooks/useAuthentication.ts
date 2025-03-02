@@ -4,9 +4,9 @@ import { useMemo } from "react";
 import { useRecoilValue } from "recoil";
 
 export const useAuthentication = () => {
-  const { connected, publicKey } = useWallet();
+  const { connected } = useWallet();
 
-  const isAuthorized = useRecoilValue(memberAuthorizedSelector(publicKey));
+  const isAuthorized = useRecoilValue(memberAuthorizedSelector);
 
   const authenticated = useMemo(() => {
     return connected && !!isAuthorized;

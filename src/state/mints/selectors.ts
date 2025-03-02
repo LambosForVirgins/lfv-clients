@@ -1,22 +1,21 @@
-import { selectorFamily } from "recoil";
+import { selector } from "recoil";
 import { mintAccountAtom } from "./atoms";
-import { PublicKey } from "@solana/web3.js";
 import { MINT } from "@/utils/locker/constants";
 import { memberAccountAtom } from "../subscription/atoms";
+import { publicKeyAtom } from "../account/atoms";
 
-export const totalTokenBalanceSelector = selectorFamily<
-  number,
-  PublicKey | null
->({
+export const totalTokenBalanceSelector = selector<number>({
   key: "total-token-balance-selector",
-  get:
-    (publicKey) =>
-    ({ get }) => {
-      if (!publicKey) return 0;
+  get: ({ get }) => {
+    const publicKey = get(publicKeyAtom);
 
-      const balance = get(mintAccountAtom({ mint: MINT, owner: publicKey }));
+    if (publicKey) {
+      const tokenMint = get(mintAccountAtom({ mint: MINT, owner: publicKey }));
       const member = get(memberAccountAtom(publicKey));
 
-      return (balance || 0) + (member?.totalAmount || 0);
-    },
+      return tokenMint.amount + (member?.totalAmount || 0);
+    }
+
+    return 0;
+  },
 });

@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 
 export const useMembership = () => {
   const { publicKey } = useWallet();
-  const transactions = useRecoilValue(pendingSlotsSelector(publicKey));
+  const transactions = useRecoilValue(pendingSlotsSelector);
   const memberState = useRecoilValue(memberAccountAtom(publicKey));
 
   return {

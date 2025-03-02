@@ -13,6 +13,10 @@ import { PromotionalScene } from "@/scenes/promos/PromotionalScene";
 import { ProductScene } from "@/scenes/product/ProductScene";
 import * as Sentry from "@sentry/react";
 import { AboutScene } from "@/scenes/about/AboutScene";
+import { useSetRecoilState } from "recoil";
+import { publicKeyAtom } from "@/state/account/atoms";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useEffect } from "react";
 
 const SentryRoutes = Sentry.withSentryReactRouterV7Routing(Routes);
 
@@ -46,34 +50,46 @@ const SentryRoutes = Sentry.withSentryReactRouterV7Routing(Routes);
 //   };
 // }
 
-export const App = () => (
-  <Router>
-    <Layout testID={"layout"}>
-      <SentryRoutes>
-        <Page
-          path={"giveaways"}
-          Component={withAuthenticated(GiveawaysScene)}
-        />
-        <Page
-          path={"subscription"}
-          Component={withAuthenticated(SubscriptionScene)}
-        />
-        <Page path={"account"} Component={withAuthenticated(AccountScene)} />
-        <Page
-          path={"giveaways/:giveawayId"}
-          Component={withAuthenticated(PromotionalScene)}
-        />
-        <Page path={"events"} Component={withAuthenticated(EventsScene)} />
-        <Page path={"partners"} Component={withAuthenticated(PartnersScene)} />
-        <Page path={"store"} Component={withAuthenticated(StoreScene)} />
-        <Page
-          path={"store/:product"}
-          Component={withAuthenticated(ProductScene)}
-        />
-        <Page path={"about"} Component={AboutScene} />
-        <Page path={"tokenomics/*"} Component={TreasuryScene} />
-        <Page Component={LandingScene} index />
-      </SentryRoutes>
-    </Layout>
-  </Router>
-);
+export const App = () => {
+  const { publicKey } = useWallet();
+  const setPublicKey = useSetRecoilState(publicKeyAtom);
+
+  useEffect(() => {
+    setPublicKey(publicKey);
+  }, [publicKey?.toBase58()]);
+
+  return (
+    <Router>
+      <Layout testID={"layout"}>
+        <SentryRoutes>
+          <Page
+            path={"giveaways"}
+            Component={withAuthenticated(GiveawaysScene)}
+          />
+          <Page
+            path={"subscription"}
+            Component={withAuthenticated(SubscriptionScene)}
+          />
+          <Page path={"account"} Component={withAuthenticated(AccountScene)} />
+          <Page
+            path={"giveaways/:giveawayId"}
+            Component={withAuthenticated(PromotionalScene)}
+          />
+          <Page path={"events"} Component={withAuthenticated(EventsScene)} />
+          <Page
+            path={"partners"}
+            Component={withAuthenticated(PartnersScene)}
+          />
+          <Page path={"store"} Component={withAuthenticated(StoreScene)} />
+          <Page
+            path={"store/:product"}
+            Component={withAuthenticated(ProductScene)}
+          />
+          <Page path={"about"} Component={AboutScene} />
+          <Page path={"tokenomics/*"} Component={TreasuryScene} />
+          <Page Component={LandingScene} index />
+        </SentryRoutes>
+      </Layout>
+    </Router>
+  );
+};

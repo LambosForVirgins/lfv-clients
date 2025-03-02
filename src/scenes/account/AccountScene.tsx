@@ -23,14 +23,12 @@ export const AccountScene = ({
   const { isEnabled, someEnabled } = useDevToggles();
   const { claim, pending } = useClaimRewards();
   const { updateStatus } = useUpdateStatus();
-  const { member, publicKey, transactions } = useMembership();
-  const overviewItems = useRecoilValue(overviewItemsAtom(publicKey));
+  const { member, transactions } = useMembership();
+  const overviewItems = useRecoilValue(overviewItemsAtom);
 
   const { withdrawTokens } = useWithdrawTokens();
 
-  const outstandingRewards = useRecoilValue(
-    outstandingRewardsSelector(publicKey)
-  );
+  const outstandingRewards = useRecoilValue(outstandingRewardsSelector);
 
   const selfExcludeMember = () => {
     updateStatus(MemberStatus.Excluded);

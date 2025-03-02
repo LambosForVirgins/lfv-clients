@@ -1,9 +1,9 @@
-import { selectorFamily } from "recoil";
+import { selector } from "recoil";
 import { memberAccountAtom } from "../subscription/atoms";
-import { PublicKey } from "@solana/web3.js";
 import { mintAccountAtom } from "../mints/atoms";
 import { MINT } from "@/utils/locker/constants";
 import { findRewardTokenMint } from "@/utils/locker";
+import { publicKeyAtom } from "./atoms";
 
 type OverviewItem = {
   key: string;
@@ -12,66 +12,82 @@ type OverviewItem = {
   label: string;
 };
 
-export const overviewItemsAtom = selectorFamily<
-  OverviewItem[],
-  PublicKey | null
->({
+export const overviewItemsAtom = selector<OverviewItem[]>({
   key: "overview-items-atom",
-  get:
-    (publicKey) =>
-    ({ get }) => {
-      if (!publicKey) return [];
+  get: ({ get }) => {
+    const publicKey = get(publicKeyAtom);
 
-      const items: OverviewItem[] = [];
-      const member = get(memberAccountAtom(publicKey));
-      const tokenMint = get(mintAccountAtom({ mint: MINT, owner: publicKey }));
-      const rewardMint = get(
-        mintAccountAtom({
-          mint: findRewardTokenMint(),
-          owner: publicKey,
-          decimals: 4,
-        })
-      );
+    if (!publicKey) return [];
 
-      if (member) {
-        items.push({
-          key: "total",
-          media: { src: "./images/lfv.png" },
-          value: member.totalAmount + tokenMint.amount,
-          label: "Total Virgin",
-        });
+    const items: OverviewItem[] = [];
+    const member = get(memberAccountAtom(publicKey));
+    const tokenMint = get(mintAccountAtom({ mint: MINT, owner: publicKey }));
+    const rewardMint = get(
+      mintAccountAtom({
+        mint: findRewardTokenMint(),
+        owner: publicKey,
+        decimals: 4,
+      })
+    );
+
+    if (member) {
+      items.push({
+        key: "total",
+        media: { src: "./images/lfv.png" },
+        value: member.totalAmount + tokenMint.amount,
+        label: "Total Virgin",
+      });
+    }
+
+    if (member?.totalMatured && member.totalMatured > 0) {
+      items.push({
+        key: "matured",
+        media: { src: "./images/lfv.png" },
+        value: member.totalMatured,
+        label: "Matured Virgin",
+      });
+    }
+
+    if (member?.totalReleased && member.totalReleased > 0) {
+      items.push({
+        key: "released",
+        media: { src: "./images/lfv.png" },
+        value: member.totalReleased,
+        label: "Pending withdrawal",
+      });
+    }
+
+    items.push({
+      key: "reward",
+      media: { src: "./svg/coin.svg" },
+      value: rewardMint.amount,
+      label: "Entries",
+    });
+
+    if (member?.totalRewards && member.totalRewards > 0) {
+      items.push({
+        key: "claim",
+        media: { src: "./svg/coin.svg" },
+        value: member.totalRewards,
+        label: "Unclaimed rewards",
+      });
+    }
+
+    items.push(
+      {
+        key: "ticket",
+        media: { src: "./svg/present.svg" },
+        value: 0,
+        label: "Tickets",
       }
+      // {
+      //   key: "streak",
+      //   media: { src: "./svg/lightning.svg" },
+      //   value: 0,
+      //   label: "Streak",
+      // }
+    );
 
-      if (member?.totalMatured && member.totalMatured > 0) {
-        items.push({
-          key: "matured",
-          media: { src: "./images/lfv.png" },
-          value: member.totalMatured,
-          label: "Matured Virgin",
-        });
-      }
-
-      items.push(
-        {
-          key: "reward",
-          media: { src: "./svg/coin.svg" },
-          value: rewardMint.amount,
-          label: "Entries",
-        },
-        {
-          key: "ticket",
-          media: { src: "./svg/present.svg" },
-          value: 0,
-          label: "Tickets",
-        },
-        {
-          key: "streak",
-          media: { src: "./svg/lightning.svg" },
-          value: 0,
-          label: "Streak",
-        }
-      );
-
-      return items;
-    },
+    return items;
+  },
 });

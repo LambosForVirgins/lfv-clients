@@ -5,7 +5,6 @@ import styles from "./Header.module.css";
 
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import { useClaimRewards } from "@/hooks/useClaimRewards";
 import { useRecoilValue } from "recoil";
 import { outstandingRewardsSelector } from "@/state/subscription/selectors";
 import { useWallet } from "@solana/wallet-adapter-react";
@@ -34,9 +33,7 @@ export const Header = ({ testID, ...props }: HeaderProps) => {
   const navigateToPath = (path: string) => () => navigate(path);
 
   const { publicKey } = useWallet();
-  const outstandingRewards = useRecoilValue(
-    outstandingRewardsSelector(publicKey)
-  );
+  const outstandingRewards = useRecoilValue(outstandingRewardsSelector);
 
   const shouldDisplay = (key: string) => {
     switch (key) {
