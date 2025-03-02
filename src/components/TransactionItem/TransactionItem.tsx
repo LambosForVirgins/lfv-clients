@@ -5,7 +5,6 @@ import { useEffect, useMemo, useState } from "react";
 import { useCountdown } from "@/hooks/useCountdown";
 import { CircularProgress } from "../CircularIndicator/CircularIndicator";
 import { REWARD_FACTOR } from "@/utils/locker/constants";
-import clsx from "classnames";
 
 interface TransactionItemProps extends Common.ComponentProps {
   amount: number;
