@@ -9,7 +9,7 @@ import { findRewardTokenMint } from "@/utils/locker";
 export const useTokenMint = () => {
   const { publicKey } = useWallet();
   const [pending, setPending] = useState(false);
-  const balance = useRecoilValue(
+  const { amount: balance, isInitialized } = useRecoilValue(
     mintAccountAtom({ mint: MINT, owner: publicKey })
   );
 
@@ -30,7 +30,7 @@ export const useTokenMint = () => {
   }, [balance, pending]);
 
   return {
-    exists: balance !== null,
+    isInitialized,
     balance,
     pending,
     requestTokens,
@@ -41,7 +41,7 @@ export const useRewardMint = () => {
   const mint = findRewardTokenMint();
   const { publicKey } = useWallet();
   const [pending, setPending] = useState(false);
-  const balance = useRecoilValue(
+  const { amount: balance, isInitialized } = useRecoilValue(
     mintAccountAtom({ mint, owner: publicKey, decimals: 4 })
   );
 
@@ -62,7 +62,7 @@ export const useRewardMint = () => {
   }, [balance, pending]);
 
   return {
-    exists: balance !== null,
+    isInitialized,
     balance,
     pending,
     requestTokens,
