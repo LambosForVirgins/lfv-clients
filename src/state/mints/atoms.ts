@@ -1,15 +1,23 @@
 import { atomFamily } from "recoil";
 import { effectMintAccountAtom } from "./effects";
-import { PublicKey } from "@solana/web3.js";
 import { DECIMALS } from "@/utils/locker/constants";
+import { type TokenMint } from "./types";
+import { PublicKey } from "@solana/web3.js";
 
-export const mintAccountAtom = atomFamily<
-  number | undefined,
-  { mint: PublicKey; owner: PublicKey | null; decimals?: number }
->({
+type MintAccountParams = {
+  mint: PublicKey;
+  owner: PublicKey | null;
+  decimals?: number;
+};
+
+export const mintAccountAtom = atomFamily<TokenMint, MintAccountParams>({
   key: "mint-holding-atom",
   effects: ({ mint, owner, decimals = DECIMALS }) => [
     effectMintAccountAtom(mint, owner, decimals),
   ],
-  default: undefined,
+  default: ({ mint }) => ({
+    mint,
+    amount: 0,
+    isInitialized: false,
+  }),
 });
