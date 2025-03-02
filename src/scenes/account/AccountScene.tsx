@@ -58,7 +58,7 @@ export const AccountScene = ({
 
       <h2>Staking timeline</h2>
       <p>
-        {`Tokens are required to complete the subscription cycle of ${formatDistanceToNowStrict(Date.now() + EPOCH_DURATION)} in order to honour the benefits and rewards granted on them. This cooling period requires that token deposits must mature before they
+        {`Tokens are required to complete the subscription cycle of ${formatDistanceToNowStrict(Date.now() + EPOCH_DURATION)} in order to honour the benefits and rewards granted to them. This cooling period requires that token deposits must mature before they
         are eligible for withdrawal, where they must complete the cycle before
         release.`}
       </p>

@@ -22,6 +22,7 @@ export const overviewItemsAtom = selectorFamily<
     ({ get }) => {
       if (!publicKey) return [];
 
+      const items: OverviewItem[] = [];
       const member = get(memberAccountAtom(publicKey));
       const tokenMint = get(mintAccountAtom({ mint: MINT, owner: publicKey }));
       const rewardMint = get(
@@ -32,15 +33,25 @@ export const overviewItemsAtom = selectorFamily<
         })
       );
 
-      if (!member) return [];
-
-      return [
-        {
+      if (member) {
+        items.push({
           key: "total",
           media: { src: "./images/lfv.png" },
           value: member.totalAmount + tokenMint.amount,
           label: "Total Virgin",
-        },
+        });
+      }
+
+      if (member?.totalMatured && member.totalMatured > 0) {
+        items.push({
+          key: "matured",
+          media: { src: "./images/lfv.png" },
+          value: member.totalMatured,
+          label: "Matured Virgin",
+        });
+      }
+
+      items.push(
         {
           key: "reward",
           media: { src: "./svg/coin.svg" },
@@ -58,7 +69,9 @@ export const overviewItemsAtom = selectorFamily<
           media: { src: "./svg/lightning.svg" },
           value: 0,
           label: "Streak",
-        },
-      ];
+        }
+      );
+
+      return items;
     },
 });
