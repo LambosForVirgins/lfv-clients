@@ -22,14 +22,15 @@ export const overviewItemsAtom = selectorFamily<
     ({ get }) => {
       if (!publicKey) return [];
 
-      const rewardMint = findRewardTokenMint();
       const member = get(memberAccountAtom(publicKey));
-      const tokenBalance =
-        get(mintAccountAtom({ mint: MINT, owner: publicKey })) || 0;
-      const rewardBalance =
-        get(
-          mintAccountAtom({ mint: rewardMint, owner: publicKey, decimals: 4 })
-        ) || 0;
+      const tokenMint = get(mintAccountAtom({ mint: MINT, owner: publicKey }));
+      const rewardMint = get(
+        mintAccountAtom({
+          mint: findRewardTokenMint(),
+          owner: publicKey,
+          decimals: 4,
+        })
+      );
 
       if (!member) return [];
 
@@ -37,13 +38,13 @@ export const overviewItemsAtom = selectorFamily<
         {
           key: "total",
           media: { src: "./images/lfv.png" },
-          value: member.totalAmount + tokenBalance,
+          value: member.totalAmount + tokenMint.amount,
           label: "Total Virgin",
         },
         {
           key: "reward",
           media: { src: "./svg/coin.svg" },
-          value: rewardBalance,
+          value: rewardMint.amount,
           label: "Entries",
         },
         {

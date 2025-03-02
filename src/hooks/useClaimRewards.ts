@@ -9,7 +9,7 @@ export const useClaimRewards = () => {
   const { connection } = useConnection();
   const [pending, setPending] = useState(false);
   const { publicKey, sendTransaction } = useWallet();
-  const { exists } = useRewardMint();
+  const { isInitialized } = useRewardMint();
 
   const claim = useCallback(async () => {
     if (!publicKey || pending) return;
@@ -19,7 +19,7 @@ export const useClaimRewards = () => {
     try {
       const transaction = new Transaction();
 
-      if (!exists) {
+      if (!isInitialized) {
         transaction.add(getInitializeRewardsInstruction(publicKey));
       }
 

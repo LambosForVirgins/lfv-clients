@@ -6,13 +6,14 @@ import {
   getAccount,
   AccountLayout,
 } from "@solana/spl-token";
+import { TokenMint } from "./types";
 
 export const effectMintAccountAtom =
   (
     mint: PublicKey,
     publicKey: PublicKey | null,
     decimals: number
-  ): AtomEffect<number | undefined> =>
+  ): AtomEffect<TokenMint> =>
   ({ trigger, setSelf }) => {
     if (!publicKey) return;
 
@@ -27,10 +28,18 @@ export const effectMintAccountAtom =
     if (trigger === "get") {
       getAccount(connection, associatedTokenAccount, "confirmed")
         .then((data) => {
-          setSelf(Math.floor(Number(data.amount) / Math.pow(10, decimals)));
+          setSelf({
+            mint,
+            amount: Math.floor(Number(data.amount) / Math.pow(10, decimals)),
+            isInitialized: true,
+          });
         })
         .catch((error) => {
-          setSelf(undefined);
+          setSelf({
+            mint,
+            amount: 0,
+            isInitialized: false,
+          });
           console.error(
             `Error fetching token account "${associatedTokenAccount.toBase58()}"`,
             error
@@ -42,11 +51,19 @@ export const effectMintAccountAtom =
         (info) => {
           try {
             const accountData = AccountLayout.decode(info.data);
-            setSelf(
-              Math.round(Number(accountData.amount) / Math.pow(10, decimals))
-            );
+            setSelf({
+              mint,
+              amount: Math.round(
+                Number(accountData.amount) / Math.pow(10, decimals)
+              ),
+              isInitialized: true,
+            });
           } catch (error) {
-            setSelf(undefined);
+            setSelf({
+              mint,
+              amount: 0,
+              isInitialized: false,
+            });
             console.error(
               `Error decoding token account "${associatedTokenAccount.toBase58()}"`,
               error
