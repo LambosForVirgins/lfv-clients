@@ -15,8 +15,8 @@
 
     &:has(input:disabled) {
         cursor: not-allowed;
-        border: 2px dashed #e8e391;
-        background-color: #FFFBB3;
+        border: 2px dashed var(--yellow-600);
+        background-color: var(--yellow-700);
     }
 
     input {

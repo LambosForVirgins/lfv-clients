@@ -10,12 +10,15 @@ import { useUpdateStatus } from "@/hooks/useUpdateStatus";
 import { MemberStatus } from "@/state/subscription/types";
 import { EPOCH_DURATION } from "@/utils/locker/constants";
 import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
+import { isToday } from "date-fns/isToday";
 import { TransactionItem } from "@/components/TransactionItem/TransactionItem";
 import { useWithdrawTokens } from "@/hooks/useWithdrawTokens";
 import { SubscriptionScene } from "../subscription/SubscriptionScene";
 import { format } from "date-fns/format";
 import { Overview } from "@/components/Overview/Overview";
 import { overviewItemsAtom } from "@/state/account/selectors";
+import { MilestoneProgress } from "@/components/MilestoneProgress/MilestoneProgress";
+import { MemberHeader } from "@/components/AccountHeader/MemberHeader";
 
 export const AccountScene = ({
   testID = "account",
@@ -36,20 +39,7 @@ export const AccountScene = ({
 
   return (
     <div data-testid={testID} className={styles.frame}>
-      <div className={styles.header}>
-        <img
-          alt="Virgin token"
-          src="./images/lfv.png"
-          width={64}
-          style={{ backgroundColor: "transparent", borderRadius: "100vw" }}
-        />
-        <span>
-          <p>{tierToString(member?.tier)} member</p>
-          {member?.timeCreated && (
-            <p>Joined {format(member.timeCreated, "MMMM yyyy")}</p>
-          )}
-        </span>
-      </div>
+      <MemberHeader testID={`${testID}.header`} member={member} />
 
       <h2>Overview</h2>
       <Overview testID={`${testID}.overview`} items={overviewItems} />
@@ -64,13 +54,15 @@ export const AccountScene = ({
       {Object.entries(transactions).map(([date, group]) => {
         return (
           <div className={styles.list}>
-            <h4
-              className={styles.header}
-            >{`Maturing ${formatDistanceToNowStrict(date, {
-              addSuffix: true,
-              unit: "day",
-              roundingMethod: "floor",
-            })}`}</h4>
+            <h4 className={styles.header}>{`Maturing ${
+              isToday(date)
+                ? "today"
+                : formatDistanceToNowStrict(date, {
+                    addSuffix: true,
+                    unit: "day",
+                    roundingMethod: "floor",
+                  })
+            }`}</h4>
             <ul className={styles.transactions}>
               {member?.slots.length === 0 ? (
                 <div className={styles.empty}>
@@ -114,6 +106,10 @@ export const AccountScene = ({
           </div>
         );
       })}
+
+      {isEnabled("withdrawV2") && (
+        <MilestoneProgress testID={`${testID}.releases`} progress={0.3} />
+      )}
 
       <div>
         <h2>Outstanding rewards</h2>

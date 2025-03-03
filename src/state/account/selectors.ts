@@ -4,6 +4,7 @@ import { mintAccountAtom } from "../mints/atoms";
 import { MINT } from "@/utils/locker/constants";
 import { findRewardTokenMint } from "@/utils/locker";
 import { publicKeyAtom } from "./atoms";
+import { outstandingRewardsSelector } from "../subscription/selectors";
 
 type OverviewItem = {
   key: string;
@@ -29,6 +30,7 @@ export const overviewItemsAtom = selector<OverviewItem[]>({
         decimals: 4,
       })
     );
+    const outstandingRewards = get(outstandingRewardsSelector);
 
     if (member) {
       items.push({
@@ -64,29 +66,29 @@ export const overviewItemsAtom = selector<OverviewItem[]>({
       label: "Entries",
     });
 
-    if (member?.totalRewards && member.totalRewards > 0) {
+    if (outstandingRewards > 0) {
       items.push({
         key: "claim",
         media: { src: "./svg/coin.svg" },
-        value: member.totalRewards,
+        value: outstandingRewards,
         label: "Unclaimed rewards",
       });
     }
 
-    items.push(
-      {
-        key: "ticket",
-        media: { src: "./svg/present.svg" },
-        value: 0,
-        label: "Tickets",
-      }
-      // {
-      //   key: "streak",
-      //   media: { src: "./svg/lightning.svg" },
-      //   value: 0,
-      //   label: "Streak",
-      // }
-    );
+    // items.push(
+    //   {
+    //     key: "ticket",
+    //     media: { src: "./svg/present.svg" },
+    //     value: 0,
+    //     label: "Tickets",
+    //   },
+    //   {
+    //     key: "streak",
+    //     media: { src: "./svg/lightning.svg" },
+    //     value: 0,
+    //     label: "Streak",
+    //   }
+    // );
 
     return items;
   },

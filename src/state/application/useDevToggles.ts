@@ -22,6 +22,7 @@ const initialKeys = {
   daily_giveaways: false,
   onboardingv2: false,
   landing_sections: false,
+  withdrawV2: false,
 };
 
 const toBoolean = (value: string | null, defaultValue: boolean): boolean => {

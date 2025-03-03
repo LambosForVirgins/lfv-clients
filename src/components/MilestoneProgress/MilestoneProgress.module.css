@@ -1,0 +1,40 @@
+.frame {
+    display: grid;
+    gap: var(--size-200);
+
+    .head {
+        display: grid;
+        grid-template-columns: 1fr auto;
+    }
+
+    .channel {
+        position: relative;
+        height: 21px;
+        background-color: var(--white);
+        border-radius: 100vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .icon {
+        display: block;
+        width: 36px;
+        height: 36px;
+        background-color: var(--white);
+        outline: 4px solid rgba(0, 0, 0, 0.1);
+        border-radius: 100vw;
+        z-index: 2;
+    }
+
+    .progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 30%;
+        border-radius: 100vw;
+        background: var(--bg-red-500);
+        z-index: 0;
+    }
+}
