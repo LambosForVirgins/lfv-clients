@@ -15,6 +15,17 @@ import clsx from "classnames";
 import { faqAtom } from "@/state/application/atoms";
 import { marketCapSelector } from "@/state/treasury/selectors";
 import { TEMP_onBoardingDisplayAtom } from "@/state/subscription/atoms";
+import { getMintTradeInTransaction } from "@/utils/transactions/getMintTradeInTransaction";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { findVaultTokenAccountAddress } from "../../utils/locker/PDA";
+import { getAssociatedTokenAddressSync } from "@solana/spl-token";
+import {
+  PublicKey,
+  Connection,
+  ParsedTransactionWithMeta,
+} from "@solana/web3.js";
+import { PixelButton } from "@/elements/Buttons/PixelButton";
+import { PixelCell } from "@/elements/Buttons/PixelCell";
 
 const markets = [
   {
@@ -187,6 +198,9 @@ export const LandingScene = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [tabIndex, setTabIndex] = useState(0);
+  const { connection } = useConnection();
+  const { sendTransaction, publicKey } = useWallet();
+  const [pending, setPending] = useState(!!publicKey);
 
   const renderTab = useCallback(
     (index: number) => {
@@ -196,12 +210,48 @@ export const LandingScene = ({
     [TABS]
   );
 
+  const executeTradeIn = async () => {
+    if (!publicKey || !sendTransaction) return;
+    const mint = new PublicKey("M1NTik1ex6rm7XFvAzNDuUWddBeYxnQgXY2DbTKzqiB");
+    const refundRecipient = new PublicKey(
+      "5MfChgQ19yvt7u7r1o2pkSLi6q98wbQoMYNnxBaihUGj"
+    );
+    const tokenAccount = getAssociatedTokenAddressSync(mint, publicKey, false);
+    const transaction = await getMintTradeInTransaction(
+      connection,
+      tokenAccount,
+      mint,
+      publicKey,
+      refundRecipient
+    );
+
+    await sendTransaction(transaction, connection)
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
+  };
+
   return (
     <section
       data-testid={testID}
       ref={containerRef}
       className={clsx(styles.frame, styles.cash)}
     >
+      <div className={styles.banner}>
+        <h1>Shitcoin Exchange</h1>
+        <p>
+          Still hodling your bag of worthless Solana meme coins? Now you can
+          swap any token for a chance to win real prizes!
+        </p>
+        <div className={styles.list}>
+          <PixelCell>Shitcoin burned</PixelCell>
+          <PixelCell>Confirming transaction</PixelCell>
+          <PixelCell>Awaiting reward mint</PixelCell>
+        </div>
+        <PixelButton disabled={pending} onClick={executeTradeIn}>
+          Trade-in
+        </PixelButton>
+      </div>
+
       <span data-testid={`${testID}.header`} className={styles.top}>
         <img
           src={"/images/logo-stamp.png"}

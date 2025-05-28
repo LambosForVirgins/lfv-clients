@@ -20,6 +20,9 @@ node_modules
 .DS_Store
 *.pem
 
+# Keys
+/keys
+
 # debug
 npm-debug.log*
 yarn-debug.log*

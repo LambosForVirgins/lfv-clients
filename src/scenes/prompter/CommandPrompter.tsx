@@ -95,10 +95,10 @@ export const CommandPrompter: React.FC = () => {
       // ],
       onEnter: () => {
         if (status !== undefined) return;
-        initialize().catch((err) => {
-          console.error(err);
-          setBlockIndex((prev) => prev - 1);
-        });
+        // initialize().catch((err) => {
+        //   console.error(err);
+        //   setBlockIndex((prev) => prev - 1);
+        // });
       },
       delay: 1000,
     },

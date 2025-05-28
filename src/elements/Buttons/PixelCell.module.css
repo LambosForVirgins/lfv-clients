@@ -1,0 +1,42 @@
+.outline {
+    position: relative;
+    min-height: 46px;
+    background: rgba(0, 0, 0, 0.05);
+    clip-path: polygon(0px 8px, 4px 8px, 4px 4px, 8px 4px, 8px 0,
+            calc(100% - 8px) 0, calc(100% - 8px) 4px, calc(100% - 4px) 4px, calc(100% - 4px) 8px, 100% 8px,
+            100% calc(100% - 8px), calc(100% - 4px) calc(100% - 8px), calc(100% - 4px) calc(100% - 4px), calc(100% - 8px) calc(100% - 4px), calc(100% - 8px) 100%,
+            8px 100%, 8px calc(100% - 4px), 4px calc(100% - 4px), 4px calc(100% - 8px), 0 calc(100% - 8px));
+    color: black;
+    cursor: pointer;
+}
+
+.icon {
+    display: grid;
+    width: 24px;
+    aspect-ratio: 1;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+
+    &:empty {
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 100vw;
+    }
+}
+
+.frame {
+    inset: 1px;
+    position: absolute;
+    background: white;
+    clip-path: polygon(0px 8px, 4px 8px, 4px 4px, 8px 4px, 8px 0,
+            calc(100% - 8px) 0, calc(100% - 8px) 4px, calc(100% - 4px) 4px, calc(100% - 4px) 8px, 100% 8px,
+            100% calc(100% - 8px), calc(100% - 4px) calc(100% - 8px), calc(100% - 4px) calc(100% - 4px), calc(100% - 8px) calc(100% - 4px), calc(100% - 8px) 100%,
+            8px 100%, 8px calc(100% - 4px), 4px calc(100% - 4px), 4px calc(100% - 8px), 0 calc(100% - 8px));
+    color: black;
+    display: flex;
+    align-items: center;
+    padding: 8px 11px;
+    gap: 11px;
+    font-size: 14px;
+    font-family: "Kode Mono";
+}
