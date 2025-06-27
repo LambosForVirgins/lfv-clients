@@ -247,18 +247,23 @@ export const LandingScene = ({
           <PixelCell>Confirming transaction</PixelCell>
           <PixelCell>Awaiting reward mint</PixelCell>
         </div>
-        <PixelButton disabled={pending} onClick={executeTradeIn}>
+        <PixelButton
+          testID={`${testID}.exchange`}
+          disabled={pending}
+          onClick={executeTradeIn}
+        >
           Trade-in
+        </PixelButton>
+        <PixelButton
+          testID={`${testID}.exchange`}
+          variant="accent"
+          onClick={executeTradeIn}
+        >
+          Cancel
         </PixelButton>
       </div>
 
       <span data-testid={`${testID}.header`} className={styles.top}>
-        <img
-          src={"/images/logo-stamp.png"}
-          alt={`VIRGIN stamp logo`}
-          className={clsx(styles.hero, styles.logo)}
-        />
-
         <ContractAddress
           testID={`${testID}.mint`}
           label={"CA"}

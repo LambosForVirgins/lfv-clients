@@ -1,15 +1,19 @@
-import styles from "./ConfirmationSlider.module.css";
+import styles from "./SwipeControl.module.css";
 import clsx from "classnames";
 import { useRef, useState } from "react";
-import { v4 as generateRandom } from "uuid";
 
-interface ConfirmationSliderProps extends Common.ComponentProps {
+type Honeypot = {
+  seed: string;
+};
+
+interface SwipeControlProps extends Common.ComponentProps {
   name?: string;
   label: string;
   tolerance?: number;
   className?: string;
   disabled?: boolean;
   loading?: boolean;
+  honeypot?: Honeypot;
   onChange?: (percentage: number) => void;
   onComplete?: (metrics: InteractionMetrics) => Promise<boolean>;
 }
@@ -40,11 +44,11 @@ const MAX_VALUE = 100;
  * Seed: Another random code generated to catch bots. If this
  * code is not sent with the entry, the entry is rejected.
  */
-export const ConfirmationSlider = ({
+export const SwipeControl = ({
   testID,
   tolerance = DEFAULT_COMPLETION_TOLERANCE,
   ...props
-}: ConfirmationSliderProps) => {
+}: SwipeControlProps) => {
   const containerRef = useRef<HTMLLabelElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
   const handleRef = useRef<HTMLOutputElement>(null);
@@ -114,7 +118,7 @@ export const ConfirmationSlider = ({
     <label
       ref={containerRef}
       data-testid={testID}
-      data-seed={generateRandom()}
+      data-seed={props.honeypot?.seed}
       htmlFor={props.name}
       className={clsx(
         props.className,

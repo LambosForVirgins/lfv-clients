@@ -1,4 +1,4 @@
-import { Button, Divider } from "@/elements";
+import { Divider } from "@/elements";
 import styles from "./SubscriptionOption.module.css";
 import clsx from "classnames";
 
@@ -6,8 +6,8 @@ interface SubscriptionOptionProps extends Common.ComponentProps {
   title: string;
   name: string;
   benefits: { label: string }[];
-  amount: number;
-  amountRemaining?: number;
+  price: Pricing.Price;
+  discount?: Pricing.Price | null;
   /**
    * Specifies if the current subscription is the one
    * the user already has applied.
@@ -32,9 +32,10 @@ export const formatNumber = (value: number): string => {
 
 export const SubscriptionOption = ({
   testID,
-  amountRemaining = 0,
   ...props
 }: SubscriptionOptionProps) => {
+  const amountRemaining = props.price.amount - (props.discount?.amount || 0);
+
   const selectMembershipAmount = () => {
     props.onClick?.(amountRemaining);
   };
@@ -42,7 +43,7 @@ export const SubscriptionOption = ({
   return (
     <label
       data-testid={testID}
-      htmlFor={props.amount.toString()}
+      htmlFor={props.price.amount.toString()}
       className={clsx(
         props.className,
         styles.frame,
@@ -52,7 +53,7 @@ export const SubscriptionOption = ({
       <div data-testid={`${testID}.header`} className={styles.header}>
         <h3 data-testid={`${testID}.title`}>{props.title}</h3>
         <small data-testid={`${testID}.subtitle`} className={styles.subtitle}>
-          {formatNumber(props.amount)} VIRGINS
+          {formatNumber(props.price.amount)} VIRGINS
         </small>
         <h4 data-testid={`${testID}.subtitle`} className={styles.subtitle}>
           {amountRemaining === 0 ? `Current` : amountRemaining.toLocaleString()}
@@ -72,7 +73,7 @@ export const SubscriptionOption = ({
         ))}
       </ul>
       <input
-        id={props.amount.toString()}
+        id={props.price.amount.toString()}
         name={props.name}
         type={"radio"}
         onChange={selectMembershipAmount}

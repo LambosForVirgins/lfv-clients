@@ -1,13 +1,27 @@
 import { forwardRef } from "react";
 import styles from "./PixelButton.module.css";
+import clsx from "classnames";
+
+interface ButtonProps
+  extends Common.ComponentProps,
+    React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "primary" | "secondary" | "accent";
+  outlined?: boolean;
+}
 
 export const PixelButton = forwardRef<
   HTMLButtonElement,
-  React.PropsWithChildren
->(({ children }, ref) => {
+  React.PropsWithChildren<ButtonProps>
+>(({ testID, children, variant = "primary", ...props }, ref) => {
   return (
-    <button ref={ref} className={styles.outline}>
-      <span className={styles.frame}>{children}</span>
+    <button
+      {...props}
+      data-testid={testID}
+      ref={ref}
+      className={styles.outline}
+    >
+      {children}
+      <span className={clsx(styles.frame, styles[variant])}>{children}</span>
     </button>
   );
 });

@@ -1,20 +1,25 @@
-import { useDailyGiveaway } from "@/state/giveaways/useDailyGiveaway";
-import { ConfirmationSlider } from "../ConfirmationSlider/ConfirmationSlider";
+import { DrawRound } from "@/state/draws/types";
+import { SwipeControl } from "@/elements/SwipeControl";
 import { useState } from "react";
+import { v4 as generateRandom } from "uuid";
 
-export const DailyEntrySlider = ({ testID }: Common.ComponentProps) => {
+interface DailyEntrySliderProps extends Common.ComponentProps {
+  draw: DrawRound | null;
+  loading?: boolean;
+  enterDraw: (drawId: DrawRound["id"]) => Promise<void>;
+}
+
+export const DailyEntrySlider = ({
+  testID,
+  ...props
+}: DailyEntrySliderProps) => {
   const [hasEntered, setHasEntered] = useState(false);
-  const { pending, draw, enterDraw, errors } = useDailyGiveaway();
 
   const enterDailyDraw = async (): Promise<boolean> => {
     try {
-      if (!draw) throw new Error("No draw available");
+      if (!props.draw) throw new Error("No draw available");
 
-      const result = await enterDraw({
-        id: "",
-        address: "abc123",
-        name: "Test",
-      });
+      const result = await props.enterDraw(props.draw.id);
 
       console.log("REsult", JSON.stringify(result, null, " "));
       setHasEntered(true);
@@ -35,13 +40,14 @@ export const DailyEntrySlider = ({ testID }: Common.ComponentProps) => {
   }
 
   return (
-    <ConfirmationSlider
+    <SwipeControl
       testID={testID}
       name={"daily"}
       label={`Slide to enter today's draw`}
       onComplete={enterDailyDraw}
-      disabled={!draw || pending}
-      loading={pending}
+      disabled={!props.draw || props.loading}
+      loading={props.loading}
+      honeypot={{ seed: generateRandom() }}
     />
   );
 };

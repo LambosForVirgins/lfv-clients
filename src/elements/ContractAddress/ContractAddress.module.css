@@ -1,13 +1,11 @@
 .frame {
     display: grid;
-    grid-template-columns: min-content 1fr min-content;
+    grid-template-columns: min-content 1fr auto;
     position: relative;
     border-radius: var(--size-300);
     padding: var(--size-300);
     align-items: center;
-    width: 80ch;
     gap: var(--size-300);
-    max-width: 100%;
     container-type: inline-size;
     container-name: contract-address;
     overflow: hidden;
@@ -29,7 +27,6 @@
 .address {
     position: relative;
     display: grid;
-    flex: 1 10 auto;
     overflow: hidden;
     align-items: center;
 
@@ -58,21 +55,5 @@
 
     .status:not(:empty) {
         opacity: 1;
-    }
-}
-
-.button {
-    overflow: hidden;
-    white-space: nowrap;
-    user-select: none;
-}
-
-@container (width < 40ch) {
-    .button span {
-        display: none;
-    }
-
-    .button::after {
-        content: attr(data-short);
     }
 }

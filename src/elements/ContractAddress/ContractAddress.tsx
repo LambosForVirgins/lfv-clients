@@ -1,4 +1,5 @@
 import { Button } from "../Buttons/Button";
+import { PixelButton } from "../Buttons/PixelButton";
 import styles from "./ContractAddress.module.css";
 import clsx from "classnames";
 import { useCallback, useMemo, useRef, useState } from "react";
@@ -72,16 +73,13 @@ export const ContractAddress = ({ testID, ...props }: ContractAddressProps) => {
           {statusLabel}
         </span>
       </label>
-      <Button
+      <PixelButton
         testID={`${testID}.copy`}
-        size={"small"}
-        data-short={"Copy"}
         disabled={hasCopied}
         onClick={copyAddress}
-        className={styles.button}
       >
         <span>{hasCopied ? `Copied` : `Copy address`}</span>
-      </Button>
+      </PixelButton>
     </span>
   );
 };

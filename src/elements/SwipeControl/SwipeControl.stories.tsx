@@ -1,13 +1,13 @@
-import { ConfirmationSlider } from "./ConfirmationSlider";
+import { SwipeControl } from "./SwipeControl";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta = {
-  title: "Giveaways/ConfirmationSlider",
-  component: ConfirmationSlider,
+  title: "Elements/SwipeControl",
+  component: SwipeControl,
   args: {
     testID: "confirmation-slider",
   },
-} satisfies Meta<typeof ConfirmationSlider>;
+} satisfies Meta<typeof SwipeControl>;
 
 export default meta;
 

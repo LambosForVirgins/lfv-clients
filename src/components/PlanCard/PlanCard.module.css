@@ -1,0 +1,60 @@
+.frame {
+    display: grid;
+    grid-template-areas:
+        "tag indicator"
+        "title indicator"
+        "spacer ."
+        "price .";
+    grid-template-columns: 1fr var(--size-900);
+    grid-template-rows: var(--size-500) 1fr 1fr var(--size-500);
+    background-color: var(--white);
+    border-radius: var(--size-300);
+    max-width: 240px;
+    min-height: 140px;
+    padding: var(--size-300);
+    border-width: 2px;
+    border-style: solid;
+    border-color: transparent;
+    clip-path: polygon(0px 8px, 4px 8px, 4px 4px, 8px 4px, 8px 0,
+            calc(100% - 8px) 0, calc(100% - 8px) 4px, calc(100% - 4px) 4px, calc(100% - 4px) 8px, 100% 8px,
+            100% calc(100% - 8px), calc(100% - 4px) calc(100% - 8px), calc(100% - 4px) calc(100% - 4px), calc(100% - 8px) calc(100% - 4px), calc(100% - 8px) 100%,
+            8px 100%, 8px calc(100% - 4px), 4px calc(100% - 4px), 4px calc(100% - 8px), 0 calc(100% - 8px));
+}
+
+.tag {
+    grid-area: tag;
+    font-size: var(--size-300);
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.title {
+    grid-area: title;
+    font-size: var(--size-700);
+}
+
+.indicator {
+    grid-area: indicator;
+}
+
+.price {
+    grid-area: price;
+    font-size: var(--size-400);
+    font-weight: 600;
+}
+
+.icon {
+    display: block;
+    width: var(--size-900);
+    aspect-ratio: 1;
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 100vw;
+}
+
+.selected {
+    border-color: var(--primary);
+
+    .icon {
+        background-color: var(--primary);
+    }
+}

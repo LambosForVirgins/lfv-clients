@@ -1,0 +1,1 @@
+export { SwipeControl } from "./SwipeControl";

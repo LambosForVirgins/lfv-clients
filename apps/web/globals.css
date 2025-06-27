@@ -1,8 +1,13 @@
 :root {
-  --background: #FFF766;
+  --background: linear-gradient(0deg,
+      #452E7C 0%,
+      #291C2E 100%);
   --foreground: #171717;
   --white: #fff;
   --black: #171717;
+
+  --blue: #38B8FF;
+  --pink: #FF2CAD;
 
   --bg-red-100: #ea916e;
 
@@ -14,6 +19,9 @@
 
   --green-100: #21E56F26;
   --green-500: #21E56F;
+
+  --primary: var(--pink);
+  --accent: var(--blue);
 
   --size-100: 0.35rem;
   --size-200: 0.5rem;
@@ -28,12 +36,10 @@
   --column-layout: [full-start] minmax(0, 1fr) [gutter-start] minmax(0.35rem, 2rem) [content-start] minmax(320px, 960px) [content-end] minmax(0.35rem, 2rem) [gutter-end] minmax(0, 1fr) [full-end];
   --panel-layout: repeat(auto-fit, minmax(320px, 1fr));
 
-  --font-leading: "Bangers", serif;
-  --font-headline: "Cherry Bomb One", serif;
-  --font-body: "Coming Soon", serif;
-  --font-base: "Coming Soon", serif;
-  --texture-cash: url('/images/cash-texture.png');
-  --texture-lambo: url('/images/lambo-texture.png');
+  --font-headline: "Press Start 2P", system-ui;
+  --font-leading: "Kode Mono", monospace;
+  --font-body: "Kode Mono", monospace;
+  --font-base: "Kode Mono", monospace;
 }
 
 * {
@@ -72,4 +78,8 @@ dialog {
 button {
   outline: none;
   border: none;
+}
+
+h2 {
+  margin: 0;
 }

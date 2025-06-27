@@ -1,0 +1,18 @@
+.frame {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    font-weight: 500;
+    color: white;
+}
+
+.accent {
+    color: var(--color-primary);
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.subsequent {
+    color: var(--color-text-secondary);
+    opacity: 0.5;
+}
