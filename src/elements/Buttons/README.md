@@ -1,11 +1,7 @@
----
-title: Buttons
-status: Stable
-component: Button
-theme: Retro
----
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/blocks';
+import { Button } from './Button';
 
-import { Playground } from '@docsite/components'
+<Meta title="Documentation/Button" components={Button} />
 
 # Buttons
 
@@ -32,9 +28,9 @@ In a world of smooth gradients and ghost buttons, our 8-bit button breaks the tr
 The 8-bit button is made of the following pixel-perfect layers:
 
 +----------------------+
-| ████████████████████ | <- Outer Border (2px jagged style)
+| ████████████████████ | - Outer Border (2px jagged style)
 | █ Click Me! █ |
-| ████████████████████ | <- Background fill (solid colour)
+| ████████████████████ | - Background fill (solid colour)
 +----------------------+
 
 
@@ -96,26 +92,4 @@ The 8-bit button is made of the following pixel-perfect layers:
 }
 ```
 
-## 9. Do’s and Don’ts
 
-✅ Do
-
-- Use for primary CTAs in pixel-art or retro UIs.
-- Embrace bold colours and black outlines.
-- Pair with pixel or monospace fonts.
-- Test on both light and dark backgrounds for readability.
-
-❌ Don’t
-
-- Round the corners — seriously, that ruins the aesthetic.
-- Use gradients or shadows (unless mimicking dithering).
-- Shrink the padding to save space — let it breathe.
-- Mix with ultra-modern components in the same UI unless you're going full Ready Player One.
-
-## 10. Voice & Brand Personality Notes
-
-Our 8-bit button is cheeky, bold, and unapologetically retro. It should evoke arcade nostalgia with blockchain speed. Text inside buttons should match the vibe: short, punchy verbs like “PLAY”, “SPIN”, “MINT”, or “START”.
-
-🕹️ If your interface is the game board, this button is your player one's start button. Give it pride of place.
-
-Stay pixelated. Stay clickable.

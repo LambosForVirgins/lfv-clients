@@ -1,0 +1,9 @@
+.frame {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(272px, 1fr));
+  padding: var(--size-500);
+  gap: var(--size-500);
+  /* background-color: var(--base-900); */
+  border-radius: var(--size-500);
+  color: var(--base-050);
+}

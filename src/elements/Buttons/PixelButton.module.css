@@ -1,8 +1,6 @@
 .outline {
     position: relative;
-    min-height: 46px;
-    min-width: 46px;
-    background: rgba(0, 0, 0, 0.75);
+    background: #18191A;
     clip-path: polygon(0px 8px, 4px 8px, 4px 4px, 8px 4px, 8px 0,
             calc(100% - 8px) 0, calc(100% - 8px) 4px, calc(100% - 4px) 4px, calc(100% - 4px) 8px, 100% 8px,
             100% calc(100% - 8px), calc(100% - 4px) calc(100% - 8px), calc(100% - 4px) calc(100% - 4px), calc(100% - 8px) calc(100% - 4px), calc(100% - 8px) 100%,
@@ -11,7 +9,7 @@
     text-align: center;
     cursor: pointer;
     text-wrap: nowrap;
-    padding-inline: var(--size-300);
+    font-family: var(--font-leading);
 }
 
 .frame {
@@ -27,9 +25,6 @@
     text-align: center;
     display: grid;
     align-items: center;
-    font-family: var(--font-leading);
-    font-size: var(--size-500);
-    padding-inline: var(--size-300);
     overflow: hidden;
     white-space: nowrap;
     text-wrap: nowrap;
@@ -70,5 +65,62 @@
     &:active::before,
     &:active::after {
         opacity: 0.2;
+    }
+}
+
+.secondary {
+
+    .frame {
+        background: #e4e6eb;
+        background: #464646;
+    }
+}
+
+.tertiary {
+    background: transparent;
+    color: transparent;
+
+    .frame {
+        color: var(--primary);
+    }
+
+    .frame::before,
+    .frame::after {
+        clip-path: none;
+        background: transparent;
+        opacity: 0;
+    }
+}
+
+.small {
+    min-height: 34px;
+    min-width: 34px;
+    padding-inline: var(--size-400);
+
+    .frame {
+        font-size: var(--size-400);
+        font-weight: 600;
+    }
+}
+
+.medium {
+    min-height: 46px;
+    min-width: 46px;
+    padding-inline: var(--size-500);
+
+    .frame {
+        font-size: var(--size-500);
+        font-weight: 600;
+    }
+}
+
+.large {
+    min-height: 54px;
+    min-width: 54px;
+    padding-inline: var(--size-700);
+
+    .frame {
+        font-size: var(--size-600);
+        font-weight: 600;
     }
 }

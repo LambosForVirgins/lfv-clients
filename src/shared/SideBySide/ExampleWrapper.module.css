@@ -1,0 +1,41 @@
+.frame {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-300);
+
+  .pill {
+    display: flex;
+    position: relative;
+    padding: var(--size-100);
+    padding-right: var(--size-500);
+    border-radius: 100vw;
+    overflow: hidden;
+    align-items: center;
+    max-width: max-content;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.25;
+    }
+
+    &.positive::before {
+      background-color: var(--color-green);
+    }
+
+    &.negative::before {
+      background-color: var(--color-red);
+    }
+  }
+
+  .title {
+    color: var(--base-700);
+    font-size: var(--size-500);
+    font-weight: 700;
+  }
+
+  span {
+    color: var(--base-500);
+  }
+}

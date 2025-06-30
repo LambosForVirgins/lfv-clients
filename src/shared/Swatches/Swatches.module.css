@@ -1,0 +1,22 @@
+.frame {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--size-500);
+}
+
+.swatch {
+  display: grid;
+  border: 1px solid var(--base-200);
+  border-radius: var(--size-100);
+  overflow: hidden;
+  gap: var(--size-100);
+
+  .color {
+    height: 128px;
+    background-color: var(--base-100);
+  }
+
+  .details {
+    padding: var(--size-300);
+  }
+}
