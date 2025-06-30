@@ -11,8 +11,9 @@ const preview: Preview = {
       },
     },
     docs: {
-      // Enhanced documentation settings
-      toc: true,
+      toc: {
+        headingSelector: "h2, h3",
+      },
       source: {
         state: "open",
       },

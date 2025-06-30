@@ -5,11 +5,48 @@ import { SideBySide, ExampleWrapper, PunchCard, Backdrop } from '../../shared'
 
 The Button component is a versatile, accessible button element that supports various styles and states.
 
-##### Everything is a button
+#### Everything is a button
 
 In principle, try to think of the most actionable elements as buttons. Thinking and building this way ensures we have the right touch target areas and user feedback. It also makes our experiences easier to localize and friendlier for people using screen readers.
 
+## Principles
+
+### Actionable
+
+A button label indicates what happens when the user taps the button, even if it's just to acknowledge something.
+
+### Contextual
+
+Buttons work with other elements on a screen to surface the most important actions the user wants to take in that context. 
+
+### Incisive
+
+Buttons capture user intent concisely, distilling the action a user wants to take into an inclusive word or phrase. 
+
+## Anatomy 
+
+The most basic setup of a button includes only a single label or icon. Still, a button can also be customized to include a label with a leading icon and a trailing icon. Circle buttons can also support an additional label below the button's container.
+
+### Shape
+
+Buttons come in rectangular, circle, square, and pill shapes.
+
+#### Rectangular
+Rectangular buttons are typically leveraged at fixed widths, 100% and 50% width on mobile, and a variety of widths on the web. Large rectangle buttons are commonly used CTA buttons that move users forward in a flow.
+
+#### Circle
+Circular buttons can include a text label or an icon. An optional label below is available as well. All maintain a center position.
+
+#### Square
+Square buttons, similar to circle buttons, can include a text label or an icon. All maintain a center position.
+
+#### Pill
+Pill buttons are more commonly in line with other content and controls.
+
+
 ## Usage
+
+Use buttons to let users take action, make choices, and move forward. Buttons can navigate to other pages while completing an action like purchasing or submitting a form.
 
 ```jsx
 import { Button } from '@lfv/elements/Buttons/Button';
@@ -19,9 +56,13 @@ import { Button } from '@lfv/elements/Buttons/Button';
 </Button>
 ```
 
-### Hierarchy
+### Stuff
 
-#### Primary Button
+## Hierarchy
+
+Button hierarchy emphasizes which button is more important in the context so the user can take action immediately. 
+
+### Primary Button
 
 Use one primary button per context to allow users to take a specific action, move forward in a flow, acknowledge and dismiss, or finish a task.
 
@@ -46,21 +87,38 @@ Use one primary button per context to allow users to take a specific action, mov
   </ExampleWrapper>
 </SideBySide>
 
-#### Secondary Button
+### Secondary Button
 
 Secondary buttons are the bread and butter of the button world. Lean into them whenever possible. The gray background protection provides higher visibility, making them more accessible than tertiary buttons. 
 
-<Button variant="secondary">
-  Secondary Button
-</Button>
+<SideBySide>
+  <ExampleWrapper title="Do" message={`Use secondary buttons for most icon buttons since the grey background protection makes the button more visible and accessible.`}>
+    <Backdrop shade='green'>
+      <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--size-300)', padding: 'var(--size-500)', background: '#fff', borderRadius: 'var(--size-100)', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 2px 1px, rgba(0, 0, 0, 0.04) 0px 4px 2px, rgba(0, 0, 0, 0.05) 0px 8px 4px, rgba(0, 0, 0, 0.06) 0px 16px 8px, rgba(0, 0, 0, 0.08) 0px 32px 16px' }}>
+        <Button variant="secondary">S</Button>
+        <Button variant="secondary">S</Button>
+        <Button variant="secondary">S</Button>
+      </div>
+    </Backdrop>
+  </ExampleWrapper>
+  <ExampleWrapper title="Don't" message={`Don't use icons without background protection as buttons. A single icon may be used to indicate a status (think warning icon) or to provide affordance for tapping the entire row (disclosure icon or accordion icon).`}>
+    <Backdrop shade='red'>
+      <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--size-300)', padding: 'var(--size-500)', background: '#fff', borderRadius: 'var(--size-100)', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 2px 1px, rgba(0, 0, 0, 0.04) 0px 4px 2px, rgba(0, 0, 0, 0.05) 0px 8px 4px, rgba(0, 0, 0, 0.06) 0px 16px 8px, rgba(0, 0, 0, 0.08) 0px 32px 16px' }}>
+        <Button variant="tertiary">T</Button>
+        <Button variant="tertiary">T</Button>
+        <Button variant="tertiary">T</Button>
+      </div>
+    </Backdrop>
+  </ExampleWrapper>
+</SideBySide>
 
-#### Accent Button
+### Accent Button
 
 <Button variant="accent">
   Accent Button
 </Button>
 
-#### Tertiary
+### Tertiary
 
 Tertiary buttons are mainly used for dismissive actions that give users a way out of something, letting them do nothing, dismiss, or skip.
 
@@ -68,7 +126,7 @@ Tertiary buttons are mainly used for dismissive actions that give users a way ou
   Tertiary Button
 </Button>
 
-### Sizing
+## Sizing
 
 <Backdrop>
   <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 'var(--size-300)', padding: 'var(--size-500)', background: '#fff', borderRadius: 'var(--size-100)', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 2px 1px, rgba(0, 0, 0, 0.04) 0px 4px 2px, rgba(0, 0, 0, 0.05) 0px 8px 4px, rgba(0, 0, 0, 0.06) 0px 16px 8px, rgba(0, 0, 0, 0.08) 0px 32px 16px' }}>
@@ -78,9 +136,9 @@ Tertiary buttons are mainly used for dismissive actions that give users a way ou
   </div>
 </Backdrop>
 
-### States
+## States
 
-#### Disabled
+### Disabled
 
 Disabled buttons can be confusing and frustrating for many users and can be difficult to spot for those with low vision. To make things easier, try to enable the button so users can tap it, and provide an error message if any information is missing or incorrect. If you must use a disabled button, include clarifying text, an error message, or a tooltip to explain why. That way, everyone can easily understand why the button is disabled.
 
@@ -90,7 +148,7 @@ Disabled buttons can be confusing and frustrating for many users and can be diff
   </div>
 </Backdrop>
 
-#### Loading
+### Loading
 
 <Backdrop>
   <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 'var(--size-300)', padding: 'var(--size-500)', background: '#fff', borderRadius: 'var(--size-100)', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 2px 1px, rgba(0, 0, 0, 0.04) 0px 4px 2px, rgba(0, 0, 0, 0.05) 0px 8px 4px, rgba(0, 0, 0, 0.06) 0px 16px 8px, rgba(0, 0, 0, 0.08) 0px 32px 16px' }}>
