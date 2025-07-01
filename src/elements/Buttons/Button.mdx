@@ -1,5 +1,5 @@
 import { PixelButton as Button } from './PixelButton';
-import { SideBySide, ExampleWrapper, PunchCard, Backdrop } from '../../shared'
+import { SideBySide, ExampleWrapper, PunchCard, Backdrop, SkeletonText, SkeletonTextBlock, BlockLayout, InlineLayout } from '../../shared'
 
 # Button
 
@@ -69,20 +69,22 @@ Use one primary button per context to allow users to take a specific action, mov
 <SideBySide>
   <ExampleWrapper title="Do" message={`Use one primary button per context to highlight the action the user will most likely take.`}>
     <Backdrop shade='green'>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--size-300)', padding: 'var(--size-500)', background: '#fff', borderRadius: 'var(--size-100)', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 2px 1px, rgba(0, 0, 0, 0.04) 0px 4px 2px, rgba(0, 0, 0, 0.05) 0px 8px 4px, rgba(0, 0, 0, 0.06) 0px 16px 8px, rgba(0, 0, 0, 0.08) 0px 32px 16px' }}>
+      <BlockLayout>
+        <SkeletonTextBlock />
         <Button variant="secondary">Secondary</Button>
         <Button variant="primary">Primary</Button>
         <Button variant="tertiary">Tertiary</Button>
-      </div>
+      </BlockLayout>
     </Backdrop>
   </ExampleWrapper>
   <ExampleWrapper title="Don't" message={`Avoid using multiple primary buttons on a screen.`}>
     <Backdrop shade='red'>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--size-300)', padding: 'var(--size-500)', background: '#fff', borderRadius: 'var(--size-100)', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 2px 1px, rgba(0, 0, 0, 0.04) 0px 4px 2px, rgba(0, 0, 0, 0.05) 0px 8px 4px, rgba(0, 0, 0, 0.06) 0px 16px 8px, rgba(0, 0, 0, 0.08) 0px 32px 16px' }}>
+      <BlockLayout>
+        <SkeletonTextBlock />
         <Button variant="primary">Primary</Button>
         <Button variant="primary">Primary</Button>
         <Button variant="tertiary">Tertiary</Button>
-      </div>
+      </BlockLayout>
     </Backdrop>
   </ExampleWrapper>
 </SideBySide>
@@ -94,20 +96,22 @@ Secondary buttons are the bread and butter of the button world. Lean into them w
 <SideBySide>
   <ExampleWrapper title="Do" message={`Use secondary buttons for most icon buttons since the grey background protection makes the button more visible and accessible.`}>
     <Backdrop shade='green'>
-      <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--size-300)', padding: 'var(--size-500)', background: '#fff', borderRadius: 'var(--size-100)', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 2px 1px, rgba(0, 0, 0, 0.04) 0px 4px 2px, rgba(0, 0, 0, 0.05) 0px 8px 4px, rgba(0, 0, 0, 0.06) 0px 16px 8px, rgba(0, 0, 0, 0.08) 0px 32px 16px' }}>
+      <InlineLayout>
+        <SkeletonText/>
         <Button variant="secondary">S</Button>
         <Button variant="secondary">S</Button>
         <Button variant="secondary">S</Button>
-      </div>
+      </InlineLayout>
     </Backdrop>
   </ExampleWrapper>
   <ExampleWrapper title="Don't" message={`Don't use icons without background protection as buttons. A single icon may be used to indicate a status (think warning icon) or to provide affordance for tapping the entire row (disclosure icon or accordion icon).`}>
     <Backdrop shade='red'>
-      <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--size-300)', padding: 'var(--size-500)', background: '#fff', borderRadius: 'var(--size-100)', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 2px 1px, rgba(0, 0, 0, 0.04) 0px 4px 2px, rgba(0, 0, 0, 0.05) 0px 8px 4px, rgba(0, 0, 0, 0.06) 0px 16px 8px, rgba(0, 0, 0, 0.08) 0px 32px 16px' }}>
+      <InlineLayout>
+        <SkeletonText/>
         <Button variant="tertiary">T</Button>
         <Button variant="tertiary">T</Button>
         <Button variant="tertiary">T</Button>
-      </div>
+      </InlineLayout>
     </Backdrop>
   </ExampleWrapper>
 </SideBySide>
@@ -129,11 +133,11 @@ Tertiary buttons are mainly used for dismissive actions that give users a way ou
 ## Sizing
 
 <Backdrop>
-  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 'var(--size-300)', padding: 'var(--size-500)', background: '#fff', borderRadius: 'var(--size-100)', boxShadow: 'rgba(0, 0, 0, 0.02) 0px 2px 1px, rgba(0, 0, 0, 0.04) 0px 4px 2px, rgba(0, 0, 0, 0.05) 0px 8px 4px, rgba(0, 0, 0, 0.06) 0px 16px 8px, rgba(0, 0, 0, 0.08) 0px 32px 16px' }}>
+  <InlineLayout>
     <Button variant="primary" size="small">Small</Button>
     <Button variant="primary" size="medium">Medium</Button>
     <Button variant="primary" size="large">Large</Button>
-  </div>
+  </InlineLayout>
 </Backdrop>
 
 ## States
