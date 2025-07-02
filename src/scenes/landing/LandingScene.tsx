@@ -26,6 +26,7 @@ import {
 } from "@solana/web3.js";
 import { PixelButton } from "@/elements/Buttons/PixelButton";
 import { PixelCell } from "@/elements/Buttons/PixelCell";
+import { TokenTradeIn } from "@/components/TokenTradeIn/TokenTradeIn";
 
 const markets = [
   {
@@ -236,32 +237,7 @@ export const LandingScene = ({
       ref={containerRef}
       className={clsx(styles.frame, styles.cash)}
     >
-      <div className={styles.banner}>
-        <h1>Shitcoin Exchange</h1>
-        <p>
-          Still hodling your bag of worthless Solana meme coins? Now you can
-          swap any token for a chance to win real prizes!
-        </p>
-        <div className={styles.list}>
-          <PixelCell>Shitcoin burned</PixelCell>
-          <PixelCell>Confirming transaction</PixelCell>
-          <PixelCell>Awaiting reward mint</PixelCell>
-        </div>
-        <PixelButton
-          testID={`${testID}.exchange`}
-          disabled={pending}
-          onClick={executeTradeIn}
-        >
-          Trade-in
-        </PixelButton>
-        <PixelButton
-          testID={`${testID}.exchange`}
-          variant="accent"
-          onClick={executeTradeIn}
-        >
-          Cancel
-        </PixelButton>
-      </div>
+      <TokenTradeIn testID={`${testID}.exchange`} />
 
       <span data-testid={`${testID}.header`} className={styles.top}>
         <ContractAddress

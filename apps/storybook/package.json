@@ -4,7 +4,7 @@
     "private": true,
     "main": "index.ts",
     "scripts": {
-        "start": "yarn start:docs",
+        "start": "yarn start:stories",
         "start:docs": "storybook dev -p 6006 -c .storybook-docs",
         "start:stories": "storybook dev -p 6007 -c .storybook-stories",
         "docs": "storybook dev --docs",

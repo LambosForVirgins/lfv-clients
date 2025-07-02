@@ -1,5 +1,17 @@
 import styles from "./Layouts.module.css";
+import clsx from "classnames";
 
-export const InlineLayout = ({ children }: React.PropsWithChildren) => {
-  return <div className={styles.inline}>{children}</div>;
+interface InlineLayoutProps extends Common.ComponentProps {
+  padded?: boolean;
+}
+
+export const InlineLayout = ({
+  children,
+  ...props
+}: React.PropsWithChildren<InlineLayoutProps>) => {
+  return (
+    <div className={clsx(styles.inline, props.padded && styles.padded)}>
+      {children}
+    </div>
+  );
 };
