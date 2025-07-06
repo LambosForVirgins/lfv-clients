@@ -1,9 +1,7 @@
-import { PixelCell } from "~/elements/Buttons/PixelCell";
 import styles from "./LaunchSale.module.css";
-import { PixelButton } from "~/elements/Buttons/PixelButton";
 import { useState } from "react";
 import clsx from "classnames";
-import { BlockLayout, InlineLayout } from "~/elements";
+import { InlineLayout, Button } from "~/elements";
 
 interface LaunchSaleProps extends Common.ComponentProps {
   className?: string;
@@ -27,14 +25,14 @@ export const LaunchSale = ({ testID, ...props }: LaunchSaleProps) => {
 
       <InlineLayout testID={`${testID}.actions`}>
         <input type="number" defaultValue={0} />
-        <PixelButton
+        <Button
           testID={`${testID}.confirm`}
           size={"small"}
           disabled={pending}
           onClick={executeTradeIn}
         >
           Buy
-        </PixelButton>
+        </Button>
       </InlineLayout>
     </div>
   );

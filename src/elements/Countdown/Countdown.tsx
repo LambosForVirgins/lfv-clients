@@ -1,7 +1,8 @@
 import { format } from "date-fns/format";
 import { useEffect, useRef, useState } from "react";
+import styles from "./Countdown.module.css";
 
-interface CountdownProps {
+interface CountdownProps extends Common.ComponentProps {
   timeRemaining?: number;
   onComplete?: () => void;
 }
@@ -13,6 +14,7 @@ const formatRemainingSeconds = (seconds: number) => {
 };
 
 export const Countdown = ({
+  testID,
   timeRemaining: initialTimeRemaining = 0,
   ...props
 }: CountdownProps) => {
@@ -48,7 +50,7 @@ export const Countdown = ({
   }, [initialTimeRemaining]);
 
   return (
-    <h2 className="text-2xl font-bold">
+    <h2 data-testid={testID} className={styles.frame}>
       {timeRemaining > 0
         ? `Closes ${formatRemainingSeconds(timeRemaining)}`
         : "Closed"}

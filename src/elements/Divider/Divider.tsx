@@ -6,7 +6,6 @@ interface DividerProps extends Common.ComponentProps {
    * Specifies the color variation of the divider.
    */
   variant?: "primary" | "secondary";
-  label?: string;
   align?: "left" | "right" | "center";
   className?: string;
 }
@@ -16,9 +15,9 @@ export const Divider = ({
   variant = "primary",
   align = "center",
   ...props
-}: DividerProps) => {
+}: React.PropsWithChildren<DividerProps>) => {
   return (
-    <span
+    <div
       data-testid={testID}
       className={clsx(
         props.className,
@@ -27,7 +26,7 @@ export const Divider = ({
         styles[align]
       )}
     >
-      {props.label}
-    </span>
+      {props.children}
+    </div>
   );
 };

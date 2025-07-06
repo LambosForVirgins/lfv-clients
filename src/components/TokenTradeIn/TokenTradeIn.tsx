@@ -1,6 +1,6 @@
-import { PixelCell } from "~/elements/Buttons/PixelCell";
+import { Cell } from "~/elements/Cell/Cell";
 import styles from "./TokenTradeIn.module.css";
-import { PixelButton } from "~/elements/Buttons/PixelButton";
+import { Button } from "~/elements/Buttons/Button";
 import { useState } from "react";
 import clsx from "classnames";
 import { BlockLayout, InlineLayout } from "~/elements";
@@ -26,25 +26,25 @@ export const TokenTradeIn = ({ testID, ...props }: TokenTradeInProps) => {
         any token for a chance to win real prizes!
       </p>
       <BlockLayout testID={`${testID}.list`}>
-        <PixelCell>Shitcoin burned</PixelCell>
-        <PixelCell>Confirming transaction</PixelCell>
-        <PixelCell>Awaiting reward mint</PixelCell>
+        <Cell>Shitcoin burned</Cell>
+        <Cell>Confirming transaction</Cell>
+        <Cell>Awaiting reward mint</Cell>
       </BlockLayout>
       <InlineLayout testID={`${testID}.actions`}>
-        <PixelButton
+        <Button
           testID={`${testID}.dismiss`}
           variant="secondary"
           onClick={executeTradeIn}
         >
           Cancel
-        </PixelButton>
-        <PixelButton
+        </Button>
+        <Button
           testID={`${testID}.confirm`}
           disabled={pending}
           onClick={executeTradeIn}
         >
           Trade-in
-        </PixelButton>
+        </Button>
       </InlineLayout>
     </div>
   );

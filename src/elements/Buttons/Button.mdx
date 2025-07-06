@@ -1,16 +1,20 @@
-import { PixelButton as Button } from './PixelButton';
+import { Button } from './Button';
 import { BlockLayout, InlineLayout } from '../Layouts'
 import { SideBySide, ExampleWrapper, PunchCard, Backdrop, SkeletonText, SkeletonTextBlock, Card } from '../../shared'
 
 # Button
 
-The Button component is a versatile, accessible button element that supports various styles and states.
+The Button component is a versatile, accessible button element that supports various styles and states. Our 8-bit button is a nostalgic nod to arcade days, pixel-perfect for game interfaces that want to scream *"Press Start!"* with attitude. It’s loud, blocky, and makes no apologies. Whether you're building a player dashboard, a giveaway trigger, or a minting interaction — this button gets clicked.
 
 #### Everything is a button
 
 In principle, try to think of the most actionable elements as buttons. Thinking and building this way ensures we have the right touch target areas and user feedback. It also makes our experiences easier to localize and friendlier for people using screen readers.
 
 ## Principles
+
+- **Signal interactivity**: It should *look* like it does something.
+- **Feel authentic**: This isn’t a CSS filter on a modern button — it's crafted to *look and behave* like it belongs on a Game Boy screen.
+- **Boost user delight**: It's not just retro, it’s fun. Every click should feel like a coin drop.
 
 ### Actionable
 
@@ -64,6 +68,8 @@ import { Button } from '@lfv/elements/Buttons/Button';
 Button hierarchy emphasizes which button is more important in the context so the user can take action immediately. 
 
 ### Primary Button
+
+Think of it as the big red button in your interface design: obvious, satisfying, and too tempting not to hit.
 
 Use one primary button per context to allow users to take a specific action, move forward in a flow, acknowledge and dismiss, or finish a task.
 

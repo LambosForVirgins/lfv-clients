@@ -24,8 +24,8 @@ import {
   Connection,
   ParsedTransactionWithMeta,
 } from "@solana/web3.js";
-import { PixelButton } from "~/elements/Buttons/PixelButton";
-import { PixelCell } from "~/elements/Buttons/PixelCell";
+import { Button } from "~/elements/Buttons/Button";
+import { Cell } from "~/elements/Cell/Cell";
 import { TokenTradeIn } from "~/components/TokenTradeIn/TokenTradeIn";
 
 const markets = [

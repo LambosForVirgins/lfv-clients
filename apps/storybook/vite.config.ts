@@ -10,7 +10,7 @@ export default defineConfig({
   publicDir: pathFromRoot("public"),
   resolve: {
     alias: {
-      "@": path.join(process.cwd(), "../..", "src"),
+      "~": path.join(process.cwd(), "../..", "src"),
     },
   },
 });
