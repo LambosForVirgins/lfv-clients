@@ -1,11 +1,11 @@
-import { Button } from "@/elements";
+import { Button } from "~/elements";
 import styles from "./CreateAccount.module.css";
 import clsx from "classnames";
-import { useInitializeSubscription } from "@/hooks/useInitializeSubscription";
+import { useInitializeSubscription } from "~/hooks/useInitializeSubscription";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useCallback, useEffect, useState } from "react";
-import { useTokenMint } from "@/hooks/useTokenMint";
+import { useTokenMint } from "~/hooks/useTokenMint";
 
 interface CreateAccountProps extends Common.ComponentProps {
   className?: string;

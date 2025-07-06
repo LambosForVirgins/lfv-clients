@@ -1,8 +1,8 @@
 import { NavLink } from "react-router";
 import styles from "./StoreScene.module.css";
 import { useRecoilValue } from "recoil";
-import { merchandiseAtom } from "@/state/merchandise/atoms";
-import { GiveawayCard } from "@/components/GiveawayCard/GiveawayCard";
+import { merchandiseAtom } from "~/state/merchandise/atoms";
+import { GiveawayCard } from "~/components/GiveawayCard/GiveawayCard";
 
 export const StoreScene = ({
   testID = "store",

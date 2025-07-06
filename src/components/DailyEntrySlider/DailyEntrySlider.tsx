@@ -1,5 +1,5 @@
-import { DrawRound } from "@/state/draws/types";
-import { SwipeControl } from "@/elements/SwipeControl";
+import { DrawRound } from "~/state/draws/types";
+import { SwipeControl } from "~/elements/SwipeControl";
 import { useState } from "react";
 import { v4 as generateRandom } from "uuid";
 

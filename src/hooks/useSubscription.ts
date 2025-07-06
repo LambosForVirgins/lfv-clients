@@ -1,8 +1,8 @@
-import { memberAccountAtom } from "@/state/subscription/atoms";
+import { memberAccountAtom } from "~/state/subscription/atoms";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useRecoilValue } from "recoil";
 import { useTokenTransfer } from "./useTransferTokens";
-import { numberToTier } from "@/utils/tiers/formatters";
+import { numberToTier } from "~/utils/tiers/formatters";
 import { useState } from "react";
 
 export const useSubscription = () => {

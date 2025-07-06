@@ -1,4 +1,4 @@
-import { getApiEndpoint } from "@/utils/locker/constants";
+import { getApiEndpoint } from "~/utils/locker/constants";
 import { type DrawEntry, type DrawRound } from "./types";
 
 export const getCurrentDraw = async (): Promise<DrawRound | null> => {

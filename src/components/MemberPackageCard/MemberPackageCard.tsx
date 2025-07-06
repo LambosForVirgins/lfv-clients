@@ -1,4 +1,4 @@
-import { Button } from "@/elements";
+import { Button } from "~/elements";
 import styles from "./MemberPackageCard.module.css";
 import clsx from "classnames";
 

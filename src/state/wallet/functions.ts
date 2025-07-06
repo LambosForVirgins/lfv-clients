@@ -1,4 +1,4 @@
-import { getApiEndpoint } from "@/utils/locker/constants";
+import { getApiEndpoint } from "~/utils/locker/constants";
 
 export const getCreditBalance = async (): Promise<{
   balance: number;

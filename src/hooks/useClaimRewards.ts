@@ -1,5 +1,5 @@
-import { getClaimRewardsTransaction } from "@/utils/transactions/getClaimRewardsTransaction";
-import { getInitializeRewardsInstruction } from "@/utils/transactions/getInitializeRewardsTransaction";
+import { getClaimRewardsTransaction } from "~/utils/transactions/getClaimRewardsTransaction";
+import { getInitializeRewardsInstruction } from "~/utils/transactions/getInitializeRewardsTransaction";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { Transaction } from "@solana/web3.js";
 import { useCallback, useState } from "react";

@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, RouteProps } from "react-router";
-import { useAuthentication } from "@/hooks/useAuthentication";
+import { useAuthentication } from "~/hooks/useAuthentication";
 
 interface WithAuthenticationOptions {
   redirectTo?: string;

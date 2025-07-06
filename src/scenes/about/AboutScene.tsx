@@ -1,4 +1,4 @@
-import { Section } from "@/components/Section/Section";
+import { Section } from "~/components/Section/Section";
 import styles from "./AboutScene.module.css";
 import clsx from "classnames";
 

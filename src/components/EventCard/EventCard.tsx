@@ -1,6 +1,6 @@
 import { format } from "date-fns/format";
 import styles from "./EventCard.module.css";
-import { Tag } from "@/elements/Tags/Tag";
+import { Tag } from "~/elements/Tags/Tag";
 import clsx from "classnames";
 
 type MediaRecord = {

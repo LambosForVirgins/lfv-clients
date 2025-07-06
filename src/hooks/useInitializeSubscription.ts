@@ -1,8 +1,8 @@
 import {
   memberAccountAtom,
   TEMP_onBoardingDisplayAtom,
-} from "@/state/subscription/atoms";
-import { getInitializeMemberInstruction } from "@/utils/transactions/getInitializeMemberTransaction";
+} from "~/state/subscription/atoms";
+import { getInitializeMemberInstruction } from "~/utils/transactions/getInitializeMemberTransaction";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import {
   WalletSignTransactionError,

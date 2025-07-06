@@ -3,9 +3,9 @@ import styles from "./CommandPrompter.module.css";
 import clsx from "classnames";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useNavigate } from "react-router";
-import { useInitializeSubscription } from "@/hooks/useInitializeSubscription";
+import { useInitializeSubscription } from "~/hooks/useInitializeSubscription";
 import { useRecoilState } from "recoil";
-import { TEMP_onBoardingDisplayAtom } from "@/state/subscription/atoms";
+import { TEMP_onBoardingDisplayAtom } from "~/state/subscription/atoms";
 
 type StepOption<T> = {
   key: string;

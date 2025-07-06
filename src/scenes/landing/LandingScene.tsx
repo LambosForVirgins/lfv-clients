@@ -1,21 +1,21 @@
 import styles from "./LandingScene.module.css";
-import { CommandPrompter } from "@/scenes/prompter/CommandPrompter";
-import { Button } from "@/elements";
-import { ChangeLabel } from "@/components/ChangeLabel/ChangeLabel";
-import { LineChart } from "@/components/LineChart/LineChart";
+import { CommandPrompter } from "~/scenes/prompter/CommandPrompter";
+import { Button } from "~/elements";
+import { ChangeLabel } from "~/components/ChangeLabel/ChangeLabel";
+import { LineChart } from "~/components/LineChart/LineChart";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { marketPricesAtom } from "@/state/treasury/atoms";
+import { marketPricesAtom } from "~/state/treasury/atoms";
 import { useNavigate } from "react-router";
-import { fullyDilutedValue } from "@/utils/pricing/fullyDilutedValue";
-import { ContractAddress } from "@/elements/ContractAddress/ContractAddress";
-import { MINT } from "@/utils/locker/constants";
-import { TabControl } from "@/elements/TabControl/TabControl";
+import { fullyDilutedValue } from "~/utils/pricing/fullyDilutedValue";
+import { ContractAddress } from "~/elements/ContractAddress/ContractAddress";
+import { MINT } from "~/utils/locker/constants";
+import { TabControl } from "~/elements/TabControl/TabControl";
 import clsx from "classnames";
-import { faqAtom } from "@/state/application/atoms";
-import { marketCapSelector } from "@/state/treasury/selectors";
-import { TEMP_onBoardingDisplayAtom } from "@/state/subscription/atoms";
-import { getMintTradeInTransaction } from "@/utils/transactions/getMintTradeInTransaction";
+import { faqAtom } from "~/state/application/atoms";
+import { marketCapSelector } from "~/state/treasury/selectors";
+import { TEMP_onBoardingDisplayAtom } from "~/state/subscription/atoms";
+import { getMintTradeInTransaction } from "~/utils/transactions/getMintTradeInTransaction";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { findVaultTokenAccountAddress } from "../../utils/locker/PDA";
 import { getAssociatedTokenAddressSync } from "@solana/spl-token";
@@ -24,9 +24,9 @@ import {
   Connection,
   ParsedTransactionWithMeta,
 } from "@solana/web3.js";
-import { PixelButton } from "@/elements/Buttons/PixelButton";
-import { PixelCell } from "@/elements/Buttons/PixelCell";
-import { TokenTradeIn } from "@/components/TokenTradeIn/TokenTradeIn";
+import { PixelButton } from "~/elements/Buttons/PixelButton";
+import { PixelCell } from "~/elements/Buttons/PixelCell";
+import { TokenTradeIn } from "~/components/TokenTradeIn/TokenTradeIn";
 
 const markets = [
   {

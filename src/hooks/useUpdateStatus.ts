@@ -1,6 +1,6 @@
-import { MemberStatus } from "@/state/subscription/types";
-import { getClaimRewardsTransaction } from "@/utils/transactions/getClaimRewardsTransaction";
-import { getUpdateStatusTransaction } from "@/utils/transactions/getUpdateStatusTransaction";
+import { MemberStatus } from "~/state/subscription/types";
+import { getClaimRewardsTransaction } from "~/utils/transactions/getClaimRewardsTransaction";
+import { getUpdateStatusTransaction } from "~/utils/transactions/getUpdateStatusTransaction";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useCallback, useState } from "react";
 

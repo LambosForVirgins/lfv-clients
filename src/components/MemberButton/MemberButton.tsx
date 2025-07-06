@@ -2,10 +2,10 @@ import { forwardRef, useCallback, useMemo } from "react";
 import styles from "./MemberButton.module.css";
 import clsx from "classnames";
 import { Popover } from "../Popover/Popover";
-import { useMembership } from "@/hooks/useMembership";
+import { useMembership } from "~/hooks/useMembership";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { useRewardMint } from "@/hooks/useTokenMint";
-import { TEMP_onBoardingDisplayAtom } from "@/state/subscription/atoms";
+import { useRewardMint } from "~/hooks/useTokenMint";
+import { TEMP_onBoardingDisplayAtom } from "~/state/subscription/atoms";
 import { useRecoilState } from "recoil";
 
 interface MemberButtonProps extends Common.ComponentProps {

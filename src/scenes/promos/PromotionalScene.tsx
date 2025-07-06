@@ -1,11 +1,11 @@
 import { useRecoilValue } from "recoil";
-import { useGiveaway } from "@/state/giveaways/useGiveaway";
+import { useGiveaway } from "~/state/giveaways/useGiveaway";
 import styles from "./PromotionalScene.module.css";
-import { associatedDrawsSelector } from "@/state/draws/selectors";
-import { DrawMachine } from "@/components/DrawMachine/DrawMachine";
+import { associatedDrawsSelector } from "~/state/draws/selectors";
+import { DrawMachine } from "~/components/DrawMachine/DrawMachine";
 import { format } from "date-fns/format";
 import { isFuture } from "date-fns/isFuture";
-import { DrawStatus } from "@/state/draws/types";
+import { DrawStatus } from "~/state/draws/types";
 import { useParams } from "react-router";
 import { DrawRound } from "../../state/draws/types";
 

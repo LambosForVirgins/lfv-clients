@@ -1,4 +1,4 @@
-import { Member } from "@/state/subscription/types";
+import { Member } from "~/state/subscription/types";
 
 export const hasMaturingTokens = (member: Member | null): boolean => {
   if (member) {

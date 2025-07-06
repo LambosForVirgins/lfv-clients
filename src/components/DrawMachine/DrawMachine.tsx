@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { SlotMachine } from "../SlotMachine/SlotMachine";
-import { useRollDraw } from "@/state/draws/useRollDraw";
-import { Button } from "@/elements";
+import { useRollDraw } from "~/state/draws/useRollDraw";
+import { Button } from "~/elements";
 
 interface DrawMachineProps extends Common.ComponentProps {
   drawId: string;

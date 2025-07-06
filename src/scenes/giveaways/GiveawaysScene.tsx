@@ -1,10 +1,10 @@
-import { GiveawayCard } from "@/components/GiveawayCard/GiveawayCard";
+import { GiveawayCard } from "~/components/GiveawayCard/GiveawayCard";
 
-import { useGiveaways } from "@/state/giveaways/useGiveaways";
+import { useGiveaways } from "~/state/giveaways/useGiveaways";
 import styles from "./GiveawaysScene.module.css";
-import { useMembership } from "@/hooks/useMembership";
-import { DailyEntrySlider } from "@/components/DailyEntrySlider/DailyEntrySlider";
-import { useDevToggles } from "@/state/application/useDevToggles";
+import { useMembership } from "~/hooks/useMembership";
+import { DailyEntrySlider } from "~/components/DailyEntrySlider/DailyEntrySlider";
+import { useDevToggles } from "~/state/application/useDevToggles";
 
 const HEADLINES = [
   "Daily Giveaway!",

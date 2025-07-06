@@ -1,10 +1,10 @@
 import { PublicKey } from "@solana/web3.js";
 import { AtomEffect } from "recoil";
-import { SubscriptionAccountStruct, program } from "@/utils/locker/setup";
-import { getConnection } from "@/utils/locker/constants";
+import { SubscriptionAccountStruct, program } from "~/utils/locker/setup";
+import { getConnection } from "~/utils/locker/constants";
 import { Member } from "./types";
 import { mapMemberFromStruct } from "./utils";
-import { findSubscriptionAccountAddress } from "@/utils/locker/PDA";
+import { findSubscriptionAccountAddress } from "~/utils/locker/PDA";
 
 export const effectMemberAccountSubscription =
   (publicKey: PublicKey | null): AtomEffect<Member | null> =>

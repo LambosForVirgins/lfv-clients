@@ -1,7 +1,7 @@
 import { selectorFamily } from "recoil";
 import { memberAccountAtom } from "./atoms";
 import { PublicKey } from "@solana/web3.js";
-import { EPOCH_DURATION, REWARD_FACTOR } from "@/utils/locker/constants";
+import { EPOCH_DURATION, REWARD_FACTOR } from "~/utils/locker/constants";
 import { differenceInMilliseconds } from "date-fns/differenceInMilliseconds";
 import { Transaction } from "./types";
 

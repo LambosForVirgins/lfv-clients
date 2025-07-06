@@ -1,18 +1,18 @@
 import { BrowserRouter as Router, Routes, Route as Page } from "react-router";
-import { PartnersScene } from "@/scenes/partners/PartnersScene";
-import { StoreScene } from "@/scenes/store/StoreScene";
-import { TreasuryScene } from "@/scenes/treasury/TreasuryScene";
-import { Layout } from "@/components/Layout/Layout";
-import { EventsScene } from "@/scenes/events/EventsScene";
-import { SubscriptionScene } from "@/scenes/subscription/SubscriptionScene";
-import { AccountScene } from "@/scenes/account/AccountScene";
-import { withAuthenticated } from "@/components/RouteGuard/withAuthenticated";
-import { LandingScene } from "@/scenes/landing/LandingScene";
-import { GiveawaysScene } from "@/scenes/giveaways/GiveawaysScene";
-import { PromotionalScene } from "@/scenes/promos/PromotionalScene";
-import { ProductScene } from "@/scenes/product/ProductScene";
+import { PartnersScene } from "~/scenes/partners/PartnersScene";
+import { StoreScene } from "~/scenes/store/StoreScene";
+import { TreasuryScene } from "~/scenes/treasury/TreasuryScene";
+import { Layout } from "~/components/Layout/Layout";
+import { EventsScene } from "~/scenes/events/EventsScene";
+import { SubscriptionScene } from "~/scenes/subscription/SubscriptionScene";
+import { AccountScene } from "~/scenes/account/AccountScene";
+import { withAuthenticated } from "~/components/RouteGuard/withAuthenticated";
+import { LandingScene } from "~/scenes/landing/LandingScene";
+import { GiveawaysScene } from "~/scenes/giveaways/GiveawaysScene";
+import { PromotionalScene } from "~/scenes/promos/PromotionalScene";
+import { ProductScene } from "~/scenes/product/ProductScene";
 import * as Sentry from "@sentry/react";
-import { AboutScene } from "@/scenes/about/AboutScene";
+import { AboutScene } from "~/scenes/about/AboutScene";
 
 const SentryRoutes = Sentry.withSentryReactRouterV7Routing(Routes);
 

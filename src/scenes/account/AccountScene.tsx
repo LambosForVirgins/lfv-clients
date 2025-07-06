@@ -1,21 +1,21 @@
-import { Button } from "@/elements";
-import { useDevToggles } from "@/state/application/useDevToggles";
+import { Button } from "~/elements";
+import { useDevToggles } from "~/state/application/useDevToggles";
 import styles from "./AccountScene.module.css";
-import { useMembership } from "@/hooks/useMembership";
-import { tierToString } from "@/utils/tiers/formatters";
-import { useClaimRewards } from "@/hooks/useClaimRewards";
+import { useMembership } from "~/hooks/useMembership";
+import { tierToString } from "~/utils/tiers/formatters";
+import { useClaimRewards } from "~/hooks/useClaimRewards";
 import { useRecoilValue } from "recoil";
-import { outstandingRewardsSelector } from "@/state/subscription/selectors";
-import { useUpdateStatus } from "@/hooks/useUpdateStatus";
-import { MemberStatus } from "@/state/subscription/types";
-import { EPOCH_DURATION } from "@/utils/locker/constants";
+import { outstandingRewardsSelector } from "~/state/subscription/selectors";
+import { useUpdateStatus } from "~/hooks/useUpdateStatus";
+import { MemberStatus } from "~/state/subscription/types";
+import { EPOCH_DURATION } from "~/utils/locker/constants";
 import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
-import { TransactionItem } from "@/components/TransactionItem/TransactionItem";
-import { useWithdrawTokens } from "@/hooks/useWithdrawTokens";
+import { TransactionItem } from "~/components/TransactionItem/TransactionItem";
+import { useWithdrawTokens } from "~/hooks/useWithdrawTokens";
 import { SubscriptionScene } from "../subscription/SubscriptionScene";
 import { format } from "date-fns/format";
-import { Overview } from "@/components/Overview/Overview";
-import { overviewItemsAtom } from "@/state/account/selectors";
+import { Overview } from "~/components/Overview/Overview";
+import { overviewItemsAtom } from "~/state/account/selectors";
 
 export const AccountScene = ({
   testID = "account",

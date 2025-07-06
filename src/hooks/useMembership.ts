@@ -1,5 +1,5 @@
-import { memberAccountAtom } from "@/state/subscription/atoms";
-import { pendingSlotsSelector } from "@/state/subscription/selectors";
+import { memberAccountAtom } from "~/state/subscription/atoms";
+import { pendingSlotsSelector } from "~/state/subscription/selectors";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useRecoilValue } from "recoil";
 

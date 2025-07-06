@@ -4,7 +4,7 @@ import {
   WalletProvider,
 } from "@solana/wallet-adapter-react";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
-import { solanaRpcUrl } from "@/utils/locker/constants";
+import { solanaRpcUrl } from "~/utils/locker/constants";
 
 const endpoint = solanaRpcUrl();
 

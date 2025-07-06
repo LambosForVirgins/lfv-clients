@@ -1,9 +1,9 @@
-import { PixelCell } from "@/elements/Buttons/PixelCell";
+import { PixelCell } from "~/elements/Buttons/PixelCell";
 import styles from "./LaunchSale.module.css";
-import { PixelButton } from "@/elements/Buttons/PixelButton";
+import { PixelButton } from "~/elements/Buttons/PixelButton";
 import { useState } from "react";
 import clsx from "classnames";
-import { BlockLayout, InlineLayout } from "@/shared";
+import { BlockLayout, InlineLayout } from "~/elements";
 
 interface LaunchSaleProps extends Common.ComponentProps {
   className?: string;

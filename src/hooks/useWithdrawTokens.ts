@@ -1,4 +1,4 @@
-import { getWithdrawTokensTransaction } from "@/utils/transactions/getWithdrawTokensTransaction";
+import { getWithdrawTokensTransaction } from "~/utils/transactions/getWithdrawTokensTransaction";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useCallback } from "react";
 

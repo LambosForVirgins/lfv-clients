@@ -1,4 +1,4 @@
-import { Divider } from "@/elements";
+import { Divider } from "~/elements";
 import styles from "./SubscriptionOption.module.css";
 import clsx from "classnames";
 

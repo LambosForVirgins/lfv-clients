@@ -12,7 +12,7 @@
         "composite": true,
         "baseUrl": ".",
         "paths": {
-            "@/*": [
+            "~/*": [
                 "./*"
             ]
         },

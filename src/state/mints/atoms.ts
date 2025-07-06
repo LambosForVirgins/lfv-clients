@@ -1,6 +1,6 @@
 import { atomFamily } from "recoil";
 import { effectMintAccountAtom } from "./effects";
-import { DECIMALS } from "@/utils/locker/constants";
+import { DECIMALS } from "~/utils/locker/constants";
 import { type TokenMint } from "./types";
 import { PublicKey } from "@solana/web3.js";
 

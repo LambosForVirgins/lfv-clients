@@ -1,10 +1,10 @@
-import { ErrorBoundary } from "@/components/ErrorBoundary/ErrorBoundary";
+import { ErrorBoundary } from "~/components/ErrorBoundary/ErrorBoundary";
 import { Header } from "../Header/Header";
 import { Subscribe } from "../Subscribe/Subscribe";
 import { Footer } from "../Footer/Footer";
 import { Disclaimers } from "../Disclaimers/Disclaimers";
 import styles from "./Layout.module.css";
-import { useDevToggles } from "@/state/application/useDevToggles";
+import { useDevToggles } from "~/state/application/useDevToggles";
 
 export const Layout = ({
   testID = "layout",

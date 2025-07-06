@@ -1,4 +1,4 @@
-import { getCdnEndpoint } from "@/utils/locker/constants";
+import { getCdnEndpoint } from "~/utils/locker/constants";
 
 type PriceTime = number;
 type PriceNumber = number;

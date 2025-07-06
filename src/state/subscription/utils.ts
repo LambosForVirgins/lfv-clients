@@ -1,5 +1,5 @@
-import { decimalFactor, millisecondFactor } from "@/utils/locker/constants";
-import { SubscriptionAccountStruct } from "@/utils/locker/setup";
+import { decimalFactor, millisecondFactor } from "~/utils/locker/constants";
+import { SubscriptionAccountStruct } from "~/utils/locker/setup";
 import { Member, Transaction } from "./types";
 import { v5 as generateHash } from "uuid";
 import BN from "bn.js";

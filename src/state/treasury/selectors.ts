@@ -8,7 +8,7 @@ import {
   vestingAccountAtom,
 } from "./atoms";
 import { mergeAndSortSchedules } from "./utils";
-import { fullyDilutedValue } from "@/utils/pricing/fullyDilutedValue";
+import { fullyDilutedValue } from "~/utils/pricing/fullyDilutedValue";
 
 const vestingAccountCollectionSelector = selectorFamily<
   string[],

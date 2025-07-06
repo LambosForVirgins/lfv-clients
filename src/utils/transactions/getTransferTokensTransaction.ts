@@ -1,7 +1,7 @@
 import { Connection, PublicKey } from "@solana/web3.js";
 import { program } from "../locker";
 
-import { amountToLamports, MINT } from "@/utils/locker/constants";
+import { amountToLamports, MINT } from "~/utils/locker/constants";
 import {
   getAssociatedTokenAddressSync,
   TOKEN_PROGRAM_ID,

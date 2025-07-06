@@ -1,7 +1,7 @@
 import {
   getDepositTokensTransaction,
   getReleaseTokensTransaction,
-} from "@/utils/transactions/getTransferTokensTransaction";
+} from "~/utils/transactions/getTransferTokensTransaction";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useCallback } from "react";
 

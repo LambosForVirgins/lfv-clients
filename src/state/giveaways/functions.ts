@@ -1,4 +1,4 @@
-import { getApiEndpoint } from "@/utils/locker/constants";
+import { getApiEndpoint } from "~/utils/locker/constants";
 import { Giveaway } from "../draws/types";
 import { MOCKS } from "./mocks";
 

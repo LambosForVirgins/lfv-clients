@@ -6,8 +6,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./app";
 import { RecoilRoot } from "recoil";
-import { SolanaProvider } from "@/providers/Solana/SolanaProvider";
-import { LocaleProvider } from "@/providers/Locale/LocaleProvider";
+import { SolanaProvider } from "~/providers/Solana/SolanaProvider";
+import { LocaleProvider } from "~/providers/Locale/LocaleProvider";
 import * as Sentry from "@sentry/react";
 
 // export const metadata: Metadata = {

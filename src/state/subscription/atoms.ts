@@ -2,7 +2,7 @@ import { atom, atomFamily } from "recoil";
 import { effectMemberAccountSubscription } from "./effects";
 import { PublicKey } from "@solana/web3.js";
 import { Member, MemberTier, MemberTierValues } from "./types";
-import { REWARD_FACTOR } from "@/utils/locker/constants";
+import { REWARD_FACTOR } from "~/utils/locker/constants";
 
 export const TEMP_onBoardingDisplayAtom = atom({
   key: "temp-onboarding-display-atom",

@@ -1,4 +1,4 @@
-import { EventCard } from "@/components/EventCard/EventCard";
+import { EventCard } from "~/components/EventCard/EventCard";
 import styles from "./EventsScene.module.css";
 
 enum EventStatus {

@@ -1,22 +1,22 @@
 import styles from "./TreasuryScene.module.css";
-import { VestingAccount } from "@/components/VestingAccount/VestingAccount";
-import { vestedAccountsAtom } from "@/state/treasury/atoms";
+import { VestingAccount } from "~/components/VestingAccount/VestingAccount";
+import { vestedAccountsAtom } from "~/state/treasury/atoms";
 
 import { NavLink } from "react-router";
 import { useRecoilValue } from "recoil";
 import {
   marketCapSelector,
   tokenAllocationSelector,
-} from "@/state/treasury/selectors";
-import { totalTokenBalanceSelector } from "@/state/mints/selectors";
+} from "~/state/treasury/selectors";
+import { totalTokenBalanceSelector } from "~/state/mints/selectors";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useMemo, useState } from "react";
-import { prettyAddress } from "@/utils/string/prettyAddress";
+import { prettyAddress } from "~/utils/string/prettyAddress";
 import clsx from "classnames";
-import { MAXIMUM_SUPPLY, TOTAL_SUPPLY } from "@/utils/locker/constants";
-import { fullyDilutedValue } from "@/utils/pricing/fullyDilutedValue";
-import { AccountAllocation } from "@/components/AccountAllocation/AccountAllocation";
-import { TreasuryDepartment } from "@/state/treasury/types";
+import { MAXIMUM_SUPPLY, TOTAL_SUPPLY } from "~/utils/locker/constants";
+import { fullyDilutedValue } from "~/utils/pricing/fullyDilutedValue";
+import { AccountAllocation } from "~/components/AccountAllocation/AccountAllocation";
+import { TreasuryDepartment } from "~/state/treasury/types";
 
 export const TreasuryScene = ({
   testID = "treasury",

@@ -1,6 +1,6 @@
 import { PublicKey } from "@solana/web3.js";
 import { AtomEffect } from "recoil";
-import { getConnection } from "@/utils/locker/constants";
+import { getConnection } from "~/utils/locker/constants";
 import {
   getAssociatedTokenAddressSync,
   getAccount,

@@ -1,8 +1,8 @@
-import { vestingAccountSelector } from "@/state/treasury/selectors";
+import { vestingAccountSelector } from "~/state/treasury/selectors";
 import { useRecoilValue } from "recoil";
 import { CircularProgress } from "../CircularIndicator/CircularIndicator";
-import { Button } from "@/elements";
-import { VestingStatus } from "@/state/treasury/types";
+import { Button } from "~/elements";
+import { VestingStatus } from "~/state/treasury/types";
 import styles from "./VestingAccount.module.css";
 import { useParams } from "react-router";
 import { useEffect, useRef } from "react";

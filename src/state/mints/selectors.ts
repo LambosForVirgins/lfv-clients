@@ -1,7 +1,7 @@
 import { selectorFamily } from "recoil";
 import { mintAccountAtom } from "./atoms";
 import { PublicKey } from "@solana/web3.js";
-import { MINT } from "@/utils/locker/constants";
+import { MINT } from "~/utils/locker/constants";
 import { memberAccountAtom } from "../subscription/atoms";
 
 export const totalTokenBalanceSelector = selectorFamily<

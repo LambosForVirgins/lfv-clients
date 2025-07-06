@@ -2,8 +2,8 @@ import { selectorFamily } from "recoil";
 import { memberAccountAtom } from "../subscription/atoms";
 import { PublicKey } from "@solana/web3.js";
 import { mintAccountAtom } from "../mints/atoms";
-import { MINT } from "@/utils/locker/constants";
-import { findRewardTokenMint } from "@/utils/locker";
+import { MINT } from "~/utils/locker/constants";
+import { findRewardTokenMint } from "~/utils/locker";
 
 type OverviewItem = {
   key: string;

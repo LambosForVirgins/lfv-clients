@@ -1,10 +1,10 @@
 import { formatDistanceToNowStrict } from "date-fns/formatDistanceToNowStrict";
 import styles from "./TransactionItem.module.css";
-import { Button } from "@/elements";
+import { Button } from "~/elements";
 import { useEffect, useMemo, useState } from "react";
-import { useCountdown } from "@/hooks/useCountdown";
+import { useCountdown } from "~/hooks/useCountdown";
 import { CircularProgress } from "../CircularIndicator/CircularIndicator";
-import { REWARD_FACTOR } from "@/utils/locker/constants";
+import { REWARD_FACTOR } from "~/utils/locker/constants";
 
 interface TransactionItemProps extends Common.ComponentProps {
   amount: number;

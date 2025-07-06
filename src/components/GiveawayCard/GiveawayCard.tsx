@@ -2,14 +2,14 @@ import styles from "./GiveawayCard.module.css";
 import clsx from "classnames";
 import { ProgressIndicator } from "../ProgressIndicator/ProgressIndicator";
 
-import { getProgressFromBalance } from "@/utils/membership/getProgressFromBalance";
-import { validateEntryCriteria } from "@/utils/entry-criteria/validateEntryCriteria";
+import { getProgressFromBalance } from "~/utils/membership/getProgressFromBalance";
+import { validateEntryCriteria } from "~/utils/entry-criteria/validateEntryCriteria";
 import { useNavigate } from "react-router";
-import { Button } from "@/elements";
-import { ButtonVariant } from "@/elements/Buttons/Button";
-import { useTokenTransfer } from "@/hooks/useTransferTokens";
+import { Button } from "~/elements";
+import { ButtonVariant } from "~/elements/Buttons/Button";
+import { useTokenTransfer } from "~/hooks/useTransferTokens";
 import { useCallback, useState } from "react";
-import { useDevToggles } from "@/state/application/useDevToggles";
+import { useDevToggles } from "~/state/application/useDevToggles";
 
 interface RewardCardProps extends Common.ComponentProps {
   giveawayId: string;

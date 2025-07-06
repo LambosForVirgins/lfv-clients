@@ -1,4 +1,4 @@
-import { useLocale } from "@/providers/Locale/LocaleProvider";
+import { useLocale } from "~/providers/Locale/LocaleProvider";
 import { forwardRef, useState } from "react";
 
 interface LocaleButtonProps

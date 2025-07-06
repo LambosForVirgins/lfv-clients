@@ -1,4 +1,4 @@
-import { memberAuthorizedSelector } from "@/state/subscription/selectors";
+import { memberAuthorizedSelector } from "~/state/subscription/selectors";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useMemo } from "react";
 import { useRecoilValue } from "recoil";

@@ -1,16 +1,16 @@
-import { Button } from "@/elements";
-import { useCancelSubscription } from "@/hooks/useCancelSubscription";
+import { Button } from "~/elements";
+import { useCancelSubscription } from "~/hooks/useCancelSubscription";
 import styles from "./SubscriptionScene.module.css";
 import clsx from "classnames";
-import { SubscriptionOption } from "@/components/SubscriptionOption/SubscriptionOption";
-import { useMembership } from "@/hooks/useMembership";
-import { useSubscription } from "@/hooks/useSubscription";
-import { subscriptionOptionsAtom } from "@/state/subscription/atoms";
+import { SubscriptionOption } from "~/components/SubscriptionOption/SubscriptionOption";
+import { useMembership } from "~/hooks/useMembership";
+import { useSubscription } from "~/hooks/useSubscription";
+import { subscriptionOptionsAtom } from "~/state/subscription/atoms";
 import { useRecoilValue } from "recoil";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { TierSlider } from "@/components/TierSlider/TierSlider";
-import { useTokenMint } from "@/hooks/useTokenMint";
-import { hasMaturingTokens } from "@/utils/membership/hasMaturingTokens";
+import { TierSlider } from "~/components/TierSlider/TierSlider";
+import { useTokenMint } from "~/hooks/useTokenMint";
+import { hasMaturingTokens } from "~/utils/membership/hasMaturingTokens";
 
 export const SubscriptionScene = ({
   testID = "subscription",

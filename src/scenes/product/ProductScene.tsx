@@ -1,4 +1,4 @@
-import { Button } from "@/elements";
+import { Button } from "~/elements";
 import styles from "./ProductScene.module.css";
 
 export const ProductScene = ({

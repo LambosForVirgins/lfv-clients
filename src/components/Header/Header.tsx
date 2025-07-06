@@ -5,11 +5,11 @@ import styles from "./Header.module.css";
 
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import { useClaimRewards } from "@/hooks/useClaimRewards";
+import { useClaimRewards } from "~/hooks/useClaimRewards";
 import { useRecoilValue } from "recoil";
-import { outstandingRewardsSelector } from "@/state/subscription/selectors";
+import { outstandingRewardsSelector } from "~/state/subscription/selectors";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { useDevToggles } from "@/state/application/useDevToggles";
+import { useDevToggles } from "~/state/application/useDevToggles";
 
 interface HeaderProps extends Common.ComponentProps {
   className?: string;
