@@ -1,5 +1,6 @@
 import { PixelButton as Button } from './PixelButton';
-import { SideBySide, ExampleWrapper, PunchCard, Backdrop, SkeletonText, SkeletonTextBlock, BlockLayout, InlineLayout } from '../../shared'
+import { BlockLayout, InlineLayout } from '../Layouts'
+import { SideBySide, ExampleWrapper, PunchCard, Backdrop, SkeletonText, SkeletonTextBlock, Card } from '../../shared'
 
 # Button
 
@@ -69,22 +70,26 @@ Use one primary button per context to allow users to take a specific action, mov
 <SideBySide>
   <ExampleWrapper title="Do" message={`Use one primary button per context to highlight the action the user will most likely take.`}>
     <Backdrop shade='green'>
-      <BlockLayout>
-        <SkeletonTextBlock />
-        <Button variant="secondary">Secondary</Button>
-        <Button variant="primary">Primary</Button>
-        <Button variant="tertiary">Tertiary</Button>
-      </BlockLayout>
+      <Card padded elevated>
+        <BlockLayout>
+          <SkeletonTextBlock />
+          <Button variant="secondary">Secondary</Button>
+          <Button variant="primary">Primary</Button>
+          <Button variant="tertiary">Tertiary</Button>
+        </BlockLayout>
+      </Card>
     </Backdrop>
   </ExampleWrapper>
   <ExampleWrapper title="Don't" message={`Avoid using multiple primary buttons on a screen.`}>
     <Backdrop shade='red'>
-      <BlockLayout>
-        <SkeletonTextBlock />
-        <Button variant="primary">Primary</Button>
-        <Button variant="primary">Primary</Button>
-        <Button variant="tertiary">Tertiary</Button>
-      </BlockLayout>
+      <Card padded elevated>
+        <BlockLayout>
+          <SkeletonTextBlock />
+          <Button variant="primary">Primary</Button>
+          <Button variant="primary">Primary</Button>
+          <Button variant="tertiary">Tertiary</Button>
+        </BlockLayout>
+      </Card>
     </Backdrop>
   </ExampleWrapper>
 </SideBySide>
@@ -96,22 +101,26 @@ Secondary buttons are the bread and butter of the button world. Lean into them w
 <SideBySide>
   <ExampleWrapper title="Do" message={`Use secondary buttons for most icon buttons since the grey background protection makes the button more visible and accessible.`}>
     <Backdrop shade='green'>
-      <InlineLayout>
-        <SkeletonText/>
-        <Button variant="secondary">S</Button>
-        <Button variant="secondary">S</Button>
-        <Button variant="secondary">S</Button>
-      </InlineLayout>
+      <Card padded elevated>
+        <InlineLayout>
+          <SkeletonText/>
+          <Button variant="secondary">S</Button>
+          <Button variant="secondary">S</Button>
+          <Button variant="secondary">S</Button>
+        </InlineLayout>
+      </Card>
     </Backdrop>
   </ExampleWrapper>
   <ExampleWrapper title="Don't" message={`Don't use icons without background protection as buttons. A single icon may be used to indicate a status (think warning icon) or to provide affordance for tapping the entire row (disclosure icon or accordion icon).`}>
     <Backdrop shade='red'>
-      <InlineLayout>
-        <SkeletonText/>
-        <Button variant="tertiary">T</Button>
-        <Button variant="tertiary">T</Button>
-        <Button variant="tertiary">T</Button>
-      </InlineLayout>
+      <Card padded elevated>
+        <InlineLayout>
+          <SkeletonText/>
+          <Button variant="tertiary">T</Button>
+          <Button variant="tertiary">T</Button>
+          <Button variant="tertiary">T</Button>
+        </InlineLayout>
+      </Card>
     </Backdrop>
   </ExampleWrapper>
 </SideBySide>
@@ -172,15 +181,3 @@ The Button component follows accessibility best practices:
 ## Design Tokens
 
 The Button component uses the following design tokens:
-
-- **Border Radius**: `var(--border-radius)`
-- **Padding**: `var(--spacing-sm)`, `var(--spacing-md)`, `var(--spacing-lg)`
-- **Font Size**: `var(--font-size-sm)`, `var(--font-size-md)`, `var(--font-size-lg)`
-
-## 10. Voice & Brand Personality Notes
-
-Our 8-bit button is cheeky, bold, and unapologetically retro. It should evoke arcade nostalgia with blockchain speed. Text inside buttons should match the vibe: short, punchy verbs like “PLAY”, “SPIN”, “MINT”, or “START”.
-
-🕹️ If your interface is the game board, this button is your player one's start button. Give it pride of place.
-
-Stay pixelated. Stay clickable.

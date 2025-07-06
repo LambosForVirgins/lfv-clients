@@ -10,6 +10,7 @@
     container-name: contract-address;
     overflow: hidden;
     background-color: var(--white);
+    min-width: 260px;
 }
 
 .label {
